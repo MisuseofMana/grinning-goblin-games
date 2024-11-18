@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://mvug80456i06"]
+
+[ext_resource type="Script" path="res://texture_rect.gd" id="2_dq3dy"]
+
+[node name="TextureRect" type="TextureRect"]
+custom_minimum_size = Vector2(68, 134)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1084.0
+offset_bottom = -514.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+expand_mode = 1
+script = ExtResource("2_dq3dy")
+
+[node name="Panel" type="Panel" parent="."]
+show_behind_parent = true
+custom_minimum_size = Vector2(64, 128)
+layout_mode = 1
+anchors_preset = -1
+offset_right = 68.0
+offset_bottom = 134.0
+mouse_filter = 2
