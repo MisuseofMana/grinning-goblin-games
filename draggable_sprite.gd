@@ -9,10 +9,10 @@ extends Area2D
 @onready var merge_sound = $MergeSound
 
 var is_dragging = false
-var mouse_offset
 var delay = 0.2
 var drop_spots
 var dragging_from_spot
+var level_dots
 
 func _ready():
 	var inital_texture = attrs.unit_type + str(attrs.unit_level)
@@ -23,7 +23,14 @@ func _physics_process(delta):
 	if is_dragging == true:
 		var tween = get_tree().create_tween()
 		tween.tween_property(self, "position", get_global_mouse_position(), delay * delta)
-	
+
+func _on_mouse_entered():
+	Globals.displayUnit = {
+		'type': attrs.unit_type,
+		'level': attrs.unit_level,
+		'max': attrs.unit_max_level
+	}
+
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
