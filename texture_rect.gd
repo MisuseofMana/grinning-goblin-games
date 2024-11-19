@@ -6,8 +6,6 @@ extends TextureRect
 @onready var level_text = $Panel/level
 @onready var race_text = $Panel/race
 
-signal successfulDrop
-
 var draggableType : String = ''
 var fallback_texture = TextureRect.new()
 
@@ -60,7 +58,9 @@ func _drop_data(at_position, data):
 	if(attributes.unit_level != 0):
 		if(Globals.activeDragItemLevel == attributes.unit_level):
 			level = attributes.unit_level + 1
-		
+		else:
+			return
+
 		var variableString = Globals.activeDragItemType + str(level)
 		texture = UnitSprites.PACKED[variableString]
 		level_text.text = str(level)
@@ -82,8 +82,6 @@ func _drop_data(at_position, data):
 		race_text.text = attributes.unit_type
 		level_text.text = str(Globals.activeDragItemLevel)
 		texture = Globals.activeDragItemTexture
-		
-	successfulDrop.emit()
 	
 	emitParticles()
 	

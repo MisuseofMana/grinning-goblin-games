@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://dgdatwscku17u"]
+
+[ext_resource type="PackedScene" uid="uid://cbhupu7nchxpt" path="res://drop_spot.tscn" id="1_6pa71"]
+[ext_resource type="PackedScene" uid="uid://4jdyfgk4hat3" path="res://draggable_sprite.tscn" id="1_stc7f"]
+[ext_resource type="Script" path="res://unit-resource.gd" id="3_yhv5n"]
+[ext_resource type="Texture2D" uid="uid://mskm1da6of80" path="res://elf-1.png" id="4_q2j0m"]
+[ext_resource type="Texture2D" uid="uid://durqwhkhdcto5" path="res://elf-2.png" id="5_2mwxh"]
+
+[sub_resource type="Resource" id="Resource_ywli8"]
+script = ExtResource("3_yhv5n")
+unit_level = 1
+unit_max_level = 4
+unit_type = "elf"
+unit_combos = []
+unit_texture = ExtResource("4_q2j0m")
+
+[sub_resource type="Resource" id="Resource_0hdjd"]
+script = ExtResource("3_yhv5n")
+unit_level = 2
+unit_max_level = 4
+unit_type = "elf"
+unit_combos = []
+unit_texture = ExtResource("5_2mwxh")
+
+[node name="Level" type="Node2D"]
+
+[node name="DropSpot" parent="." instance=ExtResource("1_6pa71")]
+position = Vector2(121, 103)
+
+[node name="DropSpot2" parent="." instance=ExtResource("1_6pa71")]
+position = Vector2(233, 103)
+
+[node name="DropSpot3" parent="." instance=ExtResource("1_6pa71")]
+position = Vector2(345, 103)
+
+[node name="DropSpot4" parent="." instance=ExtResource("1_6pa71")]
+position = Vector2(457, 103)
+
+[node name="DropSpot5" parent="." instance=ExtResource("1_6pa71")]
+position = Vector2(121, 215)
+
+[node name="DropSpot6" parent="." instance=ExtResource("1_6pa71")]
+position = Vector2(233, 215)
+
+[node name="DropSpot7" parent="." instance=ExtResource("1_6pa71")]
+position = Vector2(345, 215)
+
+[node name="DropSpot8" parent="." instance=ExtResource("1_6pa71")]
+position = Vector2(457, 215)
+
+[node name="Area2D" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(48, 96)
+attrs = SubResource("Resource_ywli8")
+
+[node name="Area2D2" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(48, 184)
+attrs = SubResource("Resource_0hdjd")

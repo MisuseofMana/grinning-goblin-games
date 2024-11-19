@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://4jdyfgk4hat3"]
+
+[ext_resource type="Texture2D" uid="uid://s2ebhdvuamro" path="res://icon.svg" id="1_2axg5"]
+[ext_resource type="Script" path="res://draggable_sprite.gd" id="2_yb30x"]
+
+[node name="DraggableSprite" type="Sprite2D"]
+position = Vector2(546, 286)
+texture = ExtResource("1_2axg5")
+script = ExtResource("2_yb30x")

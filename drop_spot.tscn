@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbhupu7nchxpt"]
+
+[ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://ui-tile.png" id="1_7aen7"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_6hbr4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tvuur"]
+size = Vector2(44, 44)
+
+[node name="DropSpot" type="Area2D" groups=["drop_spot_group"]]
+scale = Vector2(2, 2)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+scale = Vector2(50, 50)
+mesh = SubResource("QuadMesh_6hbr4")
+texture = ExtResource("1_7aen7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_tvuur")

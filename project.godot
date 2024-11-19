@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="merge-test-game"
-run/main_scene="res://drag_test.tscn"
+run/main_scene="res://alt-draggable.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,7 +22,14 @@ UnitSprites="*res://unit_sprites.gd"
 
 [display]
 
+window/size/viewport_width=576
+window/size/viewport_height=324
+window/size/resizable=false
 window/canvas_textures/default_texture_filter=0
+
+[global_group]
+
+drop_spot_group=""
 
 [rendering]
 
