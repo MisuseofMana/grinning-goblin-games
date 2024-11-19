@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgdatwscku17u"]
+[gd_scene load_steps=9 format=3 uid="uid://dgdatwscku17u"]
 
 [ext_resource type="PackedScene" uid="uid://cbhupu7nchxpt" path="res://drop_spot.tscn" id="1_6pa71"]
 [ext_resource type="PackedScene" uid="uid://4jdyfgk4hat3" path="res://draggable_sprite.tscn" id="1_stc7f"]
@@ -21,6 +21,14 @@ unit_max_level = 4
 unit_type = "elf"
 unit_combos = []
 unit_texture = ExtResource("5_2mwxh")
+
+[sub_resource type="Resource" id="Resource_5yotp"]
+script = ExtResource("3_yhv5n")
+unit_level = 1
+unit_max_level = 4
+unit_type = "elf"
+unit_combos = []
+unit_texture = ExtResource("4_q2j0m")
 
 [node name="Level" type="Node2D"]
 
@@ -55,3 +63,7 @@ attrs = SubResource("Resource_ywli8")
 [node name="Area2D2" parent="." instance=ExtResource("1_stc7f")]
 position = Vector2(48, 184)
 attrs = SubResource("Resource_0hdjd")
+
+[node name="Area2D3" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(48, 270)
+attrs = SubResource("Resource_5yotp")

@@ -1,9 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://4jdyfgk4hat3"]
+[gd_scene load_steps=5 format=3 uid="uid://4jdyfgk4hat3"]
 
 [ext_resource type="Script" path="res://draggable_sprite.gd" id="2_yb30x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2cf1q"]
 size = Vector2(46, 81)
+
+[sub_resource type="Gradient" id="Gradient_yl6vo"]
+offsets = PackedFloat32Array(0, 0.216667)
+colors = PackedColorArray(0.157355, 0.471889, 0.290002, 1, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_ug2c8"]
+colors = PackedColorArray(0.972507, 0.524894, 1, 1, 0, 0.874065, 0.990351, 1)
 
 [node name="Area2D" type="Area2D"]
 script = ExtResource("2_yb30x")
@@ -12,3 +19,22 @@ script = ExtResource("2_yb30x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_2cf1q")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 20
+explosiveness = 0.1
+lifetime_randomness = 0.2
+emission_shape = 3
+emission_rect_extents = Vector2(20, 20)
+gravity = Vector2(0, 0)
+orbit_velocity_min = -0.5
+orbit_velocity_max = 0.2
+linear_accel_min = 1.0
+linear_accel_max = 4.0
+radial_accel_max = 4.0
+scale_amount_max = 1.5
+color = Color(0.29173, 0.847141, 0.5304, 1)
+color_ramp = SubResource("Gradient_yl6vo")
+color_initial_ramp = SubResource("Gradient_ug2c8")
+hue_variation_min = 0.21
+hue_variation_max = 1.0

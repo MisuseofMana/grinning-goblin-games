@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://11ll0c07yx6y" path="res://dwarf-1.png" id="5_3s8ch"]
 [ext_resource type="Texture2D" uid="uid://bkli8xunly1cc" path="res://dwarf-2.png" id="5_b1x14"]
 
-[sub_resource type="Resource" id="Resource_kl2a8"]
+[sub_resource type="Resource" id="Resource_ll28u"]
 resource_local_to_scene = true
 script = ExtResource("3_eh1hc")
 unit_level = 1
@@ -16,7 +16,7 @@ unit_type = "elf"
 unit_combos = []
 unit_texture = ExtResource("2_fw4q8")
 
-[sub_resource type="Resource" id="Resource_t0hwg"]
+[sub_resource type="Resource" id="Resource_i7bdm"]
 resource_local_to_scene = true
 script = ExtResource("3_eh1hc")
 unit_level = 1
@@ -25,7 +25,7 @@ unit_type = "elf"
 unit_combos = []
 unit_texture = ExtResource("2_fw4q8")
 
-[sub_resource type="Resource" id="Resource_gmwyn"]
+[sub_resource type="Resource" id="Resource_0yu1o"]
 resource_local_to_scene = true
 script = ExtResource("3_eh1hc")
 unit_level = 1
@@ -41,7 +41,7 @@ unit_max_level = 4
 unit_type = ""
 unit_combos = []
 
-[sub_resource type="Resource" id="Resource_m6xki"]
+[sub_resource type="Resource" id="Resource_e7xrr"]
 resource_local_to_scene = true
 script = ExtResource("3_eh1hc")
 unit_level = 3
@@ -77,65 +77,65 @@ unit_texture = ExtResource("5_3s8ch")
 [node name="DragTest" type="Node2D"]
 
 [node name="TextureRect" parent="." instance=ExtResource("1_67qjq")]
-offset_left = 352.0
-offset_top = 168.0
-offset_right = 420.0
-offset_bottom = 302.0
+offset_left = 129.0
+offset_top = 12.0
+offset_right = 197.0
+offset_bottom = 146.0
 expand_mode = 5
-attributes = SubResource("Resource_kl2a8")
+attributes = SubResource("Resource_ll28u")
 
 [node name="TextureRect2" parent="." instance=ExtResource("1_67qjq")]
-offset_left = 440.0
-offset_top = 168.0
-offset_right = 508.0
-offset_bottom = 302.0
+offset_left = 217.0
+offset_top = 12.0
+offset_right = 285.0
+offset_bottom = 146.0
 expand_mode = 5
-attributes = SubResource("Resource_t0hwg")
+attributes = SubResource("Resource_i7bdm")
 
 [node name="TextureRect3" parent="." instance=ExtResource("1_67qjq")]
-offset_left = 528.0
-offset_top = 168.0
-offset_right = 596.0
-offset_bottom = 302.0
+offset_left = 305.0
+offset_top = 12.0
+offset_right = 373.0
+offset_bottom = 146.0
 expand_mode = 5
-attributes = SubResource("Resource_gmwyn")
+attributes = SubResource("Resource_0yu1o")
 
 [node name="TextureRect4" parent="." instance=ExtResource("1_67qjq")]
-offset_left = 616.0
-offset_top = 168.0
-offset_right = 684.0
-offset_bottom = 302.0
+offset_left = 393.0
+offset_top = 12.0
+offset_right = 461.0
+offset_bottom = 146.0
 expand_mode = 5
 attributes = SubResource("Resource_6chke")
 
 [node name="TextureRect5" parent="." instance=ExtResource("1_67qjq")]
-offset_left = 352.0
-offset_top = 336.0
-offset_right = 420.0
-offset_bottom = 470.0
+offset_left = 129.0
+offset_top = 180.0
+offset_right = 197.0
+offset_bottom = 314.0
 expand_mode = 5
-attributes = SubResource("Resource_m6xki")
+attributes = SubResource("Resource_e7xrr")
 
 [node name="TextureRect6" parent="." instance=ExtResource("1_67qjq")]
-offset_left = 440.0
-offset_top = 336.0
-offset_right = 508.0
-offset_bottom = 470.0
+offset_left = 217.0
+offset_top = 180.0
+offset_right = 285.0
+offset_bottom = 314.0
 expand_mode = 5
 attributes = SubResource("Resource_mfeaw")
 
 [node name="TextureRect7" parent="." instance=ExtResource("1_67qjq")]
-offset_left = 528.0
-offset_top = 336.0
-offset_right = 596.0
-offset_bottom = 470.0
+offset_left = 305.0
+offset_top = 180.0
+offset_right = 373.0
+offset_bottom = 314.0
 expand_mode = 5
 attributes = SubResource("Resource_7gjoh")
 
 [node name="TextureRect8" parent="." instance=ExtResource("1_67qjq")]
-offset_left = 616.0
-offset_top = 336.0
-offset_right = 684.0
-offset_bottom = 470.0
+offset_left = 393.0
+offset_top = 180.0
+offset_right = 461.0
+offset_bottom = 314.0
 expand_mode = 5
 attributes = SubResource("Resource_xdjqv")

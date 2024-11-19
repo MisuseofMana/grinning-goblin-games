@@ -3,6 +3,7 @@ extends Area2D
 @export var attrs : UnitData
 @onready var area_2d = $"."
 @onready var draggable_sprite = $DraggableSprite
+@onready var particles: CPUParticles2D = $CPUParticles2D
 
 var is_dragging = false
 var mouse_offset
@@ -11,6 +12,7 @@ var drop_spots
 var dragging_from_spot
 
 func _ready():
+	particles.emitting = false
 	draggable_sprite.texture = attrs.unit_texture
 	drop_spots  = get_tree().get_nodes_in_group("drop_spot_group")
 	
@@ -36,10 +38,14 @@ func _input(event):
 						var first = slot_contents[0].attrs
 						var second = slot_contents[1].attrs
 						if first.unit_level == second.unit_level and first.unit_type == second.unit_type:
-							tweenToSlot(drop_spot)
-						drop_spot.get_overlapping_areas()[0].attrs.unit_level
+							tweenToSlot(drop_spot, true)
+						#drop_spot.get_overlapping_areas()[0].attrs.unit_level
 						
-func tweenToSlot(drop_spot):
+func tweenToSlot(drop_spot, isMerging):
 	var snap_postion = drop_spot.position
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "position", snap_postion, delay)
+	await tween.finished
+	particles.emitting = true
+	#if isMerging:
+		#queue_free()
