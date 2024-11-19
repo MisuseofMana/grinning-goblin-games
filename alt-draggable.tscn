@@ -1,69 +1,263 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgdatwscku17u"]
+[gd_scene load_steps=24 format=3 uid="uid://dgdatwscku17u"]
 
 [ext_resource type="PackedScene" uid="uid://cbhupu7nchxpt" path="res://drop_spot.tscn" id="1_6pa71"]
 [ext_resource type="PackedScene" uid="uid://4jdyfgk4hat3" path="res://draggable_sprite.tscn" id="1_stc7f"]
 [ext_resource type="Script" path="res://unit-resource.gd" id="3_yhv5n"]
-[ext_resource type="Texture2D" uid="uid://mskm1da6of80" path="res://elf-1.png" id="4_q2j0m"]
-[ext_resource type="Texture2D" uid="uid://durqwhkhdcto5" path="res://elf-2.png" id="5_2mwxh"]
 
-[sub_resource type="Resource" id="Resource_ywli8"]
+[sub_resource type="Resource" id="Resource_jevxx"]
+resource_local_to_scene = true
 script = ExtResource("3_yhv5n")
 unit_level = 1
-unit_max_level = 4
+unit_max_level = 9
 unit_type = "elf"
-unit_combos = []
-unit_texture = ExtResource("4_q2j0m")
 
-[sub_resource type="Resource" id="Resource_0hdjd"]
+[sub_resource type="Resource" id="Resource_f0d4i"]
+resource_local_to_scene = true
 script = ExtResource("3_yhv5n")
-unit_level = 2
-unit_max_level = 4
+unit_level = 7
+unit_max_level = 9
 unit_type = "elf"
-unit_combos = []
-unit_texture = ExtResource("5_2mwxh")
 
-[sub_resource type="Resource" id="Resource_5yotp"]
+[sub_resource type="Resource" id="Resource_oymlv"]
+resource_local_to_scene = true
 script = ExtResource("3_yhv5n")
 unit_level = 1
-unit_max_level = 4
+unit_max_level = 9
 unit_type = "elf"
-unit_combos = []
-unit_texture = ExtResource("4_q2j0m")
+
+[sub_resource type="Resource" id="Resource_271rc"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 4
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_2lffq"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 4
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_xrj5x"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 4
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_jgyqi"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 4
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_u7nvh"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 5
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_srmwq"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 4
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_adlcj"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 4
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_smvvs"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 4
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_x2vj3"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 6
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_vvsa7"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 6
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_m4w6x"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 6
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_m038d"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 3
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_wa267"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 1
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_vkadv"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 1
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_6quia"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 3
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_jj634"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 3
+unit_max_level = 9
+unit_type = "elf"
+
+[sub_resource type="Resource" id="Resource_uigbh"]
+resource_local_to_scene = true
+script = ExtResource("3_yhv5n")
+unit_level = 4
+unit_max_level = 9
+unit_type = "elf"
 
 [node name="Level" type="Node2D"]
 
 [node name="DropSpot" parent="." instance=ExtResource("1_6pa71")]
-position = Vector2(121, 103)
+position = Vector2(161, 128)
 
 [node name="DropSpot2" parent="." instance=ExtResource("1_6pa71")]
-position = Vector2(233, 103)
+position = Vector2(248, 129)
 
 [node name="DropSpot3" parent="." instance=ExtResource("1_6pa71")]
-position = Vector2(345, 103)
+position = Vector2(336, 129)
 
 [node name="DropSpot4" parent="." instance=ExtResource("1_6pa71")]
-position = Vector2(457, 103)
+position = Vector2(424, 129)
 
 [node name="DropSpot5" parent="." instance=ExtResource("1_6pa71")]
-position = Vector2(121, 215)
+position = Vector2(160, 217)
 
 [node name="DropSpot6" parent="." instance=ExtResource("1_6pa71")]
-position = Vector2(233, 215)
+position = Vector2(248, 217)
 
 [node name="DropSpot7" parent="." instance=ExtResource("1_6pa71")]
-position = Vector2(345, 215)
+position = Vector2(336, 217)
 
 [node name="DropSpot8" parent="." instance=ExtResource("1_6pa71")]
-position = Vector2(457, 215)
+position = Vector2(424, 217)
 
 [node name="Area2D" parent="." instance=ExtResource("1_stc7f")]
-position = Vector2(48, 96)
-attrs = SubResource("Resource_ywli8")
+position = Vector2(88, 64)
+attrs = SubResource("Resource_jevxx")
 
 [node name="Area2D2" parent="." instance=ExtResource("1_stc7f")]
-position = Vector2(48, 184)
-attrs = SubResource("Resource_0hdjd")
+position = Vector2(88, 152)
+attrs = SubResource("Resource_f0d4i")
 
 [node name="Area2D3" parent="." instance=ExtResource("1_stc7f")]
-position = Vector2(48, 270)
-attrs = SubResource("Resource_5yotp")
+position = Vector2(88, 238)
+attrs = SubResource("Resource_oymlv")
+
+[node name="Area2D10" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(144, 296)
+attrs = SubResource("Resource_271rc")
+
+[node name="Area2D11" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(200, 296)
+attrs = SubResource("Resource_2lffq")
+
+[node name="Area2D12" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(256, 296)
+attrs = SubResource("Resource_xrj5x")
+
+[node name="Area2D13" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(312, 296)
+attrs = SubResource("Resource_jgyqi")
+
+[node name="Area2D14" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(368, 296)
+attrs = SubResource("Resource_u7nvh")
+
+[node name="Area2D15" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(424, 296)
+attrs = SubResource("Resource_srmwq")
+
+[node name="Area2D16" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(480, 296)
+attrs = SubResource("Resource_adlcj")
+
+[node name="Area2D17" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(496, 208)
+attrs = SubResource("Resource_smvvs")
+
+[node name="Area2D18" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(504, 120)
+attrs = SubResource("Resource_x2vj3")
+
+[node name="Area2D18" parent="Area2D18" instance=ExtResource("1_stc7f")]
+position = Vector2(504, 120)
+attrs = SubResource("Resource_x2vj3")
+
+[node name="Area2D19" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(504, 32)
+attrs = SubResource("Resource_vvsa7")
+
+[node name="Area2D18" parent="Area2D19" instance=ExtResource("1_stc7f")]
+position = Vector2(504, 120)
+attrs = SubResource("Resource_x2vj3")
+
+[node name="Area2D20" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(560, 32)
+attrs = SubResource("Resource_m4w6x")
+
+[node name="Area2D18" parent="Area2D20" instance=ExtResource("1_stc7f")]
+position = Vector2(504, 120)
+attrs = SubResource("Resource_x2vj3")
+
+[node name="Area2D4" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(168, 48)
+attrs = SubResource("Resource_m038d")
+
+[node name="Area2D5" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(224, 48)
+attrs = SubResource("Resource_wa267")
+
+[node name="Area2D6" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(280, 48)
+attrs = SubResource("Resource_vkadv")
+
+[node name="Area2D7" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(336, 48)
+attrs = SubResource("Resource_6quia")
+
+[node name="Area2D8" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(392, 48)
+attrs = SubResource("Resource_jj634")
+
+[node name="Area2D9" parent="." instance=ExtResource("1_stc7f")]
+position = Vector2(448, 48)
+attrs = SubResource("Resource_uigbh")

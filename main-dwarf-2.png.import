@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duaxf2wttrabh"
-path="res://.godot/imported/dwarf1.png-d25f7dcfd05bb270a3ee7965bf73ead8.ctex"
+uid="uid://870hxfjvfylx"
+path="res://.godot/imported/main-dwarf-2.png-ac6c5d3a6a2556d8252dd697bf76be80.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dwarf1.png"
-dest_files=["res://.godot/imported/dwarf1.png-d25f7dcfd05bb270a3ee7965bf73ead8.ctex"]
+source_file="res://main-dwarf-2.png"
+dest_files=["res://.godot/imported/main-dwarf-2.png-ac6c5d3a6a2556d8252dd697bf76be80.ctex"]
 
 [params]
 
