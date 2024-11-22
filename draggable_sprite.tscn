@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://4jdyfgk4hat3"]
 
-[ext_resource type="Texture2D" uid="uid://b323g8stik4u3" path="res://blank-unit.png" id="2_leoue"]
+[ext_resource type="Texture2D" uid="uid://mskm1da6of80" path="res://elf-1.png" id="2_5fxtv"]
 [ext_resource type="AudioStream" uid="uid://iq7upcd255r4" path="res://LeatherParchment_Grab_01.ogg" id="2_rfgnc"]
 [ext_resource type="Script" path="res://draggable_sprite.gd" id="2_yb30x"]
 [ext_resource type="AudioStream" uid="uid://oe5eitk8u57b" path="res://LeatherParchment_Grab_02.ogg" id="3_s60y2"]
@@ -49,14 +49,14 @@ stream_4/stream = ExtResource("11_tseg1")
 script = ExtResource("2_yb30x")
 
 [node name="DraggableSprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_leoue")
+texture = ExtResource("2_5fxtv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_tf2eu")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 emitting = false
-amount = 150
+amount = 200
 lifetime = 0.5
 speed_scale = 1.5
 randomness = 0.5

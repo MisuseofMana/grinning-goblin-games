@@ -1,0 +1,159 @@
+[gd_scene load_steps=18 format=3 uid="uid://20dx12yfr2og"]
+
+[ext_resource type="Script" path="res://walking_path.gd" id="1_dstoo"]
+[ext_resource type="Texture2D" uid="uid://870hxfjvfylx" path="res://main-dwarf-2.png" id="2_i0jvr"]
+
+[sub_resource type="Curve2D" id="Curve2D_i3ole"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 78, 34, -239, -9, 239, 9, 132, 439, -211, 23, 211, -23, 309, 49, -152, -15, 152, 15, 533, 435, 37, 71, -37, -71, 732, 97, 4, -88, -4, 88, 542, 90, 0, 0, 0, 0, 548, 158)
+}
+point_count = 7
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2foam"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(312, 0, 52, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dhsu"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(364, 0, 52, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1dbb"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(416, 0, 52, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eb0ng"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(364, 0, 52, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhwas"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(312, 72, 52, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2l18v"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(364, 72, 52, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i26rc"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(416, 72, 52, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emlgx"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(312, 144, 52, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ji1v"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(364, 144, 52, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88nxf"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(416, 144, 52, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n445w"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(312, 216, 52, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ctruh"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(364, 216, 52, 72)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nugo6"]
+atlas = ExtResource("2_i0jvr")
+region = Rect2(416, 216, 52, 72)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qwq0c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2foam")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dhsu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1dbb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dhsu")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eb0ng")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhwas")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2l18v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i26rc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2l18v")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emlgx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ji1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88nxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ji1v")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n445w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctruh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nugo6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ctruh")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[node name="WalkingPath" type="Node2D"]
+script = ExtResource("1_dstoo")
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(60, 2)
+curve = SubResource("Curve2D_i3ole")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(78, 34)
+rotation = 0.971659
+rotates = false
+loop = false
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Path2D/PathFollow2D"]
+rotation = -0.959931
+sprite_frames = SubResource("SpriteFrames_qwq0c")
+animation = &"down"
