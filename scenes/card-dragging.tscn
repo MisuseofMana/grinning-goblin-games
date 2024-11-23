@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://dp10y70k8l5qp"]
+
+[ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/draggable-card.tscn" id="1_7so8d"]
+[ext_resource type="Resource" uid="uid://bgi1nx1kwfy76" path="res://components/cards/CardDictionary/basic_attack.tres" id="2_vcasw"]
+[ext_resource type="Resource" uid="uid://c71ofdpotyrrd" path="res://components/cards/CardDictionary/magic_attack.tres" id="3_s0ltq"]
+
+[node name="CardDragging" type="Node2D"]
+
+[node name="Container" type="Control" parent="."]
+custom_minimum_size = Vector2(864, 486)
+layout_mode = 3
+anchors_preset = 0
+
+[node name="BoxContainer" type="BoxContainer" parent="Container"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -432.0
+offset_top = -163.0
+offset_right = 432.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/BoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="DraggableCard4" parent="Container/BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
+layout_mode = 2
+card_type = ExtResource("3_s0ltq")
+
+[node name="DraggableCard2" parent="Container/BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
+layout_mode = 2
+card_type = ExtResource("2_vcasw")
+
+[node name="DraggableCard5" parent="Container/BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
+layout_mode = 2
+card_type = ExtResource("3_s0ltq")
+
+[node name="DraggableCard" parent="Container/BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
+layout_mode = 2
+card_type = ExtResource("2_vcasw")
+
+[node name="DraggableCard3" parent="Container/BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
+layout_mode = 2
+card_type = ExtResource("3_s0ltq")

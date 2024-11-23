@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3 uid="uid://bgi1nx1kwfy76"]
+
+[ext_resource type="Script" path="res://components/cards/CardDictionary/card_data_base.gd" id="1_7hmd7"]
+[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/basic-attack.png" id="1_vnmkt"]
+
+[resource]
+script = ExtResource("1_7hmd7")
+card_name = "Basic Attack"
+card_description = "Deal 10 physical damage to target."
+card_image = ExtResource("1_vnmkt")

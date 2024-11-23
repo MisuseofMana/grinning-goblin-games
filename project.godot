@@ -11,14 +11,13 @@ config_version=5
 [application]
 
 config/name="merge-test-game"
-run/main_scene="res://alt-draggable.tscn"
+run/main_scene="res://scenes/merge-ui-scene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
 
 [autoload]
 
-Globals="*res://globals.gd"
-UnitSprites="*res://unit_sprites.gd"
+Globals="*res://globals/globals.gd"
+UnitSprites="*res://resources/unit_sprites.gd"
 
 [display]
 
@@ -31,6 +30,11 @@ window/canvas_textures/default_texture_filter=0
 
 drop_spot_group=""
 level_dots=""
+
+[gui]
+
+theme/custom_font="res://fonts/pixel-font.ttf"
+theme/default_font_antialiasing=0
 
 [rendering]
 
