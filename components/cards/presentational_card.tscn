@@ -26,39 +26,53 @@ stream_1/stream = ExtResource("6_ovix3")
 stream_2/stream = ExtResource("7_jydti")
 
 [node name="CardBase" type="TextureRect" groups=["cards_in_hand"]]
+anchors_preset = -1
+anchor_right = 0.111
+anchor_bottom = 0.263
 offset_right = 0.095993
 offset_bottom = 0.181992
-pivot_offset = Vector2(48, 128)
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_vertical = 8
 texture = ExtResource("1_l1sgq")
 script = ExtResource("1_bicbb")
 
 [node name="Area2D" type="Area2D" parent="."]
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(48, 64)
 shape = SubResource("RectangleShape2D_x644a")
 
-[node name="CardImageSlot" type="Sprite2D" parent="."]
-position = Vector2(48, 50)
+[node name="CardImageSlot" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 18.0
+offset_right = 86.0
+offset_bottom = 79.0
 texture = ExtResource("2_gymr7")
 
 [node name="CardDescription" type="Label" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 11.0
-offset_top = 81.0
-offset_right = 86.0
-offset_bottom = 121.0
+offset_top = -47.0
+offset_right = -10.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 0
 theme = SubResource("Theme_na5um")
 text = "Deal 10 dmg to target."
 autowrap_mode = 2
 
 [node name="CardName" type="Label" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
 offset_left = 11.0
 offset_top = 2.0
-offset_right = 74.0
+offset_right = -22.0
 offset_bottom = 15.0
 theme = SubResource("Theme_na5um")
 text = "Basic Attack"

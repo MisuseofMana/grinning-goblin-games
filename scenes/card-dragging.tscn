@@ -1,13 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=23 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/presentational_card.tscn" id="1_7so8d"]
 [ext_resource type="Script" path="res://scenes/cards_in_hand_detector.gd" id="1_pln0v"]
 [ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/basic-attack.png" id="2_6s2m3"]
-[ext_resource type="Resource" uid="uid://cbso8yisgpx7m" path="res://components/cards/CardDictionary/healing.tres" id="3_lvliq"]
 [ext_resource type="Script" path="res://components/cards/CardDictionary/card_data_base.gd" id="4_ab37n"]
 [ext_resource type="Texture2D" uid="uid://balvcoo4miss8" path="res://art/cards/magic-attack.png" id="4_fscun"]
 [ext_resource type="Texture2D" uid="uid://bv1irwsl7lxmb" path="res://art/battle-box.png" id="4_mbxne"]
-[ext_resource type="Texture2D" uid="uid://df2koa7wt5emk" path="res://art/cards/card-template-ghost.png" id="5_2uvg5"]
 [ext_resource type="Texture2D" uid="uid://dgw086s37h551" path="res://art/cards/poison.png" id="5_25wtw"]
 [ext_resource type="PackedScene" uid="uid://bcxxmjp1ch5pq" path="res://components/units/unit.tscn" id="11_33an0"]
 [ext_resource type="Script" path="res://resources/card-unit-resource.gd" id="11_tqr67"]
@@ -15,25 +13,25 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_auudb"]
 size = Vector2(576, 112)
 
-[sub_resource type="Resource" id="Resource_3tr6w"]
+[sub_resource type="Resource" id="Resource_hjws7"]
 resource_local_to_scene = true
 script = ExtResource("4_ab37n")
 card_name = "Basic Attack"
-card_description = "Deal 10 physical dmg to target."
+card_description = "Deal 10 physical damage to target."
 card_image = ExtResource("2_6s2m3")
 
-[sub_resource type="Resource" id="Resource_trwm4"]
+[sub_resource type="Resource" id="Resource_1ebq4"]
 resource_local_to_scene = true
 script = ExtResource("4_ab37n")
 card_name = "Magic Attack"
 card_description = "Deal 10 magic dmg to target."
 card_image = ExtResource("4_fscun")
 
-[sub_resource type="Resource" id="Resource_u850t"]
+[sub_resource type="Resource" id="Resource_e8r5a"]
 resource_local_to_scene = true
 script = ExtResource("4_ab37n")
 card_name = "Posion"
-card_description = "Inflict 3 poison on target."
+card_description = "Inflict 3 poison counters on target."
 card_image = ExtResource("5_25wtw")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2grej"]
@@ -69,7 +67,7 @@ func setAnimationFrames(path, animation_name):
 		print(\"An error occurred when trying to access the path.\")
 "
 
-[sub_resource type="Resource" id="Resource_87pfd"]
+[sub_resource type="Resource" id="Resource_50n3a"]
 resource_local_to_scene = true
 script = ExtResource("11_tqr67")
 health = 100
@@ -111,7 +109,7 @@ func setAnimationFrames(path, animation_name):
 		print(\"An error occurred when trying to access the path.\")
 "
 
-[sub_resource type="Resource" id="Resource_y2mrf"]
+[sub_resource type="Resource" id="Resource_qeyyg"]
 resource_local_to_scene = true
 script = ExtResource("11_tqr67")
 health = 30
@@ -153,7 +151,7 @@ func setAnimationFrames(path, animation_name):
 		print(\"An error occurred when trying to access the path.\")
 "
 
-[sub_resource type="Resource" id="Resource_cqjre"]
+[sub_resource type="Resource" id="Resource_rr0w7"]
 resource_local_to_scene = true
 script = ExtResource("11_tqr67")
 health = 30
@@ -165,6 +163,8 @@ character_type = "goblin"
 [node name="CardDragging" type="Node2D"]
 
 [node name="CardsInHandDetector" type="Area2D" parent="."]
+visible = false
+monitorable = false
 script = ExtResource("1_pln0v")
 metadata/_edit_lock_ = true
 
@@ -183,46 +183,33 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
 
-[node name="TextureRect" type="TextureRect" parent="."]
-self_modulate = Color(0.597985, 0.494649, 0.593918, 1)
-offset_left = -117.0
-offset_top = 130.0
-offset_right = -19.0
-offset_bottom = 260.0
-texture = ExtResource("5_2uvg5")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="BoxContainer" type="BoxContainer" parent="."]
-anchors_preset = 7
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.969
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_top = 342.0
-offset_right = 864.0
-offset_bottom = 470.0
+anchor_bottom = 0.969
+offset_left = -432.0
+offset_top = -470.934
+offset_right = 432.0
+offset_bottom = 0.065979
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BoxContainer"]
+[node name="CardBase" parent="CanvasLayer/HBoxContainer" instance=ExtResource("1_7so8d")]
 layout_mode = 2
-alignment = 1
+card_data = SubResource("Resource_hjws7")
 
-[node name="CardBase4" parent="BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
+[node name="CardBase2" parent="CanvasLayer/HBoxContainer" instance=ExtResource("1_7so8d")]
 layout_mode = 2
-card_type = ExtResource("3_lvliq")
+card_data = SubResource("Resource_1ebq4")
 
-[node name="CardBase" parent="BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
+[node name="CardBase3" parent="CanvasLayer/HBoxContainer" instance=ExtResource("1_7so8d")]
 layout_mode = 2
-card_type = SubResource("Resource_3tr6w")
-
-[node name="CardBase2" parent="BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
-layout_mode = 2
-card_type = SubResource("Resource_trwm4")
-
-[node name="CardBase3" parent="BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
-layout_mode = 2
-card_type = SubResource("Resource_u850t")
+card_data = SubResource("Resource_e8r5a")
 
 [node name="FloatingCard" type="Node2D" parent="."]
 
@@ -230,16 +217,18 @@ card_type = SubResource("Resource_u850t")
 position = Vector2(192, 250)
 sprite_frames = SubResource("SpriteFrames_2grej")
 script = SubResource("GDScript_idk8l")
-unit_data = SubResource("Resource_87pfd")
+unit_data = SubResource("Resource_50n3a")
 
 [node name="UnitAnimations2" parent="." instance=ExtResource("11_33an0")]
 position = Vector2(599, 250)
 sprite_frames = SubResource("SpriteFrames_0lgf4")
 script = SubResource("GDScript_xmdcr")
-unit_data = SubResource("Resource_y2mrf")
+unit_data = SubResource("Resource_qeyyg")
 
 [node name="UnitAnimations3" parent="." instance=ExtResource("11_33an0")]
 position = Vector2(678, 250)
 sprite_frames = SubResource("SpriteFrames_ip5ya")
 script = SubResource("GDScript_oraky")
-unit_data = SubResource("Resource_cqjre")
+unit_data = SubResource("Resource_rr0w7")
+
+[connection signal="area_entered" from="CardsInHandDetector" to="CardsInHandDetector" method="_on_area_entered"]

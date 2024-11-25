@@ -23,6 +23,7 @@ UnitSprites="*res://globals/unit_sprites.gd"
 
 window/size/viewport_width=864
 window/size/viewport_height=486
+window/stretch/mode="viewport"
 window/canvas_textures/default_texture_filter=0
 
 [global_group]
