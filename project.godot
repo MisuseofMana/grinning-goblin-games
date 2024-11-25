@@ -11,25 +11,25 @@ config_version=5
 [application]
 
 config/name="merge-test-game"
-run/main_scene="res://scenes/merge-ui-scene.tscn"
+run/main_scene="res://scenes/card-dragging.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
 
 Globals="*res://globals/globals.gd"
-UnitSprites="*res://resources/unit_sprites.gd"
+UnitSprites="*res://globals/unit_sprites.gd"
 
 [display]
 
 window/size/viewport_width=864
 window/size/viewport_height=486
-window/size/resizable=false
 window/canvas_textures/default_texture_filter=0
 
 [global_group]
 
 drop_spot_group=""
 level_dots=""
+cards_in_hand=""
 
 [gui]
 

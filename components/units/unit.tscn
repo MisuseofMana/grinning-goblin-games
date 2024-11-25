@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bcxxmjp1ch5pq"]
+
+[ext_resource type="Texture2D" uid="uid://bqt0p4o02gghr" path="res://art/cards/sprites/player/idle/1.png" id="1_mgs54"]
+[ext_resource type="Script" path="res://components/units/unit.gd" id="2_bjuv8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xiu6p"]
+atlas = ExtResource("1_mgs54")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ggplb"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xiu6p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qyrwg"]
+height = 65.0
+
+[node name="UnitAnimations" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ggplb")
+script = ExtResource("2_bjuv8")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_qyrwg")

@@ -3,21 +3,21 @@
 [ext_resource type="PackedScene" uid="uid://mvug80456i06" path="res://components/draggable.tscn" id="1_7mvw1"]
 [ext_resource type="Script" path="res://resources/unit-resource.gd" id="2_nlbk5"]
 
-[sub_resource type="Resource" id="Resource_a5ted"]
+[sub_resource type="Resource" id="Resource_u0by3"]
 resource_local_to_scene = true
 script = ExtResource("2_nlbk5")
 unit_level = 1
 unit_max_level = 4
 unit_type = "elf"
 
-[sub_resource type="Resource" id="Resource_depuj"]
+[sub_resource type="Resource" id="Resource_8ua7v"]
 resource_local_to_scene = true
 script = ExtResource("2_nlbk5")
 unit_level = 1
 unit_max_level = 4
 unit_type = "elf"
 
-[sub_resource type="Resource" id="Resource_amhc2"]
+[sub_resource type="Resource" id="Resource_oysor"]
 resource_local_to_scene = true
 script = ExtResource("2_nlbk5")
 unit_level = 1
@@ -30,7 +30,7 @@ unit_level = 0
 unit_max_level = 4
 unit_type = ""
 
-[sub_resource type="Resource" id="Resource_4kc25"]
+[sub_resource type="Resource" id="Resource_xikmb"]
 resource_local_to_scene = true
 script = ExtResource("2_nlbk5")
 unit_level = 3
@@ -63,7 +63,7 @@ offset_top = 12.0
 offset_right = 197.0
 offset_bottom = 146.0
 expand_mode = 5
-attributes = SubResource("Resource_a5ted")
+attributes = SubResource("Resource_u0by3")
 
 [node name="TextureRect2" parent="." instance=ExtResource("1_7mvw1")]
 offset_left = 217.0
@@ -71,7 +71,7 @@ offset_top = 12.0
 offset_right = 285.0
 offset_bottom = 146.0
 expand_mode = 5
-attributes = SubResource("Resource_depuj")
+attributes = SubResource("Resource_8ua7v")
 
 [node name="TextureRect3" parent="." instance=ExtResource("1_7mvw1")]
 offset_left = 305.0
@@ -79,7 +79,7 @@ offset_top = 12.0
 offset_right = 373.0
 offset_bottom = 146.0
 expand_mode = 5
-attributes = SubResource("Resource_amhc2")
+attributes = SubResource("Resource_oysor")
 
 [node name="TextureRect4" parent="." instance=ExtResource("1_7mvw1")]
 offset_left = 393.0
@@ -95,7 +95,7 @@ offset_top = 180.0
 offset_right = 197.0
 offset_bottom = 314.0
 expand_mode = 5
-attributes = SubResource("Resource_4kc25")
+attributes = SubResource("Resource_xikmb")
 
 [node name="TextureRect6" parent="." instance=ExtResource("1_7mvw1")]
 offset_left = 217.0

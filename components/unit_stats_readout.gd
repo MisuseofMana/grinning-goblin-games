@@ -8,7 +8,7 @@ extends Node2D
 var level_dots
 var storedUnitData
 
-const BLANK_UNIT = preload("res://art/blank-unit.png")
+const BLANK_UNIT = preload("res://art/units/blank-unit.png")
 
 func _ready():
 	storedUnitData = Globals.displayUnit

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=19 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/presentational_card.tscn" id="1_7so8d"]
 [ext_resource type="Script" path="res://scenes/cards_in_hand_detector.gd" id="1_pln0v"]
@@ -15,61 +15,28 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_auudb"]
 size = Vector2(576, 112)
 
-[sub_resource type="Resource" id="Resource_3tr6w"]
+[sub_resource type="Resource" id="Resource_dov00"]
 resource_local_to_scene = true
 script = ExtResource("4_ab37n")
 card_name = "Basic Attack"
 card_description = "Deal 10 physical dmg to target."
 card_image = ExtResource("2_6s2m3")
 
-[sub_resource type="Resource" id="Resource_trwm4"]
+[sub_resource type="Resource" id="Resource_orkkc"]
 resource_local_to_scene = true
 script = ExtResource("4_ab37n")
 card_name = "Magic Attack"
 card_description = "Deal 10 magic dmg to target."
 card_image = ExtResource("4_fscun")
 
-[sub_resource type="Resource" id="Resource_u850t"]
+[sub_resource type="Resource" id="Resource_chd1e"]
 resource_local_to_scene = true
 script = ExtResource("4_ab37n")
 card_name = "Posion"
 card_description = "Inflict 3 poison on target."
 card_image = ExtResource("5_25wtw")
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_2grej"]
-resource_local_to_scene = true
-animations = []
-
-[sub_resource type="GDScript" id="GDScript_idk8l"]
-resource_local_to_scene = true
-script/source = "extends AnimatedSprite2D
-
-@export var unit_data : CardUnitStats
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-#	add new animation name
-	print(unit_data.animation_names)
-	for animation_name in unit_data.animation_names:
-		self.sprite_frames.add_animation(animation_name)
-		setAnimationFrames('res://art/cards/sprites/' + unit_data.character_type + '/' + animation_name + '/', animation_name)
-	self.animation = 'idle'
-	self.autoplay = 'idle'
-
-func setAnimationFrames(path, animation_name):
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != \"\":
-			if not file_name.contains('import'):
-				self.sprite_frames.add_frame(animation_name, load(path + file_name))
-			file_name = dir.get_next()
-	else:
-		print(\"An error occurred when trying to access the path.\")
-"
-
-[sub_resource type="Resource" id="Resource_87pfd"]
+[sub_resource type="Resource" id="Resource_ef7mb"]
 resource_local_to_scene = true
 script = ExtResource("11_tqr67")
 health = 100
@@ -78,40 +45,7 @@ defense = 2
 animation_names = Array[String](["idle"])
 character_type = "player"
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_0lgf4"]
-resource_local_to_scene = true
-animations = []
-
-[sub_resource type="GDScript" id="GDScript_xmdcr"]
-resource_local_to_scene = true
-script/source = "extends AnimatedSprite2D
-
-@export var unit_data : CardUnitStats
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-#	add new animation name
-	print(unit_data.animation_names)
-	for animation_name in unit_data.animation_names:
-		self.sprite_frames.add_animation(animation_name)
-		setAnimationFrames('res://art/cards/sprites/' + unit_data.character_type + '/' + animation_name + '/', animation_name)
-	self.animation = 'idle'
-	self.autoplay = 'idle'
-
-func setAnimationFrames(path, animation_name):
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != \"\":
-			if not file_name.contains('import'):
-				self.sprite_frames.add_frame(animation_name, load(path + file_name))
-			file_name = dir.get_next()
-	else:
-		print(\"An error occurred when trying to access the path.\")
-"
-
-[sub_resource type="Resource" id="Resource_y2mrf"]
+[sub_resource type="Resource" id="Resource_kvnv6"]
 resource_local_to_scene = true
 script = ExtResource("11_tqr67")
 health = 30
@@ -120,40 +54,7 @@ defense = 0
 animation_names = Array[String](["idle"])
 character_type = "goblin"
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ip5ya"]
-resource_local_to_scene = true
-animations = []
-
-[sub_resource type="GDScript" id="GDScript_oraky"]
-resource_local_to_scene = true
-script/source = "extends AnimatedSprite2D
-
-@export var unit_data : CardUnitStats
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-#	add new animation name
-	print(unit_data.animation_names)
-	for animation_name in unit_data.animation_names:
-		self.sprite_frames.add_animation(animation_name)
-		setAnimationFrames('res://art/cards/sprites/' + unit_data.character_type + '/' + animation_name + '/', animation_name)
-	self.animation = 'idle'
-	self.autoplay = 'idle'
-
-func setAnimationFrames(path, animation_name):
-	var dir = DirAccess.open(path)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != \"\":
-			if not file_name.contains('import'):
-				self.sprite_frames.add_frame(animation_name, load(path + file_name))
-			file_name = dir.get_next()
-	else:
-		print(\"An error occurred when trying to access the path.\")
-"
-
-[sub_resource type="Resource" id="Resource_cqjre"]
+[sub_resource type="Resource" id="Resource_rxoo7"]
 resource_local_to_scene = true
 script = ExtResource("11_tqr67")
 health = 30
@@ -214,32 +115,26 @@ card_type = ExtResource("3_lvliq")
 
 [node name="CardBase" parent="BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
 layout_mode = 2
-card_type = SubResource("Resource_3tr6w")
+card_type = SubResource("Resource_dov00")
 
 [node name="CardBase2" parent="BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
 layout_mode = 2
-card_type = SubResource("Resource_trwm4")
+card_type = SubResource("Resource_orkkc")
 
 [node name="CardBase3" parent="BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
 layout_mode = 2
-card_type = SubResource("Resource_u850t")
+card_type = SubResource("Resource_chd1e")
 
 [node name="FloatingCard" type="Node2D" parent="."]
 
 [node name="UnitAnimations" parent="." instance=ExtResource("11_33an0")]
 position = Vector2(192, 250)
-sprite_frames = SubResource("SpriteFrames_2grej")
-script = SubResource("GDScript_idk8l")
-unit_data = SubResource("Resource_87pfd")
+unit_data = SubResource("Resource_ef7mb")
 
 [node name="UnitAnimations2" parent="." instance=ExtResource("11_33an0")]
-position = Vector2(599, 250)
-sprite_frames = SubResource("SpriteFrames_0lgf4")
-script = SubResource("GDScript_xmdcr")
-unit_data = SubResource("Resource_y2mrf")
+position = Vector2(626, 250)
+unit_data = SubResource("Resource_kvnv6")
 
 [node name="UnitAnimations3" parent="." instance=ExtResource("11_33an0")]
-position = Vector2(678, 250)
-sprite_frames = SubResource("SpriteFrames_ip5ya")
-script = SubResource("GDScript_oraky")
-unit_data = SubResource("Resource_cqjre")
+position = Vector2(705, 250)
+unit_data = SubResource("Resource_rxoo7")

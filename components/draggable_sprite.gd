@@ -9,7 +9,7 @@ extends Area2D
 @onready var merge_sound = $MergeSound
 
 var is_dragging = false
-var delay = 0.2
+var delay = 0.1
 var drop_spots
 var dragging_from_spot
 var level_dots

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://balvcoo4miss8" path="res://art/cards/magic-attack.png" id="1_b3miw"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_1050s")
 card_name = "Magic Attack"
 card_description = "Deal 10 magic dmg to target."

@@ -1,6 +1,6 @@
 [gd_scene load_steps=19 format=3 uid="uid://4jdyfgk4hat3"]
 
-[ext_resource type="Texture2D" uid="uid://mskm1da6of80" path="res://art/elf-1.png" id="2_5fxtv"]
+[ext_resource type="Texture2D" uid="uid://mskm1da6of80" path="res://art/units/elf-1.png" id="2_5fxtv"]
 [ext_resource type="AudioStream" uid="uid://iq7upcd255r4" path="res://audio/LeatherParchment_Grab_01.ogg" id="2_rfgnc"]
 [ext_resource type="Script" path="res://components/draggable_sprite.gd" id="2_yb30x"]
 [ext_resource type="AudioStream" uid="uid://oe5eitk8u57b" path="res://audio/LeatherParchment_Grab_02.ogg" id="3_s60y2"]

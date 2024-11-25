@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://dkrt4twau3rbt"]
+
+[ext_resource type="Script" path="res://components/cards/presentational_card.gd" id="1_bicbb"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card-template.png" id="1_l1sgq"]
+[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/basic-attack.png" id="2_gymr7"]
+[ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="3_4yixl"]
+[ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="5_6366s"]
+[ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="6_ovix3"]
+[ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="7_jydti"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x644a"]
+size = Vector2(96, 128)
+
+[sub_resource type="Theme" id="Theme_na5um"]
+default_font = ExtResource("3_4yixl")
+default_font_size = 16
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/constants/line_spacing = -3
+Label/font_sizes/font_size = 16
+Label/fonts/font = ExtResource("3_4yixl")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fqe74"]
+streams_count = 3
+stream_0/stream = ExtResource("5_6366s")
+stream_1/stream = ExtResource("6_ovix3")
+stream_2/stream = ExtResource("7_jydti")
+
+[node name="CardBase" type="TextureRect" groups=["cards_in_hand"]]
+offset_right = 0.095993
+offset_bottom = 0.181992
+pivot_offset = Vector2(48, 128)
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("1_l1sgq")
+script = ExtResource("1_bicbb")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(48, 64)
+shape = SubResource("RectangleShape2D_x644a")
+
+[node name="CardImageSlot" type="Sprite2D" parent="."]
+position = Vector2(48, 50)
+texture = ExtResource("2_gymr7")
+
+[node name="CardDescription" type="Label" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 81.0
+offset_right = 86.0
+offset_bottom = 121.0
+theme = SubResource("Theme_na5um")
+text = "Deal 10 dmg to target."
+autowrap_mode = 2
+
+[node name="CardName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 2.0
+offset_right = 74.0
+offset_bottom = 15.0
+theme = SubResource("Theme_na5um")
+text = "Basic Attack"
+
+[node name="MouseOverSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_fqe74")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/basic-attack.png" id="1_vnmkt"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_7hmd7")
 card_name = "Basic Attack"
 card_description = "Deal 10 physical damage to target."

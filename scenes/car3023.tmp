@@ -1,0 +1,115 @@
+[gd_scene load_steps=13 format=3 uid="uid://dp10y70k8l5qp"]
+
+[ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/presentational_card.tscn" id="1_7so8d"]
+[ext_resource type="Script" path="res://scenes/card_dragging.gd" id="1_8t4dj"]
+[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/basic-attack.png" id="2_6s2m3"]
+[ext_resource type="Texture2D" uid="uid://balvcoo4miss8" path="res://art/cards/magic-attack.png" id="4_fscun"]
+[ext_resource type="Texture2D" uid="uid://bv1irwsl7lxmb" path="res://art/battle-box.png" id="4_mbxne"]
+[ext_resource type="Texture2D" uid="uid://df2koa7wt5emk" path="res://art/cards/card-template-ghost.png" id="5_2uvg5"]
+[ext_resource type="Texture2D" uid="uid://dgw086s37h551" path="res://art/cards/poison.png" id="5_25wtw"]
+
+[sub_resource type="GDScript" id="GDScript_nb2cg"]
+script/source = "extends Resource
+class_name CardData
+
+signal removeFromHand()
+
+@export var card_name : String = ''
+@export var card_description : String = ''
+@export var card_image : Texture
+"
+
+[sub_resource type="Resource" id="Resource_nmw4a"]
+resource_local_to_scene = true
+script = SubResource("GDScript_nb2cg")
+card_name = "Basic Attack"
+card_description = "Deal 10 physical damage to target."
+card_image = ExtResource("2_6s2m3")
+
+[sub_resource type="Resource" id="Resource_dsoqd"]
+resource_local_to_scene = true
+script = SubResource("GDScript_nb2cg")
+card_name = "Magic Attack"
+card_description = "Deal 10 magic dmg to target."
+card_image = ExtResource("4_fscun")
+
+[sub_resource type="Resource" id="Resource_jyqej"]
+resource_local_to_scene = true
+script = SubResource("GDScript_nb2cg")
+card_name = "Posion"
+card_description = "Inflict 3 poison counters on target."
+card_image = ExtResource("5_25wtw")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_auudb"]
+size = Vector2(576, 112)
+
+[node name="CardDragging" type="Node2D"]
+script = ExtResource("1_8t4dj")
+
+[node name="Container" type="Control" parent="."]
+custom_minimum_size = Vector2(864, 486)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 864.0
+offset_bottom = 486.0
+
+[node name="BoxContainer" type="BoxContainer" parent="Container"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -432.0
+offset_top = -144.0
+offset_right = 432.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/BoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CardBase" parent="Container/BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
+layout_mode = 2
+card_type = SubResource("Resource_nmw4a")
+
+[node name="CardBase2" parent="Container/BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
+layout_mode = 2
+card_type = SubResource("Resource_dsoqd")
+
+[node name="CardBase3" parent="Container/BoxContainer/HBoxContainer" instance=ExtResource("1_7so8d")]
+layout_mode = 2
+card_type = SubResource("Resource_jyqej")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+offset_left = 64.0
+offset_top = 16.0
+offset_right = 800.0
+offset_bottom = 320.0
+texture = ExtResource("4_mbxne")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="TextureRect" type="TextureRect" parent="."]
+self_modulate = Color(0.597985, 0.494649, 0.593918, 1)
+offset_left = 144.0
+offset_top = 96.0
+offset_right = 242.0
+offset_bottom = 226.0
+texture = ExtResource("5_2uvg5")
+
+[node name="CardsInHandDetector" type="Area2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardsInHandDetector"]
+position = Vector2(432, 408)
+shape = SubResource("RectangleShape2D_auudb")
+
+[node name="FloatingCard" type="Node2D" parent="."]
+
+[connection signal="removeFromHand" from="Container/BoxContainer/HBoxContainer/CardBase" to="." method="_on_card_base_remove_from_hand"]
