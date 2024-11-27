@@ -1,15 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkrt4twau3rbt"]
+[gd_scene load_steps=24 format=3 uid="uid://dkrt4twau3rbt"]
 
 [ext_resource type="Script" path="res://components/cards/presentational_card.gd" id="1_bicbb"]
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card-template.png" id="1_l1sgq"]
-[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/basic-attack.png" id="2_gymr7"]
 [ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="3_4yixl"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="5_6366s"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="6_ovix3"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="7_jydti"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x644a"]
-size = Vector2(96, 128)
+[ext_resource type="AudioStream" uid="uid://cenkn62k76yu2" path="res://audio/failed_card_drop.wav" id="8_oex84"]
+[ext_resource type="AudioStream" uid="uid://c7ujf2yspx3kd" path="res://audio/valid_drop_sound.wav" id="8_qevuh"]
+[ext_resource type="AudioStream" uid="uid://co1v4mq8d6ydc" path="res://audio/Ancient_Game_Magic_War_Enchant_2.wav" id="9_7g6bi"]
+[ext_resource type="AudioStream" uid="uid://bmymqsr2pc8r3" path="res://audio/Ancient_Game_Rally_Collect_1.wav" id="10_mew1c"]
+[ext_resource type="AudioStream" uid="uid://ccnlum7wv4pej" path="res://audio/Ancient_Game_Rally_Collect_2.wav" id="11_ik4ul"]
+[ext_resource type="AudioStream" uid="uid://dino3c5yktk1d" path="res://audio/Anicent_Game_Positive_Achievement_2.wav" id="12_ow21d"]
 
 [sub_resource type="Theme" id="Theme_na5um"]
 default_font = ExtResource("3_4yixl")
@@ -25,40 +27,197 @@ stream_0/stream = ExtResource("5_6366s")
 stream_1/stream = ExtResource("6_ovix3")
 stream_2/stream = ExtResource("7_jydti")
 
-[node name="CardBase" type="TextureRect" groups=["cards_in_hand"]]
-anchors_preset = -1
-anchor_right = 0.111
-anchor_bottom = 0.263
-offset_right = 0.095993
-offset_bottom = 0.181992
-size_flags_vertical = 8
-texture = ExtResource("1_l1sgq")
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_y6go0"]
+random_pitch = 1.2
+streams_count = 5
+stream_0/stream = ExtResource("8_qevuh")
+stream_1/stream = ExtResource("9_7g6bi")
+stream_2/stream = ExtResource("10_mew1c")
+stream_3/stream = ExtResource("11_ik4ul")
+stream_4/stream = ExtResource("12_ow21d")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_futsg"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("8_oex84")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x644a"]
+size = Vector2(53, 77)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e5mar"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(48, 64, 0)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 48.0
+emission_ring_radius = 68.0
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 10, 0)
+radial_accel_min = -50.0
+radial_accel_max = 50.0
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = -2.23517e-06
+damping_max = 20.0
+
+[sub_resource type="Animation" id="Animation_igsrc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ValidDropSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../CardShimmer:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_kgdu4"]
+resource_name = "go_to_discard"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0, 1.5), Vector2(0.5, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ValidDropSound:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../CardShimmer:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.5, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"swapCardBackTexture"
+}, {
+"args": [&"add_to_discard_number"],
+"method": &"emit_signal"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_pwxan"]
+resource_name = "invalid_selection"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.814755, 0, 0.196404, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ftxpx"]
+resource_name = "valid_selection"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.501249, 1, 0.672074, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ysc62"]
+_data = {
+"RESET": SubResource("Animation_igsrc"),
+"go_to_discard": SubResource("Animation_kgdu4"),
+"invalid_selection": SubResource("Animation_pwxan"),
+"valid_selection": SubResource("Animation_ftxpx")
+}
+
+[node name="Node2D" type="Node2D"]
 script = ExtResource("1_bicbb")
 
-[node name="Area2D" type="Area2D" parent="."]
-monitoring = false
+[node name="CardBase" type="Sprite2D" parent="." groups=["cards_in_hand"]]
+texture = ExtResource("1_l1sgq")
+offset = Vector2(0, -64)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(48, 64)
-shape = SubResource("RectangleShape2D_x644a")
-
-[node name="CardImageSlot" type="TextureRect" parent="."]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 18.0
-offset_right = 86.0
-offset_bottom = 79.0
-texture = ExtResource("2_gymr7")
+[node name="CardImageSlot" type="Sprite2D" parent="."]
+position = Vector2(0, -80)
 
 [node name="CardDescription" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 11.0
-offset_top = -47.0
-offset_right = -10.0
+anchors_preset = -1
+anchor_left = 0.115
+anchor_top = 0.641
+anchor_right = 0.885
+anchor_bottom = 0.937
+offset_left = -37.0
+offset_top = -46.0
+offset_right = 38.0
 offset_bottom = -7.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -67,19 +226,49 @@ text = "Deal 10 dmg to target."
 autowrap_mode = 2
 
 [node name="CardName" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 11.0
-offset_top = 2.0
-offset_right = -22.0
-offset_bottom = 15.0
+anchors_preset = -1
+anchor_left = 0.115
+anchor_top = 0.016
+anchor_right = 0.885
+anchor_bottom = 0.117
+offset_left = -37.0
+offset_top = -126.0
+offset_right = 29.0
+offset_bottom = -113.0
 theme = SubResource("Theme_na5um")
-text = "Basic Attack"
+text = "Missing Data"
 
 [node name="MouseOverSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_fqe74")
 
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[node name="ValidDropSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_y6go0")
+
+[node name="ErrorSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_futsg")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -62)
+shape = SubResource("RectangleShape2D_x644a")
+
+[node name="CardShimmer" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_e5mar")
+visibility_rect = Rect2(0, 0, 96, 128)
+trail_lifetime = 0.2
+trail_sections = 2
+trail_section_subdivisions = 5
+
+[node name="CardAnimations" type="AnimationPlayer" parent="."]
+root_node = NodePath("../CardBase")
+libraries = {
+"": SubResource("AnimationLibrary_ysc62")
+}
+
+[connection signal="area_entered" from="Area2D" to="CardBase" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="CardBase" method="_on_area_2d_area_exited"]

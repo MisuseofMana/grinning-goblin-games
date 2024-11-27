@@ -9,3 +9,4 @@ script = ExtResource("1_7hmd7")
 card_name = "Basic Attack"
 card_description = "Deal 10 physical damage to target."
 card_image = ExtResource("1_vnmkt")
+valid_target = "enemy"

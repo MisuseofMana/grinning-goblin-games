@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds00fm2wg81wp"]
+
+[ext_resource type="Script" path="res://components/hand_of_cards.gd" id="1_50x24"]
+[ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/presentational_card.tscn" id="1_ugjcr"]
+
+[sub_resource type="Curve2D" id="Curve2D_wguu1"]
+_data = {
+"points": PackedVector2Array(-59.35, 30.0785, 59.35, -30.0785, 90, 0, -60.3324, -30.1761, 60.3324, 30.1761, 550, 0)
+}
+point_count = 2
+
+[node name="HandOfCards" type="Node2D"]
+script = ExtResource("1_50x24")
+
+[node name="CardArc" type="Path2D" parent="."]
+position = Vector2(-320, 0)
+curve = SubResource("Curve2D_wguu1")
+
+[node name="CardFollowPath" type="PathFollow2D" parent="CardArc"]
+position = Vector2(90, 0)
+rotation = -0.469072
+
+[node name="CardBase" parent="CardArc/CardFollowPath" instance=ExtResource("1_ugjcr")]

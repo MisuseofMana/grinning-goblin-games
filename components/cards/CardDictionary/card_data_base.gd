@@ -4,8 +4,9 @@ class_name CardData
 @export var card_name : String = ''
 @export var card_description : String = ''
 @export var card_image : Texture
+@export var card_effect_value : int = 0
 
-var successfulDrag = false
+@export_enum('self', 'enemy') var valid_target : String
 
-func completeDrag():
-	successfulDrag = true
+func cardEffect():
+	pass

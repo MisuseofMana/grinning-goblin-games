@@ -1,16 +1,26 @@
-extends AnimatedSprite2D
+@tool
+class_name Unit extends AnimatedSprite2D
 
 @export var unit_data : CardUnitStats
 @onready var unit_animations = $"."
+@onready var health_num = $Label
+@onready var health_bar = $ProgressBar
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+#	set health label
+	var max_health = unit_data.health
+	health_num.text = str(unit_data.health, "/", max_health)
+#	set health bar
+	health_bar.max_value = unit_data.health
+	health_bar.value = unit_data.health
+	
 #	add new animation name
 	for animation_name in unit_data.animation_names:
-		unit_animations.sprite_frames.add_animation(animation_name)
-		setAnimationFrames('res://art/cards/sprites/' + unit_data.character_type + '/' + animation_name + '/', animation_name)
+		if not unit_animations.sprite_frames.has_animation(animation_name):
+			unit_animations.sprite_frames.add_animation(animation_name)
+			setAnimationFrames('res://art/cards/sprites/' + unit_data.character_type + '/' + animation_name + '/', animation_name)
 	unit_animations.animation = 'idle'
-	unit_animations.autoplay = 'idle'
 
 func setAnimationFrames(path, animation_name):
 	var dir = DirAccess.open(path)
@@ -23,3 +33,4 @@ func setAnimationFrames(path, animation_name):
 			file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the path.")
+		

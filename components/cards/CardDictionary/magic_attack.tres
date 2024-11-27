@@ -9,3 +9,4 @@ script = ExtResource("1_1050s")
 card_name = "Magic Attack"
 card_description = "Deal 10 magic dmg to target."
 card_image = ExtResource("1_b3miw")
+valid_target = "enemy"

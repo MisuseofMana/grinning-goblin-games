@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://babdevi0twph6"]
+
+[ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_mtuga"]
+[ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/discard-number.png" id="2_ee4ao"]
+[ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="3_5038y"]
+
+[node name="DiscardPile" type="Node2D"]
+
+[node name="CardBack" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_mtuga")
+
+[node name="DiscardNumber" type="Node2D" parent="."]
+position = Vector2(-21, 25)
+metadata/_edit_group_ = true
+
+[node name="DiscardChit" type="Sprite2D" parent="DiscardNumber"]
+texture = ExtResource("2_ee4ao")
+
+[node name="NumberDiscarded" type="Label" parent="DiscardNumber"]
+offset_left = -8.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = 11.0
+theme_override_fonts/font = ExtResource("3_5038y")
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1

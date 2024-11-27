@@ -8,3 +8,5 @@ script = ExtResource("1_m4bls")
 card_name = "Heal"
 card_description = "Heal 5 points of health."
 card_image = ExtResource("1_i2clo")
+card_effect_value = 5
+valid_target = "self"

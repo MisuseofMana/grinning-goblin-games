@@ -9,3 +9,4 @@ script = ExtResource("1_h6fuc")
 card_name = "Posion"
 card_description = "Inflict 3 poison counters on target."
 card_image = ExtResource("1_qvfhy")
+valid_target = "enemy"
