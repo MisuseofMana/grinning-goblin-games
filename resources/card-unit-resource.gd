@@ -9,7 +9,7 @@ class_name	CardUnitStats
 @export_enum('idle', 'attack', 'magic-attack', 'hurt') var animation_names : Array[String] = []
 @export_enum ('player', 'goblin') var character_type : String
 
-@export_enum('self', 'enemy') var target_type : String
+@export var is_self : bool
 
 func takeDamage(damage):
 	health -= damageFormula(damage)

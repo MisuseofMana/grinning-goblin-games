@@ -23,10 +23,7 @@ UnitSprites="*res://globals/unit_sprites.gd"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/mode=4
-window/stretch/aspect="expand"
-window/stretch/scale=5.0
-window/stretch/scale_mode="integer"
+mouse_cursor/custom_image="res://art/cursor.png"
 window/canvas_textures/default_texture_filter=0
 
 [global_group]

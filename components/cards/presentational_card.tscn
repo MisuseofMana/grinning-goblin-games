@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://dkrt4twau3rbt"]
+[gd_scene load_steps=26 format=3 uid="uid://dkrt4twau3rbt"]
 
 [ext_resource type="Script" path="res://components/cards/presentational_card.gd" id="1_bicbb"]
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card-template.png" id="1_l1sgq"]
+[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic-attack.png" id="3_2h55d"]
 [ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="3_4yixl"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="5_6366s"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="6_ovix3"]
@@ -80,7 +81,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../ValidDropSound:playing")
+tracks/1/path = NodePath("../CardShimmer:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -92,19 +93,19 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../CardShimmer:emitting")
+tracks/2/path = NodePath(".:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_kgdu4"]
 resource_name = "go_to_discard"
-length = 2.0
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -112,7 +113,7 @@ tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
+"times": PackedFloat32Array(0, 0.1, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0, 1.5), Vector2(0.5, 0.5)]
@@ -120,46 +121,40 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../ValidDropSound:playing")
+tracks/1/path = NodePath("../CardShimmer:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../CardShimmer:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.8),
+"times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
 }
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0.5, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"swapCardBackTexture"
-}, {
-"args": [&"add_to_discard_number"],
-"method": &"emit_signal"
-}, {
-"args": [],
-"method": &"queue_free"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_pwxan"]
@@ -203,68 +198,74 @@ _data = {
 }
 
 [node name="Node2D" type="Node2D"]
+position = Vector2(0, -64)
 script = ExtResource("1_bicbb")
-card_data = {}
 
 [node name="CardBase" type="Sprite2D" parent="." groups=["cards_in_hand"]]
+position = Vector2(0, 64)
 texture = ExtResource("1_l1sgq")
 offset = Vector2(0, -64)
 
-[node name="CardImageSlot" type="Sprite2D" parent="."]
+[node name="CardImageSlot" type="Sprite2D" parent="CardBase"]
 position = Vector2(0, -80)
+texture = ExtResource("3_2h55d")
 
-[node name="GlobalPos" type="Label" parent="."]
-offset_left = -13.0
-offset_top = -71.0
-offset_right = 27.0
-offset_bottom = -58.0
+[node name="GlobalPos" type="Label" parent="CardBase"]
+visible = false
+offset_left = -6.0
+offset_top = -64.0
+offset_right = 34.0
+offset_bottom = -51.0
 
-[node name="GlobalPos2" type="Label" parent="."]
-offset_left = -44.0
-offset_top = -71.0
-offset_right = -4.0
-offset_bottom = -58.0
+[node name="GlobalPos2" type="Label" parent="CardBase"]
+visible = false
+offset_left = -37.0
+offset_top = -64.0
+offset_right = 3.0
+offset_bottom = -51.0
 text = "Global"
 
-[node name="LocalPos" type="Label" parent="."]
-offset_left = -16.0
-offset_top = -91.0
-offset_right = 24.0
-offset_bottom = -78.0
+[node name="LocalPos" type="Label" parent="CardBase"]
+visible = false
+offset_left = -8.0
+offset_top = -77.0
+offset_right = 32.0
+offset_bottom = -64.0
 
-[node name="LocalPos2" type="Label" parent="."]
-offset_left = -44.0
-offset_top = -91.0
-offset_right = -4.0
-offset_bottom = -78.0
+[node name="LocalPos2" type="Label" parent="CardBase"]
+visible = false
+offset_left = -36.0
+offset_top = -77.0
+offset_right = 4.0
+offset_bottom = -64.0
 text = "Local"
 
-[node name="CardDescription" type="Label" parent="."]
+[node name="CardDescription" type="Label" parent="CardBase"]
 anchors_preset = -1
 anchor_left = 0.115
 anchor_top = 0.641
 anchor_right = 0.885
 anchor_bottom = 0.937
-offset_left = -37.0
-offset_top = -46.0
-offset_right = 38.0
-offset_bottom = -6.99999
+offset_left = -48.04
+offset_top = -126.048
+offset_right = -47.96
+offset_bottom = -125.936
 grow_horizontal = 2
 grow_vertical = 0
 theme = SubResource("Theme_na5um")
 text = "Deal 10 dmg to target."
 autowrap_mode = 2
 
-[node name="CardName" type="Label" parent="."]
+[node name="CardName" type="Label" parent="CardBase"]
 anchors_preset = -1
 anchor_left = 0.115
 anchor_top = 0.016
 anchor_right = 0.885
 anchor_bottom = 0.117
-offset_left = -37.0
-offset_top = -126.0
-offset_right = 29.0
-offset_bottom = -113.0
+offset_left = -48.04
+offset_top = -128.048
+offset_right = -47.96
+offset_bottom = -127.976
 theme = SubResource("Theme_na5um")
 text = "Missing Data"
 
@@ -276,7 +277,6 @@ collision_layer = 0
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseOverSound/Area2D"]
-position = Vector2(0, -64)
 shape = SubResource("RectangleShape2D_x644a")
 
 [node name="CardMouseover" type="Area2D" parent="MouseOverSound"]
@@ -285,7 +285,6 @@ collision_mask = 0
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MouseOverSound/CardMouseover"]
-position = Vector2(0, -64)
 shape = SubResource("RectangleShape2D_3mv2h")
 
 [node name="ValidDropSound" type="AudioStreamPlayer2D" parent="."]
@@ -295,7 +294,7 @@ stream = SubResource("AudioStreamRandomizer_y6go0")
 stream = SubResource("AudioStreamRandomizer_futsg")
 
 [node name="CardShimmer" type="GPUParticles2D" parent="."]
-position = Vector2(-48, -128)
+position = Vector2(-48, -64)
 emitting = false
 amount = 50
 process_material = SubResource("ParticleProcessMaterial_e5mar")
@@ -315,3 +314,4 @@ libraries = {
 [connection signal="input_event" from="MouseOverSound/CardMouseover" to="." method="_on_card_mouseover_input_event"]
 [connection signal="mouse_entered" from="MouseOverSound/CardMouseover" to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MouseOverSound/CardMouseover" to="." method="_on_mouse_exited"]
+[connection signal="animation_finished" from="CardAnimations" to="." method="_on_card_animations_animation_finished"]

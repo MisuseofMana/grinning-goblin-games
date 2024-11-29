@@ -1,13 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://djohhgy8xv8w0"]
+[gd_scene load_steps=9 format=3 uid="uid://ds00fm2wg81wp"]
 
 [ext_resource type="Script" path="res://components/hand_of_cards.gd" id="1_50x24"]
+[ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/presentational_card.tscn" id="1_ugjcr"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
+[ext_resource type="PackedScene" uid="uid://babdevi0twph6" path="res://components/discard_pile.tscn" id="6_cuw25"]
 
 [sub_resource type="Curve2D" id="Curve2D_wguu1"]
 _data = {
-"points": PackedVector2Array(-59.35, 30.0785, 59.35, -30.0785, 90, 0, -60.3324, -30.1761, 60.3324, 30.1761, 550, 0)
+"points": PackedVector2Array(-59.98, 9.91976, 59.98, -9.91976, 90, 0, -60.0174, -9.07242, 60.0174, 9.07242, 550, 0)
 }
 point_count = 2
 
@@ -18,9 +20,21 @@ stream_0/stream = ExtResource("3_dbsbv")
 stream_1/stream = ExtResource("4_wc7mt")
 stream_2/stream = ExtResource("5_3h3ci")
 
-[node name="CardArc" type="Path2D"]
-curve = SubResource("Curve2D_wguu1")
+[node name="CardInterface" type="Node2D"]
 script = ExtResource("1_50x24")
+
+[node name="CardArc" type="Path2D" parent="."]
+curve = SubResource("Curve2D_wguu1")
+
+[node name="CardFollowPath" type="PathFollow2D" parent="CardArc"]
+position = Vector2(90, 0)
+rotation = -0.163901
+rotates = false
+
+[node name="CardBase" parent="CardArc/CardFollowPath" instance=ExtResource("1_ugjcr")]
 
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")
+
+[node name="DiscardPile" parent="." instance=ExtResource("6_cuw25")]
+position = Vector2(606, -50)
