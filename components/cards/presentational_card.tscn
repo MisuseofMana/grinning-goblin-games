@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dkrt4twau3rbt"]
+[gd_scene load_steps=25 format=3 uid="uid://dkrt4twau3rbt"]
 
 [ext_resource type="Script" path="res://components/cards/presentational_card.gd" id="1_bicbb"]
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card-template.png" id="1_l1sgq"]
@@ -27,6 +27,12 @@ stream_0/stream = ExtResource("5_6366s")
 stream_1/stream = ExtResource("6_ovix3")
 stream_2/stream = ExtResource("7_jydti")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x644a"]
+size = Vector2(53, 77)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3mv2h"]
+size = Vector2(96, 128)
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_y6go0"]
 random_pitch = 1.2
 streams_count = 5
@@ -40,9 +46,6 @@ stream_4/stream = ExtResource("12_ow21d")
 random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("8_oex84")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x644a"]
-size = Vector2(53, 77)
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e5mar"]
 particle_flag_disable_z = true
@@ -201,6 +204,7 @@ _data = {
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_bicbb")
+card_data = {}
 
 [node name="CardBase" type="Sprite2D" parent="." groups=["cards_in_hand"]]
 texture = ExtResource("1_l1sgq")
@@ -208,6 +212,32 @@ offset = Vector2(0, -64)
 
 [node name="CardImageSlot" type="Sprite2D" parent="."]
 position = Vector2(0, -80)
+
+[node name="GlobalPos" type="Label" parent="."]
+offset_left = -13.0
+offset_top = -71.0
+offset_right = 27.0
+offset_bottom = -58.0
+
+[node name="GlobalPos2" type="Label" parent="."]
+offset_left = -44.0
+offset_top = -71.0
+offset_right = -4.0
+offset_bottom = -58.0
+text = "Global"
+
+[node name="LocalPos" type="Label" parent="."]
+offset_left = -16.0
+offset_top = -91.0
+offset_right = 24.0
+offset_bottom = -78.0
+
+[node name="LocalPos2" type="Label" parent="."]
+offset_left = -44.0
+offset_top = -91.0
+offset_right = -4.0
+offset_bottom = -78.0
+text = "Local"
 
 [node name="CardDescription" type="Label" parent="."]
 anchors_preset = -1
@@ -218,7 +248,7 @@ anchor_bottom = 0.937
 offset_left = -37.0
 offset_top = -46.0
 offset_right = 38.0
-offset_bottom = -7.0
+offset_bottom = -6.99999
 grow_horizontal = 2
 grow_vertical = 0
 theme = SubResource("Theme_na5um")
@@ -241,21 +271,31 @@ text = "Missing Data"
 [node name="MouseOverSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_fqe74")
 
+[node name="Area2D" type="Area2D" parent="MouseOverSound"]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseOverSound/Area2D"]
+position = Vector2(0, -64)
+shape = SubResource("RectangleShape2D_x644a")
+
+[node name="CardMouseover" type="Area2D" parent="MouseOverSound"]
+collision_layer = 2
+collision_mask = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MouseOverSound/CardMouseover"]
+position = Vector2(0, -64)
+shape = SubResource("RectangleShape2D_3mv2h")
+
 [node name="ValidDropSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_y6go0")
 
 [node name="ErrorSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_futsg")
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -62)
-shape = SubResource("RectangleShape2D_x644a")
-
 [node name="CardShimmer" type="GPUParticles2D" parent="."]
+position = Vector2(-48, -128)
 emitting = false
 amount = 50
 process_material = SubResource("ParticleProcessMaterial_e5mar")
@@ -270,5 +310,8 @@ libraries = {
 "": SubResource("AnimationLibrary_ysc62")
 }
 
-[connection signal="area_entered" from="Area2D" to="CardBase" method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="Area2D" to="CardBase" method="_on_area_2d_area_exited"]
+[connection signal="area_entered" from="MouseOverSound/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="MouseOverSound/Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="input_event" from="MouseOverSound/CardMouseover" to="." method="_on_card_mouseover_input_event"]
+[connection signal="mouse_entered" from="MouseOverSound/CardMouseover" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="MouseOverSound/CardMouseover" to="." method="_on_mouse_exited"]

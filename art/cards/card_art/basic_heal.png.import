@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://balvcoo4miss8"
-path="res://.godot/imported/magic-attack.png-ec0fc099ca29496713dcce3adc5c4cb7.ctex"
+uid="uid://b5p1xc0bcs58e"
+path="res://.godot/imported/basic_heal.png-1d499607078e45bb12811ae448d8ca48.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/cards/magic-attack.png"
-dest_files=["res://.godot/imported/magic-attack.png-ec0fc099ca29496713dcce3adc5c4cb7.ctex"]
+source_file="res://art/cards/card_art/basic_heal.png"
+dest_files=["res://.godot/imported/basic_heal.png-1d499607078e45bb12811ae448d8ca48.ctex"]
 
 [params]
 

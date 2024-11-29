@@ -23,6 +23,9 @@ UnitSprites="*res://globals/unit_sprites.gd"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/mode=4
+window/stretch/aspect="expand"
+window/stretch/scale=5.0
 window/stretch/scale_mode="integer"
 window/canvas_textures/default_texture_filter=0
 
@@ -36,6 +39,11 @@ cards_in_hand=""
 
 theme/custom_font="res://fonts/pixel-font.ttf"
 theme/default_font_antialiasing=0
+
+[layer_names]
+
+2d_physics/layer_1="Unit Card Collision"
+2d_physics/layer_2="Mouse Events"
 
 [rendering]
 

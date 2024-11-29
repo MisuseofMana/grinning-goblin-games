@@ -1,12 +1,21 @@
 extends Resource
-class_name CardData
+class_name BaseCard
 
-@export var card_name : String = ''
-@export var card_description : String = ''
-@export var card_image : Texture
-@export var card_effect_value : int = 0
+enum VALID_STATS {
+	muscle,
+	endurance,
+	knowledge,
+	finesse,
+	nuance,
+}
 
-@export_enum('self', 'enemy') var valid_target : String
-
-func cardEffect():
-	pass
+@export var card_name : String
+@export var readable_name : String
+@export var one_use : bool
+@export var targets_self : bool
+@export var base_value : int
+@export var play_cost : int
+@export var card_description : String
+@export var tool_tip : String
+@export var relevant_stats: Array[VALID_STATS]
+@export var card_image : Texture2D

@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://ds00fm2wg81wp"]
+[gd_scene load_steps=7 format=3 uid="uid://djohhgy8xv8w0"]
 
 [ext_resource type="Script" path="res://components/hand_of_cards.gd" id="1_50x24"]
-[ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/presentational_card.tscn" id="1_ugjcr"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
@@ -19,18 +18,9 @@ stream_0/stream = ExtResource("3_dbsbv")
 stream_1/stream = ExtResource("4_wc7mt")
 stream_2/stream = ExtResource("5_3h3ci")
 
-[node name="HandOfCards" type="Node2D"]
-script = ExtResource("1_50x24")
-
-[node name="CardArc" type="Path2D" parent="."]
-position = Vector2(-320, 0)
+[node name="CardArc" type="Path2D"]
 curve = SubResource("Curve2D_wguu1")
-
-[node name="CardFollowPath" type="PathFollow2D" parent="CardArc"]
-position = Vector2(90, 0)
-rotation = -0.469072
-
-[node name="CardBase" parent="CardArc/CardFollowPath" instance=ExtResource("1_ugjcr")]
+script = ExtResource("1_50x24")
 
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")

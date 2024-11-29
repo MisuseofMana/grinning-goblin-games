@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgw086s37h551"
-path="res://.godot/imported/poison.png-c733501fcecc4ade88b1dff0afb021f5.ctex"
+uid="uid://balvcoo4miss8"
+path="res://.godot/imported/basic_spell.png-83035a98d1d7bc1e6add67254b9ae882.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/cards/poison.png"
-dest_files=["res://.godot/imported/poison.png-c733501fcecc4ade88b1dff0afb021f5.ctex"]
+source_file="res://art/cards/card_art/basic_spell.png"
+dest_files=["res://.godot/imported/basic_spell.png-83035a98d1d7bc1e6add67254b9ae882.ctex"]
 
 [params]
 
