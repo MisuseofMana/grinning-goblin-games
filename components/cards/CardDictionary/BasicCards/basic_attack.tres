@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BaseCard" load_steps=3 format=3 uid="uid://cghmk0ptd0nco"]
+[gd_resource type="Resource" script_class="CardStats" load_steps=3 format=3 uid="uid://cghmk0ptd0nco"]
 
 [ext_resource type="Script" path="res://components/cards/CardDictionary/card_data_base.gd" id="1_k1hkh"]
 [ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic-attack.png" id="1_raj2j"]
@@ -15,3 +15,4 @@ card_description = "Deals %s physical dmg to target"
 tool_tip = "Use on enemies, deals physical damage depending on your %s."
 relevant_stats = Array[int]([0])
 card_image = ExtResource("1_raj2j")
+effect_types = Array[String](["phys_damage"])

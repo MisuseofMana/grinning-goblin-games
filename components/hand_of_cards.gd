@@ -5,7 +5,7 @@ extends Node2D
 @onready var paper_sound: AudioStreamPlayer2D = $PaperSound
 @onready var discard_pile = $DiscardPile
 
-@export var cards_in_hand : Array[BaseCard] = []
+@export var cards_in_hand : Array[CardStats] = []
 const PRESENTATIONAL_CARD = preload("res://components/cards/presentational_card.tscn")
 
 func _ready():
@@ -38,7 +38,7 @@ func add_random_card_to_hand():
 	var cardResourcePath = load("res://components/cards/CardDictionary/BasicCards/" + files[randomNum])
 	addCardToHand(cardResourcePath)
 
-func addCardToHand(cardResource: BaseCard):
+func addCardToHand(cardResource: CardStats):
 	var newFollowNode = PathFollow2D.new()
 	var newCard = PRESENTATIONAL_CARD.instantiate()
 	newCard.scale = Vector2(0,0)

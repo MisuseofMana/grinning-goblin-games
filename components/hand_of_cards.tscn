@@ -35,6 +35,7 @@ rotates = false
 
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")
+volume_db = -20.0
 
 [node name="DiscardPile" parent="." instance=ExtResource("6_cuw25")]
 position = Vector2(606, -50)

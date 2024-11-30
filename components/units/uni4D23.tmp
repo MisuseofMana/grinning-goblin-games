@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bcxxmjp1ch5pq"]
+[gd_scene load_steps=12 format=3 uid="uid://bcxxmjp1ch5pq"]
 
 [ext_resource type="Texture2D" uid="uid://bqt0p4o02gghr" path="res://art/cards/sprites/player/idle/1.png" id="1_mgs54"]
 [ext_resource type="Script" path="res://components/units/unit.gd" id="2_bjuv8"]
 [ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="3_r26nn"]
-[ext_resource type="Script" path="res://components/units/UnitDictionary/card-unit-resource.gd" id="3_yolc5"]
-[ext_resource type="Script" path="res://components/cards/CardDictionary/card_data_base.gd" id="4_2lhin"]
+[ext_resource type="Script" path="res://components/units/card-unit-resource.gd" id="3_yolc5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xiu6p"]
 atlas = ExtResource("1_mgs54")
@@ -27,8 +26,6 @@ script = ExtResource("3_yolc5")
 health = 0
 attack = 0
 defense = 0
-magicDefense = 0
-unit_effects = Array[ExtResource("4_2lhin")]([])
 animation_names = Array[String]([])
 character_type = ""
 is_self = false
@@ -51,8 +48,10 @@ height = 65.0
 [node name="UnitAnimations" type="AnimatedSprite2D"]
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ggplb")
+animation = &"idle"
 script = ExtResource("2_bjuv8")
 unit_data = SubResource("Resource_0j4po")
+unit_effects = null
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 anchors_preset = -1

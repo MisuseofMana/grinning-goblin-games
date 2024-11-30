@@ -1,5 +1,5 @@
 extends Resource
-class_name BaseCard
+class_name CardStats
 
 enum VALID_STATS {
 	muscle,
@@ -19,3 +19,5 @@ enum VALID_STATS {
 @export var tool_tip : String
 @export var relevant_stats: Array[VALID_STATS]
 @export var card_image : Texture2D
+
+@export_enum ('phys_damage', 'magic_damage', 'heal', 'phys_defense', 'magic_defense') var effect_types : Array[String]

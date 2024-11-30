@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bqt0p4o02gghr" path="res://art/cards/sprites/player/idle/1.png" id="10_uqbyo"]
 [ext_resource type="PackedScene" uid="uid://bcxxmjp1ch5pq" path="res://components/units/unit.tscn" id="11_33an0"]
 [ext_resource type="Texture2D" uid="uid://les728nm8bfi" path="res://art/cards/sprites/player/idle/2.png" id="11_74cr2"]
-[ext_resource type="Script" path="res://resources/card-unit-resource.gd" id="11_tqr67"]
+[ext_resource type="Script" path="res://components/units/UnitDictionary/card-unit-resource.gd" id="11_tqr67"]
 [ext_resource type="Texture2D" uid="uid://7btpwcm5w75a" path="res://art/cards/sprites/player/idle/3.png" id="12_qxffy"]
 [ext_resource type="Texture2D" uid="uid://877nw68ygge2" path="res://art/cards/sprites/player/idle/4.png" id="13_55avj"]
 [ext_resource type="Texture2D" uid="uid://dkdvhtq7kkiv0" path="res://art/cards/sprites/player/idle/5.png" id="14_sdcls"]
@@ -215,6 +215,8 @@ script = ExtResource("11_tqr67")
 health = 100
 attack = 10
 defense = 2
+magicDefense = 0
+unit_effects = Array[ExtResource("16_15rmn")]([])
 animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
@@ -413,6 +415,8 @@ script = ExtResource("11_tqr67")
 health = 30
 attack = 7
 defense = 0
+magicDefense = 0
+unit_effects = Array[ExtResource("16_15rmn")]([])
 animation_names = Array[String](["idle"])
 character_type = "goblin"
 is_self = false
@@ -611,6 +615,8 @@ script = ExtResource("11_tqr67")
 health = 30
 attack = 7
 defense = 0
+magicDefense = 0
+unit_effects = Array[ExtResource("16_15rmn")]([])
 animation_names = Array[String](["idle"])
 character_type = "goblin"
 is_self = false
@@ -632,8 +638,6 @@ position = Vector2(90, 160)
 sprite_frames = SubResource("SpriteFrames_2grej")
 animation = &"idle"
 autoplay = "idle"
-frame = 21
-frame_progress = 0.984812
 unit_data = SubResource("Resource_y7boo")
 
 [node name="UnitAnimations2" parent="Units" instance=ExtResource("11_33an0")]
@@ -652,7 +656,7 @@ unit_data = SubResource("Resource_5itrb")
 
 [node name="CardInterface" parent="." instance=ExtResource("18_0mdec")]
 position = Vector2(0, 360)
-cards_in_hand = Array[ExtResource("16_15rmn")]([ExtResource("17_kqwmg"), ExtResource("17_kqwmg"), ExtResource("18_mqtdu"), ExtResource("19_br2vs"), ExtResource("20_cbk8n")])
+cards_in_hand = [ExtResource("17_kqwmg"), ExtResource("17_kqwmg"), ExtResource("18_mqtdu"), ExtResource("19_br2vs"), ExtResource("20_cbk8n")]
 
 [node name="Button" type="Button" parent="."]
 offset_left = 10.0

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BaseCard" load_steps=3 format=3 uid="uid://lukw234e1e6j"]
+[gd_resource type="Resource" script_class="CardStats" load_steps=3 format=3 uid="uid://lukw234e1e6j"]
 
 [ext_resource type="Texture2D" uid="uid://crh46ebsb881q" path="res://art/cards/card_art/basic_ward.png" id="1_ladgr"]
 [ext_resource type="Script" path="res://components/cards/CardDictionary/card_data_base.gd" id="1_t41lj"]
@@ -15,3 +15,4 @@ card_description = "Prevent %s magic dmg"
 tool_tip = "Prevents magical damage this turn based on your %s. Ward dissapears at the end of each turn."
 relevant_stats = Array[int]([2])
 card_image = ExtResource("1_ladgr")
+effect_types = Array[String](["magic_defense"])

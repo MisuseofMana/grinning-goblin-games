@@ -197,6 +197,7 @@ position = Vector2(0, -64)
 script = ExtResource("1_bicbb")
 
 [node name="CardBase" type="TextureRect" parent="." groups=["cards_in_hand"]]
+anchors_preset = -1
 offset_left = -48.0
 offset_top = -64.0
 offset_right = 48.0
@@ -215,7 +216,6 @@ texture = ExtResource("3_2h55d")
 
 [node name="GlobalPos" type="Label" parent="CardBase"]
 visible = false
-layout_mode = 0
 offset_left = 43.0
 offset_top = 66.0
 offset_right = 83.0
@@ -223,7 +223,6 @@ offset_bottom = 79.0
 
 [node name="GlobalPos2" type="Label" parent="CardBase"]
 visible = false
-layout_mode = 0
 offset_left = 12.0
 offset_top = 66.0
 offset_right = 52.0
@@ -232,7 +231,6 @@ text = "Global"
 
 [node name="LocalPos" type="Label" parent="CardBase"]
 visible = false
-layout_mode = 0
 offset_left = 40.0
 offset_top = 55.0
 offset_right = 80.0
@@ -240,7 +238,6 @@ offset_bottom = 68.0
 
 [node name="LocalPos2" type="Label" parent="CardBase"]
 visible = false
-layout_mode = 0
 offset_left = 12.0
 offset_top = 55.0
 offset_right = 52.0

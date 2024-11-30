@@ -1,7 +1,7 @@
 @tool
 class_name Unit extends AnimatedSprite2D
 
-@export var unit_data : CardUnitStats
+@export var unit_data : UnitStats
 @onready var unit_animations = $"."
 @onready var health_num = $Label
 @onready var health_bar = $ProgressBar
@@ -33,4 +33,3 @@ func setAnimationFrames(path, animation_name):
 			file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the path.")
-		
