@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddae4mu1b4gan"
-path="res://.godot/imported/main-dwarf-1.png-63473f000a8525b11e4d52533b1551df.ctex"
+uid="uid://c6hlptlrrjsu6"
+path="res://.godot/imported/basic_attack.png-593f897f52bb1d10a281cda6ae2040fc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/main-dwarf-1.png"
-dest_files=["res://.godot/imported/main-dwarf-1.png-63473f000a8525b11e4d52533b1551df.ctex"]
+source_file="res://art/cards/card_art/basic_attack.png"
+dest_files=["res://.godot/imported/basic_attack.png-593f897f52bb1d10a281cda6ae2040fc.ctex"]
 
 [params]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://20dx12yfr2og"]
 
 [ext_resource type="Script" path="res://scenes/walking_path.gd" id="1_hsqoa"]
-[ext_resource type="Texture2D" uid="uid://870hxfjvfylx" path="res://art/main-dwarf-2.png" id="2_m3gle"]
+[ext_resource type="Texture2D" uid="uid://870hxfjvfylx" path="res://art/units/main-dwarf-2.png" id="2_m3gle"]
 
 [sub_resource type="Curve2D" id="Curve2D_i3ole"]
 _data = {

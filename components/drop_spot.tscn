@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cbhupu7nchxpt"]
 
-[ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui-tile.png" id="1_7aen7"]
+[ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="1_7aen7"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_6hbr4"]
 

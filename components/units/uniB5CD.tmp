@@ -1,9 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://bcxxmjp1ch5pq"]
+[gd_scene load_steps=18 format=3 uid="uid://bcxxmjp1ch5pq"]
 
 [ext_resource type="Texture2D" uid="uid://bqt0p4o02gghr" path="res://art/cards/sprites/player/idle/1.png" id="1_mgs54"]
 [ext_resource type="Script" path="res://components/units/unit.gd" id="2_bjuv8"]
 [ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="3_r26nn"]
-[ext_resource type="PackedScene" uid="uid://dfdmlwetrjcw3" path="res://components/counters/counters.tscn" id="6_7hb3m"]
+[ext_resource type="Script" path="res://components/units/UnitDictionary/card-unit-resource.gd" id="3_yolc5"]
+[ext_resource type="Script" path="res://components/cards/CardDictionary/card_data_base.gd" id="4_2lhin"]
+[ext_resource type="Texture2D" uid="uid://cos7ix7u2m2bv" path="res://art/cards/card_art/basic-defend.png" id="6_3iqmo"]
+[ext_resource type="Texture2D" uid="uid://crh46ebsb881q" path="res://art/cards/card_art/basic_ward.png" id="7_reuyb"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xiu6p"]
 atlas = ExtResource("1_mgs54")
@@ -21,6 +24,18 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Resource" id="Resource_0j4po"]
+script = ExtResource("3_yolc5")
+health = 0
+max_health = null
+attack = 0
+defense = 0
+magicDefense = 0
+unit_effects = Array[ExtResource("4_2lhin")]([])
+animation_names = Array[String]([])
+character_type = ""
+is_self = false
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t265q"]
 bg_color = Color(0.450602, 0.396075, 0.449967, 1)
 
@@ -35,21 +50,6 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_nmasm")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qyrwg"]
 height = 65.0
-
-[sub_resource type="Animation" id="Animation_fdved"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_167ou"]
 resource_name = "take_damage"
@@ -67,6 +67,21 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(0.940747, 0.103831, 0, 1), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_fdved"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibgll"]
 _data = {
 "RESET": SubResource("Animation_fdved"),
@@ -77,6 +92,7 @@ _data = {
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_ggplb")
 script = ExtResource("2_bjuv8")
+unit_data = SubResource("Resource_0j4po")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 anchors_preset = -1
@@ -91,8 +107,8 @@ offset_bottom = -31.992
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_p8d54")
-max_value = 0.0
 step = 1.0
+value = 50.0
 show_percentage = false
 
 [node name="Label" type="Label" parent="."]
@@ -102,9 +118,9 @@ anchor_top = -0.359
 anchor_right = 0.812
 anchor_bottom = -0.156
 offset_left = -31.968
-offset_top = -31.024
+offset_top = -32.024
 offset_right = -31.968
-offset_bottom = -31.016
+offset_bottom = -32.016
 theme_override_constants/outline_size = 3
 text = "0/0"
 horizontal_alignment = 1
@@ -121,9 +137,48 @@ libraries = {
 "": SubResource("AnimationLibrary_ibgll")
 }
 
-[node name="Counters" parent="." instance=ExtResource("6_7hb3m")]
-offset_left = -24.0
-offset_top = -67.0
-offset_right = 212.0
-offset_bottom = -6.0
-scale = Vector2(0.21, 0.21)
+[node name="Counters" type="Node2D" parent="."]
+
+[node name="Armor" type="Sprite2D" parent="Counters"]
+position = Vector2(18.5, -37)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("6_3iqmo")
+
+[node name="Label" type="Label" parent="Counters/Armor"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -73.0
+offset_top = -65.5
+offset_right = 2.0
+offset_bottom = -5.5
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ward" type="Sprite2D" parent="Counters"]
+position = Vector2(25, -37)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("7_reuyb")
+
+[node name="Label" type="Label" parent="Counters/Ward"]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -73.0
+offset_top = -65.5001
+offset_right = 2.00001
+offset_bottom = -5.50006
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1

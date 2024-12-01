@@ -19,7 +19,6 @@ class_name Card extends Node2D
 
 signal add_to_discard_number(howMany)
 signal handle_card_deletion(nodeReference)
-signal handle_card_effect(cardFunction)
 
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
 
@@ -73,7 +72,6 @@ func _on_card_base_gui_input(event):
 					
 					var card_effects : Array
 					for effect in card_data.effect_types:
-						print(effect)
 						card_effects.append({
 							'name': effect,
 							'value': card_data.base_value

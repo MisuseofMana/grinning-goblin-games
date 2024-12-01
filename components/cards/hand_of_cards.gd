@@ -6,7 +6,7 @@ extends Node2D
 @onready var discard_pile = $DiscardPile
 
 @export var cards_in_hand : Array[CardStats] = []
-const PRESENTATIONAL_CARD = preload("res://components/cards/presentational_card.tscn")
+const PRESENTATIONAL_CARD = preload("res://components/cards/card.tscn")
 
 func _ready():
 #	clear out the test cards in the arc

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4tw1vyp0qim5"]
+
+[ext_resource type="Texture2D" uid="uid://cos7ix7u2m2bv" path="res://art/cards/card_art/basic-defend.png" id="1_mk325"]
+[ext_resource type="Script" path="res://components/counters/counter_item.gd" id="2_4pwcc"]
+
+[node name="CounterIcon" type="TextureRect"]
+texture = ExtResource("1_mk325")
+script = ExtResource("2_4pwcc")
+
+[node name="NumberLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 80.0
+offset_bottom = 51.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 64
+text = "1"
+horizontal_alignment = 1

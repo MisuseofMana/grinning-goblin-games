@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="merge-test-game"
-run/main_scene="res://scenes/card-dragging.tscn"
+run/main_scene="res://scenes/battle-scene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
@@ -23,7 +23,7 @@ UnitSprites="*res://globals/unit_sprites.gd"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-mouse_cursor/custom_image="res://art/cursor.png"
+mouse_cursor/custom_image="res://art/ui/cursor.png"
 window/canvas_textures/default_texture_filter=0
 
 [global_group]

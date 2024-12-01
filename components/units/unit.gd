@@ -5,15 +5,15 @@ class_name Unit extends AnimatedSprite2D
 @onready var unit_animations = $"."
 @onready var health_num = $Label
 @onready var health_bar = $ProgressBar
+@onready var anims = $AnimationPlayer
+@onready var counters = $Counters
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-#	set health label
-	var max_health = unit_data.health
-	health_num.text = str(unit_data.health, "/", max_health)
-#	set health bar
-	health_bar.max_value = unit_data.health
-	health_bar.value = unit_data.health
+	unit_data.unit = self	
+	health_bar.max_value = unit_data.max_health
+	updateHealthDisplay()
+	unit_data.health_reduced.connect(subtractFromHealth)
+	unit_data.counters_changed.connect(updateCounterDisplay)
 	
 #	add new animation name
 	for animation_name in unit_data.animation_names:
@@ -33,3 +33,15 @@ func setAnimationFrames(path, animation_name):
 			file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the path.")
+		
+func subtractFromHealth():
+	anims.play("take_damage")
+	unit_data.health -= 1
+	updateHealthDisplay()
+
+func updateHealthDisplay():
+	health_num.text = str(unit_data.health, "/", unit_data.max_health)
+	health_bar.value = unit_data.health
+	
+func updateCounterDisplay(counterType):
+	counters.addCounter(counterType)

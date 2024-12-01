@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CounterType" load_steps=3 format=3 uid="uid://dj4d0nwgcjmgy"]
+
+[ext_resource type="Script" path="res://components/counters/counter_resource.gd" id="1_ldt2a"]
+[ext_resource type="Texture2D" uid="uid://crh46ebsb881q" path="res://art/cards/card_art/basic_ward.png" id="1_t1gl0"]
+
+[resource]
+script = ExtResource("1_ldt2a")
+icon = ExtResource("1_t1gl0")
+value = 0
+counter_type = "ward"

@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bmymqsr2pc8r3"
-path="res://.godot/imported/Ancient_Game_Rally_Collect_1.wav-d69d556fefb8e6a1fdd55e66f29a6f5c.sample"
+path="res://.godot/imported/card_drop_1.wav-6564cf90786f527fafc5c22943e72157.sample"
 
 [deps]
 
-source_file="res://audio/Ancient_Game_Rally_Collect_1.wav"
-dest_files=["res://.godot/imported/Ancient_Game_Rally_Collect_1.wav-d69d556fefb8e6a1fdd55e66f29a6f5c.sample"]
+source_file="res://audio/card_drop_1.wav"
+dest_files=["res://.godot/imported/card_drop_1.wav-6564cf90786f527fafc5c22943e72157.sample"]
 
 [params]
 

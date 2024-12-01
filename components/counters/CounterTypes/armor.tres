@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CounterType" load_steps=3 format=3 uid="uid://0ohlp7wyhcde"]
+
+[ext_resource type="Script" path="res://components/counters/counter_resource.gd" id="1_iinnk"]
+[ext_resource type="Texture2D" uid="uid://cos7ix7u2m2bv" path="res://art/cards/card_art/basic-defend.png" id="1_ubgtg"]
+
+[resource]
+script = ExtResource("1_iinnk")
+icon = ExtResource("1_ubgtg")
+value = 0
+counter_type = "armor"

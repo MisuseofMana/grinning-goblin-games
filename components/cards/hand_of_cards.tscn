@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://ds00fm2wg81wp"]
 
-[ext_resource type="Script" path="res://components/hand_of_cards.gd" id="1_50x24"]
-[ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/presentational_card.tscn" id="1_ugjcr"]
+[ext_resource type="Script" path="res://components/cards/hand_of_cards.gd" id="1_50x24"]
+[ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/card.tscn" id="1_ugjcr"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
@@ -27,8 +27,9 @@ script = ExtResource("1_50x24")
 curve = SubResource("Curve2D_wguu1")
 
 [node name="CardFollowPath" type="PathFollow2D" parent="CardArc"]
-position = Vector2(90, 0)
+position = Vector2(204.884, -6.09793)
 rotation = -0.163901
+progress = 115.108
 rotates = false
 
 [node name="CardBase" parent="CardArc/CardFollowPath" instance=ExtResource("1_ugjcr")]

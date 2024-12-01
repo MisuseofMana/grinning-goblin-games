@@ -1,17 +1,17 @@
 [gd_scene load_steps=24 format=3 uid="uid://dkrt4twau3rbt"]
 
-[ext_resource type="Script" path="res://components/cards/presentational_card.gd" id="1_bicbb"]
+[ext_resource type="Script" path="res://components/cards/card.gd" id="1_bicbb"]
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card-template.png" id="1_l1sgq"]
-[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic-attack.png" id="3_2h55d"]
+[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="3_2h55d"]
 [ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="3_4yixl"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="5_6366s"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="6_ovix3"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="7_jydti"]
 [ext_resource type="AudioStream" uid="uid://cenkn62k76yu2" path="res://audio/failed_card_drop.wav" id="8_oex84"]
-[ext_resource type="AudioStream" uid="uid://c7ujf2yspx3kd" path="res://audio/valid_drop_sound.wav" id="8_qevuh"]
-[ext_resource type="AudioStream" uid="uid://bmymqsr2pc8r3" path="res://audio/Ancient_Game_Rally_Collect_1.wav" id="10_mew1c"]
-[ext_resource type="AudioStream" uid="uid://ccnlum7wv4pej" path="res://audio/Ancient_Game_Rally_Collect_2.wav" id="11_ik4ul"]
-[ext_resource type="AudioStream" uid="uid://dino3c5yktk1d" path="res://audio/Anicent_Game_Positive_Achievement_2.wav" id="12_ow21d"]
+[ext_resource type="AudioStream" uid="uid://c7ujf2yspx3kd" path="res://audio/card_drop_4.wav" id="8_qevuh"]
+[ext_resource type="AudioStream" uid="uid://bmymqsr2pc8r3" path="res://audio/card_drop_1.wav" id="10_mew1c"]
+[ext_resource type="AudioStream" uid="uid://ccnlum7wv4pej" path="res://audio/card_drop_2.wav" id="11_ik4ul"]
+[ext_resource type="AudioStream" uid="uid://dino3c5yktk1d" path="res://audio/card_drop_3.wav" id="12_ow21d"]
 
 [sub_resource type="Theme" id="Theme_na5um"]
 default_font = ExtResource("3_4yixl")
