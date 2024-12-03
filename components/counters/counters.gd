@@ -4,9 +4,9 @@ extends GridContainer
 
 const COUNTER_ITEM = preload("res://components/counters/counter_item.tscn")
 
-var counters : Array[CounterType] = []
+var counters : Array[CounterStats] = []
 
-func addCounter(counter: CounterType):
+func addCounter(counter: CounterStats):
 	var allCounters = grid.get_children()
 	for counterNode : CounterItem in allCounters:
 		if counter == counterNode.counter_data:

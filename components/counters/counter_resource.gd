@@ -1,5 +1,5 @@
 extends Resource
-class_name CounterType
+class_name CounterStats
 
 @export var icon : Texture2D = null
 @export var value : int = 0

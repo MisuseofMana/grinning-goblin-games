@@ -1,7 +1,7 @@
 extends TextureRect
 class_name CounterItem
 
-@export var counter_data : CounterType
+@export var counter_data : CounterStats
 
 @onready var counter_icon = $"."
 @onready var number_label = $NumberLabel

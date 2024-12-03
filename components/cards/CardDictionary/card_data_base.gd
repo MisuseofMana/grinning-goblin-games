@@ -21,3 +21,8 @@ enum VALID_STATS {
 @export var card_image : Texture2D
 
 @export_enum ('phys_damage', 'magic_damage', 'heal', 'phys_defense', 'magic_defense') var effect_types : Array[String]
+
+#meant to be overwritten in extended CardStats scripts 
+func card_effect(unit: Unit):
+	print('no overwritten up card_effect function!')
+	pass
