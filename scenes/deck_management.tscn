@@ -1,0 +1,191 @@
+[gd_scene load_steps=11 format=3 uid="uid://dxepjdqdt2il8"]
+
+[ext_resource type="Script" path="res://scenes/deck_management.gd" id="1_f5tgn"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="2_ck3xd"]
+[ext_resource type="Resource" uid="uid://c534yv87m0b1" path="res://components/cards/CardDictionary/AttackCards/basic_phys_attack.tres" id="2_k3ojo"]
+[ext_resource type="Resource" uid="uid://c4k3kk3bkrtt7" path="res://components/cards/CardDictionary/DefenseCards/basic_defend.tres" id="4_h6y6i"]
+[ext_resource type="PackedScene" uid="uid://d3ras73xd8xmc" path="res://components/cards/card_display.tscn" id="5_iseht"]
+[ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="5_xc56l"]
+[ext_resource type="Texture2D" uid="uid://d0xlqp73dk02o" path="res://art/deck_arrow.png" id="7_fkg7o"]
+[ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="8_6xuvn"]
+[ext_resource type="Texture2D" uid="uid://d1dpxfnhtcd1v" path="res://art/deck_arrow_left.png" id="8_xbiwc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1xpe"]
+size = Vector2(236, 202)
+
+[node name="DeckManagement" type="Node2D"]
+position = Vector2(6, 0)
+script = ExtResource("1_f5tgn")
+cardsOwned = Array[ExtResource("2_ck3xd")]([ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("4_h6y6i"), ExtResource("4_h6y6i"), ExtResource("4_h6y6i")])
+
+[node name="Library" type="ScrollContainer" parent="."]
+offset_top = 44.0
+offset_right = 344.0
+offset_bottom = 329.0
+scale = Vector2(0.8, 0.8)
+theme = ExtResource("5_xc56l")
+horizontal_scroll_mode = 0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="CardOptions" type="GridContainer" parent="Library"]
+layout_mode = 2
+theme = ExtResource("5_xc56l")
+columns = 3
+
+[node name="Control" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control2" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control3" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control4" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control5" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control6" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control7" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control8" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control9" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control10" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control11" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control12" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control13" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control14" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control15" parent="Library/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Deck" type="ScrollContainer" parent="."]
+offset_left = 346.0
+offset_top = 44.0
+offset_right = 690.0
+offset_bottom = 329.0
+scale = Vector2(0.8, 0.8)
+theme = ExtResource("5_xc56l")
+horizontal_scroll_mode = 0
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[node name="CardOptions" type="GridContainer" parent="Deck"]
+layout_mode = 2
+theme = ExtResource("5_xc56l")
+columns = 3
+
+[node name="Control" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control2" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control3" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control4" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control5" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control6" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control7" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control8" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control9" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control10" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control11" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control12" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control13" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control14" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control15" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="RightArrow" type="TextureRect" parent="."]
+offset_left = 302.0
+offset_top = 161.0
+offset_right = 342.0
+offset_bottom = 201.0
+texture = ExtResource("7_fkg7o")
+metadata/_edit_use_anchors_ = true
+
+[node name="LeftArrow" type="TextureRect" parent="."]
+offset_left = 284.0
+offset_top = 125.0
+offset_right = 324.0
+offset_bottom = 165.0
+texture = ExtResource("8_xbiwc")
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 346.0
+offset_right = 613.0
+offset_bottom = 44.0
+theme_override_fonts/font = ExtResource("8_6xuvn")
+theme_override_font_sizes/font_size = 32
+text = "DECK"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="."]
+offset_right = 267.0
+offset_bottom = 44.0
+theme_override_fonts/font = ExtResource("8_6xuvn")
+theme_override_font_sizes/font_size = 32
+text = "CARD LIBRARY"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CardLibraryArea" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CardLibraryArea"]
+position = Vector2(137, 163)
+shape = SubResource("RectangleShape2D_s1xpe")
+
+[node name="DeckLibraryArea" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeckLibraryArea"]
+position = Vector2(484, 160)
+shape = SubResource("RectangleShape2D_s1xpe")

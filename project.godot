@@ -18,13 +18,14 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 Globals="*res://globals/globals.gd"
 UnitSprites="*res://globals/unit_sprites.gd"
+GameLogic="*res://globals/game_logic.gd"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/mode=4
 window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="res://art/ui/cursor.png"
 window/canvas_textures/default_texture_filter=0
@@ -34,6 +35,7 @@ window/canvas_textures/default_texture_filter=0
 drop_spot_group=""
 level_dots=""
 cards_in_hand=""
+player="contains reference to the player as a unit"
 
 [gui]
 

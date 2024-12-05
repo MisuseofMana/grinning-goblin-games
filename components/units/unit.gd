@@ -1,34 +1,32 @@
 @tool
-class_name Unit extends Node2D
+extends Node2D
+class_name Unit
 
-@export var unit_data : UnitStats
+@export var unit_stats : UnitStats
 @onready var unit_sprite: AnimatedSprite2D = $UnitSprite
-@onready var health_bar: ProgressBar = $ProgressBar
-@onready var health_num: Label = $Label
+@onready var health_bar: ProgressBar = $ReadoutContainer/ProgressBar
+@onready var health_num: Label = $ReadoutContainer/Label
 @onready var anims: AnimationPlayer = $AnimationPlayer
-@onready var counters: GridContainer = $Counters
+
+signal tokens_updated(unit_stats: UnitStats)
 
 func _ready():
-	unit_data.unit = self	
-	health_bar.max_value = unit_data.max_health
+	health_bar.max_value = unit_stats.stats.max_health
 	updateHealthDisplay()
-	unit_data.counters_changed.connect(updateCounterDisplay)
 	
 #	add new animation name
-	for animation_name in unit_data.animation_names:
+	for animation_name in unit_stats.animation_names:
 		if not unit_sprite.sprite_frames.has_animation(animation_name):
 			unit_sprite.sprite_frames.add_animation(animation_name)
-			setAnimationFrames('res://art/cards/sprites/' + unit_data.character_type + '/' + animation_name + '/', animation_name)
+			setAnimationFrames('res://art/cards/sprites/' + unit_stats.character_type + '/' + animation_name + '/', animation_name)
 	unit_sprite.animation = 'idle'
 
 func die():
-	if unit_data.character_type == 'self':
+	if unit_stats.is_self:
 		print('game over')
-	elif unit_data.character_type == 'enemy':
-#		destroy self
-		pass
+	else:
+		anims.play('death_animation')
 		
-
 func setAnimationFrames(path, animation_name):
 	var dir = DirAccess.open(path)
 	if dir:
@@ -43,14 +41,20 @@ func setAnimationFrames(path, animation_name):
 		
 func subtractFromHealth():
 	anims.play("take_damage")
-	unit_data.health -= 1
+	unit_stats.stats.health -= 1
 	updateHealthDisplay()
-	if unit_data.health <= 0:
+	if unit_stats.stats.health <= 0:
 		die()
 
+func addToHealth():
+	anims.play("heal")
+	unit_stats.health += 1
+	updateHealthDisplay()
+
 func updateHealthDisplay():
-	health_num.text = str(unit_data.health, "/", unit_data.max_health)
-	health_bar.value = unit_data.health
+	health_num.text = str(unit_stats.stats.health, "/", unit_stats.stats.max_health)
+	health_bar.value = unit_stats.stats.health
+
+func updateTokens():
+	tokens_updated.emit(unit_stats.tokens)
 	
-func updateCounterDisplay(counterType):
-	counters.addCounter(counterType)

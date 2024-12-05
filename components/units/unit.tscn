@@ -1,9 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://bcxxmjp1ch5pq"]
+[gd_scene load_steps=17 format=3 uid="uid://bcxxmjp1ch5pq"]
 
 [ext_resource type="Texture2D" uid="uid://bqt0p4o02gghr" path="res://art/cards/sprites/player/idle/1.png" id="1_mgs54"]
 [ext_resource type="Script" path="res://components/units/unit.gd" id="2_bjuv8"]
 [ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="3_r26nn"]
-[ext_resource type="PackedScene" uid="uid://dfdmlwetrjcw3" path="res://components/counters/counters.tscn" id="6_7hb3m"]
+[ext_resource type="PackedScene" uid="uid://dfdmlwetrjcw3" path="res://components/tokens/token_display.tscn" id="6_7hb3m"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xxujh"]
+radius = 11.5
+height = 6.4e+06
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xiu6p"]
 atlas = ExtResource("1_mgs54")
@@ -20,10 +24,6 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xxujh"]
-radius = 11.5
-height = 6.4e+06
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t265q"]
 bg_color = Color(0.450602, 0.396075, 0.449967, 1)
@@ -90,7 +90,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -126,12 +126,11 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -64)]
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_jheq4"]
 resource_name = "death_animation"
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -192,6 +191,34 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(0, -64)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.690242, 0, 0.152347, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xov0y"]
+resource_name = "heal"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.318345, 0.801352, 0, 1), Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_167ou"]
 resource_name = "take_damage"
@@ -213,38 +240,41 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_fdved"),
 "death_animation": SubResource("Animation_jheq4"),
+"heal": SubResource("Animation_xov0y"),
 "take_damage": SubResource("Animation_167ou")
 }
 
 [node name="Unit" type="Node2D"]
 script = ExtResource("2_bjuv8")
 
-[node name="UnitSprite" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_ggplb")
-offset = Vector2(0, -64)
-
-[node name="Area2D" type="Area2D" parent="UnitSprite"]
-scale = Vector2(1, 1e-05)
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(2, 2e-05)
 collision_mask = 0
 monitoring = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UnitSprite/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-0.5, 0)
 shape = SubResource("CapsuleShape2D_xxujh")
 one_way_collision_margin = 0.0
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="UnitSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ggplb")
+
+[node name="ReadoutContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProgressBar" type="ProgressBar" parent="ReadoutContainer"]
 custom_minimum_size = Vector2(40, 5)
+layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.281
-anchor_top = -0.109
-anchor_right = 0.719
-anchor_bottom = -0.047
-offset_left = -19.5
+offset_left = -28.5
 offset_top = -76.0
-offset_right = 20.5
-offset_bottom = -71.0
+offset_right = 29.02
+offset_bottom = -68.52
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_p8d54")
@@ -252,19 +282,33 @@ max_value = 0.0
 step = 1.0
 show_percentage = false
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="ReadoutContainer"]
+layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.187
-anchor_top = -0.359
-anchor_right = 0.812
-anchor_bottom = -0.156
-offset_left = -12.0
+offset_left = -25.0
 offset_top = -92.0
-offset_right = 13.0
-offset_bottom = -69.0
+offset_right = 25.0
+offset_bottom = -79.0
 theme_override_constants/outline_size = 3
 text = "0/0"
 horizontal_alignment = 1
+
+[node name="TokenContainer" parent="ReadoutContainer" instance=ExtResource("6_7hb3m")]
+layout_mode = 0
+offset_left = -47.0
+offset_top = -118.0
+offset_right = 189.0
+offset_bottom = -57.0
+scale = Vector2(0.4, 0.4)
+
+[node name="UnitParticles" type="GPUParticles2D" parent="."]
+position = Vector2(-1, -0.00025)
+scale = Vector2(0.336442, 1e-05)
+emitting = false
+amount = 400
+process_material = SubResource("ParticleProcessMaterial_ab5fk")
+explosiveness = 0.5
+randomness = 0.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../UnitSprite")
@@ -272,17 +316,4 @@ libraries = {
 "": SubResource("AnimationLibrary_ibgll")
 }
 
-[node name="Counters" parent="." instance=ExtResource("6_7hb3m")]
-offset_left = -48.0
-offset_top = -0.00067
-offset_right = 188.0
-offset_bottom = 60.9993
-scale = Vector2(0.21, 0.21)
-
-[node name="UnitParticles" type="GPUParticles2D" parent="."]
-position = Vector2(-1, -0.00025)
-scale = Vector2(0.336442, 1e-05)
-amount = 400
-process_material = SubResource("ParticleProcessMaterial_ab5fk")
-explosiveness = 0.5
-randomness = 0.5
+[connection signal="tokens_updated" from="." to="ReadoutContainer/TokenContainer" method="updateTokens"]

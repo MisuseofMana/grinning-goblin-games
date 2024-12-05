@@ -1,0 +1,117 @@
+[gd_scene load_steps=6 format=3 uid="uid://d3ras73xd8xmc"]
+
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card-template.png" id="1_iwbxp"]
+[ext_resource type="Script" path="res://components/cards/card_setup.gd" id="1_wb2iw"]
+[ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="2_njuc5"]
+[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="3_03ctt"]
+[ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/discard-number.png" id="4_aae4d"]
+
+[node name="Control" type="Control" groups=["cards_in_hand"]]
+custom_minimum_size = Vector2(102, 133)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 102.0
+offset_bottom = 133.0
+script = ExtResource("1_wb2iw")
+
+[node name="CardBase" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -128.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("1_iwbxp")
+
+[node name="CostIndicator" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -102.0
+offset_top = -133.0
+offset_right = -72.0
+offset_bottom = -103.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("2_njuc5")
+texture = ExtResource("4_aae4d")
+metadata/_edit_group_ = true
+
+[node name="CardCostLabel" type="Label" parent="CostIndicator"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -15.0
+offset_right = 17.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_njuc5")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichCardDescription" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -85.0
+offset_top = -46.0
+offset_right = 63.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("2_njuc5")
+bbcode_enabled = true
+text = "Example Text Here"
+scroll_active = false
+
+[node name="CardImageSlot" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -110.0
+offset_right = -10.0
+offset_bottom = -49.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_03ctt")
+
+[node name="CardName" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -85.0
+offset_top = -126.0
+offset_right = 47.0
+offset_bottom = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("2_njuc5")
+text = "Missing Data"

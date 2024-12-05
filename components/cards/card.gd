@@ -1,26 +1,23 @@
 class_name Card extends Node2D
 
 @onready var scene_base = $"."
-@onready var card_base: TextureRect = $CardBase
-@onready var card_image: TextureRect = $CardBase/CardImageSlot
-@onready var card_description: Label = $CardBase/CardDescription
-@onready var card_name: Label = $CardBase/CardName
+@onready var card_display: Control = $CardDisplay
+@onready var card_image: TextureRect = $CardDisplay/CardImageSlot
+@onready var rich_card_description: RichTextLabel = $CardDisplay/RichCardDescription
+@onready var card_name: Label = $CardDisplay/CardName
 @onready var error_sound: AudioStreamPlayer2D = $ErrorSound
-
 @onready var pickup_sound = $MouseOverSound
 @onready var valid_drop_sound = $ValidDropSound
-
 @onready var anims = $CardAnimations
 @onready var card_shimmer = $CardShimmer
 
-@export var card_data : CardStats
-@onready var global_pos: Label = $CardBase/GlobalPos
-@onready var local_pos: Label = $CardBase/LocalPos
+@export var card_stats : CardStats = CardStats.new()
 
 signal add_to_discard_number(howMany)
 signal handle_card_deletion(nodeReference)
 
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
+const PLAYER = preload("res://components/units/UnitDictionary/UnitTypes/player.tres")
 
 var overlappingAreas : Array[Area2D] = []
 
@@ -36,13 +33,12 @@ var discardAnimFinished = false
 var discardAudioFinished = false
 
 func _ready() -> void:
-	if not card_data:
+	if not card_stats:
 		queue_free()
-	else: 
-		card_name.text = card_data.readable_name
-		card_description.text = card_data.card_description
-		card_image.texture = card_data.card_image 
-
+	else:
+		card_display.card_stats = card_stats
+		card_display.setCardData()
+		
 func _physics_process(delta):
 	if is_dragging && not undraggable:
 		create_tween().tween_property(self, "global_position", get_global_mouse_position(), delay * delta)
@@ -54,37 +50,30 @@ func _on_card_base_gui_input(event):
 			create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
 			if not local_card_pos:
 				local_card_pos = scene_base.position
-			global_pos.text = str(global_card_pos)
-			local_pos.text = str(local_card_pos)
 			scene_base.get_parent().rotation = 0
 			is_dragging = true
 		else:
 			if overlappingAreas.size():
-				var unitdata : UnitStats = overlappingAreas[0].get_parent().unit_data
+				var unitdata : UnitStats = overlappingAreas[0].get_parent().unit_stats
 				var is_self : bool = unitdata.is_self
-				if is_self == card_data.targets_self:
+				if is_self == card_stats.targets_self:
 					is_dragging = false
 					undraggable = true
 					scene_base.global_position = get_global_mouse_position()
-					create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
-					valid_drop_sound.play()
-					anims.play('go_to_discard')
-					
-					var card_effects : Array
-					for effect in card_data.effect_types:
-						card_effects.append({
-							'name': effect,
-							'value': card_data.base_value
-						})
-					
-					unitdata.run_card_effects(card_effects)
+					useCard(overlappingAreas[0].get_parent())
 				else:
 					error_sound.play()
 					returnCardToHand()
 			else:
 				pickup_sound.play()
 				returnCardToHand()
-					
+			
+func useCard(targetUnit: Unit):
+	create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
+	valid_drop_sound.play()
+	anims.play('go_to_discard')
+	card_stats.card_effect(targetUnit, PLAYER)
+	
 func returnCardToHand():
 	scene_base.get_parent().rotation = card_rotation
 	create_tween().tween_property(self, "position", local_card_pos, SPEED)
@@ -96,20 +85,20 @@ func _on_mouse_entered():
 	if not is_dragging && not undraggable:
 		if not card_rotation:
 			card_rotation = scene_base.get_parent().rotation
-		card_base.z_index = 100
+		card_display.z_index = 100
 		pickup_sound.play()
 		create_tween().tween_property(self, "scale", Vector2(1.2, 1.2), SPEED)
 
 func _on_mouse_exited():
 	if not is_dragging && not undraggable:
-		card_base.z_index = 0
+		card_display.z_index = 0
 		create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
 
 func _on_area_2d_area_entered(area):
 	overlappingAreas.push_front(area)
 	if overlappingAreas.size() && not undraggable:
 #		if target types match
-		if overlappingAreas[0].get_parent().unit_data.is_self == card_data.targets_self:
+		if overlappingAreas[0].get_parent().unit_stats.is_self == card_stats.targets_self:
 			create_tween().tween_property(self, 'modulate', Color(0.244, 1, 0.806), SPEED)
 		else:
 			create_tween().tween_property(self, 'modulate', Color(1, 0.397, 0.415), SPEED)
@@ -121,9 +110,9 @@ func _on_area_2d_area_exited(area):
 
 func swapCardBackTexture():
 	card_image.hide()
-	card_description.hide()
+	rich_card_description.hide()
 	card_name.hide()
-	card_base.texture = CARD_TEMPLATE_BACK
+	card_display.texture = CARD_TEMPLATE_BACK
 
 func addToDiscard(howMany):
 	add_to_discard_number.emit(howMany)

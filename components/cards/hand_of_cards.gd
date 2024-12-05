@@ -6,7 +6,12 @@ extends Node2D
 @onready var discard_pile = $DiscardPile
 
 @export var cards_in_hand : Array[CardStats] = []
-const PRESENTATIONAL_CARD = preload("res://components/cards/card.tscn")
+
+const CARD = preload("res://components/cards/card.tscn")
+
+var files : Array = []
+
+@export var Player : Unit = null
 
 func _ready():
 #	clear out the test cards in the arc
@@ -16,33 +21,24 @@ func _ready():
 #	add cards to the hand for every card in current hand
 	for card in cards_in_hand:
 		addCardToHand(card)
-	
-func set_resource_dictionary(dir):
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				print("Found directory: " + file_name)
-			else:
-				print("Found file: " + file_name)
-			file_name = dir.get_next()
-	else:
-		print("An error occurred when trying to access the path.") 
-	
+		
+	for path in ['AttackCards', 'DefenseCards', 'HealCards']:
+		var filePath = "res://components/cards/CardDictionary/%s/" % path
+		var dir = DirAccess.get_files_at(filePath)
+		for card in dir:
+			files.append(filePath + card)
 		
 func add_random_card_to_hand():
-	var files = DirAccess.get_files_at("res://components/cards/CardDictionary/BasicCards/")
 	var size = files.size()
 	var randomNum = (randi() % size)
-	var cardResourcePath = load("res://components/cards/CardDictionary/BasicCards/" + files[randomNum])
+	var cardResourcePath = load(files[randomNum])
 	addCardToHand(cardResourcePath)
 
 func addCardToHand(cardResource: CardStats):
 	var newFollowNode = PathFollow2D.new()
-	var newCard = PRESENTATIONAL_CARD.instantiate()
+	var newCard = CARD.instantiate()
 	newCard.scale = Vector2(0,0)
-	newCard.card_data = cardResource
+	newCard.card_stats = cardResource
 	card_arc.add_child(newFollowNode)
 	newFollowNode.add_child(newCard)
 	
@@ -76,3 +72,8 @@ func removeCardAndUpdateHand(cardReference):
 		create_tween().tween_property(followPath, "progress_ratio", path_division, 0.2)
 		paper_sound.play()
 		path_division += pos_incrementer
+		
+func discardHand():
+	for card in card_arc.get_children():
+		removeCardAndUpdateHand(card.get_child(0))
+		card.get_child(0).anims.play('go_to_discard')

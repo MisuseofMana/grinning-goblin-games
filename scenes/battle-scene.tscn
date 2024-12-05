@@ -1,54 +1,65 @@
-[gd_scene load_steps=12 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=13 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://bu305i6xvayai" path="res://art/backgrounds/forest.png" id="1_pchfv"]
+[ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
 [ext_resource type="Texture2D" uid="uid://pwewpuefxjom" path="res://art/ui/ui-background-cutout.png" id="2_jaqan"]
 [ext_resource type="PackedScene" uid="uid://bcxxmjp1ch5pq" path="res://components/units/unit.tscn" id="3_kt5qk"]
-[ext_resource type="Script" path="res://components/counters/counter_resource.gd" id="4_xa5v6"]
-[ext_resource type="Script" path="res://components/units/UnitDictionary/card-unit-resource.gd" id="9_6jadm"]
+[ext_resource type="Resource" uid="uid://c4k3kk3bkrtt7" path="res://components/cards/CardDictionary/DefenseCards/basic_defend.tres" id="8_grg55"]
+[ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="9_6jadm"]
+[ext_resource type="Resource" uid="uid://c534yv87m0b1" path="res://components/cards/CardDictionary/AttackCards/basic_phys_attack.tres" id="9_jtg2h"]
 [ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cards/hand_of_cards.tscn" id="15_6uhf2"]
-[ext_resource type="Script" path="res://components/cards/CardDictionary/card_data_base.gd" id="16_gqber"]
-[ext_resource type="Resource" uid="uid://d1jv214c4eox4" path="res://components/cards/CardDictionary/BasicCards/basic_defend.tres" id="17_1sr8r"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="16_gqber"]
 
-[sub_resource type="Resource" id="Resource_y7boo"]
+[sub_resource type="Resource" id="Resource_y4547"]
+resource_local_to_scene = true
 script = ExtResource("9_6jadm")
-health = 55
-max_health = 100
-attack = 10
-magicAttack = 0
-defense = 2
-magicDefense = 0
-counters = Array[ExtResource("4_xa5v6")]([])
+stats = {
+"endurance": 4,
+"finesse": 3,
+"health": 50,
+"knowledge": 0,
+"max_health": 50,
+"muscle": 5,
+"nuance": 0
+}
 animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_jxgea"]
+[sub_resource type="Resource" id="Resource_ju16q"]
+resource_local_to_scene = true
 script = ExtResource("9_6jadm")
-health = 15
-max_health = 30
-attack = 7
-magicAttack = 0
-defense = 0
-magicDefense = 0
-counters = Array[ExtResource("4_xa5v6")]([])
+stats = {
+"endurance": 4,
+"finesse": 3,
+"health": 50,
+"knowledge": 0,
+"max_health": 50,
+"muscle": 5,
+"nuance": 0
+}
 animation_names = Array[String](["idle"])
 character_type = "goblin"
 is_self = false
 
-[sub_resource type="Resource" id="Resource_5itrb"]
+[sub_resource type="Resource" id="Resource_dcvac"]
+resource_local_to_scene = true
 script = ExtResource("9_6jadm")
-health = 25
-max_health = 30
-attack = 7
-magicAttack = 0
-defense = 0
-magicDefense = 0
-counters = Array[ExtResource("4_xa5v6")]([])
+stats = {
+"endurance": 4,
+"finesse": 3,
+"health": 50,
+"knowledge": 0,
+"max_health": 50,
+"muscle": 5,
+"nuance": 0
+}
 animation_names = Array[String](["idle"])
 character_type = "goblin"
 is_self = false
 
 [node name="BattleScene" type="Node2D"]
+script = ExtResource("1_tfoca")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(320, 126)
@@ -58,23 +69,24 @@ texture = ExtResource("1_pchfv")
 position = Vector2(320, 180)
 texture = ExtResource("2_jaqan")
 
-[node name="Units" type="Node2D" parent="."]
-
-[node name="UnitAnimations" parent="Units" instance=ExtResource("3_kt5qk")]
+[node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_data = SubResource("Resource_y7boo")
+unit_stats = SubResource("Resource_y4547")
 
-[node name="UnitAnimations2" parent="Units" instance=ExtResource("3_kt5qk")]
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="UnitAnimations2" parent="Enemies" instance=ExtResource("3_kt5qk")]
 position = Vector2(476, 139)
-unit_data = SubResource("Resource_jxgea")
+unit_stats = SubResource("Resource_ju16q")
 
-[node name="UnitAnimations3" parent="Units" instance=ExtResource("3_kt5qk")]
+[node name="UnitAnimations3" parent="Enemies" instance=ExtResource("3_kt5qk")]
 position = Vector2(550, 160)
-unit_data = SubResource("Resource_5itrb")
+unit_stats = SubResource("Resource_dcvac")
 
-[node name="CardInterface" parent="." instance=ExtResource("15_6uhf2")]
+[node name="CardInterface" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("15_6uhf2")]
 position = Vector2(0, 360)
-cards_in_hand = Array[ExtResource("16_gqber")]([ExtResource("17_1sr8r"), ExtResource("17_1sr8r"), ExtResource("17_1sr8r"), ExtResource("17_1sr8r")])
+cards_in_hand = Array[ExtResource("16_gqber")]([ExtResource("9_jtg2h"), ExtResource("8_grg55"), ExtResource("8_grg55")])
+Player = NodePath("../Player")
 
 [node name="Button" type="Button" parent="."]
 offset_left = 10.0
@@ -91,4 +103,4 @@ offset_bottom = 295.0
 text = "Fake Discard"
 
 [connection signal="pressed" from="Button" to="CardInterface" method="add_random_card_to_hand"]
-[connection signal="pressed" from="Button2" to="CardInterface" method="addNumberToDiscard"]
+[connection signal="pressed" from="Button2" to="CardInterface" method="discardHand"]

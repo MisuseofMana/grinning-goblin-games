@@ -14,7 +14,6 @@ texture = ExtResource("1_mtuga")
 
 [node name="DiscardNumber" type="Node2D" parent="."]
 position = Vector2(-21, 25)
-metadata/_edit_group_ = true
 
 [node name="DiscardChit" type="Sprite2D" parent="DiscardNumber"]
 texture = ExtResource("2_ee4ao")
@@ -29,3 +28,4 @@ theme_override_font_sizes/font_size = 32
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true

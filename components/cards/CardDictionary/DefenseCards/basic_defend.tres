@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="TokenCard" load_steps=4 format=3 uid="uid://c4k3kk3bkrtt7"]
+
+[ext_resource type="Texture2D" uid="uid://cos7ix7u2m2bv" path="res://art/cards/card_art/basic-defend.png" id="1_rx8hn"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/token_card.gd" id="2_oe0b5"]
+[ext_resource type="Resource" uid="uid://0ohlp7wyhcde" path="res://components/tokens/TokenDictionary/TokenTypes/armor.tres" id="2_pghje"]
+
+[resource]
+script = ExtResource("2_oe0b5")
+token_resource = ExtResource("2_pghje")
+card_name = "basic_defend"
+readable_name = "Basic Defend"
+one_use = false
+targets_self = true
+base_value = 2
+play_cost = 1
+card_description = "Prevent %s physical dmg"
+tool_tip = "Prevents physical damage this turn based on your %s. Defense dissapears at the end of each turn."
+relevant_stats = Array[String](["endurance"])
+card_image = ExtResource("1_rx8hn")

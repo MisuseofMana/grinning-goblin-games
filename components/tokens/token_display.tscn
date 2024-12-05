@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfdmlwetrjcw3"]
+
+[ext_resource type="Script" path="res://components/tokens/token_display.gd" id="1_es7ic"]
+
+[node name="HBoxContainer" type="GridContainer"]
+offset_right = 236.0
+offset_bottom = 61.0
+columns = 3
+script = ExtResource("1_es7ic")

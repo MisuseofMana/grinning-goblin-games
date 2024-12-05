@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CardUnitStats" load_steps=2 format=3 uid="uid://d2yjrckw43wta"]
 
-[ext_resource type="Script" path="res://components/units/UnitDictionary/card-unit-resource.gd" id="1_yf1cq"]
+[ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="1_yf1cq"]
 
 [resource]
 resource_local_to_scene = true

@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dtid5ck6aq1lr"]
+
+[ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="1_n6e1s"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7mxu4"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[resource]
+default_font = ExtResource("1_n6e1s")
+default_font_size = 16
+GridContainer/constants/h_separation = 5
+GridContainer/constants/v_separation = 8
+Label/colors/font_color = Color(0, 0, 0, 1)
+Label/constants/line_spacing = -3
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_n6e1s")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+RichTextLabel/constants/line_separation = -3
+RichTextLabel/font_sizes/mono_font_size = 32
+RichTextLabel/font_sizes/normal_font_size = 32
+RichTextLabel/fonts/mono_font = ExtResource("1_n6e1s")
+ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_7mxu4")
