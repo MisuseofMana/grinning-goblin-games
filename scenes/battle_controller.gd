@@ -6,6 +6,4 @@ extends Node2D
 
 @export var stage_background = Texture2D
 
-signal end_turn()
-
 var players_turn : bool = true

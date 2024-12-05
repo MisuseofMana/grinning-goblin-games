@@ -191,6 +191,7 @@ offset_right = 51.0
 offset_bottom = 62.0
 
 [node name="CardArea" parent="CardDisplay" instance=ExtResource("3_fdjwy")]
+collision_layer = 0
 
 [node name="MouseOverSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_fqe74")
@@ -220,5 +221,10 @@ libraries = {
 "": SubResource("AnimationLibrary_ysc62")
 }
 
+[connection signal="gui_input" from="CardDisplay" to="." method="_card_display_gui_input"]
+[connection signal="mouse_entered" from="CardDisplay" to="." method="_on_card_mouse_entered"]
+[connection signal="mouse_exited" from="CardDisplay" to="." method="_on_card_mouse_exited"]
+[connection signal="area_entered" from="CardDisplay/CardArea" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="CardDisplay/CardArea" to="." method="_on_area_2d_area_exited"]
 [connection signal="finished" from="ValidDropSound" to="." method="_on_valid_drop_sound_finished"]
 [connection signal="animation_finished" from="CardAnimations" to="." method="_on_card_animations_animation_finished"]

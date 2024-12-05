@@ -1,6 +1,6 @@
 class_name Card extends Node2D
 
-@onready var scene_base = $"."
+@onready var scene_base: Card = $"."
 @onready var card_display: Control = $CardDisplay
 @onready var card_image: TextureRect = $CardDisplay/CardImageSlot
 @onready var rich_card_description: RichTextLabel = $CardDisplay/RichCardDescription
@@ -44,7 +44,7 @@ func _physics_process(delta):
 		create_tween().tween_property(self, "global_position", get_global_mouse_position(), delay * delta)
 		card_shimmer.emitting = true
 
-func _on_card_base_gui_input(event):
+func _card_display_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
 			create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
@@ -76,12 +76,13 @@ func useCard(targetUnit: Unit):
 	
 func returnCardToHand():
 	scene_base.get_parent().rotation = card_rotation
+	card_rotation = null
 	create_tween().tween_property(self, "position", local_card_pos, SPEED)
 	card_shimmer.emitting = false
 	is_dragging = false
-	_on_mouse_exited()
+	_on_card_mouse_exited()
 
-func _on_mouse_entered():
+func _on_card_mouse_entered():
 	if not is_dragging && not undraggable:
 		if not card_rotation:
 			card_rotation = scene_base.get_parent().rotation
@@ -89,7 +90,7 @@ func _on_mouse_entered():
 		pickup_sound.play()
 		create_tween().tween_property(self, "scale", Vector2(1.2, 1.2), SPEED)
 
-func _on_mouse_exited():
+func _on_card_mouse_exited():
 	if not is_dragging && not undraggable:
 		card_display.z_index = 0
 		create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
@@ -97,7 +98,6 @@ func _on_mouse_exited():
 func _on_area_2d_area_entered(area):
 	overlappingAreas.push_front(area)
 	if overlappingAreas.size() && not undraggable:
-#		if target types match
 		if overlappingAreas[0].get_parent().unit_stats.is_self == card_stats.targets_self:
 			create_tween().tween_property(self, 'modulate', Color(0.244, 1, 0.806), SPEED)
 		else:
@@ -112,7 +112,7 @@ func swapCardBackTexture():
 	card_image.hide()
 	rich_card_description.hide()
 	card_name.hide()
-	card_display.texture = CARD_TEMPLATE_BACK
+	card_display.card_base.texture = CARD_TEMPLATE_BACK
 
 func addToDiscard(howMany):
 	add_to_discard_number.emit(howMany)

@@ -4,6 +4,7 @@ extends Control
 @onready var card_image_slot: TextureRect = $CardImageSlot
 @onready var card_name: Label = $CardName
 @onready var card_cost_label: Label = $CostIndicator/CardCostLabel
+@onready var card_base: TextureRect = $CardBase
 
 @export var card_stats : CardStats
 

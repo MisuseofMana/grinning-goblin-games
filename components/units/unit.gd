@@ -40,16 +40,18 @@ func setAnimationFrames(path, animation_name):
 		print("An error occurred when trying to access the path.")
 		
 func subtractFromHealth():
-	anims.play("take_damage")
-	unit_stats.stats.health -= 1
-	updateHealthDisplay()
-	if unit_stats.stats.health <= 0:
-		die()
+	if(unit_stats.stats.health > 0):
+		anims.play("take_damage")
+		unit_stats.stats.health -= 1
+		updateHealthDisplay()
+		if unit_stats.stats.health <= 0:
+			die()
 
 func addToHealth():
-	anims.play("heal")
-	unit_stats.health += 1
-	updateHealthDisplay()
+	if(unit_stats.stats.health < unit_stats.stats.max_health):
+		anims.play("heal")
+		unit_stats.stats.health += 1
+		updateHealthDisplay()
 
 func updateHealthDisplay():
 	health_num.text = str(unit_stats.stats.health, "/", unit_stats.stats.max_health)

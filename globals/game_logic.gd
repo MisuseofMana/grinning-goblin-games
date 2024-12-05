@@ -13,4 +13,4 @@ func calculateCardCost(card_stats: CardStats, unit_stats: UnitStats, noBBCode: b
 	if noBBCode:
 		return incrementer
 	else:
-		return "[color=%s]%s[/color]" % [color, incrementer]
+		return "[color=%s]%s[/color]" % [color, str(incrementer)]
