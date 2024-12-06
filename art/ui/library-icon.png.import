@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0xlqp73dk02o"
-path="res://.godot/imported/deck_arrow.png-4e004f3eec84b1b64cdba69a450d75e0.ctex"
+uid="uid://cy2pnkqsmck53"
+path="res://.godot/imported/library-icon.png-51afa27e86827b88c871b4d9051cd131.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/deck_arrow.png"
-dest_files=["res://.godot/imported/deck_arrow.png-4e004f3eec84b1b64cdba69a450d75e0.ctex"]
+source_file="res://art/ui/library-icon.png"
+dest_files=["res://.godot/imported/library-icon.png-51afa27e86827b88c871b4d9051cd131.ctex"]
 
 [params]
 

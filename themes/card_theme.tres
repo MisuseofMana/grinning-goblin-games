@@ -1,6 +1,9 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dtid5ck6aq1lr"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://dtid5ck6aq1lr"]
 
 [ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="1_n6e1s"]
+[ext_resource type="Texture2D" uid="uid://rrrrm2ex0d8g" path="res://art/ui/scroll_bar.png" id="2_uuoan"]
+[ext_resource type="Texture2D" uid="uid://b0bksdy1msj34" path="res://art/ui/scroll_bar-hilite.png" id="3_r2cbs"]
+[ext_resource type="Texture2D" uid="uid://b3iko1fuyaxvv" path="res://art/ui/scroll_bar_depressed.png" id="4_sw50t"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7mxu4"]
 content_margin_left = 10.0
@@ -8,9 +11,19 @@ content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2mqw1"]
+texture = ExtResource("2_uuoan")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dnpa5"]
+texture = ExtResource("3_r2cbs")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1xill"]
+texture = ExtResource("4_sw50t")
+
 [resource]
 default_font = ExtResource("1_n6e1s")
 default_font_size = 16
+Button/styles/normal = null
 GridContainer/constants/h_separation = 5
 GridContainer/constants/v_separation = 8
 Label/colors/font_color = Color(0, 0, 0, 1)
@@ -23,3 +36,6 @@ RichTextLabel/font_sizes/mono_font_size = 32
 RichTextLabel/font_sizes/normal_font_size = 32
 RichTextLabel/fonts/mono_font = ExtResource("1_n6e1s")
 ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_7mxu4")
+VScrollBar/styles/grabber = SubResource("StyleBoxTexture_2mqw1")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_dnpa5")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_1xill")

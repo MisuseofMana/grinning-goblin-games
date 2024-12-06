@@ -3,6 +3,7 @@ class_name DeckManagement
 
 @onready var library_grid: GridContainer = $LibraryView/Library/LibraryGrid
 @onready var deck_grid : GridContainer = $DeckView/Deck/DeckGrid
+@onready var deck_pile: Node2D = $LibraryView/LibraryDragArea/DeckPile
 
 @export var cardsOwned : Array[CardStats] = []
 @export var deckCards : Array[Control] = []
@@ -26,8 +27,6 @@ func _ready() -> void:
 		newCard.card_stats = card
 		library_grid.add_child(newCard)
 		newCard.setCardData()
-		#var newArea = DETECTION_AREA_CARD.instantiate()
-		#newCard.add_child(newArea)
 		newCard.isEditingDeck = true
 		newCard.card_added_to_deck.connect(addCardToDeck)
 		newCard.card_removed_from_deck.connect(removeCardFromDeck)
@@ -41,17 +40,21 @@ func _ready() -> void:
 		#newCard.add_child(newArea)
 		#newCard.add_to_discard_number.connect(addCardToDeck)
 
-func addCardToDeck(card):
-	deckCards.append(card)
-	card.
-	print(deckCards)
+func addCardToDeck(card: CardImage):
+	if not deckCards.has(card):
+		deckCards.append(card)
+		card.modulate = Color(1,1,1,0.2)
+		deck_pile.label_number = deckCards.size()
 	
-func removeCardFromDeck(card):
-	deckCards.erase(card)
-	print(deckCards)
+func removeCardFromDeck(card: CardImage):
+	if deckCards.has(card):
+		deckCards.erase(card)
+		card.modulate = Color(1,1,1,1)
+		deck_pile.label_number = deckCards.size()
 
 func outlineCard():
 	for card in library_grid.get_children():
+		pass
 
 func viewLibrary():
 	anims.play("go_to_library")

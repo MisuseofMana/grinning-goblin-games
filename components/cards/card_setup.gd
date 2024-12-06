@@ -1,4 +1,5 @@
 extends Control
+class_name CardImage
 
 @onready var scene_base = $"."
 @onready var rich_card_description: RichTextLabel = $RichCardDescription

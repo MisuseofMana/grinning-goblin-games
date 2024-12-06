@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dxepjdqdt2il8"]
+[gd_scene load_steps=24 format=3 uid="uid://dxepjdqdt2il8"]
 
 [ext_resource type="Script" path="res://scenes/deck_management.gd" id="1_f5tgn"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="2_ck3xd"]
@@ -9,12 +9,13 @@
 [ext_resource type="Resource" uid="uid://lukw234e1e6j" path="res://components/cards/CardDictionary/DefenseCards/basic_ward.tres" id="5_rhmm4"]
 [ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="5_xc56l"]
 [ext_resource type="Resource" uid="uid://getptn3kqhxl" path="res://components/cards/CardDictionary/HealCards/basic_heal.tres" id="6_2xbqi"]
-[ext_resource type="Texture2D" uid="uid://d0xlqp73dk02o" path="res://art/deck_arrow.png" id="7_fkg7o"]
 [ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="8_6xuvn"]
+[ext_resource type="Resource" uid="uid://edj63j3h0mhe" path="res://components/cards/CardDictionary/TokenCards/poison.tres" id="8_h2ifi"]
 [ext_resource type="Texture2D" uid="uid://df2koa7wt5emk" path="res://art/cards/card-template-ghost.png" id="8_ts643"]
 [ext_resource type="Script" path="res://scenes/card_library_interactions.gd" id="9_8mfdx"]
 [ext_resource type="PackedScene" uid="uid://c2s4d0va0x5gy" path="res://components/cards/deck_pile.tscn" id="9_imnic"]
-[ext_resource type="Texture2D" uid="uid://cy2pnkqsmck53" path="res://art/library-icon.png" id="14_6ysbs"]
+[ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="10_flouw"]
+[ext_resource type="Texture2D" uid="uid://cy2pnkqsmck53" path="res://art/ui/library-icon.png" id="14_6ysbs"]
 
 [sub_resource type="Gradient" id="Gradient_srk0i"]
 colors = PackedColorArray(1, 0.807826, 0.928338, 1, 1, 0.807843, 0.929412, 1)
@@ -22,8 +23,22 @@ colors = PackedColorArray(1, 0.807826, 0.928338, 1, 1, 0.807843, 0.929412, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_toiut"]
 gradient = SubResource("Gradient_srk0i")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gvlme"]
-size = Vector2(98, 256)
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pkj7u"]
+
+[sub_resource type="Animation" id="Animation_gi4dg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_ghyp2"]
 resource_name = "go_to_deck"
@@ -39,21 +54,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(-640, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_gi4dg"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_wuxe3"]
@@ -81,7 +81,7 @@ _data = {
 
 [node name="DeckManagement" type="Node2D"]
 script = ExtResource("1_f5tgn")
-cardsOwned = Array[ExtResource("2_ck3xd")]([ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("4_h6y6i"), ExtResource("4_h6y6i"), ExtResource("5_a5eyo"), ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("5_rhmm4"), ExtResource("6_2xbqi")])
+cardsOwned = Array[ExtResource("2_ck3xd")]([ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("4_h6y6i"), ExtResource("4_h6y6i"), ExtResource("5_a5eyo"), ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("5_rhmm4"), ExtResource("6_2xbqi"), ExtResource("8_h2ifi"), ExtResource("5_a5eyo"), ExtResource("5_rhmm4")])
 
 [node name="LibraryView" type="Control" parent="."]
 layout_mode = 3
@@ -90,32 +90,70 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="TextureRect" type="TextureRect" parent="LibraryView"]
-visible = false
 layout_mode = 0
 offset_right = 640.0
 offset_bottom = 360.0
 texture = SubResource("GradientTexture1D_toiut")
 metadata/_edit_lock_ = true
 
-[node name="Label" type="Label" parent="LibraryView"]
-layout_mode = 0
+[node name="CardsYouOwnLabel" type="Label" parent="LibraryView"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 2.15
+anchor_top = 0.5
+anchor_right = 2.15
+anchor_bottom = 0.5
 offset_left = 8.0
 offset_top = -8.0
 offset_right = 275.0
 offset_bottom = 36.0
 theme_override_fonts/font = ExtResource("8_6xuvn")
 theme_override_font_sizes/font_size = 32
-text = "CARD LIBRARY"
+text = "CARDS YOU OWN"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="Sidebar" type="Control" parent="LibraryView"]
+anchors_preset = 0
+offset_left = 472.0
+offset_top = -8.0
+offset_right = 512.0
+offset_bottom = 32.0
+
+[node name="SidebarNinePatch" type="NinePatchRect" parent="LibraryView/Sidebar"]
+layout_mode = 0
+offset_right = 176.0
+offset_bottom = 376.0
+texture = ExtResource("10_flouw")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="CardInDeckReadout" type="TextureRect" parent="LibraryView/Sidebar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 78.0
+offset_right = 168.0
+offset_bottom = 100.0
+texture = SubResource("PlaceholderTexture2D_pkj7u")
+
+[node name="CardInDeckReadout2" type="TextureRect" parent="LibraryView/Sidebar"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 103.0
+offset_right = 168.0
+offset_bottom = 125.0
+texture = SubResource("PlaceholderTexture2D_pkj7u")
+
 [node name="Library" type="ScrollContainer" parent="LibraryView"]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 30.0
-offset_right = 455.0
-offset_bottom = 310.0
+offset_left = 8.0
+offset_top = 55.0
+offset_right = 472.0
+offset_bottom = 349.0
 size_flags_horizontal = 3
+theme = ExtResource("5_xc56l")
 horizontal_scroll_mode = 0
 script = ExtResource("9_8mfdx")
 metadata/_edit_group_ = true
@@ -150,68 +188,43 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LibraryDragArea" type="Node2D" parent="LibraryView"]
-position = Vector2(-28, -58)
-
-[node name="Label" type="Label" parent="LibraryView/LibraryDragArea"]
-anchors_preset = -1
-anchor_left = 1.70787
-anchor_top = 0.545455
-anchor_right = 1.70787
-anchor_bottom = 0.545455
-offset_left = 525.0
-offset_top = 88.0
-offset_right = 669.0
-offset_bottom = 172.0
-scale = Vector2(0.8, 0.8)
-theme_override_fonts/font = ExtResource("8_6xuvn")
-theme_override_font_sizes/font_size = 32
-text = "Drag cards here to add to your deck."
-vertical_alignment = 1
-autowrap_mode = 2
 
 [node name="Button" type="Button" parent="LibraryView/LibraryDragArea"]
-offset_left = 525.0
-offset_top = 369.0
-offset_right = 629.0
-offset_bottom = 390.0
+visible = false
+offset_left = 568.0
+offset_top = 320.0
+offset_right = 632.0
+offset_bottom = 341.0
+theme = ExtResource("5_xc56l")
 text = "View Deck"
 
-[node name="AddToDeckIcon" type="TextureRect" parent="LibraryView/LibraryDragArea"]
-offset_left = 528.0
-offset_top = 176.0
-offset_right = 626.0
-offset_bottom = 306.0
-texture = ExtResource("8_ts643")
-
 [node name="DeckPile" parent="LibraryView/LibraryDragArea" instance=ExtResource("9_imnic")]
-position = Vector2(577, 304)
-scale = Vector2(1.24023, 1.24023)
+position = Vector2(604, 35)
+scale = Vector2(0.760702, 0.760702)
 
-[node name="TextureRect2" type="TextureRect" parent="LibraryView/LibraryDragArea"]
-offset_left = 597.0
-offset_top = 162.0
-offset_right = 637.0
-offset_bottom = 202.0
-rotation = 1.5708
-scale = Vector2(0.5, 1)
-texture = ExtResource("7_fkg7o")
+[node name="LibraryIcon" type="Sprite2D" parent="LibraryView/LibraryDragArea"]
+position = Vector2(57, 37)
+scale = Vector2(0.773597, 0.773597)
+texture = ExtResource("14_6ysbs")
 
-[node name="TextureRect3" type="TextureRect" parent="LibraryView/LibraryDragArea"]
-offset_left = 597.0
-offset_top = 162.0
-offset_right = 637.0
-offset_bottom = 202.0
-rotation = 1.5708
-scale = Vector2(0.5, 1)
-texture = ExtResource("7_fkg7o")
-
-[node name="Area2D" type="Area2D" parent="LibraryView/LibraryDragArea"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LibraryView/LibraryDragArea/Area2D"]
-position = Vector2(578, 226)
-shape = SubResource("RectangleShape2D_gvlme")
+[node name="YourDeckLabel" type="Label" parent="LibraryView/LibraryDragArea"]
+anchors_preset = -1
+anchor_left = -6.85125
+anchor_top = 0.125
+anchor_right = -6.85125
+anchor_bottom = 0.125
+offset_left = 493.0
+offset_top = 5.0
+offset_right = 562.0
+offset_bottom = 60.0
+theme_override_fonts/font = ExtResource("8_6xuvn")
+theme_override_font_sizes/font_size = 32
+text = "YOUR
+DECK"
+vertical_alignment = 1
 
 [node name="DeckView" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 640.0
@@ -219,7 +232,6 @@ offset_right = 680.0
 offset_bottom = 40.0
 
 [node name="TextureRect" type="TextureRect" parent="DeckView"]
-visible = false
 layout_mode = 0
 offset_right = 640.0
 offset_bottom = 360.0
@@ -280,7 +292,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="DeckDragArea" type="Node2D" parent="DeckView"]
-position = Vector2(-494, -58)
 
 [node name="Label" type="Label" parent="DeckView/DeckDragArea"]
 anchors_preset = -1
@@ -288,10 +299,10 @@ anchor_left = 1.70787
 anchor_top = 0.545455
 anchor_right = 1.70787
 anchor_bottom = 0.545455
-offset_left = 524.0
-offset_top = 58.0
-offset_right = 668.0
-offset_bottom = 200.0
+offset_left = 33.0
+offset_top = 10.0
+offset_right = 177.0
+offset_bottom = 152.0
 scale = Vector2(0.8, 0.8)
 theme_override_fonts/font = ExtResource("8_6xuvn")
 theme_override_font_sizes/font_size = 32
@@ -300,47 +311,18 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Button" type="Button" parent="DeckView/DeckDragArea"]
-offset_left = 525.0
-offset_top = 369.0
-offset_right = 629.0
-offset_bottom = 390.0
+offset_left = 34.0
+offset_top = 321.0
+offset_right = 138.0
+offset_bottom = 342.0
 text = "View Library"
 
 [node name="AddToDeckIcon" type="TextureRect" parent="DeckView/DeckDragArea"]
-offset_left = 528.0
-offset_top = 176.0
-offset_right = 626.0
-offset_bottom = 306.0
+offset_left = 37.0
+offset_top = 128.0
+offset_right = 135.0
+offset_bottom = 258.0
 texture = ExtResource("8_ts643")
-
-[node name="TextureRect2" type="TextureRect" parent="DeckView/DeckDragArea"]
-offset_left = 597.0
-offset_top = 162.0
-offset_right = 637.0
-offset_bottom = 202.0
-rotation = 1.5708
-scale = Vector2(0.5, 1)
-texture = ExtResource("7_fkg7o")
-
-[node name="TextureRect3" type="TextureRect" parent="DeckView/DeckDragArea"]
-offset_left = 597.0
-offset_top = 162.0
-offset_right = 637.0
-offset_bottom = 202.0
-rotation = 1.5708
-scale = Vector2(0.5, 1)
-texture = ExtResource("7_fkg7o")
-
-[node name="Sprite2D" type="Sprite2D" parent="DeckView/DeckDragArea"]
-position = Vector2(576, 310)
-scale = Vector2(1.4, 1.4)
-texture = ExtResource("14_6ysbs")
-
-[node name="Area2D" type="Area2D" parent="DeckView/DeckDragArea"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DeckView/DeckDragArea/Area2D"]
-position = Vector2(578, 226)
-shape = SubResource("RectangleShape2D_gvlme")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

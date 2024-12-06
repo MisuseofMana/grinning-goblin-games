@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cy2pnkqsmck53"
-path="res://.godot/imported/library-icon.png-8dbeea926a40876fa948f1399f3520bd.ctex"
+uid="uid://rrrrm2ex0d8g"
+path="res://.godot/imported/scroll_bar.png-2648693cac17105b7b86501c901d5b37.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/library-icon.png"
-dest_files=["res://.godot/imported/library-icon.png-8dbeea926a40876fa948f1399f3520bd.ctex"]
+source_file="res://art/ui/scroll_bar.png"
+dest_files=["res://.godot/imported/scroll_bar.png-2648693cac17105b7b86501c901d5b37.ctex"]
 
 [params]
 

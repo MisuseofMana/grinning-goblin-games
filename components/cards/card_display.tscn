@@ -1,18 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3ras73xd8xmc"]
+[gd_scene load_steps=6 format=3 uid="uid://d3ras73xd8xmc"]
 
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card-template.png" id="1_iwbxp"]
-[ext_resource type="Shader" path="res://components/cards/shaders/card_outline.gdshader" id="1_nhcn6"]
 [ext_resource type="Script" path="res://components/cards/card_setup.gd" id="1_wb2iw"]
 [ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="2_njuc5"]
 [ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="3_03ctt"]
 [ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/discard-number.png" id="4_aae4d"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1mlpj"]
-shader = ExtResource("1_nhcn6")
-
 [node name="Control" type="Control" groups=["cards_in_hand"]]
+z_index = 1
 texture_filter = 2
-material = SubResource("ShaderMaterial_1mlpj")
 custom_minimum_size = Vector2(102, 133)
 layout_mode = 3
 anchors_preset = 0
@@ -21,19 +17,23 @@ offset_bottom = 133.0
 script = ExtResource("1_wb2iw")
 
 [node name="CardBase" type="TextureRect" parent="."]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -96.0
+offset_left = -97.0
 offset_top = -128.0
+offset_right = -1.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("1_iwbxp")
+stretch_mode = 2
 
 [node name="CostIndicator" type="TextureRect" parent="."]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -71,26 +71,8 @@ text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RichCardDescription" type="RichTextLabel" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -85.0
-offset_top = -46.0
-offset_right = 63.0
-offset_bottom = 30.0
-grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(0.5, 0.5)
-theme = ExtResource("2_njuc5")
-bbcode_enabled = true
-text = "Example Text Here"
-scroll_active = false
-
 [node name="CardImageSlot" type="TextureRect" parent="."]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -106,6 +88,7 @@ grow_vertical = 0
 texture = ExtResource("3_03ctt")
 
 [node name="CardName" type="Label" parent="."]
+texture_filter = 1
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -121,5 +104,26 @@ grow_vertical = 0
 scale = Vector2(0.5, 0.5)
 theme = ExtResource("2_njuc5")
 text = "Missing Data"
+
+[node name="RichCardDescription" type="RichTextLabel" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -85.0
+offset_top = -46.0
+offset_right = 63.0
+offset_bottom = 30.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+mouse_filter = 1
+theme = ExtResource("2_njuc5")
+bbcode_enabled = true
+text = "Example Text Here"
+scroll_active = false
 
 [connection signal="gui_input" from="." to="." method="_card_display_gui_input"]
