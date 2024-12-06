@@ -29,8 +29,8 @@ script = ExtResource("1_50x24")
 curve = SubResource("Curve2D_wguu1")
 
 [node name="CardFollowPath" type="PathFollow2D" parent="CardArc"]
-position = Vector2(204.929, -4.95396)
-rotation = -0.0180535
+position = Vector2(204.93, -4.95397)
+rotation = -0.0180534
 progress = 115.074
 
 [node name="CardBase" parent="CardArc/CardFollowPath" instance=ExtResource("1_ugjcr")]

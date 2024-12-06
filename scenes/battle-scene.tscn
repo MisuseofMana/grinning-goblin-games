@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cards/hand_of_cards.tscn" id="15_6uhf2"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="16_gqber"]
 
-[sub_resource type="Resource" id="Resource_a71ij"]
+[sub_resource type="Resource" id="Resource_nld5o"]
 resource_local_to_scene = true
 script = ExtResource("9_6jadm")
 stats = {
@@ -26,7 +26,7 @@ animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_s6oog"]
+[sub_resource type="Resource" id="Resource_2i78w"]
 resource_local_to_scene = true
 script = ExtResource("9_6jadm")
 stats = {
@@ -42,7 +42,7 @@ animation_names = Array[String](["idle"])
 character_type = "goblin"
 is_self = false
 
-[sub_resource type="Resource" id="Resource_3hogn"]
+[sub_resource type="Resource" id="Resource_jh4kj"]
 resource_local_to_scene = true
 script = ExtResource("9_6jadm")
 stats = {
@@ -71,17 +71,17 @@ texture = ExtResource("2_jaqan")
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_stats = SubResource("Resource_a71ij")
+unit_stats = SubResource("Resource_nld5o")
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="UnitAnimations2" parent="Enemies" instance=ExtResource("3_kt5qk")]
 position = Vector2(476, 139)
-unit_stats = SubResource("Resource_s6oog")
+unit_stats = SubResource("Resource_2i78w")
 
 [node name="UnitAnimations3" parent="Enemies" instance=ExtResource("3_kt5qk")]
 position = Vector2(550, 160)
-unit_stats = SubResource("Resource_3hogn")
+unit_stats = SubResource("Resource_jh4kj")
 
 [node name="CardInterface" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("15_6uhf2")]
 position = Vector2(0, 360)

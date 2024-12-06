@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dxepjdqdt2il8"]
+[gd_scene load_steps=23 format=3 uid="uid://dxepjdqdt2il8"]
 
 [ext_resource type="Script" path="res://scenes/deck_management.gd" id="1_f5tgn"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="2_ck3xd"]
@@ -12,7 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://d0xlqp73dk02o" path="res://art/deck_arrow.png" id="7_fkg7o"]
 [ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="8_6xuvn"]
 [ext_resource type="Texture2D" uid="uid://df2koa7wt5emk" path="res://art/cards/card-template-ghost.png" id="8_ts643"]
+[ext_resource type="Script" path="res://scenes/card_library_interactions.gd" id="9_8mfdx"]
 [ext_resource type="PackedScene" uid="uid://c2s4d0va0x5gy" path="res://components/cards/deck_pile.tscn" id="9_imnic"]
+[ext_resource type="Texture2D" uid="uid://cy2pnkqsmck53" path="res://art/library-icon.png" id="14_6ysbs"]
 
 [sub_resource type="Gradient" id="Gradient_srk0i"]
 colors = PackedColorArray(1, 0.807826, 0.928338, 1, 1, 0.807843, 0.929412, 1)
@@ -20,131 +22,83 @@ colors = PackedColorArray(1, 0.807826, 0.928338, 1, 1, 0.807843, 0.929412, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_toiut"]
 gradient = SubResource("Gradient_srk0i")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s1xpe"]
-size = Vector2(236, 202)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvlme"]
 size = Vector2(98, 256)
+
+[sub_resource type="Animation" id="Animation_ghyp2"]
+resource_name = "go_to_deck"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-640, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gi4dg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wuxe3"]
+resource_name = "go_to_library"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-640, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4sjyp"]
+_data = {
+"RESET": SubResource("Animation_gi4dg"),
+"go_to_deck": SubResource("Animation_ghyp2"),
+"go_to_library": SubResource("Animation_wuxe3")
+}
 
 [node name="DeckManagement" type="Node2D"]
 script = ExtResource("1_f5tgn")
 cardsOwned = Array[ExtResource("2_ck3xd")]([ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("4_h6y6i"), ExtResource("4_h6y6i"), ExtResource("5_a5eyo"), ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("5_rhmm4"), ExtResource("6_2xbqi")])
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="LibraryView" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="LibraryView"]
+visible = false
+layout_mode = 0
 offset_right = 640.0
 offset_bottom = 360.0
 texture = SubResource("GradientTexture1D_toiut")
 metadata/_edit_lock_ = true
 
-[node name="Library" type="ScrollContainer" parent="."]
-offset_left = 24.0
-offset_top = 30.0
-offset_right = 455.0
-offset_bottom = 310.0
-size_flags_horizontal = 3
-horizontal_scroll_mode = 0
-metadata/_edit_group_ = true
-
-[node name="LibraryGrid" type="GridContainer" parent="Library"]
-layout_mode = 2
-theme = ExtResource("5_xc56l")
-columns = 4
-
-[node name="Control" parent="Library/LibraryGrid" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control2" parent="Library/LibraryGrid" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control3" parent="Library/LibraryGrid" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control4" parent="Library/LibraryGrid" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control5" parent="Library/LibraryGrid" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control6" parent="Library/LibraryGrid" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control7" parent="Library/LibraryGrid" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control8" parent="Library/LibraryGrid" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Deck" type="ScrollContainer" parent="."]
-visible = false
-offset_left = 8.0
-offset_top = 32.0
-offset_right = 632.0
-offset_bottom = 173.0
-vertical_scroll_mode = 0
-metadata/_edit_group_ = true
-
-[node name="CardOptions" type="GridContainer" parent="Deck"]
-layout_mode = 2
-theme = ExtResource("5_xc56l")
-columns = 15
-
-[node name="Control" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control2" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control3" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control4" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control5" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control6" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control7" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control8" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control9" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control10" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control11" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control12" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control13" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control14" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Control15" parent="Deck/CardOptions" instance=ExtResource("5_iseht")]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="."]
-offset_left = 16.0
-offset_top = 392.0
-offset_right = 283.0
-offset_bottom = 436.0
-theme_override_fonts/font = ExtResource("8_6xuvn")
-theme_override_font_sizes/font_size = 32
-text = "DECK"
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="LibraryView"]
+layout_mode = 0
 offset_left = 8.0
 offset_top = -8.0
 offset_right = 275.0
@@ -155,59 +109,85 @@ text = "CARD LIBRARY"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="CardLibraryArea" type="Area2D" parent="."]
-visible = false
+[node name="Library" type="ScrollContainer" parent="LibraryView"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 30.0
+offset_right = 455.0
+offset_bottom = 310.0
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+script = ExtResource("9_8mfdx")
+metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CardLibraryArea"]
-visible = false
-position = Vector2(128, 128)
-shape = SubResource("RectangleShape2D_s1xpe")
+[node name="LibraryGrid" type="GridContainer" parent="LibraryView/Library"]
+layout_mode = 2
+theme = ExtResource("5_xc56l")
+columns = 4
 
-[node name="DeckLibraryArea" type="Area2D" parent="."]
-visible = false
+[node name="Control" parent="LibraryView/Library/LibraryGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DeckLibraryArea"]
-position = Vector2(484, 160)
-shape = SubResource("RectangleShape2D_s1xpe")
+[node name="Control2" parent="LibraryView/Library/LibraryGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
 
-[node name="DragArea" type="Node2D" parent="."]
+[node name="Control3" parent="LibraryView/Library/LibraryGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control4" parent="LibraryView/Library/LibraryGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control5" parent="LibraryView/Library/LibraryGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control6" parent="LibraryView/Library/LibraryGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control7" parent="LibraryView/Library/LibraryGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control8" parent="LibraryView/Library/LibraryGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="LibraryDragArea" type="Node2D" parent="LibraryView"]
 position = Vector2(-28, -58)
 
-[node name="Label" type="Label" parent="DragArea"]
+[node name="Label" type="Label" parent="LibraryView/LibraryDragArea"]
 anchors_preset = -1
 anchor_left = 1.70787
 anchor_top = 0.545455
 anchor_right = 1.70787
 anchor_bottom = 0.545455
-offset_left = 513.0
-offset_top = 67.0
-offset_right = 657.0
-offset_bottom = 151.0
+offset_left = 525.0
+offset_top = 88.0
+offset_right = 669.0
+offset_bottom = 172.0
+scale = Vector2(0.8, 0.8)
 theme_override_fonts/font = ExtResource("8_6xuvn")
 theme_override_font_sizes/font_size = 32
 text = "Drag cards here to add to your deck."
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Button" type="Button" parent="DragArea"]
+[node name="Button" type="Button" parent="LibraryView/LibraryDragArea"]
 offset_left = 525.0
 offset_top = 369.0
 offset_right = 629.0
 offset_bottom = 390.0
 text = "View Deck"
 
-[node name="AddToDeckIcon" type="TextureRect" parent="DragArea"]
+[node name="AddToDeckIcon" type="TextureRect" parent="LibraryView/LibraryDragArea"]
 offset_left = 528.0
 offset_top = 176.0
 offset_right = 626.0
 offset_bottom = 306.0
 texture = ExtResource("8_ts643")
 
-[node name="DeckPile" parent="DragArea" instance=ExtResource("9_imnic")]
+[node name="DeckPile" parent="LibraryView/LibraryDragArea" instance=ExtResource("9_imnic")]
 position = Vector2(577, 304)
 scale = Vector2(1.24023, 1.24023)
 
-[node name="TextureRect2" type="TextureRect" parent="DragArea"]
+[node name="TextureRect2" type="TextureRect" parent="LibraryView/LibraryDragArea"]
 offset_left = 597.0
 offset_top = 162.0
 offset_right = 637.0
@@ -216,7 +196,7 @@ rotation = 1.5708
 scale = Vector2(0.5, 1)
 texture = ExtResource("7_fkg7o")
 
-[node name="TextureRect3" type="TextureRect" parent="DragArea"]
+[node name="TextureRect3" type="TextureRect" parent="LibraryView/LibraryDragArea"]
 offset_left = 597.0
 offset_top = 162.0
 offset_right = 637.0
@@ -225,8 +205,147 @@ rotation = 1.5708
 scale = Vector2(0.5, 1)
 texture = ExtResource("7_fkg7o")
 
-[node name="Area2D" type="Area2D" parent="DragArea"]
+[node name="Area2D" type="Area2D" parent="LibraryView/LibraryDragArea"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DragArea/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LibraryView/LibraryDragArea/Area2D"]
 position = Vector2(578, 226)
 shape = SubResource("RectangleShape2D_gvlme")
+
+[node name="DeckView" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 640.0
+offset_right = 680.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="DeckView"]
+visible = false
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+texture = SubResource("GradientTexture1D_toiut")
+
+[node name="Label" type="Label" parent="DeckView"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 4.3
+anchor_right = 4.3
+offset_left = 8.0
+offset_top = -8.0
+offset_right = 275.0
+offset_bottom = 36.0
+theme_override_fonts/font = ExtResource("8_6xuvn")
+theme_override_font_sizes/font_size = 32
+text = "YOUR DECK"
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Deck" type="ScrollContainer" parent="DeckView"]
+layout_mode = 0
+offset_left = 170.0
+offset_top = 30.0
+offset_right = 601.0
+offset_bottom = 310.0
+size_flags_horizontal = 3
+horizontal_scroll_mode = 0
+metadata/_edit_group_ = true
+
+[node name="DeckGrid" type="GridContainer" parent="DeckView/Deck"]
+layout_mode = 2
+theme = ExtResource("5_xc56l")
+columns = 4
+
+[node name="Control" parent="DeckView/Deck/DeckGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control2" parent="DeckView/Deck/DeckGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control3" parent="DeckView/Deck/DeckGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control4" parent="DeckView/Deck/DeckGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control5" parent="DeckView/Deck/DeckGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control6" parent="DeckView/Deck/DeckGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control7" parent="DeckView/Deck/DeckGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="Control8" parent="DeckView/Deck/DeckGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
+
+[node name="DeckDragArea" type="Node2D" parent="DeckView"]
+position = Vector2(-494, -58)
+
+[node name="Label" type="Label" parent="DeckView/DeckDragArea"]
+anchors_preset = -1
+anchor_left = 1.70787
+anchor_top = 0.545455
+anchor_right = 1.70787
+anchor_bottom = 0.545455
+offset_left = 524.0
+offset_top = 58.0
+offset_right = 668.0
+offset_bottom = 200.0
+scale = Vector2(0.8, 0.8)
+theme_override_fonts/font = ExtResource("8_6xuvn")
+theme_override_font_sizes/font_size = 32
+text = "Drag cards here to remove from the deck."
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="DeckView/DeckDragArea"]
+offset_left = 525.0
+offset_top = 369.0
+offset_right = 629.0
+offset_bottom = 390.0
+text = "View Library"
+
+[node name="AddToDeckIcon" type="TextureRect" parent="DeckView/DeckDragArea"]
+offset_left = 528.0
+offset_top = 176.0
+offset_right = 626.0
+offset_bottom = 306.0
+texture = ExtResource("8_ts643")
+
+[node name="TextureRect2" type="TextureRect" parent="DeckView/DeckDragArea"]
+offset_left = 597.0
+offset_top = 162.0
+offset_right = 637.0
+offset_bottom = 202.0
+rotation = 1.5708
+scale = Vector2(0.5, 1)
+texture = ExtResource("7_fkg7o")
+
+[node name="TextureRect3" type="TextureRect" parent="DeckView/DeckDragArea"]
+offset_left = 597.0
+offset_top = 162.0
+offset_right = 637.0
+offset_bottom = 202.0
+rotation = 1.5708
+scale = Vector2(0.5, 1)
+texture = ExtResource("7_fkg7o")
+
+[node name="Sprite2D" type="Sprite2D" parent="DeckView/DeckDragArea"]
+position = Vector2(576, 310)
+scale = Vector2(1.4, 1.4)
+texture = ExtResource("14_6ysbs")
+
+[node name="Area2D" type="Area2D" parent="DeckView/DeckDragArea"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeckView/DeckDragArea/Area2D"]
+position = Vector2(578, 226)
+shape = SubResource("RectangleShape2D_gvlme")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4sjyp")
+}
+
+[connection signal="pressed" from="LibraryView/LibraryDragArea/Button" to="." method="viewDeck"]
+[connection signal="pressed" from="DeckView/DeckDragArea/Button" to="." method="viewLibrary"]
