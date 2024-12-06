@@ -14,6 +14,12 @@ class_name CardImage
 signal card_added_to_deck(card)
 signal card_removed_from_deck(card)
 
+const SPEED := 0.2
+const delay := 4
+var local_card_pos
+var is_dragging = false
+var overlappingAreas : Array[Area2D] = []
+
 const PLAYER = preload("res://components/units/UnitDictionary/UnitTypes/player.tres")
 
 func setCardData():
@@ -21,13 +27,36 @@ func setCardData():
 	rich_card_description.text = card_stats.card_description % GameLogic.calculateCardCost(card_stats, PLAYER, false)
 	card_image_slot.texture = card_stats.card_image 
 	card_cost_label.text = str(card_stats.play_cost)
+	local_card_pos = scene_base.position
 
+func _physics_process(delta):
+	if is_dragging:
+		create_tween().tween_property(self, "global_position", get_global_mouse_position() - Vector2(51,65), delay * delta)
+		
 func _card_display_gui_input(event):
-	if not isEditingDeck:
-		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
-			card_added_to_deck.emit(self)
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.is_pressed():
-			card_removed_from_deck.emit(self)
+			self.z_index = 100
+			create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
+			if not local_card_pos:
+				local_card_pos = self.position
+			is_dragging = true
+		else:
+			self.z_index = 0
+			if overlappingAreas.size():
+				card_added_to_deck.emit(self)
+				self.queue_free()
+			else:
+				returnCardToOrigin()
+				
+func onEnteringDeckZone(area):
+	overlappingAreas.push_front(area)
+	print(overlappingAreas)
+	
+func onExitingDeckArea(area):
+	print('exiting')
+	overlappingAreas.erase(area)
+
+func returnCardToOrigin():
+	create_tween().tween_property(self, "position", local_card_pos, SPEED)
+	is_dragging = false

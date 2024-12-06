@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr6dgbvmdrv34"]
+
+[ext_resource type="Texture2D" uid="uid://c0tpi8rv5fou2" path="res://art/card-library-bar.png" id="1_vcwjk"]
+[ext_resource type="Texture2D" uid="uid://dvynfyv5rmtk6" path="res://art/card-in-library-dot.png" id="2_x88yk"]
+
+[node name="CardInDeckReadout" type="TextureRect"]
+offset_left = 8.0
+offset_top = 78.0
+offset_right = 168.0
+offset_bottom = 100.0
+texture = ExtResource("1_vcwjk")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.081
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 0.04
+offset_right = -84.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Basic Attack"
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 6.0
+offset_right = 122.0
+offset_bottom = 16.0
+texture = ExtResource("2_x88yk")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 123.0
+offset_top = 6.0
+offset_right = 133.0
+offset_bottom = 16.0
+texture = ExtResource("2_x88yk")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 6.0
+offset_right = 144.0
+offset_bottom = 16.0
+texture = ExtResource("2_x88yk")
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 6.0
+offset_right = 155.0
+offset_bottom = 16.0
+texture = ExtResource("2_x88yk")

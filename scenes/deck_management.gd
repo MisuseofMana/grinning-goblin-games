@@ -27,18 +27,13 @@ func _ready() -> void:
 		newCard.card_stats = card
 		library_grid.add_child(newCard)
 		newCard.setCardData()
+		var newArea = DETECTION_AREA_CARD.instantiate()
+		newCard.add_child(newArea)
 		newCard.isEditingDeck = true
 		newCard.card_added_to_deck.connect(addCardToDeck)
 		newCard.card_removed_from_deck.connect(removeCardFromDeck)
-		
-	#for card in deckCards:
-		#var newCard = CARD_DISPLAY.instantiate()
-		#newCard.card_stats = card
-		#deck_grid.add_child(newCard)
-		#newCard.setCardData()
-		#var newArea = DETECTION_AREA_CARD.instantiate()
-		#newCard.add_child(newArea)
-		#newCard.add_to_discard_number.connect(addCardToDeck)
+		newArea.area_entered.connect(newCard.onEnteringDeckZone)
+		newArea.area_exited.connect(newCard.onExitingDeckArea)
 
 func addCardToDeck(card: CardImage):
 	if not deckCards.has(card):

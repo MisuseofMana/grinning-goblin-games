@@ -4,6 +4,8 @@
 size = Vector2(68.25, 97)
 
 [node name="CardArea" type="Area2D"]
+collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(54.875, 70.5)

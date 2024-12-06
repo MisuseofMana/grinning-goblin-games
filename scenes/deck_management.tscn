@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dxepjdqdt2il8"]
+[gd_scene load_steps=26 format=3 uid="uid://dxepjdqdt2il8"]
 
 [ext_resource type="Script" path="res://scenes/deck_management.gd" id="1_f5tgn"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="2_ck3xd"]
@@ -15,6 +15,8 @@
 [ext_resource type="Script" path="res://scenes/card_library_interactions.gd" id="9_8mfdx"]
 [ext_resource type="PackedScene" uid="uid://c2s4d0va0x5gy" path="res://components/cards/deck_pile.tscn" id="9_imnic"]
 [ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="10_flouw"]
+[ext_resource type="PackedScene" uid="uid://cr6dgbvmdrv34" path="res://components/cards/DeckManagement/card-bar.tscn" id="11_fl0v2"]
+[ext_resource type="Script" path="res://components/cards/DeckManagement/card_bar.gd" id="12_ig36t"]
 [ext_resource type="Texture2D" uid="uid://cy2pnkqsmck53" path="res://art/ui/library-icon.png" id="14_6ysbs"]
 
 [sub_resource type="Gradient" id="Gradient_srk0i"]
@@ -22,8 +24,6 @@ colors = PackedColorArray(1, 0.807826, 0.928338, 1, 1, 0.807843, 0.929412, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_toiut"]
 gradient = SubResource("Gradient_srk0i")
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pkj7u"]
 
 [sub_resource type="Animation" id="Animation_gi4dg"]
 length = 0.001
@@ -79,17 +79,51 @@ _data = {
 "go_to_library": SubResource("Animation_wuxe3")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cu4q4"]
+size = Vector2(167, 360)
+
 [node name="DeckManagement" type="Node2D"]
 script = ExtResource("1_f5tgn")
 cardsOwned = Array[ExtResource("2_ck3xd")]([ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("4_h6y6i"), ExtResource("4_h6y6i"), ExtResource("5_a5eyo"), ExtResource("2_k3ojo"), ExtResource("2_k3ojo"), ExtResource("5_rhmm4"), ExtResource("6_2xbqi"), ExtResource("8_h2ifi"), ExtResource("5_a5eyo"), ExtResource("5_rhmm4")])
 
+[node name="Sidebar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 472.0
+offset_top = -8.0
+offset_right = 648.0
+offset_bottom = 367.0
+
+[node name="SidebarNinePatch" type="NinePatchRect" parent="Sidebar"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.003
+offset_bottom = -0.125
+texture = ExtResource("10_flouw")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="CardInDeckReadout" parent="Sidebar" instance=ExtResource("11_fl0v2")]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.003
+offset_right = -8.0
+offset_bottom = -276.125
+script = ExtResource("12_ig36t")
+
 [node name="LibraryView" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 472.0
+offset_bottom = 360.0
 
 [node name="TextureRect" type="TextureRect" parent="LibraryView"]
+visible = false
 layout_mode = 0
 offset_right = 640.0
 offset_bottom = 360.0
@@ -99,10 +133,10 @@ metadata/_edit_lock_ = true
 [node name="CardsYouOwnLabel" type="Label" parent="LibraryView"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 2.15
-anchor_top = 0.5
-anchor_right = 2.15
-anchor_bottom = 0.5
+anchor_left = 0.163136
+anchor_top = 0.0361111
+anchor_right = 0.163136
+anchor_bottom = 0.0361111
 offset_left = 8.0
 offset_top = -8.0
 offset_right = 275.0
@@ -113,40 +147,8 @@ text = "CARDS YOU OWN"
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Sidebar" type="Control" parent="LibraryView"]
-anchors_preset = 0
-offset_left = 472.0
-offset_top = -8.0
-offset_right = 512.0
-offset_bottom = 32.0
-
-[node name="SidebarNinePatch" type="NinePatchRect" parent="LibraryView/Sidebar"]
-layout_mode = 0
-offset_right = 176.0
-offset_bottom = 376.0
-texture = ExtResource("10_flouw")
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-
-[node name="CardInDeckReadout" type="TextureRect" parent="LibraryView/Sidebar"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 78.0
-offset_right = 168.0
-offset_bottom = 100.0
-texture = SubResource("PlaceholderTexture2D_pkj7u")
-
-[node name="CardInDeckReadout2" type="TextureRect" parent="LibraryView/Sidebar"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 103.0
-offset_right = 168.0
-offset_bottom = 125.0
-texture = SubResource("PlaceholderTexture2D_pkj7u")
-
 [node name="Library" type="ScrollContainer" parent="LibraryView"]
+clip_contents = false
 layout_mode = 0
 offset_left = 8.0
 offset_top = 55.0
@@ -187,24 +189,18 @@ layout_mode = 2
 [node name="Control8" parent="LibraryView/Library/LibraryGrid" instance=ExtResource("5_iseht")]
 layout_mode = 2
 
-[node name="LibraryDragArea" type="Node2D" parent="LibraryView"]
+[node name="Control9" parent="LibraryView/Library/LibraryGrid" instance=ExtResource("5_iseht")]
+layout_mode = 2
 
-[node name="Button" type="Button" parent="LibraryView/LibraryDragArea"]
-visible = false
-offset_left = 568.0
-offset_top = 320.0
-offset_right = 632.0
-offset_bottom = 341.0
-theme = ExtResource("5_xc56l")
-text = "View Deck"
+[node name="LibraryDragArea" type="Node2D" parent="LibraryView"]
 
 [node name="DeckPile" parent="LibraryView/LibraryDragArea" instance=ExtResource("9_imnic")]
 position = Vector2(604, 35)
 scale = Vector2(0.760702, 0.760702)
 
 [node name="LibraryIcon" type="Sprite2D" parent="LibraryView/LibraryDragArea"]
-position = Vector2(57, 37)
-scale = Vector2(0.773597, 0.773597)
+position = Vector2(53, 30)
+scale = Vector2(0.655455, 0.655455)
 texture = ExtResource("14_6ysbs")
 
 [node name="YourDeckLabel" type="Label" parent="LibraryView/LibraryDragArea"]
@@ -329,5 +325,12 @@ libraries = {
 "": SubResource("AnimationLibrary_4sjyp")
 }
 
-[connection signal="pressed" from="LibraryView/LibraryDragArea/Button" to="." method="viewDeck"]
+[node name="DeckDropArea" type="Area2D" parent="."]
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeckDropArea"]
+position = Vector2(556.5, 180)
+shape = SubResource("RectangleShape2D_cu4q4")
+
 [connection signal="pressed" from="DeckView/DeckDragArea/Button" to="." method="viewLibrary"]

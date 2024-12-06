@@ -191,7 +191,6 @@ offset_right = 51.0
 offset_bottom = 62.0
 
 [node name="CardArea" parent="CardDisplay" instance=ExtResource("3_fdjwy")]
-collision_layer = 0
 
 [node name="MouseOverSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_fqe74")
