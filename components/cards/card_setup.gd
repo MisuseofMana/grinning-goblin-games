@@ -12,12 +12,15 @@ class_name CardImage
 @export var isEditingDeck : bool = false
 
 signal card_added_to_deck(card)
-signal card_removed_from_deck(card)
 
 const SPEED := 0.2
 const delay := 4
 var local_card_pos
 var is_dragging = false
+var is_disabled = false :
+	set(value):
+		is_disabled = value
+		modulate = Color(1,1,1,0.2) if is_disabled == true else Color(1,1,1,1)
 var overlappingAreas : Array[Area2D] = []
 
 const PLAYER = preload("res://components/units/UnitDictionary/UnitTypes/player.tres")
@@ -34,7 +37,7 @@ func _physics_process(delta):
 		create_tween().tween_property(self, "global_position", get_global_mouse_position() - Vector2(51,65), delay * delta)
 		
 func _card_display_gui_input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT && not is_disabled:
 		if event.is_pressed():
 			self.z_index = 100
 			create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
@@ -44,7 +47,7 @@ func _card_display_gui_input(event):
 		else:
 			self.z_index = 0
 			if overlappingAreas.size():
-				card_added_to_deck.emit(self)
+				card_added_to_deck.emit(card_stats)
 				self.visible = false
 			else:
 				returnCardToOrigin()

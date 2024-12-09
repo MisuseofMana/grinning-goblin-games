@@ -13,13 +13,13 @@ signal tokens_updated(unit_stats: UnitStats)
 func _ready():
 	health_bar.max_value = unit_stats.stats.max_health
 	updateHealthDisplay()
-	
-#	add new animation name
 	for animation_name in unit_stats.animation_names:
 		if not unit_sprite.sprite_frames.has_animation(animation_name):
 			unit_sprite.sprite_frames.add_animation(animation_name)
 			setAnimationFrames('res://art/cards/sprites/' + unit_stats.character_type + '/' + animation_name + '/', animation_name)
 	unit_sprite.animation = 'idle'
+	unit_sprite.autoplay = 'idle'
+	
 
 func die():
 	if unit_stats.is_self:

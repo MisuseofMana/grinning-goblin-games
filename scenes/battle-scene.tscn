@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=16 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://bu305i6xvayai" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
@@ -7,10 +7,13 @@
 [ext_resource type="Resource" uid="uid://c4k3kk3bkrtt7" path="res://components/cards/CardDictionary/DefenseCards/basic_defend.tres" id="8_grg55"]
 [ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="9_6jadm"]
 [ext_resource type="Resource" uid="uid://c534yv87m0b1" path="res://components/cards/CardDictionary/AttackCards/basic_phys_attack.tres" id="9_jtg2h"]
+[ext_resource type="Texture2D" uid="uid://bnimnyhvmbkvv" path="res://art/ui/action_points_meter.png" id="10_4csdw"]
+[ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="11_re3gd"]
+[ext_resource type="Texture2D" uid="uid://clv1s8w5roogn" path="res://art/ui/xp_bar.png" id="12_52kwo"]
 [ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cards/hand_of_cards.tscn" id="15_6uhf2"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="16_gqber"]
 
-[sub_resource type="Resource" id="Resource_fegek"]
+[sub_resource type="Resource" id="Resource_u6mhp"]
 resource_local_to_scene = true
 script = ExtResource("9_6jadm")
 stats = {
@@ -26,7 +29,7 @@ animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_hoi0t"]
+[sub_resource type="Resource" id="Resource_f5pvw"]
 resource_local_to_scene = true
 script = ExtResource("9_6jadm")
 stats = {
@@ -42,7 +45,7 @@ animation_names = Array[String](["idle"])
 character_type = "goblin"
 is_self = false
 
-[sub_resource type="Resource" id="Resource_j44wc"]
+[sub_resource type="Resource" id="Resource_fawjc"]
 resource_local_to_scene = true
 script = ExtResource("9_6jadm")
 stats = {
@@ -71,17 +74,17 @@ texture = ExtResource("2_jaqan")
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_stats = SubResource("Resource_fegek")
+unit_stats = SubResource("Resource_u6mhp")
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="UnitAnimations2" parent="Enemies" instance=ExtResource("3_kt5qk")]
 position = Vector2(476, 139)
-unit_stats = SubResource("Resource_hoi0t")
+unit_stats = SubResource("Resource_f5pvw")
 
 [node name="UnitAnimations3" parent="Enemies" instance=ExtResource("3_kt5qk")]
 position = Vector2(550, 160)
-unit_stats = SubResource("Resource_j44wc")
+unit_stats = SubResource("Resource_fawjc")
 
 [node name="CardInterface" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("15_6uhf2")]
 position = Vector2(0, 360)
@@ -101,6 +104,49 @@ offset_top = 274.0
 offset_right = 110.0
 offset_bottom = 295.0
 text = "Fake Discard"
+
+[node name="ActionPointUI" type="Sprite2D" parent="."]
+position = Vector2(27, 27)
+texture = ExtResource("10_4csdw")
+
+[node name="ActionPointsCounter" type="Label" parent="."]
+offset_left = 19.0
+offset_top = 10.0
+offset_right = 31.0
+offset_bottom = 36.0
+theme = ExtResource("11_re3gd")
+text = "2"
+
+[node name="NinePatchRect2" type="NinePatchRect" parent="."]
+offset_left = 71.0
+offset_top = -2.0
+offset_right = 104.0
+offset_bottom = 22.0
+texture = ExtResource("12_52kwo")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="ActionPointsCounter2" type="Label" parent="."]
+offset_left = 77.0
+offset_top = -5.0
+offset_right = 101.0
+offset_bottom = 21.0
+theme = ExtResource("11_re3gd")
+text = "XP
+"
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+offset_left = 100.0
+offset_top = 4.0
+offset_right = 570.0
+offset_bottom = 17.0
+texture = ExtResource("12_52kwo")
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
 
 [connection signal="pressed" from="Button" to="CardInterface" method="add_random_card_to_hand"]
 [connection signal="pressed" from="Button2" to="CardInterface" method="discardHand"]

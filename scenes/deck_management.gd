@@ -6,7 +6,6 @@ class_name DeckManagement
 @onready var card_bar_container: VBoxContainer = $Sidebar/ScrollContainer/VBoxContainer
 
 @export var cardsOwned : Array[CardStats] = []
-@export var deckCards : Dictionary = {}
 
 @onready var anims = $AnimationPlayer
 
@@ -16,7 +15,7 @@ const CARD_BAR = preload("res://components/cards/DeckManagement/card-bar.tscn")
 
 var current_view : String = 'library'
 
-signal deck_updated(deck_cards)
+signal added_to_deck(cardStat: CardStats)
 
 func _ready() -> void:
 #	remove all cards in grid to ensure no lingering development cards exist
@@ -25,32 +24,29 @@ func _ready() -> void:
 	for dummyCard in deck_grid.get_children():
 		dummyCard.queue_free()
 		
-	for card in cardsOwned:
-		var newCard = CARD_DISPLAY.instantiate()
-		newCard.card_stats = card
-		library_grid.add_child(newCard)
-		newCard.setCardData()
-		var newArea = DETECTION_AREA_CARD.instantiate()
-		newCard.add_child(newArea)
-		newCard.isEditingDeck = true
-		newCard.card_added_to_deck.connect(addCardToDeck)
-		newCard.card_removed_from_deck.connect(removeCardFromDeck)
-		newArea.area_entered.connect(newCard.onEnteringDeckZone)
-		newArea.area_exited.connect(newCard.onExitingDeckArea)
+	for card : CardStats in cardsOwned:
+		addCardToLibrary(card)
 
-func addCardToDeck(card: CardImage):
-		var card_name = card.card_stats.card_name
-		if deckCards.has(card_name):
-			deckCards[card_name]['howMany'] += 1
-		else:
-			deckCards[card_name] = {
-				'card_stats': card.card_stats,
-				'howMany': 1
-			}
-		deck_updated.emit(deckCards[card_name])
+func addCardToDeck(card: CardStats):
+	added_to_deck.emit(card)
+		
+func removeCardFromDeck(cardStats: CardStats):
+	addCardToLibrary(cardStats)
 	
-func removeCardFromDeck(card: CardImage):
-		var card_name = card.card_stats.card_name
-		if deckCards.has(card_name):
-			deckCards[card_name]['howMany'] -= 1
-		deck_updated.emit(deckCards[card_name])
+func addCardToLibrary(card: CardStats):
+	var newCard = CARD_DISPLAY.instantiate()
+	newCard.card_stats = card
+	library_grid.add_child(newCard)
+	newCard.setCardData()
+	var newArea = DETECTION_AREA_CARD.instantiate()
+	newCard.add_child(newArea)
+	newCard.isEditingDeck = true
+	newCard.card_added_to_deck.connect(addCardToDeck)
+	newArea.area_entered.connect(newCard.onEnteringDeckZone)
+	newArea.area_exited.connect(newCard.onExitingDeckArea)
+		
+func changeCardAvailibilty(cardName, disableBool : bool):
+	for child : CardImage in library_grid.get_children():
+		if child.card_stats.card_name == cardName:
+			child.is_disabled = disableBool
+		

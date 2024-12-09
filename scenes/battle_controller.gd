@@ -6,4 +6,6 @@ extends Node2D
 
 @export var stage_background = Texture2D
 
+@export var player_deck : Array[CardStats] = []
+
 var players_turn : bool = true

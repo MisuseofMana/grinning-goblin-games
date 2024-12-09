@@ -20,13 +20,15 @@ offset_left = 0.04
 offset_right = -84.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 text = "Basic Attack"
 vertical_alignment = 1
 
 [node name="DotContainer" type="Control" parent="."]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 160.0
+offset_bottom = 22.0
+mouse_filter = 1
 
 [node name="TextureRect" type="TextureRect" parent="DotContainer"]
 layout_mode = 0
@@ -59,3 +61,5 @@ offset_top = 6.0
 offset_right = 155.0
 offset_bottom = 16.0
 texture = ExtResource("2_x88yk")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

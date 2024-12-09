@@ -8,3 +8,6 @@ var label_number : int = 0 :
 		number.text = str(label_number)
 	get:
 		return label_number
+
+func updateLabel(value):
+	label_number = value

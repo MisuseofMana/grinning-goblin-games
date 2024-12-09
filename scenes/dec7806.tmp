@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://getptn3kqhxl" path="res://components/cards/CardDictionary/HealCards/basic_heal.tres" id="6_2xbqi"]
 [ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="8_6xuvn"]
 [ext_resource type="Resource" uid="uid://edj63j3h0mhe" path="res://components/cards/CardDictionary/TokenCards/poison.tres" id="8_h2ifi"]
-[ext_resource type="Script" path="res://components/cards/sidebar_handling.gd" id="9_baoaw"]
+[ext_resource type="Script" path="res://components/cards/sidebar_reset.gd" id="9_baoaw"]
 [ext_resource type="PackedScene" uid="uid://c2s4d0va0x5gy" path="res://components/cards/deck_pile.tscn" id="9_imnic"]
 [ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="10_flouw"]
 [ext_resource type="PackedScene" uid="uid://cr6dgbvmdrv34" path="res://components/cards/DeckManagement/card-bar.tscn" id="11_fl0v2"]
@@ -200,7 +200,7 @@ layout_mode = 2
 [node name="LibraryDragArea" type="Node2D" parent="LibraryView"]
 
 [node name="DeckPile" parent="LibraryView/LibraryDragArea" instance=ExtResource("9_imnic")]
-position = Vector2(594, 30)
+position = Vector2(604, 35)
 scale = Vector2(0.760702, 0.760702)
 
 [node name="LibraryIcon" type="Sprite2D" parent="LibraryView/LibraryDragArea"]
@@ -234,7 +234,6 @@ offset_left = 493.0
 offset_top = 5.0
 offset_right = 562.0
 offset_bottom = 60.0
-theme = ExtResource("5_xc56l")
 theme_override_fonts/font = ExtResource("8_6xuvn")
 theme_override_font_sizes/font_size = 32
 text = "YOUR
@@ -340,7 +339,5 @@ libraries = {
 "": SubResource("AnimationLibrary_4sjyp")
 }
 
-[connection signal="added_to_deck" from="." to="Sidebar" method="addCardToSidebar"]
-[connection signal="card_availibility_changed" from="Sidebar" to="." method="changeCardAvailibilty"]
-[connection signal="deck_size_changed" from="Sidebar" to="LibraryView/LibraryDragArea/DeckPile" method="updateLabel"]
+[connection signal="deck_updated" from="." to="Sidebar" method="handleSidebarUpdate"]
 [connection signal="pressed" from="DeckView/DeckDragArea/Button" to="." method="viewLibrary"]
