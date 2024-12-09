@@ -45,16 +45,14 @@ func _card_display_gui_input(event):
 			self.z_index = 0
 			if overlappingAreas.size():
 				card_added_to_deck.emit(self)
-				self.queue_free()
+				self.visible = false
 			else:
 				returnCardToOrigin()
 				
 func onEnteringDeckZone(area):
 	overlappingAreas.push_front(area)
-	print(overlappingAreas)
 	
 func onExitingDeckArea(area):
-	print('exiting')
 	overlappingAreas.erase(area)
 
 func returnCardToOrigin():
