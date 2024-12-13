@@ -1,11 +1,14 @@
 extends Node2D
+class_name HandOfCards
 
 @onready var hand_of_cards = $"."
 @onready var card_arc = $CardArc
 @onready var paper_sound: AudioStreamPlayer2D = $PaperSound
 @onready var discard_pile = $DiscardPile
+@onready var card_base: Card = $CardArc/CardFollowPath/CardBase
 
 @export var cards_in_hand : Array[CardStats] = []
+@export var battle_scene : BattleScene
 
 const CARD = preload("res://components/cards/card.tscn")
 
@@ -44,6 +47,8 @@ func addCardToHand(cardResource: CardStats):
 	
 	newCard.add_to_discard_number.connect(handleDiscardNumber)
 	newCard.handle_card_deletion.connect(removeCardAndUpdateHand)
+	newCard.card_used.connect(battle_scene.reduceActionPoints)
+	newCard.card_interface = self
 
 	var numberOfCards = card_arc.get_children().size()
 	var path_division = 1.0 / (numberOfCards + 1.0)

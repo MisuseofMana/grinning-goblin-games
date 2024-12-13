@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cards/hand_of_cards.tscn" id="15_6uhf2"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="16_gqber"]
 
-[sub_resource type="Resource" id="Resource_mhbgu"]
+[sub_resource type="Resource" id="Resource_qnjkw"]
 resource_local_to_scene = true
 script = ExtResource("9_6jadm")
 stats = {
@@ -31,7 +31,7 @@ animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_heccl"]
+[sub_resource type="Resource" id="Resource_2nobu"]
 resource_local_to_scene = true
 script = ExtResource("9_6jadm")
 stats = {
@@ -47,7 +47,7 @@ animation_names = Array[String](["idle"])
 character_type = "goblin"
 is_self = false
 
-[sub_resource type="Resource" id="Resource_16y7k"]
+[sub_resource type="Resource" id="Resource_1pldb"]
 resource_local_to_scene = true
 script = ExtResource("9_6jadm")
 stats = {
@@ -76,21 +76,22 @@ texture = ExtResource("2_jaqan")
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_stats = SubResource("Resource_mhbgu")
+unit_stats = SubResource("Resource_qnjkw")
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="UnitAnimations2" parent="Enemies" instance=ExtResource("3_kt5qk")]
 position = Vector2(476, 139)
-unit_stats = SubResource("Resource_heccl")
+unit_stats = SubResource("Resource_2nobu")
 
 [node name="UnitAnimations3" parent="Enemies" instance=ExtResource("3_kt5qk")]
 position = Vector2(550, 160)
-unit_stats = SubResource("Resource_16y7k")
+unit_stats = SubResource("Resource_1pldb")
 
-[node name="CardInterface" parent="." node_paths=PackedStringArray("Player") instance=ExtResource("15_6uhf2")]
+[node name="CardInterface" parent="." node_paths=PackedStringArray("battle_scene", "Player") instance=ExtResource("15_6uhf2")]
 position = Vector2(0, 360)
 cards_in_hand = Array[ExtResource("16_gqber")]([ExtResource("9_jtg2h"), ExtResource("8_grg55"), ExtResource("8_grg55")])
+battle_scene = NodePath("..")
 Player = NodePath("../Player")
 
 [node name="ActionPointUI" type="Sprite2D" parent="."]
@@ -103,7 +104,7 @@ offset_top = 10.0
 offset_right = 31.0
 offset_bottom = 36.0
 theme = ExtResource("11_re3gd")
-text = "2"
+text = "3"
 
 [node name="NinePatchRect2" type="NinePatchRect" parent="."]
 offset_left = 71.0
@@ -138,9 +139,11 @@ patch_margin_bottom = 3
 
 [node name="DebugBar" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("13_di01h")
 
 [node name="Button" type="Button" parent="DebugBar"]

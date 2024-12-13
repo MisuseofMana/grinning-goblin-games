@@ -33,8 +33,9 @@ position = Vector2(204.93, -4.95397)
 rotation = -0.0180534
 progress = 115.074
 
-[node name="CardBase" parent="CardArc/CardFollowPath" instance=ExtResource("1_ugjcr")]
+[node name="CardBase" parent="CardArc/CardFollowPath" node_paths=PackedStringArray("card_interface") instance=ExtResource("1_ugjcr")]
 card_stats = ExtResource("3_amqfl")
+card_interface = NodePath("../../..")
 
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")
