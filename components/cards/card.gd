@@ -32,7 +32,7 @@ const SPEED := 0.2
 const delay := 4
 
 var discardAnimFinished = false
-var discardAudioFinished = false
+var discardAudioFinished = true
 
 func _ready() -> void:
 	if not card_stats:
@@ -47,6 +47,8 @@ func _physics_process(delta):
 		card_shimmer.emitting = true
 
 func _card_display_gui_input(event):
+	if not card_interface.battle_scene.players_turn:
+		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
 			create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
@@ -79,6 +81,7 @@ func have_points_to_use_card(card_cost):
 	
 func useCard(targetUnit: Unit):
 	create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
+	discardAudioFinished = false
 	valid_drop_sound.play()
 	anims.play('go_to_discard')
 	card_stats.card_effect(targetUnit, PLAYER)
@@ -92,6 +95,8 @@ func returnCardToHand():
 	_on_card_mouse_exited()
 
 func _on_card_mouse_entered():
+	if not card_interface.battle_scene.players_turn:
+		return
 	if not is_dragging && not undraggable:
 		if not card_rotation:
 			card_rotation = scene_base.get_parent().rotation
@@ -100,6 +105,8 @@ func _on_card_mouse_entered():
 		create_tween().tween_property(self, "scale", Vector2(1.2, 1.2), SPEED)
 
 func _on_card_mouse_exited():
+	if not card_interface.battle_scene.players_turn:
+		return
 	if not is_dragging and not undraggable:
 		card_display.z_index = 0
 		create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
@@ -123,9 +130,9 @@ func swapCardBackTexture():
 	card_name.hide()
 	card_display.card_base.texture = CARD_TEMPLATE_BACK
 
-func addToDiscard(howMany):
-	add_to_discard_number.emit(howMany)
-	queue_free()
+#func addToDiscard(howMany):
+	#add_to_discard_number.emit(howMany)
+	#queue_free()
 	
 func allQueuesFinished():
 	add_to_discard_number.emit(1)

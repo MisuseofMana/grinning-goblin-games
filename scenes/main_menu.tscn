@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu2hlsm1qvuev"]
+
+[ext_resource type="AudioStream" uid="uid://7a3paan6vkki" path="res://audio/game_music/card_intro_song.wav" id="1_2fwjl"]
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_i0eov"]
+
+[node name="MainMenu" type="Node"]
+script = ExtResource("1_i0eov")
+
+[node name="MainTheme" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_2fwjl")
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 138.0
+offset_top = 62.0
+offset_right = -136.0
+offset_bottom = -99.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Title" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Ledgerdemesne"
+horizontal_alignment = 1
+
+[node name="StartNewGameButton" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Start New Game"
+
+[node name="LoadGameButton" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Load Game"
+
+[node name="WebsiteLink" type="LinkButton" parent="."]
+offset_left = 527.0
+offset_top = 337.0
+offset_right = 634.0
+offset_bottom = 350.0
+text = "Created By Shinbone"
+uri = "https://www.seanyager.com"
+
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/StartNewGameButton" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer/LoadGameButton" to="." method="_on_load_game_button_pressed"]

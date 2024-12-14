@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://d3ras73xd8xmc"]
 
-[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card-template.png" id="1_iwbxp"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="1_iwbxp"]
 [ext_resource type="Script" path="res://components/cards/card_setup.gd" id="1_wb2iw"]
 [ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="2_njuc5"]
 [ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="3_03ctt"]

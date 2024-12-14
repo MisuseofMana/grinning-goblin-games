@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://components/cards/hand_of_cards.gd" id="1_50x24"]
 [ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/card.tscn" id="1_ugjcr"]
-[ext_resource type="Resource" uid="uid://c534yv87m0b1" path="res://components/cards/CardDictionary/AttackCards/basic_phys_attack.tres" id="3_amqfl"]
+[ext_resource type="Resource" uid="uid://c534yv87m0b1" path="res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres" id="3_amqfl"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
@@ -11,7 +11,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_wguu1"]
 _data = {
-"points": PackedVector2Array(-61.9437, 7.79239, 61.9437, -7.79239, 90, 0, -62.0618, -8.03093, 62.0618, 8.03093, 550, 0)
+"points": PackedVector2Array(-61.9437, 7.79239, 61.9437, -7.79239, 130, 0, -62.0618, -8.03093, 62.0618, 8.03093, 510, 0)
 }
 point_count = 2
 
@@ -29,8 +29,8 @@ script = ExtResource("1_50x24")
 curve = SubResource("Curve2D_wguu1")
 
 [node name="CardFollowPath" type="PathFollow2D" parent="CardArc"]
-position = Vector2(204.93, -4.95397)
-rotation = -0.0180534
+position = Vector2(244.912, -5.29493)
+rotation = -0.0173484
 progress = 115.074
 
 [node name="CardBase" parent="CardArc/CardFollowPath" node_paths=PackedStringArray("card_interface") instance=ExtResource("1_ugjcr")]
@@ -42,6 +42,9 @@ stream = SubResource("AudioStreamRandomizer_flf2n")
 volume_db = -20.0
 
 [node name="DiscardPile" parent="." instance=ExtResource("6_cuw25")]
-position = Vector2(606, -50)
+position = Vector2(600, -23)
+scale = Vector2(0.65, 0.65)
 
 [node name="DeckPile" parent="." instance=ExtResource("7_vgbdv")]
+position = Vector2(36, -36)
+scale = Vector2(0.65, 0.65)

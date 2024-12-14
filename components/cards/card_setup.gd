@@ -7,6 +7,7 @@ class_name CardImage
 @onready var card_name: Label = $CardName
 @onready var card_cost_label: Label = $CostIndicator/CardCostLabel
 @onready var card_base: TextureRect = $CardBase
+@onready var cost_indicator = $CostIndicator
 
 @export var card_stats : CardStats
 @export var isEditingDeck : bool = false
@@ -26,8 +27,13 @@ var overlappingAreas : Array[Area2D] = []
 const PLAYER = preload("res://components/units/UnitDictionary/UnitTypes/player.tres")
 
 func setCardData():
+	card_base.texture = card_stats.card_skin
 	card_name.text = card_stats.readable_name
-	rich_card_description.text = card_stats.card_description % GameLogic.calculateCardCost(card_stats, PLAYER, false)
+	if card_stats.card_description.contains('%'):
+		rich_card_description.text = card_stats.card_description % GameLogic.calculateCardCost(card_stats, PLAYER, false)
+	else:
+		rich_card_description.text = card_stats.card_description
+
 	card_image_slot.texture = card_stats.card_image 
 	card_cost_label.text = str(card_stats.play_cost)
 	local_card_pos = scene_base.position
@@ -61,3 +67,6 @@ func onExitingDeckArea(area):
 func returnCardToOrigin():
 	create_tween().tween_property(self, "position", local_card_pos, SPEED)
 	is_dragging = false
+	
+func hideIndicator():
+	cost_indicator.hide()

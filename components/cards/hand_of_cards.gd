@@ -26,7 +26,7 @@ func _ready():
 		addCardToHand(card)
 		
 	for path in ['AttackCards', 'DefenseCards', 'HealCards']:
-		var filePath = "res://components/cards/CardDictionary/%s/" % path
+		var filePath = "res://components/cards/CardDictionary/Player/%s/" % path
 		var dir = DirAccess.get_files_at(filePath)
 		for card in dir:
 			files.append(filePath + card)
@@ -48,6 +48,7 @@ func addCardToHand(cardResource: CardStats):
 	newCard.add_to_discard_number.connect(handleDiscardNumber)
 	newCard.handle_card_deletion.connect(removeCardAndUpdateHand)
 	newCard.card_used.connect(battle_scene.reduceActionPoints)
+	
 	newCard.card_interface = self
 
 	var numberOfCards = card_arc.get_children().size()
@@ -62,14 +63,14 @@ func addCardToHand(cardResource: CardStats):
 func handleDiscardNumber(howMany):
 	discard_pile.addNumToDiscard(howMany)
 
-func removeCardAndUpdateHand(cardReference):
+func removeCardAndUpdateHand(cardReference : Card):
 	var cardPathFollowNode = cardReference.get_parent()
 	cardPathFollowNode.queue_free()
 	await cardPathFollowNode.tree_exited
-	var followNodes = card_arc.get_children()
-	for child in followNodes:
+	for child in card_arc.get_children():
 		if child.get_children().size() == 0:
-			child.queue_free()
+			cardReference.card_display.hide_indicator()
+			cardReference.anims.play('go_to_discard')
 	var numberOfCards = card_arc.get_children().size()
 	var path_division = 1.0 / (numberOfCards + 1.0)
 	var pos_incrementer = path_division
@@ -80,5 +81,10 @@ func removeCardAndUpdateHand(cardReference):
 		
 func discardHand():
 	for card in card_arc.get_children():
-		removeCardAndUpdateHand(card.get_child(0))
-		card.get_child(0).anims.play('go_to_discard')
+		create_tween().tween_property(card, "global_position", Vector2(606, 378), 0.4)
+		card.get_child(0).anims.play("go_to_discard")
+		
+func freeCardFollowNode(cardFollow : PathFollow2D):
+	print(cardFollow)
+	print('free card node')
+	cardFollow.queue_free()

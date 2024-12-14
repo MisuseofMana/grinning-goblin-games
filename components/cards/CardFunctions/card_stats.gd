@@ -13,6 +13,7 @@ class_name CardStats
 @export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var relevant_stats : Array[String] = []
 
 @export var card_image : Texture2D
+@export var card_skin : Texture2D = preload("res://art/cards/card_art/card-template.png")
 
 #meant to be overwritten in extended CardStats scripts 
 func card_effect(_target_unit: Unit, _owner_unit: UnitStats):

@@ -9,11 +9,11 @@
 script = ExtResource("1_vausx")
 
 [node name="CardBack" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+position = Vector2(0, -42)
 texture = ExtResource("1_mtuga")
 
 [node name="DiscardNumber" type="Node2D" parent="."]
-position = Vector2(-21, 25)
+position = Vector2(-42, 13)
 
 [node name="DiscardChit" type="Sprite2D" parent="DiscardNumber"]
 texture = ExtResource("2_ee4ao")
