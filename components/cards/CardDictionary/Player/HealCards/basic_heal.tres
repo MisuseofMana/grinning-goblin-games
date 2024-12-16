@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="HealingCard" load_steps=3 format=3 uid="uid://getptn3kqhxl"]
+[gd_resource type="Resource" script_class="HealingCard" load_steps=4 format=3 uid="uid://getptn3kqhxl"]
 
 [ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="1_08cer"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/healing_card.gd" id="2_3g5u2"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_a68ug"]
 
 [resource]
 script = ExtResource("2_3g5u2")
@@ -15,3 +16,4 @@ card_description = "Restore %s health"
 tool_tip = "Restore health up to your maximum limit, healing increases based on %s."
 relevant_stats = Array[String](["endurance"])
 card_image = ExtResource("1_08cer")
+card_skin = ExtResource("2_a68ug")

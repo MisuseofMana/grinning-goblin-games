@@ -1,12 +1,24 @@
-[gd_resource type="Resource" script_class="CardUnitStats" load_steps=2 format=3 uid="uid://d2yjrckw43wta"]
+[gd_resource type="Resource" script_class="UnitStats" load_steps=6 format=3 uid="uid://d2yjrckw43wta"]
 
+[ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="1_kg2ma"]
 [ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="1_yf1cq"]
+[ext_resource type="Resource" uid="uid://dlw2cn7turh68" path="res://components/cards/CardDictionary/Enemies/Goblin/goblin_bite.tres" id="2_4ww2p"]
+[ext_resource type="Resource" uid="uid://bndwrmrbredr4" path="res://components/cards/CardDictionary/Enemies/Goblin/call_out.tres" id="3_spwvp"]
+[ext_resource type="Resource" uid="uid://d044wji0p5ov" path="res://components/cards/CardDictionary/Enemies/Goblin/hands_up.tres" id="4_lkypj"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_yf1cq")
-health = 30
-attack = 7
-defense = 0
+stats = {
+"endurance": 4,
+"finesse": 3,
+"health": 50,
+"knowledge": 0,
+"max_health": 50,
+"muscle": 5,
+"nuance": 0
+}
+deck = Array[ExtResource("1_kg2ma")]([ExtResource("2_4ww2p"), ExtResource("2_4ww2p"), ExtResource("2_4ww2p"), ExtResource("3_spwvp"), ExtResource("4_lkypj"), ExtResource("4_lkypj"), ExtResource("4_lkypj")])
 animation_names = Array[String](["idle"])
 character_type = "goblin"
+is_self = false

@@ -6,17 +6,29 @@ class_name HandOfCards
 @onready var paper_sound: AudioStreamPlayer2D = $PaperSound
 @onready var discard_pile = $DiscardPile
 @onready var card_base: Card = $CardArc/CardFollowPath/CardBase
+@onready var action_points_counter = $Sprite2D/ActionPointsCounter
+@onready var gpu_particles_2d = $Sprite2D/GPUParticles2D
 
 @export var cards_in_hand : Array[CardStats] = []
-@export var battle_scene : BattleScene
+@export var PlayerUnit : Unit :
+	set(value):
+		PlayerUnit = value
+		var ap : int = 0
+		if PlayerUnit && is_node_ready():
+			ap = PlayerUnit.unit_stats.action_points
+			action_points_counter.text = str(ap)
+			if ap <= 0:
+				ran_out_of_action_points.emit()
 
 const CARD = preload("res://components/cards/card.tscn")
 
+signal ran_out_of_action_points()
+signal card_used(card: Card)
+
 var files : Array = []
 
-@export var Player : Unit = null
-
 func _ready():
+	#action_points_counter.text = str(PlayerUnit.unit_stats.action_points)
 #	clear out the test cards in the arc
 	for arc in card_arc.get_children():
 		card_arc.remove_child(arc)
@@ -47,9 +59,6 @@ func addCardToHand(cardResource: CardStats):
 	
 	newCard.add_to_discard_number.connect(handleDiscardNumber)
 	newCard.handle_card_deletion.connect(removeCardAndUpdateHand)
-	newCard.card_used.connect(battle_scene.reduceActionPoints)
-	
-	newCard.card_interface = self
 
 	var numberOfCards = card_arc.get_children().size()
 	var path_division = 1.0 / (numberOfCards + 1.0)

@@ -21,6 +21,7 @@ enum VALID_STATS {
 }
 
 var tokens : Dictionary = {}
+var action_points : int = 3
 
 @export var deck : Array[CardStats] = []
 @export_enum('idle', 'attack', 'magic-attack', 'hurt') var animation_names : Array[String] = []

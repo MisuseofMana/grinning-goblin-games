@@ -60,3 +60,6 @@ func updateHealthDisplay():
 func updateTokens():
 	tokens_updated.emit(unit_stats.tokens)
 	
+func take_turn():
+	print('take_turn no overwritten')
+	pass

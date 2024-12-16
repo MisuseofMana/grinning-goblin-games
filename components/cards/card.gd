@@ -12,7 +12,6 @@ class_name Card extends Node2D
 @onready var card_shimmer = $CardShimmer
 
 @export var card_stats : CardStats = CardStats.new()
-@export var card_interface : HandOfCards
 
 signal add_to_discard_number(howMany)
 signal handle_card_deletion(nodeReference)
@@ -47,8 +46,6 @@ func _physics_process(delta):
 		card_shimmer.emitting = true
 
 func _card_display_gui_input(event):
-	if not card_interface.battle_scene.players_turn:
-		return
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
 			create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
@@ -64,9 +61,9 @@ func _card_display_gui_input(event):
 					is_dragging = false
 					undraggable = true
 					scene_base.global_position = get_global_mouse_position()
-					if !have_points_to_use_card(card_stats.play_cost):
-						returnCardToHand()
-						return
+					#if !have_points_to_use_card(card_stats.play_cost):
+						#returnCardToHand()
+						#return
 					useCard(overlappingAreas[0].get_parent())
 					card_used.emit(card_stats)
 				else:
@@ -75,9 +72,6 @@ func _card_display_gui_input(event):
 			else:
 				pickup_sound.play()
 				returnCardToHand()
-
-func have_points_to_use_card(card_cost):
-	return card_cost <= card_interface.battle_scene.remaining_action_points
 	
 func useCard(targetUnit: Unit):
 	create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
@@ -95,8 +89,6 @@ func returnCardToHand():
 	_on_card_mouse_exited()
 
 func _on_card_mouse_entered():
-	if not card_interface.battle_scene.players_turn:
-		return
 	if not is_dragging && not undraggable:
 		if not card_rotation:
 			card_rotation = scene_base.get_parent().rotation
@@ -105,8 +97,6 @@ func _on_card_mouse_entered():
 		create_tween().tween_property(self, "scale", Vector2(1.2, 1.2), SPEED)
 
 func _on_card_mouse_exited():
-	if not card_interface.battle_scene.players_turn:
-		return
 	if not is_dragging and not undraggable:
 		card_display.z_index = 0
 		create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
@@ -114,7 +104,7 @@ func _on_card_mouse_exited():
 func _on_area_2d_area_entered(area):
 	overlappingAreas.push_front(area)
 	if overlappingAreas.size() and not undraggable:
-		if have_points_to_use_card(card_stats.play_cost) and overlappingAreas[0].get_parent().unit_stats.is_self == card_stats.targets_self:
+		if overlappingAreas[0].get_parent().unit_stats.is_self == card_stats.targets_self:
 			create_tween().tween_property(self, 'modulate', Color(0.244, 1, 0.806), SPEED)
 		else:
 			create_tween().tween_property(self, 'modulate', Color(1, 0.397, 0.415), SPEED)
