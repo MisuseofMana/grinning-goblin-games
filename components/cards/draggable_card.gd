@@ -1,17 +1,14 @@
 class_name Card extends Node2D
 
 @onready var scene_base: Card = $"."
-@onready var card_display: Control = $CardDisplay
-@onready var card_image: TextureRect = $CardDisplay/CardImageSlot
-@onready var rich_card_description: RichTextLabel = $CardDisplay/RichCardDescription
-@onready var card_name: Label = $CardDisplay/CardName
+@onready var present: Control = $CardDisplay
 @onready var error_sound: AudioStreamPlayer2D = $ErrorSound
 @onready var pickup_sound = $MouseOverSound
 @onready var valid_drop_sound = $ValidDropSound
 @onready var anims = $CardAnimations
 @onready var card_shimmer = $CardShimmer
 
-@export var card_stats : CardStats = CardStats.new()
+@export var card_stats : CardStats = preload("res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres")
 
 signal add_to_discard_number(howMany)
 signal handle_card_deletion(nodeReference)
@@ -37,15 +34,14 @@ func _ready() -> void:
 	if not card_stats:
 		queue_free()
 	else:
-		card_display.card_stats = card_stats
-		card_display.setCardData()
+		present.card_stats = card_stats
 		
 func _physics_process(delta):
 	if is_dragging && not undraggable:
 		create_tween().tween_property(self, "global_position", get_global_mouse_position(), delay * delta)
 		card_shimmer.emitting = true
 
-func _card_display_gui_input(event):
+func _dragging_card_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
 			create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
@@ -92,16 +88,16 @@ func _on_card_mouse_entered():
 	if not is_dragging && not undraggable:
 		if not card_rotation:
 			card_rotation = scene_base.get_parent().rotation
-		card_display.z_index = 100
+		present.z_index = 100
 		pickup_sound.play()
 		create_tween().tween_property(self, "scale", Vector2(1.2, 1.2), SPEED)
 
 func _on_card_mouse_exited():
 	if not is_dragging and not undraggable:
-		card_display.z_index = 0
+		present.z_index = 0
 		create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
 
-func _on_area_2d_area_entered(area):
+func cardOverlapsAUnit(area: Area2D):
 	overlappingAreas.push_front(area)
 	if overlappingAreas.size() and not undraggable:
 		if overlappingAreas[0].get_parent().unit_stats.is_self == card_stats.targets_self:
@@ -109,16 +105,10 @@ func _on_area_2d_area_entered(area):
 		else:
 			create_tween().tween_property(self, 'modulate', Color(1, 0.397, 0.415), SPEED)
 
-func _on_area_2d_area_exited(area):
+func cardStopsOverlappingAUnit(area):
 	overlappingAreas.erase(area)
 	if not overlappingAreas.size():
 		create_tween().tween_property(self, 'modulate', Color(1, 1, 1), SPEED)
-
-func swapCardBackTexture():
-	card_image.hide()
-	rich_card_description.hide()
-	card_name.hide()
-	card_display.card_base.texture = CARD_TEMPLATE_BACK
 
 #func addToDiscard(howMany):
 	#add_to_discard_number.emit(howMany)

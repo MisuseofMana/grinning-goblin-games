@@ -33,10 +33,11 @@ func run_enemy_turn():
 	await showTurnSwap("Enemy Turn", false)
 	
 #	run enemy logic
-	#for enemy in enemies.get_children():
-		#enemy.take_turn()
-	
-#	give back players turn
+	for enemy in enemies.get_children():
+		await enemy.take_turn()
+
+
+func run_players_turn():
 	await showTurnSwap("Your Turn", true)
 	drawHand()
 

@@ -8,6 +8,8 @@ class_name Unit
 @onready var health_num: Label = $ReadoutContainer/Label
 @onready var anims: AnimationPlayer = $AnimationPlayer
 
+@onready var card_scene = preload("res://components/cards/draggable_card.tscn")
+
 signal tokens_updated(unit_stats: UnitStats)
 
 func _ready():

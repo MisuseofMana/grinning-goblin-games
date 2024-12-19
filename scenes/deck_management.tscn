@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://c534yv87m0b1" path="res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres" id="2_k3ojo"]
 [ext_resource type="Resource" uid="uid://c4k3kk3bkrtt7" path="res://components/cards/CardDictionary/Player/DefenseCards/basic_defend.tres" id="4_h6y6i"]
 [ext_resource type="Resource" uid="uid://dppkgtvdmpwwt" path="res://components/cards/CardDictionary/Player/AttackCards/basic_spell.tres" id="5_a5eyo"]
-[ext_resource type="PackedScene" uid="uid://d3ras73xd8xmc" path="res://components/cards/card_display.tscn" id="5_iseht"]
+[ext_resource type="PackedScene" uid="uid://d3ras73xd8xmc" path="res://components/cards/presentational_card.tscn" id="5_iseht"]
 [ext_resource type="Resource" uid="uid://lukw234e1e6j" path="res://components/cards/CardDictionary/Player/DefenseCards/basic_ward.tres" id="5_rhmm4"]
 [ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="5_xc56l"]
 [ext_resource type="Resource" uid="uid://getptn3kqhxl" path="res://components/cards/CardDictionary/Player/HealCards/basic_heal.tres" id="6_2xbqi"]

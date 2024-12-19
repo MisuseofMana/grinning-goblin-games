@@ -1,12 +1,12 @@
 [gd_scene load_steps=6 format=3 uid="uid://d3ras73xd8xmc"]
 
-[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="1_iwbxp"]
-[ext_resource type="Script" path="res://components/cards/card_setup.gd" id="1_wb2iw"]
-[ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="2_njuc5"]
-[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="3_03ctt"]
-[ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/discard-number.png" id="4_aae4d"]
+[ext_resource type="Script" path="res://components/cards/presentational_card.gd" id="1_hkxmm"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_ri085"]
+[ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="3_50axa"]
+[ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/discard-number.png" id="4_qh5yi"]
+[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="5_jdm2p"]
 
-[node name="Control" type="Control" groups=["cards_in_hand"]]
+[node name="Control" type="Control"]
 z_index = 1
 texture_filter = 2
 custom_minimum_size = Vector2(102, 133)
@@ -14,9 +14,10 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 102.0
 offset_bottom = 133.0
-script = ExtResource("1_wb2iw")
+pivot_offset = Vector2(51, 66)
+script = ExtResource("1_hkxmm")
 
-[node name="CardBase" type="TextureRect" parent="."]
+[node name="CardImage" type="TextureRect" parent="."]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 3
@@ -29,7 +30,7 @@ offset_top = -128.0
 offset_right = -1.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("1_iwbxp")
+texture = ExtResource("2_ri085")
 stretch_mode = 2
 
 [node name="CostIndicator" type="TextureRect" parent="."]
@@ -47,31 +48,30 @@ offset_bottom = -103.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.5, 0.5)
-theme = ExtResource("2_njuc5")
-texture = ExtResource("4_aae4d")
-metadata/_edit_group_ = true
+theme = ExtResource("3_50axa")
+texture = ExtResource("4_qh5yi")
 
-[node name="CardCostLabel" type="Label" parent="CostIndicator"]
+[node name="Cost" type="Label" parent="CostIndicator"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -15.0
+offset_left = -5.0
 offset_top = -15.0
-offset_right = 17.0
+offset_right = 7.0
 offset_bottom = 11.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("2_njuc5")
+theme = ExtResource("3_50axa")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 32
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CardImageSlot" type="TextureRect" parent="."]
+[node name="IconImage" type="TextureRect" parent="."]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 3
@@ -85,9 +85,9 @@ offset_right = -10.0
 offset_bottom = -49.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("3_03ctt")
+texture = ExtResource("5_jdm2p")
 
-[node name="CardName" type="Label" parent="."]
+[node name="Name" type="Label" parent="."]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 3
@@ -102,11 +102,11 @@ offset_bottom = -100.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.5, 0.5)
-theme = ExtResource("2_njuc5")
+theme = ExtResource("3_50axa")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Missing Data"
 
-[node name="RichCardDescription" type="RichTextLabel" parent="."]
+[node name="Description" type="RichTextLabel" parent="."]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 3
@@ -122,9 +122,7 @@ grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.5, 0.5)
 mouse_filter = 1
-theme = ExtResource("2_njuc5")
+theme = ExtResource("3_50axa")
 bbcode_enabled = true
 text = "Example Text Here"
 scroll_active = false
-
-[connection signal="gui_input" from="." to="." method="_card_display_gui_input"]

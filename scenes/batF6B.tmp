@@ -19,13 +19,13 @@
 [ext_resource type="Resource" uid="uid://edj63j3h0mhe" path="res://components/cards/CardDictionary/Player/TokenCards/poison.tres" id="13_g7sxk"]
 [ext_resource type="Texture2D" uid="uid://cjqknwpldyhi7" path="res://art/ui/ui-slot.png" id="14_65f5q"]
 [ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cards/hand_of_cards.tscn" id="15_6uhf2"]
-[ext_resource type="PackedScene" uid="uid://d3ras73xd8xmc" path="res://components/cards/presentational_card.tscn" id="16_eb70h"]
+[ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/card.tscn" id="15_qu7o6"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="16_gqber"]
 [ext_resource type="AudioStream" uid="uid://dweruxr81kj5f" path="res://audio/battle_scene/BattlePhaseTransition.wav" id="17_ituhd"]
 [ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="19_rm7gv"]
 [ext_resource type="AudioStream" uid="uid://c402qy7b2rooa" path="res://audio/battle_scene/forest_scene/Full_Loop.wav" id="22_c0x5w"]
 
-[sub_resource type="Resource" id="Resource_d1swd"]
+[sub_resource type="Resource" id="Resource_v7y60"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -42,7 +42,7 @@ animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_fura5"]
+[sub_resource type="Resource" id="Resource_u4mbo"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -99,38 +99,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Path2D/PathFollow2D/GPUParticles2D:emitting")
+tracks/1/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [-1.65806]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:rotation")
+tracks/2/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(1, 0.3)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:scale")
+tracks/3/path = NodePath("Path2D/PathFollow2D/GPUParticles2D:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.6, 1)]
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_tf18c"]
@@ -151,38 +151,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Path2D/PathFollow2D/GPUParticles2D:emitting")
+tracks/1/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [0.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:rotation")
+tracks/2/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(1, 1), Vector2(0.5, 0.8), Vector2(0.1, 0.5), Vector2(1e-05, 1e-05)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:scale")
+tracks/3/path = NodePath("Path2D/PathFollow2D/GPUParticles2D:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.133333, 0.266667, 0.6),
-"transitions": PackedFloat32Array(-2, -2, -2, -2),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0.6, 1.2), Vector2(1, 0.6), Vector2(1e-05, 1e-05)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_wmbit"]
@@ -203,14 +203,26 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:scale")
+tracks/1/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.333333, 0.5, 0.6),
+"times": PackedFloat32Array(0, 0.233333, 0.433333, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1.5, 1.5), Vector2(1, 1)]
+"values": [-2.66686, -2.30034, -1.89368, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.233333, 0.433333, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 0.3), Vector2(1, 0.7), Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_jcxoy"]
@@ -220,14 +232,14 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, -2, 1),
 "update": 0,
-"values": [0.0]
+"values": [Vector2(1, 1), Vector2(1.02, 1.02), Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -236,22 +248,10 @@ tracks/1/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 3, 4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, -2, 1, -2, 1),
 "update": 0,
-"values": [0.0, -0.0174533, 0.0174533, 0.00174533]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Path2D/PathFollow2D/EnemyCardTemplate:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 2, 4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.05, 1.05), Vector2(1, 1)]
+"values": [0.0, 0.0174533, 0.0, -0.0174533, 0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gvsxv"]
@@ -287,7 +287,7 @@ texture = ExtResource("2_jaqan")
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_stats = SubResource("Resource_d1swd")
+unit_stats = SubResource("Resource_v7y60")
 
 [node name="Enemies" type="Node2D" parent="." node_paths=PackedStringArray("enemy_card", "animations")]
 script = ExtResource("7_7drj6")
@@ -297,7 +297,7 @@ animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
 [node name="Goblin1" parent="Enemies" instance=ExtResource("3_kt5qk")]
 position = Vector2(540, 156)
 script = ExtResource("7_3xy0m")
-unit_stats = SubResource("Resource_fura5")
+unit_stats = SubResource("Resource_u4mbo")
 
 [node name="CardInterface" parent="." node_paths=PackedStringArray("PlayerUnit") instance=ExtResource("15_6uhf2")]
 position = Vector2(0, 360)
@@ -308,7 +308,6 @@ PlayerUnit = NodePath("../Player")
 position = Vector2(700, -18)
 
 [node name="Path2D" type="Path2D" parent="EnemyCardContainer"]
-position = Vector2(15, 2)
 curve = SubResource("Curve2D_catov")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="EnemyCardContainer/Path2D"]
@@ -317,14 +316,10 @@ progress = 490.451
 rotates = false
 loop = false
 
-[node name="EnemyCardTemplate" parent="EnemyCardContainer/Path2D/PathFollow2D" instance=ExtResource("16_eb70h")]
-offset_left = -52.0
-offset_top = -67.0
-offset_right = 50.0
-offset_bottom = 66.0
-scale = Vector2(0.6, 1)
-card_stats = ExtResource("10_sapak")
-hideCost = true
+[node name="EnemyCardTemplate" parent="EnemyCardContainer/Path2D/PathFollow2D" instance=ExtResource("15_qu7o6")]
+position = Vector2(0.193249, 1.40096)
+rotation = -1.65806
+scale = Vector2(1, 0.3)
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="EnemyCardContainer/Path2D/PathFollow2D"]
 z_index = 100
@@ -342,7 +337,7 @@ libraries = {
 "": SubResource("AnimationLibrary_gvsxv")
 }
 
-[node name="XPBar" type="NinePatchRect" parent="."]
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -359,7 +354,7 @@ patch_margin_bottom = 3
 script = ExtResource("13_5jlb7")
 metadata/_edit_group_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="XPBar"]
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
 layout_mode = 2
 offset_left = 6.0
 offset_top = 3.0
@@ -369,20 +364,20 @@ theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="XPBar/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 1
 
-[node name="XPLabel" type="Label" parent="XPBar/MarginContainer/HBoxContainer"]
+[node name="XPLabel" type="Label" parent="NinePatchRect/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/line_spacing = 0
 theme_override_font_sizes/font_size = 0
 text = "XP"
 
-[node name="DotContainer" type="Control" parent="XPBar/MarginContainer/HBoxContainer"]
+[node name="DotContainer" type="Control" parent="NinePatchRect/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect/MarginContainer/HBoxContainer/DotContainer"]
 self_modulate = Color(0.787364, 0, 0.269799, 1)
 layout_mode = 2
 offset_left = 1.0
@@ -391,7 +386,7 @@ offset_bottom = 13.0
 texture = ExtResource("13_65iss")
 expand_mode = 3
 
-[node name="TextureRect2" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+[node name="TextureRect2" type="TextureRect" parent="NinePatchRect/MarginContainer/HBoxContainer/DotContainer"]
 self_modulate = Color(0.787364, 0, 0.269799, 1)
 layout_mode = 2
 offset_left = 15.0
@@ -400,7 +395,7 @@ offset_bottom = 13.0
 texture = ExtResource("13_65iss")
 expand_mode = 3
 
-[node name="TextureRect3" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+[node name="TextureRect3" type="TextureRect" parent="NinePatchRect/MarginContainer/HBoxContainer/DotContainer"]
 self_modulate = Color(0.787364, 0, 0.269799, 1)
 layout_mode = 2
 offset_left = 29.0
@@ -409,7 +404,7 @@ offset_bottom = 13.0
 texture = ExtResource("13_65iss")
 expand_mode = 3
 
-[node name="TextureRect4" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+[node name="TextureRect4" type="TextureRect" parent="NinePatchRect/MarginContainer/HBoxContainer/DotContainer"]
 self_modulate = Color(0.787364, 0, 0.269799, 1)
 layout_mode = 2
 offset_left = 43.0
@@ -418,7 +413,7 @@ offset_bottom = 13.0
 texture = ExtResource("13_65iss")
 expand_mode = 3
 
-[node name="TextureRect5" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+[node name="TextureRect5" type="TextureRect" parent="NinePatchRect/MarginContainer/HBoxContainer/DotContainer"]
 self_modulate = Color(0.787364, 0, 0.269799, 1)
 layout_mode = 2
 offset_left = 57.0
@@ -427,7 +422,7 @@ offset_bottom = 13.0
 texture = ExtResource("13_65iss")
 expand_mode = 3
 
-[node name="TextureRect6" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+[node name="TextureRect6" type="TextureRect" parent="NinePatchRect/MarginContainer/HBoxContainer/DotContainer"]
 self_modulate = Color(0.787364, 0, 0.269799, 1)
 layout_mode = 2
 offset_left = 71.0
@@ -436,7 +431,7 @@ offset_bottom = 13.0
 texture = ExtResource("13_65iss")
 expand_mode = 3
 
-[node name="TextureRect7" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+[node name="TextureRect7" type="TextureRect" parent="NinePatchRect/MarginContainer/HBoxContainer/DotContainer"]
 self_modulate = Color(0.787364, 0, 0.269799, 1)
 layout_mode = 2
 offset_left = 85.0
@@ -445,7 +440,7 @@ offset_bottom = 13.0
 texture = ExtResource("13_65iss")
 expand_mode = 3
 
-[node name="TextureRect8" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+[node name="TextureRect8" type="TextureRect" parent="NinePatchRect/MarginContainer/HBoxContainer/DotContainer"]
 self_modulate = Color(0.787364, 0, 0.269799, 1)
 layout_mode = 2
 offset_left = 99.0
@@ -454,7 +449,7 @@ offset_bottom = 13.0
 texture = ExtResource("13_65iss")
 expand_mode = 3
 
-[node name="TextureRect9" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+[node name="TextureRect9" type="TextureRect" parent="NinePatchRect/MarginContainer/HBoxContainer/DotContainer"]
 self_modulate = Color(0.787364, 0, 0.269799, 1)
 layout_mode = 2
 offset_left = 113.0
@@ -463,7 +458,7 @@ offset_bottom = 13.0
 texture = ExtResource("13_65iss")
 expand_mode = 3
 
-[node name="TextureRect10" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+[node name="TextureRect10" type="TextureRect" parent="NinePatchRect/MarginContainer/HBoxContainer/DotContainer"]
 self_modulate = Color(0.787364, 0, 0.269799, 1)
 layout_mode = 2
 offset_left = 127.0

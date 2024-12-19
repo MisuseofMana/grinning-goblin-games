@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://ds00fm2wg81wp"]
+[gd_scene load_steps=14 format=3 uid="uid://ds00fm2wg81wp"]
 
 [ext_resource type="Script" path="res://components/cards/hand_of_cards.gd" id="1_50x24"]
-[ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/card.tscn" id="1_ugjcr"]
-[ext_resource type="Resource" uid="uid://c534yv87m0b1" path="res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres" id="3_amqfl"]
+[ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/draggable_card.tscn" id="1_ugjcr"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
@@ -59,7 +58,6 @@ rotation = -0.0173484
 progress = 115.074
 
 [node name="CardBase" parent="CardArc/CardFollowPath" instance=ExtResource("1_ugjcr")]
-card_stats = ExtResource("3_amqfl")
 
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")

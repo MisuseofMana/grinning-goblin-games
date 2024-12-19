@@ -20,7 +20,7 @@ class_name HandOfCards
 			if ap <= 0:
 				ran_out_of_action_points.emit()
 
-const CARD = preload("res://components/cards/card.tscn")
+const CARD = preload("res://components/cards/draggable_card.tscn")
 
 signal ran_out_of_action_points()
 signal card_used(card: Card)
