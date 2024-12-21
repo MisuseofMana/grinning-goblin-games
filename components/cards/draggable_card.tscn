@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dkrt4twau3rbt"]
+[gd_scene load_steps=23 format=3 uid="uid://dkrt4twau3rbt"]
 
 [ext_resource type="Script" path="res://components/cards/draggable_card.gd" id="1_hofyb"]
 [ext_resource type="PackedScene" uid="uid://d3ras73xd8xmc" path="res://components/cards/presentational_card.tscn" id="2_erxx6"]
@@ -30,6 +30,21 @@ stream_3/stream = ExtResource("10_xo022")
 random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("11_nr8oy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2m1l2"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 64, 0)
+emission_shape_scale = Vector3(50, 20, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 100.0
+initial_velocity_min = 10.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, -100, 0)
+scale_max = 5.0
+color = Color(0.809304, 0.472654, 1, 1)
+hue_variation_min = 0.02
+hue_variation_max = 0.2
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e5mar"]
 particle_flag_disable_z = true
@@ -84,6 +99,42 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../CardBurn:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("../CardBurn:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -6)]
 }
 
 [sub_resource type="Animation" id="Animation_kgdu4"]
@@ -172,9 +223,73 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(0.501249, 1, 0.672074, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_fcv2e"]
+resource_name = "burn_card"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../CardBurn:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1.1), Vector2(1, 1e-05)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../CardBurn:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -6), Vector2(0, -56)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(0.0953753, 0.102906, 0.206467, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ysc62"]
 _data = {
 "RESET": SubResource("Animation_igsrc"),
+"burn_card": SubResource("Animation_fcv2e"),
 "go_to_discard": SubResource("Animation_kgdu4"),
 "invalid_selection": SubResource("Animation_pwxan"),
 "valid_selection": SubResource("Animation_ftxpx")
@@ -205,7 +320,16 @@ volume_db = -20.0
 stream = SubResource("AudioStreamRandomizer_futsg")
 volume_db = -20.0
 
+[node name="CardBurn" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(0, -6)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_2m1l2")
+one_shot = true
+
 [node name="CardShimmer" type="GPUParticles2D" parent="."]
+z_index = 2
 position = Vector2(-48, -64)
 emitting = false
 amount = 50

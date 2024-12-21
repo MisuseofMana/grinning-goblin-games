@@ -44,5 +44,4 @@ func drawHand():
 	pass
 	
 func useCard(cardStats : CardStats, targetNode):
-	print(cardStats)
-	print(targetNode)
+	pass

@@ -12,7 +12,6 @@ class_name Card extends Node2D
 
 signal add_to_discard_number(howMany)
 signal handle_card_deletion(nodeReference)
-signal card_used(whichCard, target)
 
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
 const PLAYER = preload("res://components/units/UnitDictionary/UnitTypes/player.tres")
@@ -43,6 +42,8 @@ func _physics_process(delta):
 
 func _dragging_card_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if undraggable:
+			error_sound.play()
 		if event.is_pressed():
 			create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
 			if not local_card_pos:
@@ -50,25 +51,23 @@ func _dragging_card_gui_input(event):
 			scene_base.get_parent().rotation = 0
 			is_dragging = true
 		else:
-			if overlappingAreas.size():
-				if overlappingAreas[0].collision_layer == 1:
-					useCard(card_stats, overlappingAreas[0].get_parent())
-				else:
-					error_sound.play()
-					returnCardToHand()
+			if overlappingAreas.size() and isValidTarget(overlappingAreas[0].get_parent()):
+				useCardOn(overlappingAreas[0].get_parent())
 			else:
-				pickup_sound.play()
+				error_sound.play()
 				returnCardToHand()
 	
-func useCard(stats, target):
-	card_used.emit(stats, target)
+func useCardOn(target):
 	is_dragging = false
 	undraggable = true
-	create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
 	discardAudioFinished = false
 	valid_drop_sound.play()
-	add_to_discard_number.emit(1)
-	anims.play('go_to_discard')
+	if card_stats.one_use:
+		anims.play('burn_card')
+	else:
+		add_to_discard_number.emit(1)
+		create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
+		anims.play('go_to_discard')
 	
 func returnCardToHand():
 	scene_base.get_parent().rotation = card_rotation
@@ -79,35 +78,25 @@ func returnCardToHand():
 	_on_card_mouse_exited()
 
 func _on_card_mouse_entered():
-	if not is_dragging && not undraggable:
-		if not card_rotation:
+	if not is_dragging and not card_rotation:
 			card_rotation = scene_base.get_parent().rotation
+	if not is_dragging && not undraggable:
 		present.z_index = 100
 		pickup_sound.play()
 		create_tween().tween_property(self, "scale", Vector2(1.2, 1.2), SPEED)
 
 func _on_card_mouse_exited():
-	if not is_dragging and not undraggable:
+	if not is_dragging:
 		present.z_index = 0
 		create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
 
 func cardOverlapsAUnit(area: Area2D):
 	overlappingAreas.push_front(area)
 	if overlappingAreas.size() and not undraggable:
-#		area belongs to a unit
-		if overlappingAreas[0].collision_layer == 1:
-			if overlappingAreas[0].get_parent().unit_stats.is_self == card_stats.targets_self:
-				create_tween().tween_property(self, 'modulate', Color(0.244, 1, 0.806), SPEED)
-			else:
-				create_tween().tween_property(self, 'modulate', Color(1, 0.397, 0.415), SPEED)
-#		area belongs to a card
-		elif overlappingAreas[0].collision_layer == 4:
-#			do card calculations
-			if card_stats.can_use_to_respond:
-				create_tween().tween_property(self, 'modulate', Color(0.244, 1, 0.806), SPEED)
-			else:
-				create_tween().tween_property(self, 'modulate', Color(1, 0.397, 0.415), SPEED)
-			return
+		if isValidTarget(overlappingAreas[0].get_parent()):
+			create_tween().tween_property(self, 'modulate', Color(0.244, 1, 0.806), SPEED)
+		else:
+			create_tween().tween_property(self, 'modulate', Color(1, 0.397, 0.415), SPEED)
 
 func cardStopsOverlappingAUnit(area):
 	overlappingAreas.erase(area)
@@ -118,7 +107,7 @@ func allQueuesFinished():
 	handle_card_deletion.emit(self)
 	
 func _on_card_animations_animation_finished(anim_name):
-	if anim_name == 'go_to_discard':
+	if anim_name == 'go_to_discard' or anim_name == 'burn_card':
 		discardAnimFinished = true
 	if discardAudioFinished:
 		allQueuesFinished()
@@ -127,3 +116,9 @@ func _on_valid_drop_sound_finished():
 	discardAudioFinished = true
 	if discardAnimFinished:
 		allQueuesFinished()
+
+func isValidTarget(target):
+	if target is CardImage:
+		return card_stats.can_use_to_respond
+	elif target is Unit:
+		return card_stats.targets_self == target.unit_stats.is_self and not card_stats.can_use_to_respond

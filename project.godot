@@ -18,7 +18,6 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 Globals="*res://globals/globals.gd"
 UnitSprites="*res://globals/unit_sprites.gd"
-GameLogic="*res://globals/game_logic.gd"
 
 [display]
 

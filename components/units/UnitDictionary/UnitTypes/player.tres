@@ -1,13 +1,21 @@
-[gd_resource type="Resource" script_class="CardUnitStats" load_steps=2 format=3 uid="uid://gxjvq7sdixw2"]
+[gd_resource type="Resource" script_class="UnitStats" load_steps=3 format=3 uid="uid://gxjvq7sdixw2"]
 
 [ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="1_jvtxq"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="1_qu3ek"]
 
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_jvtxq")
-health = 100
-attack = 10
-defense = 2
+stats = {
+"endurance": 4,
+"finesse": 3,
+"health": 50,
+"knowledge": 0,
+"max_health": 50,
+"muscle": 5,
+"nuance": 0
+}
+deck = Array[ExtResource("1_qu3ek")]([])
 animation_names = Array[String](["idle"])
 character_type = "player"
-is_self = false
+is_self = true

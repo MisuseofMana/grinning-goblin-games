@@ -1,5 +1,4 @@
 extends Unit
-class_name Goblin
 
 var card_ref : EnemyController
 

@@ -10,6 +10,8 @@ class_name HandOfCards
 @onready var gpu_particles_2d = $Sprite2D/GPUParticles2D
 
 @export var cards_in_hand : Array[CardStats] = []
+@export var battleScene : BattleScene
+
 @export var PlayerUnit : Unit :
 	set(value):
 		PlayerUnit = value
@@ -37,6 +39,8 @@ func _ready():
 	for card in cards_in_hand:
 		addCardToHand(card)
 		
+	handleValidCardUpdates()
+		
 	for path in ['AttackCards', 'DefenseCards', 'HealCards']:
 		var filePath = "res://components/cards/CardDictionary/Player/%s/" % path
 		var dir = DirAccess.get_files_at(filePath)
@@ -60,7 +64,6 @@ func addCardToHand(cardResource: CardStats):
 	
 	newCard.add_to_discard_number.connect(handleDiscardNumber)
 	newCard.handle_card_deletion.connect(removeCardAndUpdateHand)
-	newCard.card_used.connect(useACard)
 
 	var numberOfCards = card_arc.get_children().size()
 	var path_division = 1.0 / (numberOfCards + 1.0)
@@ -81,7 +84,6 @@ func removeCardAndUpdateHand(cardReference : Card):
 	for child in card_arc.get_children():
 		if child.get_children().size() == 0:
 			cardReference.card_display.hide_indicator()
-			cardReference.anims.play('go_to_discard')
 	var numberOfCards = card_arc.get_children().size()
 	var path_division = 1.0 / (numberOfCards + 1.0)
 	var pos_incrementer = path_division
@@ -102,3 +104,17 @@ func freeCardFollowNode(cardFollow : PathFollow2D):
 
 func useACard(stats, target):
 	card_has_been_used.emit(stats, target)
+	
+func handleValidCardUpdates():
+	for followNode in card_arc.get_children():
+		var cardNode : Card = followNode.get_child(0)
+		var useable = (cardNode.card_stats.can_use_to_respond and not battleScene.players_turn) or (not cardNode.card_stats.can_use_to_respond and battleScene.players_turn)
+		if useable:
+			cardNode.modulate = Color(1, 1, 1)
+			cardNode.undraggable = false
+			create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -64), 0.2)
+		else:
+			cardNode.modulate = Color(0.2, 0.2, 0.2)
+			cardNode.undraggable = true
+			cardNode.z_index = 0
+			create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -32), 0.2)

@@ -65,7 +65,3 @@ func updateTokens():
 func take_turn():
 	print('take_turn no overwritten')
 	pass
-	
-func acceptCardEffect(card: Card):
-	
-	pass

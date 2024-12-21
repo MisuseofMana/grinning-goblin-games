@@ -16,9 +16,9 @@
 [ext_resource type="Script" path="res://scenes/xp_bar.gd" id="13_5jlb7"]
 [ext_resource type="Texture2D" uid="uid://crxrqibwaskm6" path="res://art/ui/xp_bar_dot.png" id="13_65iss"]
 [ext_resource type="Script" path="res://scenes/debug_bar.gd" id="13_di01h"]
-[ext_resource type="Resource" uid="uid://edj63j3h0mhe" path="res://components/cards/CardDictionary/Player/TokenCards/poison.tres" id="13_g7sxk"]
 [ext_resource type="Texture2D" uid="uid://cjqknwpldyhi7" path="res://art/ui/ui-slot.png" id="14_65f5q"]
 [ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cards/hand_of_cards.tscn" id="15_6uhf2"]
+[ext_resource type="Resource" uid="uid://getptn3kqhxl" path="res://components/cards/CardDictionary/Player/HealCards/basic_heal.tres" id="15_gqlls"]
 [ext_resource type="Script" path="res://scenes/enemy_card_container.gd" id="16_5f438"]
 [ext_resource type="PackedScene" uid="uid://d3ras73xd8xmc" path="res://components/cards/presentational_card.tscn" id="16_eb70h"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="16_gqber"]
@@ -26,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="19_rm7gv"]
 [ext_resource type="AudioStream" uid="uid://c402qy7b2rooa" path="res://audio/battle_scene/forest_scene/Full_Loop.wav" id="22_c0x5w"]
 
-[sub_resource type="Resource" id="Resource_8pset"]
+[sub_resource type="Resource" id="Resource_ype83"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -43,7 +43,7 @@ animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_7ewux"]
+[sub_resource type="Resource" id="Resource_830cb"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -315,7 +315,7 @@ texture = ExtResource("2_jaqan")
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_stats = SubResource("Resource_8pset")
+unit_stats = SubResource("Resource_ype83")
 
 [node name="Enemies" type="Node2D" parent="." node_paths=PackedStringArray("enemy_card", "animations")]
 script = ExtResource("7_7drj6")
@@ -325,11 +325,12 @@ animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
 [node name="Goblin1" parent="Enemies" instance=ExtResource("3_kt5qk")]
 position = Vector2(540, 156)
 script = ExtResource("7_3xy0m")
-unit_stats = SubResource("Resource_7ewux")
+unit_stats = SubResource("Resource_830cb")
 
-[node name="HandOfCards" parent="." node_paths=PackedStringArray("PlayerUnit") instance=ExtResource("15_6uhf2")]
+[node name="HandOfCards" parent="." node_paths=PackedStringArray("battleScene", "PlayerUnit") instance=ExtResource("15_6uhf2")]
 position = Vector2(0, 360)
-cards_in_hand = Array[ExtResource("16_gqber")]([ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("8_grg55"), ExtResource("8_grg55"), ExtResource("13_g7sxk")])
+cards_in_hand = Array[ExtResource("16_gqber")]([ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("8_grg55"), ExtResource("8_grg55"), ExtResource("15_gqlls")])
+battleScene = NodePath("..")
 PlayerUnit = NodePath("../Player")
 
 [node name="EnemyCardContainer" type="Node2D" parent="."]
@@ -341,7 +342,7 @@ position = Vector2(15, 2)
 curve = SubResource("Curve2D_catov")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="EnemyCardContainer/Path2D"]
-position = Vector2(24, 18)
+position = Vector2(23.9999, 18.0001)
 progress = 490.451
 rotates = false
 loop = false
@@ -596,7 +597,6 @@ stream = ExtResource("22_c0x5w")
 volume_db = -10.0
 autoplay = true
 
-[connection signal="card_has_been_used" from="HandOfCards" to="." method="useCard"]
 [connection signal="area_entered" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate/Area2D" to="EnemyCardContainer" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate/Area2D" to="EnemyCardContainer" method="_on_area_2d_area_exited"]
 [connection signal="pressed" from="EndTurnButton" to="." method="run_enemy_turn"]
