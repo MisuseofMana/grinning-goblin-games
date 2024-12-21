@@ -183,6 +183,7 @@ _data = {
 [node name="DraggableCard" type="Node2D"]
 position = Vector2(0, -64)
 script = ExtResource("1_hofyb")
+card_stats = null
 
 [node name="CardDisplay" parent="." instance=ExtResource("2_erxx6")]
 offset_left = -51.0

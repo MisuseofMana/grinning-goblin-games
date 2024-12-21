@@ -23,7 +23,6 @@ func animationSequencer(anim_name):
 #		dole out card effect
 #		proceed to next enemies turn
 #		return play to player
-
 	
 func nextEnemyTurn():
 	#next enemy takes turn

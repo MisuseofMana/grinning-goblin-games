@@ -7,14 +7,30 @@ class_name CardImage
 		setCardData(value)
 @export var hideCost : bool = false
 
-const PLAYER = preload("res://components/units/UnitDictionary/UnitTypes/player.tres")
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
+
+func formatCardStringInterp(noBBCode):
+	var color
+	var adjustedValue = card_stats.calculate_adj_value()
+	
+	if adjustedValue < card_stats.base_value:
+		color = Color(1,0,0).to_html()
+	elif card_stats.base_value == adjustedValue:
+		color = Color(0,0,0).to_html()
+	else: 
+		color = Color(0,1,0.1).to_html()
+	
+	if noBBCode:
+		return adjustedValue
+	else:
+		return "[color=%s]%s[/color]" % [color, str(adjustedValue)]
 
 func setCardData(card_info: CardStats):
 	$CardImage.texture = card_info.card_skin
+	$IconImage.texture = card_info.card_image
 	$Name.text = card_info.readable_name
 	if card_info.card_description.contains('%'):
-		$Description.text = card_info.card_description % GameLogic.calculateCardCost(card_info, PLAYER, false)
+		$Description.text = card_info.card_description % formatCardStringInterp(false)
 	else:
 		$Description.text = card_info.card_description
 

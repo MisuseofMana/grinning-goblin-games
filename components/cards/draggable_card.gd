@@ -12,7 +12,7 @@ class_name Card extends Node2D
 
 signal add_to_discard_number(howMany)
 signal handle_card_deletion(nodeReference)
-signal card_used(whichCard)
+signal card_used(whichCard, target)
 
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
 const PLAYER = preload("res://components/units/UnitDictionary/UnitTypes/player.tres")
@@ -51,17 +51,8 @@ func _dragging_card_gui_input(event):
 			is_dragging = true
 		else:
 			if overlappingAreas.size():
-				var unitdata : UnitStats = overlappingAreas[0].get_parent().unit_stats
-				var is_self : bool = unitdata.is_self
-				if is_self == card_stats.targets_self:
-					is_dragging = false
-					undraggable = true
-					scene_base.global_position = get_global_mouse_position()
-					#if !have_points_to_use_card(card_stats.play_cost):
-						#returnCardToHand()
-						#return
-					useCard(overlappingAreas[0].get_parent())
-					card_used.emit(card_stats)
+				if overlappingAreas[0].collision_layer == 1:
+					useCard(card_stats, overlappingAreas[0].get_parent())
 				else:
 					error_sound.play()
 					returnCardToHand()
@@ -69,12 +60,15 @@ func _dragging_card_gui_input(event):
 				pickup_sound.play()
 				returnCardToHand()
 	
-func useCard(targetUnit: Unit):
+func useCard(stats, target):
+	card_used.emit(stats, target)
+	is_dragging = false
+	undraggable = true
 	create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
 	discardAudioFinished = false
 	valid_drop_sound.play()
+	add_to_discard_number.emit(1)
 	anims.play('go_to_discard')
-	card_stats.card_effect(targetUnit, PLAYER)
 	
 func returnCardToHand():
 	scene_base.get_parent().rotation = card_rotation
@@ -100,22 +94,27 @@ func _on_card_mouse_exited():
 func cardOverlapsAUnit(area: Area2D):
 	overlappingAreas.push_front(area)
 	if overlappingAreas.size() and not undraggable:
-		if overlappingAreas[0].get_parent().unit_stats.is_self == card_stats.targets_self:
-			create_tween().tween_property(self, 'modulate', Color(0.244, 1, 0.806), SPEED)
-		else:
-			create_tween().tween_property(self, 'modulate', Color(1, 0.397, 0.415), SPEED)
+#		area belongs to a unit
+		if overlappingAreas[0].collision_layer == 1:
+			if overlappingAreas[0].get_parent().unit_stats.is_self == card_stats.targets_self:
+				create_tween().tween_property(self, 'modulate', Color(0.244, 1, 0.806), SPEED)
+			else:
+				create_tween().tween_property(self, 'modulate', Color(1, 0.397, 0.415), SPEED)
+#		area belongs to a card
+		elif overlappingAreas[0].collision_layer == 4:
+#			do card calculations
+			if card_stats.can_use_to_respond:
+				create_tween().tween_property(self, 'modulate', Color(0.244, 1, 0.806), SPEED)
+			else:
+				create_tween().tween_property(self, 'modulate', Color(1, 0.397, 0.415), SPEED)
+			return
 
 func cardStopsOverlappingAUnit(area):
 	overlappingAreas.erase(area)
 	if not overlappingAreas.size():
 		create_tween().tween_property(self, 'modulate', Color(1, 1, 1), SPEED)
-
-#func addToDiscard(howMany):
-	#add_to_discard_number.emit(howMany)
-	#queue_free()
 	
 func allQueuesFinished():
-	add_to_discard_number.emit(1)
 	handle_card_deletion.emit(self)
 	
 func _on_card_animations_animation_finished(anim_name):

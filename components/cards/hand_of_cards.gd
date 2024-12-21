@@ -23,7 +23,7 @@ class_name HandOfCards
 const CARD = preload("res://components/cards/draggable_card.tscn")
 
 signal ran_out_of_action_points()
-signal card_used(card: Card)
+signal card_has_been_used(cardStats, target)
 
 var files : Array = []
 
@@ -54,11 +54,13 @@ func addCardToHand(cardResource: CardStats):
 	var newCard = CARD.instantiate()
 	newCard.scale = Vector2(0,0)
 	newCard.card_stats = cardResource
+	newCard.card_stats.card_owner = PlayerUnit.unit_stats
 	card_arc.add_child(newFollowNode)
 	newFollowNode.add_child(newCard)
 	
 	newCard.add_to_discard_number.connect(handleDiscardNumber)
 	newCard.handle_card_deletion.connect(removeCardAndUpdateHand)
+	newCard.card_used.connect(useACard)
 
 	var numberOfCards = card_arc.get_children().size()
 	var path_division = 1.0 / (numberOfCards + 1.0)
@@ -97,3 +99,6 @@ func freeCardFollowNode(cardFollow : PathFollow2D):
 	print(cardFollow)
 	print('free card node')
 	cardFollow.queue_free()
+
+func useACard(stats, target):
+	card_has_been_used.emit(stats, target)

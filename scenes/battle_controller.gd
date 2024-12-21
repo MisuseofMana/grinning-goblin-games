@@ -2,8 +2,7 @@ extends Node2D
 class_name BattleScene
 
 @onready var battle_scene = $"."
-
-@onready var card_interface: HandOfCards = $CardInterface
+@onready var card_interface = $HandOfCards
 @onready var background: Sprite2D = $Background
 @onready var player: Unit = $Player
 @onready var enemies = $Enemies
@@ -26,16 +25,15 @@ func showTurnSwap(text, isPlayersTurn):
 	turn_label.text = text
 	turn_change_sound.play()
 	turn_label.show()
-	await battle_scene.get_tree().create_timer(1.8).timeout
+	await battle_scene.get_tree().create_timer(1).timeout
 	turn_label.hide()
 	
 func run_enemy_turn():
-	await showTurnSwap("Enemy Turn", false)
+	showTurnSwap("Enemy Turn", false)
 	
 #	run enemy logic
 	for enemy in enemies.get_children():
 		await enemy.take_turn()
-
 
 func run_players_turn():
 	await showTurnSwap("Your Turn", true)
@@ -44,3 +42,7 @@ func run_players_turn():
 func drawHand():
 	print('drawing new hand')
 	pass
+	
+func useCard(cardStats : CardStats, targetNode):
+	print(cardStats)
+	print(targetNode)

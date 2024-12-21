@@ -26,7 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="19_rm7gv"]
 [ext_resource type="AudioStream" uid="uid://c402qy7b2rooa" path="res://audio/battle_scene/forest_scene/Full_Loop.wav" id="22_c0x5w"]
 
-[sub_resource type="Resource" id="Resource_8pset"]
+[sub_resource type="Resource" id="Resource_yrtr2"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -43,7 +43,7 @@ animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_7ewux"]
+[sub_resource type="Resource" id="Resource_fxywv"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -315,7 +315,7 @@ texture = ExtResource("2_jaqan")
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_stats = SubResource("Resource_8pset")
+unit_stats = SubResource("Resource_yrtr2")
 
 [node name="Enemies" type="Node2D" parent="." node_paths=PackedStringArray("enemy_card", "animations")]
 script = ExtResource("7_7drj6")
@@ -325,7 +325,7 @@ animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
 [node name="Goblin1" parent="Enemies" instance=ExtResource("3_kt5qk")]
 position = Vector2(540, 156)
 script = ExtResource("7_3xy0m")
-unit_stats = SubResource("Resource_7ewux")
+unit_stats = SubResource("Resource_fxywv")
 
 [node name="HandOfCards" parent="." node_paths=PackedStringArray("PlayerUnit") instance=ExtResource("15_6uhf2")]
 position = Vector2(0, 360)

@@ -10,13 +10,14 @@ func _get_configuration_warning():
 		return 'Token Icon Not Set'
 	return ''
 	
-func card_effect(targetUnit: Unit, ownerUnitStats : UnitStats):
-	var token_list : Dictionary = targetUnit.unit_stats.tokens
+func card_effect(target: Unit):
+	var token_list : Dictionary = target.unit_stats.tokens
 	var token_type : String = token_resource.token_type
 	
-	if token_list.has(token_type):
-		token_list[token_type] += GameLogic.calculateCardCost(self, ownerUnitStats, true)
-	else:
-		token_list[token_type] = GameLogic.calculateCardCost(self, ownerUnitStats, true)
-		
-	targetUnit.updateTokens()
+	print('needs redesigned')
+	#if token_list.has(token_type):
+		#token_list[token_type] += GameLogic.calculateCardCost(self, ownerUnitStats, true)
+	#else:
+		#token_list[token_type] = GameLogic.calculateCardCost(self, ownerUnitStats, true)
+		#
+	#targetUnit.updateTokens()
