@@ -44,4 +44,4 @@ func run_enemy_turn():
 func return_to_players_turn():
 	showTurnSwap("Your Turn", true)
 	players_turn_activated.emit()
-	hand_of_cards.changeAllCardAvailability()
+	

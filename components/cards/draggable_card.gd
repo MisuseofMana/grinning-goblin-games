@@ -11,8 +11,7 @@ class_name Card extends Node2D
 @export var card_stats : CardStats = preload("res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres")
 @export var hand_of_cards : HandOfCards
 
-signal add_to_discard_number(howMany)
-signal handle_card_deletion(nodeReference)
+signal card_discarded(nodeReference)
 signal action_points_reduced(howMany)
 
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
@@ -47,7 +46,6 @@ func _dragging_card_gui_input(event):
 		if undraggable:
 			error_sound.play()
 		if event.is_pressed():
-			#$ToolTip.hide()
 			create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
 			if not local_card_pos:
 				local_card_pos = scene_base.position
@@ -72,9 +70,7 @@ func useCardOn(target):
 	if card_stats.one_use:
 		anims.play('burn_card')
 	else:
-		add_to_discard_number.emit(1)
 		create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
-		anims.play('go_to_discard')
 	card_stats.card_effect(target)
 	
 func returnCardToHand():
@@ -115,7 +111,8 @@ func cardStopsOverlappingAUnit(area):
 		create_tween().tween_property(self, 'modulate', Color(1, 1, 1), SPEED)
 	
 func allQueuesFinished():
-	handle_card_deletion.emit(self)
+	print(self)
+	card_discarded.emit(self)
 	
 func _on_card_animations_animation_finished(anim_name):
 	if anim_name == 'go_to_discard' or anim_name == 'burn_card':

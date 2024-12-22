@@ -6,7 +6,6 @@ class_name CardImage
 		card_stats = value
 		setCardData(value)
 @export var hideCost : bool = false
-
 @export var active_enemy : Unit
 @export var player : Unit
 

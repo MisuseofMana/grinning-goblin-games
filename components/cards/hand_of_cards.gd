@@ -4,7 +4,6 @@ class_name HandOfCards
 @onready var hand_of_cards = $"."
 @onready var card_arc = $CardArc
 @onready var paper_sound: AudioStreamPlayer2D = $PaperSound
-@onready var discard_pile = $DiscardPile
 @onready var card_base: Card = $CardArc/CardFollowPath/CardBase
 @onready var action_points_counter = $Sprite2D/ActionPointsCounter
 @onready var gpu_particles_2d = $Sprite2D/GPUParticles2D
@@ -47,36 +46,29 @@ func addCardToHand(cardResource: CardStats):
 	card_arc.add_child(newFollowNode)
 	newFollowNode.add_child(newCard)
 	
-	newCard.add_to_discard_number.connect(handleDiscardNumber)
+	newCard.card_discarded.connect(handleDiscard)
 	newCard.action_points_reduced.connect(reduceActionPointsBy)
 	newCard.hand_of_cards = self
-
-	var numberOfCards = card_arc.get_children().size()
-	var path_division = 1.0 / (numberOfCards + 1.0)
-	var pos_incrementer = path_division
-	for followPath in card_arc.get_children():
-		create_tween().tween_property(followPath, "progress_ratio", path_division, 0.4)
-		create_tween().tween_property(newCard, "scale", Vector2(1,1), 0.4)
-		paper_sound.play()
-		path_division += pos_incrementer
+	
+	updateAllCardPositions()
 	changeCardAvailibilty(newCard)
 
-func handleDiscardNumber(howMany):
-	discard_pile.addNumToDiscard(howMany)
-		
+func handleDiscard(whichCardPath : PathFollow2D):
+	print('handle discard')
+	var card : Card = whichCardPath.get_child(0)
+	discardArray.append(card.card_stats)
+	card.anims.play('go_to_discard')
+	await card.anims.animation_finished
+	card.card_discarded.disconnect(handleDiscard)
+	card.action_points_reduced.disconnect(reduceActionPointsBy)
+	whichCardPath.queue_free()
+	updateAllCardPositions()
+	
 func discardHand():
-#remove card from hand
-#add card to discard array
 	for followPath in card_arc.get_children():
 		var card = followPath.get_child(0)
-		card.add_to_discard_number.disconnect(handleDiscardNumber)
-		card.action_points_reduced.disconnect(reduceActionPointsBy)
-		discardArray.append(card)
 		create_tween().tween_property(card, "global_position", Vector2(606, 378), 0.4)
-		card.anims.play("go_to_discard")
-		await card.anims.animation_finished
-		followPath.queue_free()
-		await followPath.tree_exited
+		await handleDiscard(followPath)
 	drawCards(hand_size)
 
 func drawCards(howMany):
@@ -121,6 +113,16 @@ func playerHasCardsThatCanBeUsed():
 		var cardNode = followNode.get_child(0)
 		if useable(cardNode) == true:
 			return true
+
+func updateAllCardPositions():
+	var numberOfCards = card_arc.get_children().size()
+	var path_division = 1.0 / (numberOfCards + 1.0)
+	var pos_incrementer = path_division
+	for followPath in card_arc.get_children():
+		create_tween().tween_property(followPath, "progress_ratio", path_division, 0.4)
+		create_tween().tween_property(followPath.get_child(0), "scale", Vector2(1,1), 0.4)
+		paper_sound.play()
+		path_division += pos_incrementer
 
 func changeAllCardAvailability():
 	for followNode in card_arc.get_children():
