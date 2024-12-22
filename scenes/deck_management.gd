@@ -8,8 +8,7 @@ class_name DeckManagement
 @export var cardsOwned : Array[CardStats] = []
 
 @onready var anims = $AnimationPlayer
-
-const CARD_DISPLAY = preload("res://components/cards/card_display.tscn")
+const CARD_DISPLAY = preload("res://components/cards/presentational_card.tscn")
 const DETECTION_AREA_CARD = preload("res://components/cards/detection_area_card.tscn")
 const CARD_BAR = preload("res://components/cards/DeckManagement/card-bar.tscn")
 

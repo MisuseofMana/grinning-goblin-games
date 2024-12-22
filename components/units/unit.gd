@@ -21,7 +21,6 @@ func _ready():
 			setAnimationFrames('res://art/cards/sprites/' + unit_stats.character_type + '/' + animation_name + '/', animation_name)
 	unit_sprite.animation = 'idle'
 	unit_sprite.autoplay = 'idle'
-	
 
 func die():
 	if unit_stats.is_self:

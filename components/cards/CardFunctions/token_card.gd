@@ -14,10 +14,9 @@ func card_effect(target: Unit):
 	var token_list : Dictionary = target.unit_stats.tokens
 	var token_type : String = token_resource.token_type
 	
-	print('needs redesigned')
-	#if token_list.has(token_type):
-		#token_list[token_type] += GameLogic.calculateCardCost(self, ownerUnitStats, true)
-	#else:
-		#token_list[token_type] = GameLogic.calculateCardCost(self, ownerUnitStats, true)
-		#
-	#targetUnit.updateTokens()
+	if token_list.has(token_type):
+		token_list[token_type] += calculate_adj_token_value()
+	else:
+		token_list[token_type] = calculate_adj_token_value()
+		
+	target.updateTokens()

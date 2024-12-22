@@ -25,7 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="19_rm7gv"]
 [ext_resource type="AudioStream" uid="uid://c402qy7b2rooa" path="res://audio/battle_scene/forest_scene/Full_Loop.wav" id="22_c0x5w"]
 
-[sub_resource type="Resource" id="Resource_rm6mu"]
+[sub_resource type="Resource" id="Resource_tqlix"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -37,12 +37,12 @@ stats = {
 "muscle": 5,
 "nuance": 0
 }
-deck = Array[ExtResource("16_gqber")]([ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("8_grg55"), ExtResource("8_grg55"), ExtResource("15_gqlls"), ExtResource("9_gs6h0"), ExtResource("8_grg55"), ExtResource("8_grg55"), ExtResource("8_grg55"), ExtResource("8_grg55")])
+deck = Array[ExtResource("16_gqber")]([ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("8_grg55"), ExtResource("8_grg55"), ExtResource("15_gqlls"), ExtResource("9_gs6h0"), ExtResource("8_grg55")])
 animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_jefpn"]
+[sub_resource type="Resource" id="Resource_neaj3"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -301,9 +301,8 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("17_ituhd")
 
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("hand_of_cards")]
+[node name="BattleScene" type="Node2D"]
 script = ExtResource("1_tfoca")
-hand_of_cards = NodePath("HandOfCards")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(320, 126)
@@ -315,7 +314,7 @@ texture = ExtResource("2_jaqan")
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_stats = SubResource("Resource_rm6mu")
+unit_stats = SubResource("Resource_tqlix")
 
 [node name="Enemies" type="Node2D" parent="." node_paths=PackedStringArray("enemy_card", "animations")]
 script = ExtResource("7_7drj6")
@@ -328,7 +327,7 @@ script = ExtResource("7_3xy0m")
 battle_scene = NodePath("../..")
 hand_of_cards = NodePath("../../HandOfCards")
 enemy_card_container = NodePath("../../EnemyCardContainer")
-unit_stats = SubResource("Resource_jefpn")
+unit_stats = SubResource("Resource_neaj3")
 
 [node name="EnemyCardContainer" type="Node2D" parent="."]
 position = Vector2(700, -18)
@@ -608,7 +607,6 @@ stream = ExtResource("22_c0x5w")
 volume_db = -10.0
 autoplay = true
 
-[connection signal="players_turn_activated" from="." to="HandOfCards" method="playerTurnSetup"]
 [connection signal="enemy_card_accepted" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate" to="EnemyCardContainer" method="_on_enemy_card_template_enemy_card_accepted"]
 [connection signal="area_entered" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate/Area2D" to="EnemyCardContainer" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate/Area2D" to="EnemyCardContainer" method="_on_area_2d_area_exited"]

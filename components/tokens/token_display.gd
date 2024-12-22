@@ -18,3 +18,4 @@ func updateTokens(token_list):
 		newCounter.token_stats = token_resources[key]
 		newCounter.tokenValue = token_list[key]
 		grid.add_child(newCounter)
+		newCounter.scale = Vector2(0.5, 0.5)

@@ -33,17 +33,19 @@ func card_effect(_target):
 func calculate_adj_value():
 	var modifierValue : int = base_value
 	if primary_stat:
-		print(primaryStatMods[card_owner.stats[primary_stat]])
 		modifierValue += primaryStatMods[card_owner.stats[primary_stat]]
 	if secondary_stat:
-		print(secondaryStatMods[card_owner.stats[secondary_stat]])
 		modifierValue += secondaryStatMods[card_owner.stats[secondary_stat]]
 	if debuff_value:
 		modifierValue -= debuff_value
+	modifierValue = clampi(modifierValue, 1, 999)
 	return modifierValue
 	
 func calculate_adj_token_value():
 	var modifierValue = base_value
+	if primary_stat:
+		modifierValue += tokenModifier[card_owner.stats[primary_stat]]
+	modifierValue = clampi(modifierValue, 0, 999)
 	return modifierValue
 	
 func reduceBaseValue():

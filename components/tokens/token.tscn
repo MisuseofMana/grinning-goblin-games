@@ -4,15 +4,17 @@
 [ext_resource type="Script" path="res://components/tokens/token.gd" id="2_imqjw"]
 
 [node name="CounterIcon" type="TextureRect"]
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_nc0vr")
 script = ExtResource("2_imqjw")
 
 [node name="NumberLabel" type="Label" parent="."]
 layout_mode = 0
-offset_right = 80.0
-offset_bottom = 51.0
+offset_right = 154.0
+offset_bottom = 110.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 64
 text = "1"
 horizontal_alignment = 1
+vertical_alignment = 1

@@ -7,6 +7,11 @@ class_name CardImage
 		setCardData(value)
 @export var hideCost : bool = false
 
+@export var active_enemy : Unit
+@export var player : Unit
+
+signal enemy_card_accepted()
+
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
 
 func formatCardStringInterp(noBBCode):
@@ -49,3 +54,14 @@ func swapCardBackTexture():
 	$Description.hide()
 	$Name.hide()
 	$CardImage.texture = CARD_TEMPLATE_BACK
+	
+func runCardEffect():
+	if card_stats.targets_self:
+		card_stats.card_effect(active_enemy)
+	else:
+		card_stats.card_effect(player)
+	enemy_card_accepted.emit()
+	
+func changeActiveEnemy(toWho):
+	active_enemy = toWho
+	

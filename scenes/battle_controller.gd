@@ -8,11 +8,16 @@ class_name BattleScene
 @onready var enemies = $Enemies
 @onready var turn_label = $TurnLabel
 @onready var turn_change_sound = $Sounds/TurnChangeSound
+@onready var enemy_card_template = $EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate
 
 @export var stage_background = Texture2D
 @export var player_deck : Array[CardStats] = []
 
+@export var hand_of_cards : HandOfCards
+
 var players_turn : bool = true
+
+signal players_turn_activated()
 
 func _ready():
 	await showTurnSwap("Your Turn", true)
@@ -30,18 +35,13 @@ func showTurnSwap(text, isPlayersTurn):
 	
 func run_enemy_turn():
 	showTurnSwap("Enemy Turn", false)
-	
+	hand_of_cards.changeAllCardAvailability()
 #	run enemy logic
-	for enemy in enemies.get_children():
+	for enemy : Unit in enemies.get_children():
+		enemy_card_template.active_enemy = enemy
 		await enemy.take_turn()
 
-func run_players_turn():
-	await showTurnSwap("Your Turn", true)
-	drawHand()
-
-func drawHand():
-	print('drawing new hand')
-	pass
-	
-func useCard(cardStats : CardStats, targetNode):
-	pass
+func return_to_players_turn():
+	showTurnSwap("Your Turn", true)
+	players_turn_activated.emit()
+	hand_of_cards.changeAllCardAvailability()

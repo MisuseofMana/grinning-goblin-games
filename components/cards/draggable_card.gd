@@ -9,17 +9,19 @@ class_name Card extends Node2D
 @onready var card_shimmer = $CardShimmer
 
 @export var card_stats : CardStats = preload("res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres")
+@export var hand_of_cards : HandOfCards
 
 signal add_to_discard_number(howMany)
 signal handle_card_deletion(nodeReference)
+signal action_points_reduced(howMany)
 
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
 const PLAYER = preload("res://components/units/UnitDictionary/UnitTypes/player.tres")
 
 var overlappingAreas : Array[Area2D] = []
 
-var is_dragging = false
-var undraggable = false
+var is_dragging : bool = false
+var undraggable: bool = false
 var global_card_pos
 var local_card_pos
 var card_rotation
@@ -45,6 +47,7 @@ func _dragging_card_gui_input(event):
 		if undraggable:
 			error_sound.play()
 		if event.is_pressed():
+			#$ToolTip.hide()
 			create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
 			if not local_card_pos:
 				local_card_pos = scene_base.position
@@ -52,12 +55,16 @@ func _dragging_card_gui_input(event):
 			is_dragging = true
 		else:
 			if overlappingAreas.size() and isValidTarget(overlappingAreas[0].get_parent()):
-				useCardOn(overlappingAreas[0].get_parent())
+				if hand_of_cards.useable(self):
+					useCardOn(overlappingAreas[0].get_parent())
+				else:
+					returnCardToHand()
 			else:
-				error_sound.play()
 				returnCardToHand()
+		
 	
 func useCardOn(target):
+	hand_of_cards.reduceActionPointsBy(card_stats.play_cost)
 	is_dragging = false
 	undraggable = true
 	discardAudioFinished = false
@@ -68,8 +75,10 @@ func useCardOn(target):
 		add_to_discard_number.emit(1)
 		create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
 		anims.play('go_to_discard')
+	card_stats.card_effect(target)
 	
 func returnCardToHand():
+	error_sound.play()
 	scene_base.get_parent().rotation = card_rotation
 	card_rotation = null
 	create_tween().tween_property(self, "position", local_card_pos, SPEED)
@@ -84,11 +93,13 @@ func _on_card_mouse_entered():
 		present.z_index = 100
 		pickup_sound.play()
 		create_tween().tween_property(self, "scale", Vector2(1.2, 1.2), SPEED)
+		#$ToolTip.show()
 
 func _on_card_mouse_exited():
 	if not is_dragging:
 		present.z_index = 0
 		create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
+		#$ToolTip.hide()
 
 func cardOverlapsAUnit(area: Area2D):
 	overlappingAreas.push_front(area)
