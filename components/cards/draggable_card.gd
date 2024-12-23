@@ -12,6 +12,7 @@ class_name Card extends Node2D
 @export var hand_of_cards : HandOfCards
 
 signal card_discarded(nodeReference)
+signal card_burned(nodeReference)
 signal action_points_reduced(howMany)
 
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
@@ -54,6 +55,7 @@ func _dragging_card_gui_input(event):
 		else:
 			if overlappingAreas.size() and isValidTarget(overlappingAreas[0].get_parent()):
 				if hand_of_cards.useable(self):
+					card_shimmer.emitting = false
 					useCardOn(overlappingAreas[0].get_parent())
 				else:
 					returnCardToHand()
@@ -71,7 +73,8 @@ func useCardOn(target):
 		anims.play('burn_card')
 	else:
 		create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
-	card_stats.card_effect(target)
+		card_stats.card_effect(target)
+		anims.play('go_to_discard')
 	
 func returnCardToHand():
 	error_sound.play()
@@ -109,21 +112,6 @@ func cardStopsOverlappingAUnit(area):
 	overlappingAreas.erase(area)
 	if not overlappingAreas.size():
 		create_tween().tween_property(self, 'modulate', Color(1, 1, 1), SPEED)
-	
-func allQueuesFinished():
-	print(self)
-	card_discarded.emit(self)
-	
-func _on_card_animations_animation_finished(anim_name):
-	if anim_name == 'go_to_discard' or anim_name == 'burn_card':
-		discardAnimFinished = true
-	if discardAudioFinished:
-		allQueuesFinished()
-
-func _on_valid_drop_sound_finished():
-	discardAudioFinished = true
-	if discardAnimFinished:
-		allQueuesFinished()
 
 func isValidTarget(target):
 	if target is CardImage:

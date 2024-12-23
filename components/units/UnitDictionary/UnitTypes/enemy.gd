@@ -3,6 +3,8 @@ extends Unit
 var card_ref : EnemyController
 var chosen_card_stats : CardStats
 
+var has_taken_turn = false
+
 @export var battle_scene : BattleScene
 @export var hand_of_cards : HandOfCards
 @export var enemy_card_container : EnemyCardContainer
@@ -24,7 +26,3 @@ func animationSequencer(anim_name):
 	if anim_name == 'evaporate':
 		battle_scene.return_to_players_turn()
 	card_ref.animations.animation_finished.disconnect(animationSequencer)
-	
-func nextEnemyTurn():
-	#next enemy takes turn
-	pass

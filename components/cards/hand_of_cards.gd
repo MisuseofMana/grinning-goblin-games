@@ -19,6 +19,7 @@ var max_action_points_remaining : int = 3
 var action_points_remaining : int = 3
 var hand_size : int = 5
 var discardArray : Array = []
+var burnArray : Array = []
 
 @onready var deck = player.unit_stats.deck
 
@@ -47,22 +48,33 @@ func addCardToHand(cardResource: CardStats):
 	newFollowNode.add_child(newCard)
 	
 	newCard.card_discarded.connect(handleDiscard)
+	newCard.card_burned.connect(handleBurnCard)
 	newCard.action_points_reduced.connect(reduceActionPointsBy)
 	newCard.hand_of_cards = self
 	
 	updateAllCardPositions()
 	changeCardAvailibilty(newCard)
 
+func removeFollowNode(whichCardPath : PathFollow2D):
+	print('handle followNode removal')
+	var card : Card = whichCardPath.get_child(0)
+	card.card_discarded.disconnect(handleDiscard)
+	card.action_points_reduced.disconnect(reduceActionPointsBy)
+	card.card_burned.disconnect(handleBurnCard)
+	whichCardPath.free()
+	updateAllCardPositions()
+
 func handleDiscard(whichCardPath : PathFollow2D):
 	print('handle discard')
 	var card : Card = whichCardPath.get_child(0)
 	discardArray.append(card.card_stats)
-	card.anims.play('go_to_discard')
-	await card.anims.animation_finished
-	card.card_discarded.disconnect(handleDiscard)
-	card.action_points_reduced.disconnect(reduceActionPointsBy)
-	whichCardPath.queue_free()
-	updateAllCardPositions()
+	removeFollowNode(whichCardPath)
+	
+func handleBurnCard(whichCardPath : PathFollow2D):
+	print('handle burn card')
+	var card : Card = whichCardPath.get_child(0)
+	burnArray.append(card.card_stats)
+	removeFollowNode(whichCardPath)
 	
 func discardHand():
 	for followPath in card_arc.get_children():

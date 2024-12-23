@@ -8,7 +8,6 @@ var oldPosition
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	oldPosition = sprite.global_position
-	print(oldPosition)
 	follow.progress = 0
 
 

@@ -10,7 +10,6 @@ var draggableType : String = ''
 var fallback_texture = TextureRect.new()
 
 func clearSlot():
-	print('clearing')
 	#attributes.unit_level = 0
 	#attributes.unit_texture = null
 	#attributes.unit_type = ''
@@ -69,7 +68,6 @@ func _drop_data(at_position, data):
 		merge_particles.emitting = true	#emit particles
 		
 		#set unit info for new slot
-		print('setting new slot data')
 		attributes.unit_level = level 
 		attributes.unit_texture = texture
 		attributes.unit_type = Globals.activeDragItemType

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=35 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://bu305i6xvayai" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
@@ -7,8 +7,6 @@
 [ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="6_jwkgv"]
 [ext_resource type="Script" path="res://components/units/UnitDictionary/UnitTypes/enemy.gd" id="7_3xy0m"]
 [ext_resource type="Script" path="res://scenes/enemy_controller.gd" id="7_7drj6"]
-[ext_resource type="Resource" uid="uid://c4k3kk3bkrtt7" path="res://components/cards/CardDictionary/Player/DefenseCards/basic_defend.tres" id="8_grg55"]
-[ext_resource type="Resource" uid="uid://lukw234e1e6j" path="res://components/cards/CardDictionary/Player/DefenseCards/basic_ward.tres" id="9_gs6h0"]
 [ext_resource type="Resource" uid="uid://c534yv87m0b1" path="res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres" id="9_jtg2h"]
 [ext_resource type="Resource" uid="uid://dlw2cn7turh68" path="res://components/cards/CardDictionary/Enemies/Goblin/goblin_bite.tres" id="10_sapak"]
 [ext_resource type="Texture2D" uid="uid://clv1s8w5roogn" path="res://art/ui/xp_bar.png" id="12_52kwo"]
@@ -25,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="19_rm7gv"]
 [ext_resource type="AudioStream" uid="uid://c402qy7b2rooa" path="res://audio/battle_scene/forest_scene/Full_Loop.wav" id="22_c0x5w"]
 
-[sub_resource type="Resource" id="Resource_58alw"]
+[sub_resource type="Resource" id="Resource_a0i72"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -37,12 +35,12 @@ stats = {
 "muscle": 5,
 "nuance": 0
 }
-deck = Array[ExtResource("16_gqber")]([ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("8_grg55"), ExtResource("8_grg55"), ExtResource("15_gqlls"), ExtResource("9_gs6h0"), ExtResource("8_grg55"), ExtResource("8_grg55"), ExtResource("8_grg55"), ExtResource("8_grg55")])
+deck = Array[ExtResource("16_gqber")]([ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("15_gqlls"), ExtResource("15_gqlls"), ExtResource("15_gqlls")])
 animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_kqumf"]
+[sub_resource type="Resource" id="Resource_s1iwb"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -315,7 +313,7 @@ texture = ExtResource("2_jaqan")
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_stats = SubResource("Resource_58alw")
+unit_stats = SubResource("Resource_a0i72")
 
 [node name="Enemies" type="Node2D" parent="." node_paths=PackedStringArray("enemy_card", "animations")]
 script = ExtResource("7_7drj6")
@@ -328,7 +326,7 @@ script = ExtResource("7_3xy0m")
 battle_scene = NodePath("../..")
 hand_of_cards = NodePath("../../HandOfCards")
 enemy_card_container = NodePath("../../EnemyCardContainer")
-unit_stats = SubResource("Resource_kqumf")
+unit_stats = SubResource("Resource_s1iwb")
 
 [node name="EnemyCardContainer" type="Node2D" parent="."]
 position = Vector2(700, -18)
@@ -608,7 +606,6 @@ stream = ExtResource("22_c0x5w")
 volume_db = -10.0
 autoplay = true
 
-[connection signal="players_turn_activated" from="." to="HandOfCards" method="playerTurnSetup"]
 [connection signal="enemy_card_accepted" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate" to="EnemyCardContainer" method="_on_enemy_card_template_enemy_card_accepted"]
 [connection signal="area_entered" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate/Area2D" to="EnemyCardContainer" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate/Area2D" to="EnemyCardContainer" method="_on_area_2d_area_exited"]
