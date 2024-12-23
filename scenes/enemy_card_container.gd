@@ -5,15 +5,13 @@ class_name EnemyCardContainer
 @onready var enemy_card_template : CardImage = $Path2D/PathFollow2D/EnemyCardTemplate
 @onready var anims = $EnemyCardAnimations
 
-@onready var accept_effect = $AcceptEffect
+@onready var accept_button = $AcceptButton
 
-func _on_accept_effect_pressed():
+func onCardAccept():
 	enemy_card_template.runCardEffect()
-	accept_effect.hide()
-
-func _on_enemy_card_template_enemy_card_accepted():
+	accept_button.hide()
 	anims.play('evaporate')
-
-func _on_enemy_card_animations_animation_finished(anim_name):
-	if anim_name == 'fly_in':
-		accept_effect.show()
+		
+func showAcceptButton():
+	accept_button.show()
+	

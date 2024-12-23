@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=36 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://bu305i6xvayai" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="6_jwkgv"]
 [ext_resource type="Script" path="res://components/units/UnitDictionary/UnitTypes/enemy.gd" id="7_3xy0m"]
 [ext_resource type="Script" path="res://scenes/enemy_controller.gd" id="7_7drj6"]
+[ext_resource type="Resource" uid="uid://dppkgtvdmpwwt" path="res://components/cards/CardDictionary/Player/AttackCards/basic_spell.tres" id="8_s83w5"]
 [ext_resource type="Resource" uid="uid://c534yv87m0b1" path="res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres" id="9_jtg2h"]
 [ext_resource type="Resource" uid="uid://dlw2cn7turh68" path="res://components/cards/CardDictionary/Enemies/Goblin/goblin_bite.tres" id="10_sapak"]
 [ext_resource type="Texture2D" uid="uid://clv1s8w5roogn" path="res://art/ui/xp_bar.png" id="12_52kwo"]
@@ -23,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="19_rm7gv"]
 [ext_resource type="AudioStream" uid="uid://c402qy7b2rooa" path="res://audio/battle_scene/forest_scene/Full_Loop.wav" id="22_c0x5w"]
 
-[sub_resource type="Resource" id="Resource_a0i72"]
+[sub_resource type="Resource" id="Resource_chhsf"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -35,12 +36,12 @@ stats = {
 "muscle": 5,
 "nuance": 0
 }
-deck = Array[ExtResource("16_gqber")]([ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("15_gqlls"), ExtResource("15_gqlls"), ExtResource("15_gqlls")])
+deck = Array[ExtResource("16_gqber")]([ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("9_jtg2h"), ExtResource("15_gqlls"), ExtResource("15_gqlls"), ExtResource("15_gqlls"), ExtResource("8_s83w5")])
 animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_s1iwb"]
+[sub_resource type="Resource" id="Resource_n1mrv"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -59,7 +60,7 @@ is_self = false
 
 [sub_resource type="Curve2D" id="Curve2D_catov"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -403, 144, -133.897, 40.816, 133.897, -40.816, -174, 168, 0, 0, 0, 0, 24, 18)
+"points": PackedVector2Array(0, 0, 0, 0, -402, 121, -133.897, 40.816, 133.897, -40.816, -174, 168, 0, 0, 0, 0, 24, 18)
 }
 point_count = 3
 
@@ -107,7 +108,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -299,34 +300,38 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("17_ituhd")
 
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("hand_of_cards")]
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("hand_of_cards", "enemy_logic")]
 script = ExtResource("1_tfoca")
 hand_of_cards = NodePath("HandOfCards")
+enemy_logic = NodePath("Enemies")
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="FlavorAssets" type="Node2D" parent="."]
+
+[node name="Background" type="Sprite2D" parent="FlavorAssets"]
 position = Vector2(320, 126)
 texture = ExtResource("1_pchfv")
 
-[node name="Board" type="Sprite2D" parent="."]
+[node name="Board" type="Sprite2D" parent="FlavorAssets"]
 position = Vector2(320, 180)
 texture = ExtResource("2_jaqan")
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_stats = SubResource("Resource_a0i72")
+unit_stats = SubResource("Resource_chhsf")
 
 [node name="Enemies" type="Node2D" parent="." node_paths=PackedStringArray("enemy_card", "animations")]
 script = ExtResource("7_7drj6")
 enemy_card = NodePath("../EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate")
 animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
 
-[node name="Goblin1" parent="Enemies" node_paths=PackedStringArray("battle_scene", "hand_of_cards", "enemy_card_container") instance=ExtResource("3_kt5qk")]
+[node name="Goblin1" parent="Enemies" node_paths=PackedStringArray("battle_scene", "hand_of_cards", "enemy_card_container", "enemy_container") instance=ExtResource("3_kt5qk")]
 position = Vector2(540, 156)
 script = ExtResource("7_3xy0m")
 battle_scene = NodePath("../..")
 hand_of_cards = NodePath("../../HandOfCards")
 enemy_card_container = NodePath("../../EnemyCardContainer")
-unit_stats = SubResource("Resource_s1iwb")
+enemy_container = NodePath("..")
+unit_stats = SubResource("Resource_n1mrv")
 
 [node name="EnemyCardContainer" type="Node2D" parent="."]
 position = Vector2(700, -18)
@@ -338,7 +343,7 @@ curve = SubResource("Curve2D_catov")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="EnemyCardContainer/Path2D"]
 position = Vector2(24, 18)
-progress = 490.451
+progress = 496.207
 rotates = false
 loop = false
 
@@ -368,6 +373,7 @@ disabled = true
 z_index = 100
 z_as_relative = false
 position = Vector2(0.193237, 1.40096)
+emitting = false
 amount = 60
 process_material = SubResource("ParticleProcessMaterial_rdevo")
 lifetime = 0.6
@@ -380,12 +386,12 @@ libraries = {
 "": SubResource("AnimationLibrary_gvsxv")
 }
 
-[node name="AcceptEffect" type="Button" parent="EnemyCardContainer"]
+[node name="AcceptButton" type="Button" parent="EnemyCardContainer"]
 visible = false
-offset_left = -444.0
-offset_top = 216.0
-offset_right = -334.0
-offset_bottom = 237.0
+offset_left = -442.0
+offset_top = 193.0
+offset_right = -332.0
+offset_bottom = 214.0
 text = "Accept Effect"
 
 [node name="HandOfCards" parent="." node_paths=PackedStringArray("battleScene", "player") instance=ExtResource("15_6uhf2")]
@@ -606,13 +612,15 @@ stream = ExtResource("22_c0x5w")
 volume_db = -10.0
 autoplay = true
 
+[connection signal="show_accept_button" from="Enemies" to="EnemyCardContainer" method="showAcceptButton"]
+[connection signal="child_exiting_tree" from="Enemies/Goblin1" to="Enemies" method="disconnectEnemySignals"]
 [connection signal="enemy_card_accepted" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate" to="EnemyCardContainer" method="_on_enemy_card_template_enemy_card_accepted"]
 [connection signal="area_entered" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate/Area2D" to="EnemyCardContainer" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate/Area2D" to="EnemyCardContainer" method="_on_area_2d_area_exited"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="EnemyCardContainer" method="_on_enemy_card_animations_animation_finished"]
-[connection signal="pressed" from="EnemyCardContainer/AcceptEffect" to="EnemyCardContainer" method="_on_accept_effect_pressed"]
-[connection signal="ran_out_of_action_points" from="HandOfCards" to="." method="_on_card_interface_ran_out_of_action_points"]
-[connection signal="pressed" from="EndTurnButton" to="." method="run_enemy_turn"]
+[connection signal="pressed" from="EnemyCardContainer/AcceptButton" to="." method="runEnemiesTurn"]
+[connection signal="action_points_depleted" from="HandOfCards" to="." method="runEnemiesTurn"]
+[connection signal="pressed" from="EndTurnButton" to="." method="clickEndTurn"]
 [connection signal="pressed" from="DebugBar/DebugToggle" to="DebugBar" method="_on_button_pressed"]
 [connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button2" to="HandOfCards" method="add_random_card_to_hand"]
 [connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button3" to="HandOfCards" method="discardHand"]

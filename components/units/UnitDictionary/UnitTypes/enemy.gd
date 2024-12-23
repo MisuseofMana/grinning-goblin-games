@@ -1,28 +1,31 @@
 extends Unit
+class_name EnemyUnit
 
-var card_ref : EnemyController
 var chosen_card_stats : CardStats
 
 var has_taken_turn = false
 
+signal enemy_is_waiting_for_response()
+signal enemy_has_taken_turn()
+
 @export var battle_scene : BattleScene
 @export var hand_of_cards : HandOfCards
 @export var enemy_card_container : EnemyCardContainer
-
+@export var enemy_container : EnemyController
+	
 func take_turn():
 	enemy_card_container.enemy_card_template.active_enemy = self
-	card_ref = get_parent()
-	card_ref.animations.animation_finished.connect(animationSequencer)
+	enemy_container = get_parent()
+	enemy_container.animations.animation_finished.connect(animationSequencer)
 #	setup a new card from the goblins deck
 	chosen_card_stats = unit_stats.deck.pick_random()
-	card_ref.enemy_card.card_stats = chosen_card_stats
-	card_ref.animations.play("fly_in")
+	enemy_container.enemy_card.card_stats = chosen_card_stats
+	enemy_container.animations.play("fly_in")
 	
 func animationSequencer(anim_name):
 	if anim_name == 'fly_in':
-		card_ref.animations.play('hover')
-#		proceed to next enemies turn
-#		return play to player
+		enemy_container.animations.play('hover')
+		enemy_is_waiting_for_response.emit()
 	if anim_name == 'evaporate':
-		battle_scene.return_to_players_turn()
-	card_ref.animations.animation_finished.disconnect(animationSequencer)
+		enemy_has_taken_turn.emit()
+		enemy_container.animations.animation_finished.disconnect(animationSequencer)

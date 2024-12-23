@@ -11,9 +11,8 @@ class_name Card extends Node2D
 @export var card_stats : CardStats = preload("res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres")
 @export var hand_of_cards : HandOfCards
 
-signal card_discarded(nodeReference)
-signal card_burned(nodeReference)
-signal action_points_reduced(howMany)
+signal card_burnt(followNode : PathFollow2D)
+signal card_discarded(followNode : PathFollow2D)
 
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
 const PLAYER = preload("res://components/units/UnitDictionary/UnitTypes/player.tres")
@@ -61,19 +60,17 @@ func _dragging_card_gui_input(event):
 					returnCardToHand()
 			else:
 				returnCardToHand()
-		
-	
+
 func useCardOn(target):
-	hand_of_cards.reduceActionPointsBy(card_stats.play_cost)
 	is_dragging = false
 	undraggable = true
 	discardAudioFinished = false
 	valid_drop_sound.play()
+	card_stats.card_effect(target)
 	if card_stats.one_use:
 		anims.play('burn_card')
 	else:
 		create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
-		card_stats.card_effect(target)
 		anims.play('go_to_discard')
 	
 func returnCardToHand():
@@ -118,3 +115,11 @@ func isValidTarget(target):
 		return card_stats.can_use_to_respond
 	elif target is Unit:
 		return card_stats.targets_self == target.unit_stats.is_self and not card_stats.can_use_to_respond
+	
+
+func _on_card_animations_animation_finished(anim_name):
+	match anim_name:
+		'go_to_discard':
+			card_discarded.emit(self.get_parent())
+		'burn_card':
+			card_burnt.emit(self.get_parent())
