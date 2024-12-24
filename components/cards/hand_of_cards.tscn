@@ -63,8 +63,8 @@ progress = 115.074
 stream = SubResource("AudioStreamRandomizer_flf2n")
 volume_db = -20.0
 
-[node name="DiscardPile" parent="." instance=ExtResource("6_cuw25")]
-position = Vector2(600, -23)
+[node name="DiscardPiles" parent="." instance=ExtResource("6_cuw25")]
+position = Vector2(584, -48)
 scale = Vector2(0.65, 0.65)
 
 [node name="DeckPile" parent="." instance=ExtResource("7_vgbdv")]
@@ -98,3 +98,6 @@ process_material = SubResource("ParticleProcessMaterial_83y4o")
 lifetime = 0.5
 one_shot = true
 explosiveness = 0.3
+
+[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]
+[connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]

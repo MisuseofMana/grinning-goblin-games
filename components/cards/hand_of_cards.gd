@@ -7,7 +7,7 @@ class_name HandOfCards
 @onready var card_base: Card = $CardArc/CardFollowPath/CardBase
 @onready var action_points_counter = $Sprite2D/ActionPointsCounter
 @onready var gpu_particles_2d = $Sprite2D/GPUParticles2D
-@onready var discard_pile = $DiscardPile
+@onready var discard_pile = $DiscardPiles
 
 @export var battleScene : BattleScene
 @export var player : Unit
@@ -55,8 +55,9 @@ func addCardToHand(cardResource: CardStats):
 	newFollowNode.add_child(newCard)
 	
 	newCard.hand_of_cards = self
-	newCard.card_burnt.connect(putCardInDiscard)
-	newCard.card_discarded.connect(putCardInBurnPile)
+	newCard.card_discarded.connect(putCardInDiscard)
+	newCard.card_burnt.connect(putCardInBurnPile)
+	newCard.tree_exited.connect(updateAllCardPositions)
 	
 	updateAllCardPositions()
 	changeCardAvailibilty(newCard)
@@ -64,6 +65,7 @@ func addCardToHand(cardResource: CardStats):
 func putCardInDiscard(followNode : PathFollow2D):
 	var card = followNode.get_child(0)
 	discardArray.append(card.card_stats)
+	discard_pile.updateDiscardNumber(discardArray.size())
 	followNode.queue_free()
 	
 func putCardInBurnPile(followNode : PathFollow2D):
@@ -73,17 +75,16 @@ func putCardInBurnPile(followNode : PathFollow2D):
 	
 func discardHand():
 	for followPath in card_arc.get_children():
-		var card : Card = followPath.get_child(0)
-		card.handleDiscard()
+		putCardInDiscard(followPath)
 		
 func drawCards(howMany):
-	if len(deck) < howMany:
-		deck.append(discardArray)
-		print(deck)
+	if deck.size() < howMany:
+		deck.append_array(discardArray)
+		discardArray = []
+		discard_pile.updateDiscardNumber(discardArray.size())
 		deck.shuffle()
-	
+		
 	var incr = howMany
-	print(deck)
 	while incr > 0:
 		var chosenCard = deck.pop_at(0)
 		addCardToHand(chosenCard)

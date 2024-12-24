@@ -1,19 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://babdevi0twph6"]
+[gd_scene load_steps=6 format=3 uid="uid://babdevi0twph6"]
 
 [ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_mtuga"]
 [ext_resource type="Script" path="res://components/discard_pile.gd" id="1_vausx"]
+[ext_resource type="Texture2D" uid="uid://73ao4n0v4r80" path="res://art/cards/card-burn-pile.png" id="2_88c44"]
 [ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/discard-number.png" id="2_ee4ao"]
 [ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="3_5038y"]
 
 [node name="DiscardPile" type="Node2D"]
 script = ExtResource("1_vausx")
 
+[node name="CardBack2" type="Sprite2D" parent="."]
+modulate = Color(0.737975, 0.72261, 1, 1)
+position = Vector2(16, -32)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_88c44")
+
+[node name="BurnNumber" type="Node2D" parent="."]
+position = Vector2(56, 24)
+metadata/_edit_group_ = true
+
+[node name="BurnChit" type="Sprite2D" parent="BurnNumber"]
+modulate = Color(0.23877, 0.187826, 1, 1)
+texture = ExtResource("2_ee4ao")
+
+[node name="NumberBurned" type="Label" parent="BurnNumber"]
+offset_left = -8.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = 11.0
+theme_override_fonts/font = ExtResource("3_5038y")
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="CardBack" type="Sprite2D" parent="."]
-position = Vector2(0, -42)
+position = Vector2(-16, -8)
 texture = ExtResource("1_mtuga")
 
 [node name="DiscardNumber" type="Node2D" parent="."]
-position = Vector2(-42, 13)
+position = Vector2(24, 48)
+metadata/_edit_group_ = true
 
 [node name="DiscardChit" type="Sprite2D" parent="DiscardNumber"]
 texture = ExtResource("2_ee4ao")

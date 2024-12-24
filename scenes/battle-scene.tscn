@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="19_rm7gv"]
 [ext_resource type="AudioStream" uid="uid://c402qy7b2rooa" path="res://audio/battle_scene/forest_scene/Full_Loop.wav" id="22_c0x5w"]
 
-[sub_resource type="Resource" id="Resource_chhsf"]
+[sub_resource type="Resource" id="Resource_0kbnt"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -41,7 +41,7 @@ animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_n1mrv"]
+[sub_resource type="Resource" id="Resource_o0jib"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -317,7 +317,7 @@ texture = ExtResource("2_jaqan")
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_stats = SubResource("Resource_chhsf")
+unit_stats = SubResource("Resource_0kbnt")
 
 [node name="Enemies" type="Node2D" parent="." node_paths=PackedStringArray("enemy_card", "animations")]
 script = ExtResource("7_7drj6")
@@ -331,7 +331,7 @@ battle_scene = NodePath("../..")
 hand_of_cards = NodePath("../../HandOfCards")
 enemy_card_container = NodePath("../../EnemyCardContainer")
 enemy_container = NodePath("..")
-unit_stats = SubResource("Resource_n1mrv")
+unit_stats = SubResource("Resource_o0jib")
 
 [node name="EnemyCardContainer" type="Node2D" parent="."]
 position = Vector2(700, -18)
@@ -614,6 +614,7 @@ autoplay = true
 
 [connection signal="show_accept_button" from="Enemies" to="EnemyCardContainer" method="showAcceptButton"]
 [connection signal="child_exiting_tree" from="Enemies/Goblin1" to="Enemies" method="disconnectEnemySignals"]
+[connection signal="child_exiting_tree" from="EnemyCardContainer/Path2D" to="EnemyCardContainer/Path2D" method="_on_child_exiting_tree"]
 [connection signal="enemy_card_accepted" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate" to="EnemyCardContainer" method="_on_enemy_card_template_enemy_card_accepted"]
 [connection signal="area_entered" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate/Area2D" to="EnemyCardContainer" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate/Area2D" to="EnemyCardContainer" method="_on_area_2d_area_exited"]

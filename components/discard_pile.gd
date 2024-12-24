@@ -12,14 +12,14 @@ func addOneToDiscard():
 	num_in_discard += 1
 	if num_in_discard > 9:
 		number_discarded.add_theme_font_size_override("font_size", 22) 
-		number_discarded.text = str(num_in_discard)
+	number_discarded.text = str(num_in_discard)
 
 func removeOneFromDiscard():
 	print('remove one')
 	num_in_discard -= 1
 	if num_in_discard > 9:
 		number_discarded.add_theme_font_size_override("font_size", 22) 
-		number_discarded.text = str(num_in_discard)	
+	number_discarded.text = str(num_in_discard)	
 		
 func updateDiscardNumber(discardPileSize):
 	if discardPileSize > num_in_discard:
