@@ -71,6 +71,7 @@ func putCardInDiscard(followNode : PathFollow2D):
 func putCardInBurnPile(followNode : PathFollow2D):
 	var card = followNode.get_child(0)
 	burnArray.append(card.card_stats)
+	discard_pile.updateBurnNumber(burnArray.size())
 	followNode.queue_free()
 	
 func discardHand():
