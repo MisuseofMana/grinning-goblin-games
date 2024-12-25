@@ -21,6 +21,8 @@ class_name CardStats
 @export var card_image : Texture2D
 @export var card_skin : Texture2D = preload("res://art/cards/card_art/card-template.png")
 
+signal values_changed()
+
 var primaryStatMods = [-3, -1, 0, 1, 3, 4, 5, 7, 9, 10, 13]
 var secondaryStatMods = [-2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8]
 var tokenModifier = [0, 0, 0, 1, 1, 2, 2, 3, 3, 4]
@@ -34,11 +36,13 @@ func calculate_adj_value():
 	var modifierValue : int = base_value
 	if primary_stat:
 		modifierValue += primaryStatMods[card_owner.stats[primary_stat]]
+		modifierValue = clampi(modifierValue, 1, 999)
 	if secondary_stat:
 		modifierValue += secondaryStatMods[card_owner.stats[secondary_stat]]
+		modifierValue = clampi(modifierValue, 1, 999)
 	if debuff_value:
 		modifierValue -= debuff_value
-	modifierValue = clampi(modifierValue, 1, 999)
+		modifierValue = clampi(modifierValue, 0, 999)
 	return modifierValue
 	
 func calculate_adj_token_value():
@@ -48,5 +52,7 @@ func calculate_adj_token_value():
 	modifierValue = clampi(modifierValue, 0, 999)
 	return modifierValue
 	
-func reduceBaseValue():
-	base_value -= 1
+func addToDebuff():
+	print('debuffing')
+	debuff_value += 1
+	values_changed.emit(self)

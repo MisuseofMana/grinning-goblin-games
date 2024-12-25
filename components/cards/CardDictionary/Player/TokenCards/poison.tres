@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://ckhcflq0l3v0k" path="res://components/tokens/TokenDictionary/TokenTypes/poison.tres" id="3_dog55"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_ypk3s")
 token_resource = ExtResource("3_dog55")
 card_name = "posion"

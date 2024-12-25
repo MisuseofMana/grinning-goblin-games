@@ -1,17 +1,19 @@
 extends Control
 class_name CardImage
 
-@export var card_stats : CardStats : 
+@export var card_stats : CardStats = preload("res://components/cards/CardDictionary/Enemies/Goblin/goblin_bite.tres"): 
 	set(value):
 		card_stats = value
 		setCardData(value)
 @export var hideCost : bool = false
-@export var active_enemy : Unit
 @export var player : Unit
 
 signal enemy_card_accepted()
 
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
+
+func _ready():
+	card_stats.values_changed.connect(setCardData)
 
 func formatCardStringInterp(noBBCode):
 	var color
@@ -54,13 +56,10 @@ func swapCardBackTexture():
 	$Name.hide()
 	$CardImage.texture = CARD_TEMPLATE_BACK
 	
-func runCardEffect():
+func runCardEffect(card_owner):
 	if card_stats.targets_self:
-		card_stats.card_effect(active_enemy)
+		card_stats.card_effect(card_owner)
 	else:
 		card_stats.card_effect(player)
 	enemy_card_accepted.emit()
-	
-func changeActiveEnemy(toWho):
-	active_enemy = toWho
 	

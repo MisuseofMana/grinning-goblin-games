@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://gxjvq7sdixw2" path="res://components/units/UnitDictionary/UnitTypes/player.tres" id="2_xdhov"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("2_3g5u2")
 card_name = "basic_heal"
 readable_name = "Basic Heal"

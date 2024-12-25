@@ -40,9 +40,9 @@ orbit_velocity_max = 0.5
 gravity = Vector3(0, -100, 0)
 scale_min = 1.5
 scale_max = 3.0
-color = Color(1, 0.735399, 0.681811, 1)
+color = Color(0.423529, 0, 1, 1)
 hue_variation_min = -0.1
-hue_variation_max = -2.23517e-08
+hue_variation_max = 0.1
 anim_speed_min = -1.0
 anim_speed_max = 1.0
 
@@ -72,10 +72,10 @@ position = Vector2(36, -36)
 scale = Vector2(0.65, 0.65)
 
 [node name="Sprite2D" type="TextureRect" parent="."]
-offset_left = 15.0
-offset_top = -109.0
-offset_right = 79.0
-offset_bottom = -45.0
+offset_left = 31.0
+offset_top = -106.0
+offset_right = 95.0
+offset_bottom = -42.0
 texture = ExtResource("9_xp1j5")
 metadata/_edit_group_ = true
 
@@ -99,5 +99,11 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 0.3
 
-[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]
+[node name="DeckMarker" type="Marker2D" parent="." groups=["card_markers"]]
+position = Vector2(37, -36)
+
+[node name="DiscardMarker" type="Marker2D" parent="." groups=["card_markers"]]
+position = Vector2(572, -54)
+
 [connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]
+[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]

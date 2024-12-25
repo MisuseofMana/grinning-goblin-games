@@ -30,10 +30,7 @@ window/canvas_textures/default_texture_filter=0
 
 [global_group]
 
-drop_spot_group=""
-level_dots=""
-cards_in_hand=""
-player="contains reference to the player as a unit"
+card_markers="card markers for discard and deck shuffle"
 
 [gui]
 

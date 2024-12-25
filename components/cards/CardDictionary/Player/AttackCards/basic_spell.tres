@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_gro08"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_48ojb")
 card_name = "magic_attack"
 readable_name = "Magic Attack"

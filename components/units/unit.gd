@@ -27,6 +27,7 @@ func die():
 		print('game over')
 	else:
 		anims.play('death_animation')
+#		check for other living units
 		
 func setAnimationFrames(path, animation_name):
 	var dir = DirAccess.open(path)

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="2_x7j6o"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_upinq")
 card_name = "call_out"
 readable_name = "Call Out"

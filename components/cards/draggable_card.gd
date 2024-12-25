@@ -13,6 +13,7 @@ class_name Card extends Node2D
 
 signal card_burnt(followNode : PathFollow2D)
 signal card_discarded(followNode : PathFollow2D)
+signal reduce_action_points(play_cost: int)
 
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
 const PLAYER = preload("res://components/units/UnitDictionary/UnitTypes/player.tres")
@@ -62,6 +63,7 @@ func _dragging_card_gui_input(event):
 				returnCardToHand()
 
 func useCardOn(target):
+	reduce_action_points.emit(self.card_stats.play_cost)
 	is_dragging = false
 	undraggable = true
 	discardAudioFinished = false
@@ -70,8 +72,7 @@ func useCardOn(target):
 	if card_stats.one_use:
 		anims.play('burn_card')
 	else:
-		create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
-		anims.play('go_to_discard')
+		goToDiscard()
 	
 func returnCardToHand():
 	error_sound.play()
@@ -115,11 +116,16 @@ func isValidTarget(target):
 		return card_stats.can_use_to_respond
 	elif target is Unit:
 		return card_stats.targets_self == target.unit_stats.is_self and not card_stats.can_use_to_respond
-	
+
+func goToDiscard():
+	create_tween().tween_property(self, "global_position", Vector2(606, 278), 0.4)
+	anims.play('go_to_discard')
 
 func _on_card_animations_animation_finished(anim_name):
 	match anim_name:
 		'go_to_discard':
-			card_discarded.emit(self.get_parent())
+			card_discarded.emit(card_stats)
+			self.get_parent().queue_free()
 		'burn_card':
-			card_burnt.emit(self.get_parent())
+			card_burnt.emit(card_stats)
+			self.get_parent().queue_free()

@@ -6,8 +6,9 @@ class_name HandOfCards
 @onready var paper_sound: AudioStreamPlayer2D = $PaperSound
 @onready var card_base: Card = $CardArc/CardFollowPath/CardBase
 @onready var action_points_counter = $Sprite2D/ActionPointsCounter
-@onready var gpu_particles_2d = $Sprite2D/GPUParticles2D
+@onready var ap_particles = $Sprite2D/GPUParticles2D
 @onready var discard_pile = $DiscardPiles
+@onready var deck_pile = $DeckPile
 
 @export var battleScene : BattleScene
 @export var player : Unit
@@ -57,50 +58,43 @@ func addCardToHand(cardResource: CardStats):
 	newCard.hand_of_cards = self
 	newCard.card_discarded.connect(putCardInDiscard)
 	newCard.card_burnt.connect(putCardInBurnPile)
+	newCard.reduce_action_points.connect(reduceActionPointsBy)
 	newCard.tree_exited.connect(updateAllCardPositions)
 	
 	updateAllCardPositions()
 	changeCardAvailibilty(newCard)
 
-func putCardInDiscard(followNode : PathFollow2D):
-	var card = followNode.get_child(0)
-	discardArray.append(card.card_stats)
-	discard_pile.updateDiscardNumber(discardArray.size())
-	followNode.queue_free()
+func putCardInDiscard(cardStats : CardStats):
+	discardArray.append(cardStats)
+	discard_pile.num_in_discard = discardArray.size()
 	
-func putCardInBurnPile(followNode : PathFollow2D):
-	var card = followNode.get_child(0)
-	burnArray.append(card.card_stats)
-	discard_pile.updateBurnNumber(burnArray.size())
-	followNode.queue_free()
+func putCardInBurnPile(cardStats : CardStats):
+	burnArray.append(cardStats)
+	discard_pile.num_in_burn = burnArray.size()
 	
 func discardHand():
 	for followPath in card_arc.get_children():
-		putCardInDiscard(followPath)
-		
+		await self.get_tree().create_timer(0.2).timeout
+		followPath.get_child(0).goToDiscard()
+
+func drawHandSize():
+	drawCards(hand_size)
+
 func drawCards(howMany):
 	if deck.size() < howMany:
 		deck.append_array(discardArray)
 		discardArray = []
-		discard_pile.updateDiscardNumber(discardArray.size())
+		discard_pile.num_in_discard = discardArray.size()
 		deck.shuffle()
 		
 	var incr = howMany
 	while incr > 0:
-		var chosenCard = deck.pop_at(0)
-		addCardToHand(chosenCard)
+		await self.get_tree().create_timer(0.1).timeout
+		if deck.size():
+			var chosenCard = deck.pop_at(0)
+			deck_pile.label_number = deck.size()
+			addCardToHand(chosenCard)
 		incr -= 1
-	
-func changeCardAvailibilty(cardNode):
-		if useable(cardNode):
-			cardNode.modulate = Color(1, 1, 1)
-			cardNode.undraggable = false
-			create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -64), 0.2)
-		else:
-			cardNode.modulate = Color(0.2, 0.2, 0.2)
-			cardNode.undraggable = true
-			cardNode.z_index = 0
-			create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -50), 0.2)
 
 func useable(cardNode : Card):
 	if cardNode.card_stats.play_cost > action_points_remaining:
@@ -112,6 +106,7 @@ func useable(cardNode : Card):
 func reduceActionPointsBy(howMany):
 	action_points_remaining -= howMany
 	action_points_counter.text = str(action_points_remaining)
+	ap_particles.emitting = true
 	if action_points_remaining <= 0:
 		action_points_depleted.emit()
 		
@@ -137,3 +132,15 @@ func changeAllCardAvailability():
 	for followNode in card_arc.get_children():
 		var cardNode = followNode.get_child(0)
 		changeCardAvailibilty(cardNode)
+
+func changeCardAvailibilty(cardNode):
+	if useable(cardNode):
+		cardNode.modulate = Color(1, 1, 1)
+		cardNode.undraggable = false
+		create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -64), 0.2)
+	else:
+		cardNode.modulate = Color(0.2, 0.2, 0.2)
+		cardNode.undraggable = true
+		cardNode.z_index = 0
+		create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -50), 0.2)
+			

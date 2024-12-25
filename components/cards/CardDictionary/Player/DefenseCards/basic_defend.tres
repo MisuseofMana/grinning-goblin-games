@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_341n7"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("2_18sgt")
 card_name = "basic_defend"
 readable_name = "Block"

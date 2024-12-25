@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://components/cards/CardFunctions/damaging_card.gd" id="2_ml3km"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("2_ml3km")
 card_name = "basic_attack"
 readable_name = "Basic Attack"

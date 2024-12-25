@@ -1,20 +1,15 @@
 extends Node2D 
 class_name EnemyController
 
-@export var enemy_card : CardImage
 @export var animations : AnimationPlayer
 
 var allEnemies : Array[Node]
 
 signal show_accept_button()
 signal all_enemies_turn_over()
-
-func hookUpEnemySignals(node: Node):
-	# hook up new enemy node signals
-	if node is EnemyUnit:
-		node.enemy_is_waiting_for_response.connect(enemyWaitingForResponse)
-		node.enemy_has_taken_turn.connect(enemyHasTakenTurn)
-
+signal set_card_owner(owner : Unit)
+signal set_card_stats(stats : CardStats)
+	
 # called from battle scene controller
 func startEnemyPhase():
 	allEnemies = get_children()
@@ -22,13 +17,20 @@ func startEnemyPhase():
 
 func startEnemiesTurn():
 	if allEnemies.size():
-		allEnemies[0].take_turn()
+		var randomCard : CardStats = allEnemies[0].unit_stats.deck.pick_random()
+		set_card_owner.emit(allEnemies[0])
+		set_card_stats.emit(randomCard)
+		animations.play('fly_in')
 	else:
 		all_enemies_turn_over.emit()
-
-func enemyWaitingForResponse():
-	show_accept_button.emit()
 
 func enemyHasTakenTurn():
 	allEnemies.remove_at(0)
 	startEnemiesTurn()
+	
+func animationSequencer(anim_name):
+	if anim_name == 'fly_in':
+		animations.play('hover')
+		show_accept_button.emit()
+	if anim_name == 'evaporate':
+		enemyHasTakenTurn()
