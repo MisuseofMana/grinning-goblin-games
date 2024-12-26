@@ -1,21 +1,20 @@
-[gd_scene load_steps=48 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=43 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://bu305i6xvayai" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
 [ext_resource type="Texture2D" uid="uid://pwewpuefxjom" path="res://art/ui/ui-background-cutout.png" id="2_jaqan"]
 [ext_resource type="PackedScene" uid="uid://bcxxmjp1ch5pq" path="res://components/units/unit.tscn" id="3_kt5qk"]
-[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="6_3s6m0"]
+[ext_resource type="Resource" uid="uid://getptn3kqhxl" path="res://components/cards/CardDictionary/Player/HealCards/basic_heal.tres" id="5_hxr0s"]
+[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="6_8b441"]
 [ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="6_jwkgv"]
 [ext_resource type="Script" path="res://scenes/enemy_controller.gd" id="7_7drj6"]
-[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="8_3rlta"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="8_hmt30"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/damaging_card.gd" id="9_w3xc7"]
-[ext_resource type="Texture2D" uid="uid://cos7ix7u2m2bv" path="res://art/cards/card_art/basic-defend.png" id="10_g6rv8"]
-[ext_resource type="Script" path="res://components/cards/CardFunctions/defensive_card.gd" id="11_md1sl"]
+[ext_resource type="Texture2D" uid="uid://cos7ix7u2m2bv" path="res://art/cards/card_art/basic-defend.png" id="10_dgmk0"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/defensive_card.gd" id="11_ccddr"]
 [ext_resource type="Texture2D" uid="uid://clv1s8w5roogn" path="res://art/ui/xp_bar.png" id="12_52kwo"]
-[ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="12_f3gfe"]
 [ext_resource type="Script" path="res://scenes/xp_bar.gd" id="13_5jlb7"]
 [ext_resource type="Texture2D" uid="uid://crxrqibwaskm6" path="res://art/ui/xp_bar_dot.png" id="13_65iss"]
-[ext_resource type="Script" path="res://components/cards/CardFunctions/healing_card.gd" id="13_de6ed"]
 [ext_resource type="Script" path="res://scenes/debug_bar.gd" id="13_di01h"]
 [ext_resource type="Texture2D" uid="uid://cjqknwpldyhi7" path="res://art/ui/ui-slot.png" id="14_65f5q"]
 [ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cards/hand_of_cards.tscn" id="15_6uhf2"]
@@ -25,12 +24,10 @@
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="16_gqber"]
 [ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="16_r7wsa"]
 [ext_resource type="AudioStream" uid="uid://dweruxr81kj5f" path="res://audio/battle_scene/BattlePhaseTransition.wav" id="17_ituhd"]
-[ext_resource type="Texture2D" uid="uid://vycihkh6svo2" path="res://art/cards/card_art/goblin/call_out.png" id="17_s3bjs"]
-[ext_resource type="Script" path="res://components/cards/CardFunctions/reinforcement_card.gd" id="18_kn6mh"]
 [ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="19_rm7gv"]
 [ext_resource type="AudioStream" uid="uid://c402qy7b2rooa" path="res://audio/battle_scene/forest_scene/Full_Loop.wav" id="22_c0x5w"]
 
-[sub_resource type="Resource" id="Resource_em8u4"]
+[sub_resource type="Resource" id="Resource_hspxu"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -47,7 +44,7 @@ animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_ce1xm"]
+[sub_resource type="Resource" id="Resource_vq5ou"]
 resource_local_to_scene = true
 script = ExtResource("9_w3xc7")
 card_name = "basic_attack"
@@ -60,15 +57,15 @@ card_description = "Deals %s physical dmg to target"
 tool_tip = "Use on enemies, deals physical damage depending on your %s."
 debuff_value = 0
 can_use_to_respond = false
-card_owner = SubResource("Resource_em8u4")
+card_owner = SubResource("Resource_hspxu")
 primary_stat = "muscle"
 secondary_stat = "finesse"
-card_image = ExtResource("6_3s6m0")
-card_skin = ExtResource("8_3rlta")
+card_image = ExtResource("6_8b441")
+card_skin = ExtResource("8_hmt30")
 
-[sub_resource type="Resource" id="Resource_3ucmf"]
+[sub_resource type="Resource" id="Resource_rexmc"]
 resource_local_to_scene = true
-script = ExtResource("11_md1sl")
+script = ExtResource("11_ccddr")
 card_name = "basic_defend"
 readable_name = "Block"
 one_use = false
@@ -79,32 +76,13 @@ card_description = "Prevent %s physical dmg"
 tool_tip = "Prevents physical damage this turn based on your %s. Defense dissapears at the end of each turn."
 debuff_value = 0
 can_use_to_respond = true
-card_owner = SubResource("Resource_em8u4")
+card_owner = SubResource("Resource_hspxu")
 primary_stat = "endurance"
 secondary_stat = "muscle"
-card_image = ExtResource("10_g6rv8")
-card_skin = ExtResource("8_3rlta")
+card_image = ExtResource("10_dgmk0")
+card_skin = ExtResource("8_hmt30")
 
-[sub_resource type="Resource" id="Resource_ojshx"]
-resource_local_to_scene = true
-script = ExtResource("13_de6ed")
-card_name = "basic_heal"
-readable_name = "Basic Heal"
-one_use = true
-targets_self = true
-base_value = 5
-play_cost = 1
-card_description = "Restore %s health"
-tool_tip = "Restore health up to your maximum limit, healing increases based on %s."
-debuff_value = 0
-can_use_to_respond = false
-card_owner = SubResource("Resource_em8u4")
-primary_stat = "nuance"
-secondary_stat = "knowledge"
-card_image = ExtResource("12_f3gfe")
-card_skin = ExtResource("8_3rlta")
-
-[sub_resource type="Resource" id="Resource_wewup"]
+[sub_resource type="Resource" id="Resource_n70jd"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -113,15 +91,15 @@ stats = {
 "health": 45,
 "knowledge": 0,
 "max_health": 50,
-"muscle": 5,
+"muscle": 10,
 "nuance": 0
 }
-deck = Array[ExtResource("16_gqber")]([SubResource("Resource_ce1xm"), SubResource("Resource_ce1xm"), SubResource("Resource_3ucmf"), SubResource("Resource_3ucmf"), SubResource("Resource_ojshx"), SubResource("Resource_ce1xm"), SubResource("Resource_ce1xm"), SubResource("Resource_3ucmf"), SubResource("Resource_ojshx"), SubResource("Resource_ce1xm"), SubResource("Resource_3ucmf")])
+deck = Array[ExtResource("16_gqber")]([SubResource("Resource_vq5ou"), SubResource("Resource_vq5ou"), SubResource("Resource_vq5ou"), SubResource("Resource_vq5ou"), SubResource("Resource_rexmc"), SubResource("Resource_rexmc"), SubResource("Resource_rexmc"), SubResource("Resource_rexmc"), ExtResource("5_hxr0s"), ExtResource("5_hxr0s")])
 animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_ipduf"]
+[sub_resource type="Resource" id="Resource_m36ru"]
 resource_local_to_scene = true
 script = ExtResource("9_w3xc7")
 card_name = "goblin_bite"
@@ -139,25 +117,7 @@ secondary_stat = ""
 card_image = ExtResource("15_yewvi")
 card_skin = ExtResource("16_r7wsa")
 
-[sub_resource type="Resource" id="Resource_2tgjt"]
-resource_local_to_scene = true
-script = ExtResource("18_kn6mh")
-card_name = "call_out"
-readable_name = "Call Out"
-one_use = true
-targets_self = true
-base_value = 0
-play_cost = 0
-card_description = "Summon another goblin."
-tool_tip = ""
-debuff_value = 0
-can_use_to_respond = false
-primary_stat = "nuance"
-secondary_stat = ""
-card_image = ExtResource("17_s3bjs")
-card_skin = ExtResource("16_r7wsa")
-
-[sub_resource type="Resource" id="Resource_wejux"]
+[sub_resource type="Resource" id="Resource_rt3g5"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -169,7 +129,7 @@ stats = {
 "muscle": 5,
 "nuance": 0
 }
-deck = Array[ExtResource("16_gqber")]([SubResource("Resource_ipduf"), SubResource("Resource_ipduf"), SubResource("Resource_ipduf"), SubResource("Resource_2tgjt")])
+deck = Array[ExtResource("16_gqber")]([SubResource("Resource_m36ru"), SubResource("Resource_m36ru"), SubResource("Resource_m36ru")])
 animation_names = Array[String](["idle"])
 character_type = "goblin"
 is_self = false
@@ -433,7 +393,7 @@ texture = ExtResource("2_jaqan")
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_stats = SubResource("Resource_wewup")
+unit_stats = SubResource("Resource_n70jd")
 
 [node name="Enemies" type="Node2D" parent="." node_paths=PackedStringArray("animations")]
 script = ExtResource("7_7drj6")
@@ -441,7 +401,7 @@ animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
 
 [node name="Goblin1" parent="Enemies" instance=ExtResource("3_kt5qk")]
 position = Vector2(540, 156)
-unit_stats = SubResource("Resource_wejux")
+unit_stats = SubResource("Resource_rt3g5")
 
 [node name="EnemyCardContainer" type="Node2D" parent="."]
 position = Vector2(700, -18)

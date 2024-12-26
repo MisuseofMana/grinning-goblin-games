@@ -12,7 +12,6 @@ class_name BattleScene
 @onready var enemy_card_template = $EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate
 
 @export var stage_background = Texture2D
-@export var player_deck : Array[CardStats] = []
 
 @export var hand_of_cards : HandOfCards
 @export var enemy_logic : EnemyController
