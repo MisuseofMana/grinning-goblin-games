@@ -8,7 +8,7 @@ class_name Card extends Node2D
 @onready var anims = $CardAnimations
 @onready var card_shimmer = $CardShimmer
 
-@export var card_stats : CardStats = preload("res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres")
+@export var card_stats : CardStats
 @export var hand_of_cards : HandOfCards
 
 signal card_burnt(followNode : PathFollow2D)
@@ -30,12 +30,6 @@ const delay := 4
 
 var discardAnimFinished = false
 var discardAudioFinished = true
-
-func _ready() -> void:
-	if not card_stats:
-		queue_free()
-	else:
-		present.card_stats = card_stats
 		
 func _physics_process(delta):
 	if is_dragging && not undraggable:

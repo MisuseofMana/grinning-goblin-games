@@ -27,6 +27,7 @@ func _ready():
 
 func animateLabelFromTo(targetNode: Label, from: int, to: int):
 	var incrementer = from
+	
 	while incrementer != to:
 		var shouldIncrease = from < to
 		await get_tree().create_timer(0.1).timeout

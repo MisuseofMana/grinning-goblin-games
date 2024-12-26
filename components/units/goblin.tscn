@@ -1,0 +1,107 @@
+[gd_scene load_steps=18 format=3 uid="uid://cr33bga3fetxx"]
+
+[ext_resource type="Texture2D" uid="uid://ctx6vlhujj8sk" path="res://art/sprites/goblin/idle.png" id="1_4x88u"]
+[ext_resource type="Script" path="res://scenes/unit_sprite.gd" id="6_hd08x"]
+[ext_resource type="Script" path="res://scenes/hit_points.gd" id="7_gvn7c"]
+[ext_resource type="Texture2D" uid="uid://dohmn7ea4wnen" path="res://art/cards/card_art/goblin/goblin_bite.png" id="7_o33wt"]
+[ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="8_pmoxr"]
+[ext_resource type="Script" path="res://scenes/stats_node.gd" id="8_wykft"]
+[ext_resource type="Script" path="res://scenes/deck_node.gd" id="9_24bga"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/damaging_card.gd" id="9_v4u6r"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="10_loe31"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kstin"]
+atlas = ExtResource("1_4x88u")
+region = Rect2(0, 0, 43, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31q6q"]
+atlas = ExtResource("1_4x88u")
+region = Rect2(43, 0, 43, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2yvo4"]
+atlas = ExtResource("1_4x88u")
+region = Rect2(86, 0, 43, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2vy5o"]
+atlas = ExtResource("1_4x88u")
+region = Rect2(129, 0, 43, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdv0p"]
+atlas = ExtResource("1_4x88u")
+region = Rect2(172, 0, 43, 56)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1dluw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kstin")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31q6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2yvo4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2vy5o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdv0p")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_gdt2y"]
+resource_local_to_scene = true
+script = ExtResource("9_v4u6r")
+card_name = "goblin_bite"
+readable_name = "Goblin Bite"
+one_use = false
+targets_self = false
+base_value = 5
+play_cost = 0
+card_description = "A nasty bite! Deals %s dmg to you"
+tool_tip = ""
+debuff_value = 0
+can_use_to_respond = false
+primary_stat = ""
+secondary_stat = ""
+card_image = ExtResource("7_o33wt")
+card_skin = ExtResource("8_pmoxr")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3v3b"]
+radius = 15.0
+height = 54.0
+
+[node name="Goblin" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_1dluw")
+animation = &"idle"
+autoplay = "idle"
+frame = 3
+frame_progress = 0.968365
+script = ExtResource("6_hd08x")
+
+[node name="HealthNode" type="Node" parent="."]
+script = ExtResource("7_gvn7c")
+hit_points = 50
+max_hit_points = 50
+
+[node name="StatsNode" type="Node" parent="."]
+script = ExtResource("8_wykft")
+muscle = 2
+finesse = 2
+endurance = 1
+
+[node name="DeckNode" type="Node" parent="."]
+script = ExtResource("9_24bga")
+deck = Array[ExtResource("10_loe31")]([SubResource("Resource_gdt2y")])
+
+[node name="Hitbox" type="Area2D" parent="."]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1, 1)
+shape = SubResource("CapsuleShape2D_h3v3b")

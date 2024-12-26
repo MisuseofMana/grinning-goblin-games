@@ -35,6 +35,7 @@ func _ready():
 		arc.queue_free()
 	
 	deck.shuffle()
+	deck_pile.label_number = deck.size()
 	drawCards(hand_size)
 	
 func refreshActionPoints():
@@ -92,9 +93,9 @@ func drawCards(howMany):
 		await self.get_tree().create_timer(0.1).timeout
 		if deck.size():
 			var chosenCard = deck.pop_at(0)
-			deck_pile.label_number = deck.size()
 			addCardToHand(chosenCard)
 		incr -= 1
+	deck_pile.label_number = deck.size()
 
 func useable(cardNode : Card):
 	if cardNode.card_stats.play_cost > action_points_remaining:

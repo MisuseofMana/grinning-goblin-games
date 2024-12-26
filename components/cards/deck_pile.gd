@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var number_discarded = $DiscardNumber/NumberDiscarded
+@onready var label = $DiscardNumber/Label
 
 var label_number : int = 0 :
 	set(value):
@@ -13,7 +13,7 @@ var label_number : int = 0 :
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	number_discarded.text = str(label_number)
+	label.text = str(label_number)
 
 func animateFromTo(from: int, to: int):
 	var incrementer = from
@@ -21,8 +21,8 @@ func animateFromTo(from: int, to: int):
 		var shouldIncrease = from < to
 		await get_tree().create_timer(0.1).timeout
 		if shouldIncrease:
-			number_discarded.text = str(incrementer + 1)
+			label.text = str(incrementer + 1)
 			incrementer += 1
 		else:
-			number_discarded.text = str(incrementer - 1)
+			label.text = str(incrementer - 1)
 			incrementer -= 1

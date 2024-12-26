@@ -11,23 +11,18 @@ class_name Unit
 @onready var card_scene = preload("res://components/cards/draggable_card.tscn")
 
 signal tokens_updated(unit_stats: UnitStats)
+signal check_for_other_enemies()
 
 func _ready():
 	health_bar.max_value = unit_stats.stats.max_health
 	updateHealthDisplay()
-	for animation_name in unit_stats.animation_names:
-		if not unit_sprite.sprite_frames.has_animation(animation_name):
-			unit_sprite.sprite_frames.add_animation(animation_name)
-			setAnimationFrames('res://art/cards/sprites/' + unit_stats.character_type + '/' + animation_name + '/', animation_name)
-	unit_sprite.animation = 'idle'
-	unit_sprite.autoplay = 'idle'
 
 func die():
 	if unit_stats.is_self:
 		print('game over')
 	else:
 		anims.play('death_animation')
-#		check for other living units
+		
 		
 func setAnimationFrames(path, animation_name):
 	var dir = DirAccess.open(path)
@@ -65,3 +60,7 @@ func updateTokens():
 func take_turn():
 	print('take_turn no overwritten')
 	pass
+	
+func animationHandler(anim_name):
+	if anim_name == "death_animation":
+		check_for_other_enemies.emit()

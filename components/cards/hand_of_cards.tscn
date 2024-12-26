@@ -105,5 +105,5 @@ position = Vector2(37, -36)
 [node name="DiscardMarker" type="Marker2D" parent="." groups=["card_markers"]]
 position = Vector2(572, -54)
 
-[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]
 [connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]
+[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]

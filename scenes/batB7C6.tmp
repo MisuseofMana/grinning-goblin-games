@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=49 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://bu305i6xvayai" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
@@ -19,28 +19,14 @@
 [ext_resource type="Script" path="res://scenes/debug_bar.gd" id="13_di01h"]
 [ext_resource type="Texture2D" uid="uid://cjqknwpldyhi7" path="res://art/ui/ui-slot.png" id="14_65f5q"]
 [ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cards/hand_of_cards.tscn" id="15_6uhf2"]
-[ext_resource type="PackedScene" uid="uid://cr33bga3fetxx" path="res://components/units/goblin.tscn" id="15_62nu6"]
+[ext_resource type="Texture2D" uid="uid://dohmn7ea4wnen" path="res://art/cards/card_art/goblin/goblin_bite.png" id="15_yewvi"]
 [ext_resource type="Script" path="res://scenes/enemy_card_container.gd" id="16_5f438"]
 [ext_resource type="PackedScene" uid="uid://d3ras73xd8xmc" path="res://components/cards/presentational_card.tscn" id="16_eb70h"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="16_gqber"]
+[ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="16_r7wsa"]
 [ext_resource type="AudioStream" uid="uid://dweruxr81kj5f" path="res://audio/battle_scene/BattlePhaseTransition.wav" id="17_ituhd"]
 [ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="19_rm7gv"]
 [ext_resource type="AudioStream" uid="uid://c402qy7b2rooa" path="res://audio/battle_scene/forest_scene/Full_Loop.wav" id="22_c0x5w"]
-
-[sub_resource type="Animation" id="Animation_rtpfj"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_d8q5f"]
 resource_name = "scroll_bg"
@@ -58,13 +44,28 @@ tracks/0/keys = {
 "values": [Vector2(0, 0), Vector2(-620, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_rtpfj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3sw5y"]
 _data = {
 "RESET": SubResource("Animation_rtpfj"),
 "scroll_bg": SubResource("Animation_d8q5f")
 }
 
-[sub_resource type="Resource" id="Resource_0112s"]
+[sub_resource type="Resource" id="Resource_n0k37"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -81,7 +82,7 @@ animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_07hui"]
+[sub_resource type="Resource" id="Resource_5dsbk"]
 resource_local_to_scene = true
 script = ExtResource("9_w3xc7")
 card_name = "basic_attack"
@@ -94,13 +95,13 @@ card_description = "Deals %s physical dmg to target"
 tool_tip = "Use on enemies, deals physical damage depending on your %s."
 debuff_value = 0
 can_use_to_respond = false
-card_owner = SubResource("Resource_0112s")
+card_owner = SubResource("Resource_n0k37")
 primary_stat = "muscle"
 secondary_stat = "finesse"
 card_image = ExtResource("6_8b441")
 card_skin = ExtResource("8_hmt30")
 
-[sub_resource type="Resource" id="Resource_c1klj"]
+[sub_resource type="Resource" id="Resource_irno6"]
 resource_local_to_scene = true
 script = ExtResource("11_ccddr")
 card_name = "basic_defend"
@@ -113,13 +114,13 @@ card_description = "Prevent %s physical dmg"
 tool_tip = "Prevents physical damage this turn based on your %s. Defense dissapears at the end of each turn."
 debuff_value = 0
 can_use_to_respond = true
-card_owner = SubResource("Resource_0112s")
+card_owner = SubResource("Resource_n0k37")
 primary_stat = "endurance"
 secondary_stat = "muscle"
 card_image = ExtResource("10_dgmk0")
 card_skin = ExtResource("8_hmt30")
 
-[sub_resource type="Resource" id="Resource_p6q1n"]
+[sub_resource type="Resource" id="Resource_q02jr"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -136,7 +137,7 @@ animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
 
-[sub_resource type="Resource" id="Resource_38iqv"]
+[sub_resource type="Resource" id="Resource_2q18x"]
 resource_local_to_scene = true
 script = ExtResource("13_de6ed")
 card_name = "basic_heal"
@@ -149,13 +150,13 @@ card_description = "Restore %s health"
 tool_tip = "Restore health up to your maximum limit, healing increases based on %s."
 debuff_value = 0
 can_use_to_respond = false
-card_owner = SubResource("Resource_p6q1n")
+card_owner = SubResource("Resource_q02jr")
 primary_stat = "nuance"
 secondary_stat = "knowledge"
 card_image = ExtResource("12_f3gfe")
 card_skin = ExtResource("8_hmt30")
 
-[sub_resource type="Resource" id="Resource_pv6ji"]
+[sub_resource type="Resource" id="Resource_pee1f"]
 resource_local_to_scene = true
 script = ExtResource("6_jwkgv")
 stats = {
@@ -167,10 +168,45 @@ stats = {
 "muscle": 10,
 "nuance": 0
 }
-deck = Array[ExtResource("16_gqber")]([SubResource("Resource_07hui"), SubResource("Resource_07hui"), SubResource("Resource_07hui"), SubResource("Resource_07hui"), SubResource("Resource_c1klj"), SubResource("Resource_c1klj"), SubResource("Resource_c1klj"), SubResource("Resource_c1klj"), SubResource("Resource_38iqv"), SubResource("Resource_38iqv")])
+deck = Array[ExtResource("16_gqber")]([SubResource("Resource_5dsbk"), SubResource("Resource_5dsbk"), SubResource("Resource_5dsbk"), SubResource("Resource_5dsbk"), SubResource("Resource_irno6"), SubResource("Resource_irno6"), SubResource("Resource_irno6"), SubResource("Resource_irno6"), SubResource("Resource_2q18x"), SubResource("Resource_2q18x")])
 animation_names = Array[String](["idle"])
 character_type = "player"
 is_self = true
+
+[sub_resource type="Resource" id="Resource_wx3rq"]
+resource_local_to_scene = true
+script = ExtResource("9_w3xc7")
+card_name = "goblin_bite"
+readable_name = "Goblin Bite"
+one_use = false
+targets_self = false
+base_value = 5
+play_cost = 0
+card_description = "A nasty bite! Deals %s dmg to you"
+tool_tip = ""
+debuff_value = 0
+can_use_to_respond = false
+primary_stat = ""
+secondary_stat = ""
+card_image = ExtResource("15_yewvi")
+card_skin = ExtResource("16_r7wsa")
+
+[sub_resource type="Resource" id="Resource_owq3l"]
+resource_local_to_scene = true
+script = ExtResource("6_jwkgv")
+stats = {
+"endurance": 4,
+"finesse": 3,
+"health": 10,
+"knowledge": 0,
+"max_health": 50,
+"muscle": 5,
+"nuance": 0
+}
+deck = Array[ExtResource("16_gqber")]([SubResource("Resource_wx3rq"), SubResource("Resource_wx3rq"), SubResource("Resource_wx3rq")])
+animation_names = Array[String](["idle"])
+character_type = "goblin"
+is_self = false
 
 [sub_resource type="Curve2D" id="Curve2D_catov"]
 _data = {
@@ -414,22 +450,6 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("17_ituhd")
 
-[sub_resource type="GDScript" id="GDScript_drc14"]
-script/source = "@icon(\"res://icons/CardStats.svg\")
-extends Node
-class_name CardStats
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-"
-
 [node name="BattleScene" type="Node2D" node_paths=PackedStringArray("hand_of_cards", "enemy_logic")]
 script = ExtResource("1_tfoca")
 hand_of_cards = NodePath("HandOfCards")
@@ -459,26 +479,15 @@ libraries = {
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
-unit_stats = SubResource("Resource_pv6ji")
-
-[node name="EnemyMarkers" type="Node2D" parent="."]
-
-[node name="First" type="Marker2D" parent="EnemyMarkers"]
-position = Vector2(581, 155)
-
-[node name="Second" type="Marker2D" parent="EnemyMarkers"]
-position = Vector2(499, 155)
-
-[node name="Third" type="Marker2D" parent="EnemyMarkers"]
-position = Vector2(422, 155)
+unit_stats = SubResource("Resource_pee1f")
 
 [node name="Enemies" type="Node2D" parent="." node_paths=PackedStringArray("animations")]
 script = ExtResource("7_7drj6")
 animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
 
-[node name="Goblin" parent="Enemies" instance=ExtResource("15_62nu6")]
-position = Vector2(509, 164)
-frame_progress = 0.0
+[node name="Goblin1" parent="Enemies" instance=ExtResource("3_kt5qk")]
+position = Vector2(540, 156)
+unit_stats = SubResource("Resource_owq3l")
 
 [node name="EnemyCardContainer" type="Node2D" parent="."]
 position = Vector2(700, -18)
@@ -758,22 +767,12 @@ stream = ExtResource("22_c0x5w")
 volume_db = -10.0
 autoplay = true
 
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = 277.0
-offset_top = 390.0
-offset_right = 469.0
-offset_bottom = 646.0
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("8_hmt30")
-script = SubResource("GDScript_drc14")
-
-[node name="CardStats" type="Node" parent="TextureRect"]
-
 [connection signal="animation_finished" from="FlavorAssets/AnimationPlayer" to="." method="animationHandler"]
 [connection signal="all_enemies_turn_over" from="Enemies" to="." method="runPlayerTurn"]
 [connection signal="set_card_owner" from="Enemies" to="EnemyCardContainer" method="onOwnershipChange"]
 [connection signal="set_card_stats" from="Enemies" to="EnemyCardContainer" method="onCardUpdate"]
 [connection signal="show_accept_button" from="Enemies" to="EnemyCardContainer" method="showAcceptButton"]
+[connection signal="child_exiting_tree" from="Enemies/Goblin1" to="Enemies" method="disconnectEnemySignals"]
 [connection signal="child_exiting_tree" from="EnemyCardContainer/Path2D" to="EnemyCardContainer/Path2D" method="_on_child_exiting_tree"]
 [connection signal="enemy_card_accepted" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate" to="EnemyCardContainer" method="_on_enemy_card_template_enemy_card_accepted"]
 [connection signal="area_entered" from="EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate/Area2D" to="EnemyCardContainer" method="_on_area_2d_area_entered"]

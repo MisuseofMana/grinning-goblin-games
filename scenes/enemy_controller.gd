@@ -9,7 +9,16 @@ signal show_accept_button()
 signal all_enemies_turn_over()
 signal set_card_owner(owner : Unit)
 signal set_card_stats(stats : CardStats)
-	
+signal all_enemies_died()
+
+func set_up_enemies(enemyArray : Array[UnitStats]):
+	for unitstat in enemyArray:
+		pass
+		var newEnemyUnit = UNIT.instantiate()
+		newEnemyUnit.check_for_other_enemies.connect(checkForOtherEnemies)
+		newEnemyUnit.unit_stats = unitstat
+		add_child(newEnemyUnit)
+
 # called from battle scene controller
 func startEnemyPhase():
 	allEnemies = get_children()
@@ -27,7 +36,12 @@ func startEnemiesTurn():
 func enemyHasTakenTurn():
 	allEnemies.remove_at(0)
 	startEnemiesTurn()
-	
+
+func checkForOtherEnemies():
+	if get_children().size() == 0:
+		all_enemies_died.emit()
+
+# sequencer for enemy card animations
 func animationSequencer(anim_name):
 	if anim_name == 'fly_in':
 		animations.play('hover')
