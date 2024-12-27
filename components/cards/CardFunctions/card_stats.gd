@@ -1,4 +1,3 @@
-@icon("res://icons/CardStats.svg")
 extends Resource
 class_name CardStats
 

@@ -28,6 +28,16 @@ window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="res://art/ui/cursor.png"
 window/canvas_textures/default_texture_filter=0
 
+[file_customization]
+
+folder_colors={
+"res://art/": "yellow",
+"res://components/cards/": "red",
+"res://components/tokens/": "purple",
+"res://icons/": "gray",
+"res://scenes/": "teal"
+}
+
 [global_group]
 
 card_markers="card markers for discard and deck shuffle"
