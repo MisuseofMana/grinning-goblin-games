@@ -1,22 +1,22 @@
-class_name Card extends Node2D
+extends Node2D
+class_name DraggableCard 
 
-@onready var scene_base: Card = $"."
+@onready var draggable_card = $"."
 @onready var present: Control = $CardDisplay
 @onready var error_sound: AudioStreamPlayer2D = $ErrorSound
 @onready var pickup_sound = $MouseOverSound
 @onready var valid_drop_sound = $ValidDropSound
 @onready var anims = $CardAnimations
 @onready var card_shimmer = $CardShimmer
+@onready var card = $Card
 
 @export var card_stats : CardStats
-@export var hand_of_cards : HandOfCards
 
 signal card_burnt(followNode : PathFollow2D)
 signal card_discarded(followNode : PathFollow2D)
 signal reduce_action_points(play_cost: int)
 
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
-const PLAYER = preload("res://components/units/UnitDictionary/UnitTypes/player.tres")
 
 var overlappingAreas : Array[Area2D] = []
 
@@ -28,9 +28,9 @@ var card_rotation
 const SPEED := 0.2
 const delay := 4
 
-var discardAnimFinished = false
-var discardAudioFinished = true
-		
+func _ready():
+	card.card_stats = card_stats
+
 func _physics_process(delta):
 	if is_dragging && not undraggable:
 		create_tween().tween_property(self, "global_position", get_global_mouse_position(), delay * delta)
@@ -40,19 +40,23 @@ func _dragging_card_gui_input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if undraggable:
 			error_sound.play()
+#		when a card is being dragged, scale and drag
 		if event.is_pressed():
 			create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
 			if not local_card_pos:
-				local_card_pos = scene_base.position
-			scene_base.get_parent().rotation = 0
+				local_card_pos = draggable_card.position
+			draggable_card.get_parent().rotation = 0
 			is_dragging = true
 		else:
-			if overlappingAreas.size() and isValidTarget(overlappingAreas[0].get_parent()):
-				if hand_of_cards.useable(self):
-					card_shimmer.emitting = false
-					useCardOn(overlappingAreas[0].get_parent())
-				else:
-					returnCardToHand()
+			if overlappingAreas.size():
+				print('overlapping')
+				returnCardToHand()
+#				check for card target compatibility
+				#if hand_of_cards.useable(self):
+					#card_shimmer.emitting = false
+					#useCardOn(overlappingAreas[0].get_parent())
+				#else:
+					#returnCardToHand()
 			else:
 				returnCardToHand()
 
@@ -60,7 +64,6 @@ func useCardOn(target):
 	reduce_action_points.emit(self.card_stats.play_cost)
 	is_dragging = false
 	undraggable = true
-	discardAudioFinished = false
 	valid_drop_sound.play()
 	card_stats.card_effect(target)
 	if card_stats.one_use:
@@ -70,7 +73,7 @@ func useCardOn(target):
 	
 func returnCardToHand():
 	error_sound.play()
-	scene_base.get_parent().rotation = card_rotation
+	draggable_card.get_parent().rotation = card_rotation
 	card_rotation = null
 	create_tween().tween_property(self, "position", local_card_pos, SPEED)
 	card_shimmer.emitting = false
@@ -79,7 +82,7 @@ func returnCardToHand():
 
 func _on_card_mouse_entered():
 	if not is_dragging and not card_rotation:
-			card_rotation = scene_base.get_parent().rotation
+			card_rotation = draggable_card.get_parent().rotation
 	if not is_dragging && not undraggable:
 		present.z_index = 100
 		pickup_sound.play()
@@ -106,7 +109,7 @@ func cardStopsOverlappingAUnit(area):
 		create_tween().tween_property(self, 'modulate', Color(1, 1, 1), SPEED)
 
 func isValidTarget(target):
-	if target is CardImage:
+	if target is DraggableCard:
 		return card_stats.can_use_to_respond
 	elif target is Unit:
 		return card_stats.targets_self == target.unit_stats.is_self and not card_stats.can_use_to_respond

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=29 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://bu305i6xvayai" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
@@ -15,7 +15,6 @@
 [ext_resource type="Script" path="res://scenes/enemy_card_container.gd" id="16_5f438"]
 [ext_resource type="AudioStream" uid="uid://dweruxr81kj5f" path="res://audio/battle_scene/BattlePhaseTransition.wav" id="17_ituhd"]
 [ext_resource type="Texture2D" uid="uid://c4u1302hu8djb" path="res://art/ui/ui-tile.png" id="19_rm7gv"]
-[ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card.tscn" id="20_yae8r"]
 [ext_resource type="AudioStream" uid="uid://c402qy7b2rooa" path="res://audio/battle_scene/forest_scene/Full_Loop.wav" id="22_c0x5w"]
 
 [sub_resource type="Animation" id="Animation_rtpfj"]
@@ -248,8 +247,6 @@ position = Vector2(24, 18)
 progress = 496.207
 rotates = false
 loop = false
-
-[node name="Card" parent="EnemyCardContainer/Path2D/PathFollow2D" instance=ExtResource("20_yae8r")]
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="EnemyCardContainer/Path2D/PathFollow2D"]
 z_index = 100

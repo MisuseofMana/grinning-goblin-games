@@ -1,10 +1,61 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3ras73xd8xmc"]
+[gd_scene load_steps=6 format=3 uid="uid://bmtluiwpp4ync"]
 
-[ext_resource type="Script" path="res://components/cards/presentational_card.gd" id="1_hkxmm"]
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_ri085"]
 [ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="3_50axa"]
-[ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/discard-number.png" id="4_qh5yi"]
+[ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/card-cost-blip.png" id="4_qh5yi"]
 [ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="5_jdm2p"]
+
+[sub_resource type="GDScript" id="GDScript_7bwtc"]
+script/source = "extends Control
+class_name CardImage
+
+@export var card_stats : CardStats = preload(\"res://components/cards/CardDictionary/Enemies/Goblin/goblin_bite.tres\"): 
+	set(value):
+		card_stats = value
+		setCardData(value)
+@export var hideCost : bool = false
+@export var player : Unit
+
+signal enemy_card_accepted()
+
+const CARD_TEMPLATE_BACK = preload(\"res://art/cards/card-template-back.png\")
+
+func _ready():
+	card_stats.values_changed.connect(setCardData)
+
+func setCardData(card_info: CardStats):
+	$CardImage.texture = card_info.card_skin
+	$IconImage.texture = card_info.card_image
+	$Name.text = card_info.readable_name
+	if card_info.card_description.contains('%'):
+		$Description.text = card_info.card_description % formatCardStringInterp(false)
+	else:
+		$Description.text = card_info.card_description
+
+	if not hideCost:
+		$IconImage.texture = card_info.card_image 
+		$CostIndicator/Cost.text = str(card_info.play_cost)
+	else:
+		hideCostIndicator()
+	
+func hideCostIndicator():
+	$CostIndicator.hide()
+	
+func swapCardBackTexture():
+	hideCostIndicator()
+	$IconImage.hide()
+	$Description.hide()
+	$Name.hide()
+	$CardImage.texture = CARD_TEMPLATE_BACK
+	
+func runCardEffect(card_owner):
+	if card_stats.targets_self:
+		card_stats.card_effect(card_owner)
+	else:
+		card_stats.card_effect(player)
+	enemy_card_accepted.emit()
+	
+"
 
 [node name="Control" type="Control"]
 z_index = 1
@@ -15,7 +66,7 @@ anchors_preset = 0
 offset_right = 102.0
 offset_bottom = 133.0
 pivot_offset = Vector2(51, 66)
-script = ExtResource("1_hkxmm")
+script = SubResource("GDScript_7bwtc")
 
 [node name="CardImage" type="TextureRect" parent="."]
 texture_filter = 1

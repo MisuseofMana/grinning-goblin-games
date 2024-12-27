@@ -10,8 +10,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_ypk3s")
 token_resource = ExtResource("3_dog55")
-card_name = "posion"
-readable_name = "Posion"
+card_name = "Poison"
 one_use = false
 targets_self = false
 base_value = 3
@@ -23,5 +22,5 @@ can_use_to_respond = false
 card_owner = ExtResource("2_c3am5")
 primary_stat = "nuance"
 secondary_stat = "finesse"
-card_image = ExtResource("1_y6gy0")
+icon_image = ExtResource("1_y6gy0")
 card_skin = ExtResource("2_p2gy3")

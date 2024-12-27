@@ -8,8 +8,7 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_48ojb")
-card_name = "magic_attack"
-readable_name = "Magic Attack"
+card_name = "Magic Attack"
 one_use = false
 targets_self = false
 base_value = 5
@@ -21,5 +20,5 @@ can_use_to_respond = false
 card_owner = ExtResource("2_a35t8")
 primary_stat = "knowledge"
 secondary_stat = "nuance"
-card_image = ExtResource("1_q65yf")
+icon_image = ExtResource("1_q65yf")
 card_skin = ExtResource("2_gro08")

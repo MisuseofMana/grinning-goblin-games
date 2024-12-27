@@ -2,7 +2,6 @@ extends Resource
 class_name CardStats
 
 @export var card_name : String
-@export var readable_name : String
 @export var one_use : bool
 @export var targets_self : bool
 @export var base_value : int
@@ -10,6 +9,7 @@ class_name CardStats
 @export var card_description : String
 @export var tool_tip : String
 @export var debuff_value : int = 0
+@export var hide_cost : bool = false
 
 @export var can_use_to_respond : bool
 
@@ -18,7 +18,7 @@ class_name CardStats
 @export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var primary_stat : String
 @export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var secondary_stat : String
 
-@export var card_image : Texture2D
+@export var icon_image : Texture2D
 @export var card_skin : Texture2D = preload("res://art/cards/card_art/card-template.png")
 
 signal values_changed()
@@ -53,6 +53,5 @@ func calculate_adj_token_value():
 	return modifierValue
 	
 func addToDebuff():
-	print('debuffing')
 	debuff_value += 1
 	values_changed.emit(self)

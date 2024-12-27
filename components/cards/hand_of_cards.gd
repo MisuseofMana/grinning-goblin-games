@@ -4,14 +4,13 @@ class_name HandOfCards
 @onready var hand_of_cards = $"."
 @onready var card_arc = $CardArc
 @onready var paper_sound: AudioStreamPlayer2D = $PaperSound
-@onready var card_base: Card = $CardArc/CardFollowPath/CardBase
 @onready var action_points_counter = $Sprite2D/ActionPointsCounter
 @onready var ap_particles = $Sprite2D/GPUParticles2D
 @onready var discard_pile = $DiscardPiles
 @onready var deck_pile = $DeckPile
 
 @export var battleScene : BattleScene
-@export var player : Unit
+@export var player : UnitSprite
 
 const CARD = preload("res://components/cards/draggable_card.tscn")
 
@@ -24,7 +23,7 @@ var hand_size : int = 5
 var discardArray : Array = []
 var burnArray : Array = []
 
-@onready var deck = player.unit_stats.deck
+@onready var deck = player.
 
 signal action_points_depleted()
 
@@ -97,7 +96,7 @@ func drawCards(howMany):
 		incr -= 1
 	deck_pile.label_number = deck.size()
 
-func useable(cardNode : Card):
+func useable(cardNode : CardComponent):
 	if cardNode.card_stats.play_cost > action_points_remaining:
 		return false
 	var canUseAsResponse = not battleScene.players_turn and cardNode.card_stats.can_use_to_respond

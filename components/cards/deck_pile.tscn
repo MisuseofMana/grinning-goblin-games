@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cxexanb2k7xp4" path="res://art/cards/deck-icon.png" id="1_67fdg"]
 [ext_resource type="Script" path="res://components/cards/deck_pile.gd" id="1_ur6tp"]
-[ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/discard-number.png" id="2_dcjcx"]
+[ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/card-cost-blip.png" id="2_dcjcx"]
 [ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="3_yn5yb"]
 
 [node name="DeckPile" type="Node2D"]

@@ -10,8 +10,7 @@
 resource_local_to_scene = true
 script = ExtResource("1_7lli0")
 token_resource = ExtResource("3_xbnoo")
-card_name = "basic_ward"
-readable_name = "Basic Ward"
+card_name = "Basic Ward"
 one_use = false
 targets_self = false
 base_value = 2
@@ -23,5 +22,5 @@ can_use_to_respond = true
 card_owner = ExtResource("2_0d46x")
 primary_stat = "nuance"
 secondary_stat = "knowledge"
-card_image = ExtResource("1_cyrt5")
+icon_image = ExtResource("1_cyrt5")
 card_skin = ExtResource("2_lk5j4")

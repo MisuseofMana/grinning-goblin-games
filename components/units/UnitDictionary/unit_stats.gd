@@ -21,8 +21,3 @@ enum VALID_STATS {
 }
 
 var tokens : Dictionary = {}
-
-@export var deck : Array[CardStats] = []
-@export_enum('idle', 'attack', 'magic-attack', 'hurt') var animation_names : Array[String] = []
-@export_enum ('player', 'goblin') var character_type : String
-@export var is_self : bool # for identifying if the unit is the player

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cs8v15ouvtlop"
-path="res://.godot/imported/discard-number.png-de5253388c187dedc1a700c8404fbca7.ctex"
+path="res://.godot/imported/card-cost-blip.png-43102310de6a7b6e0e05e5167a8b5605.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/cards/discard-number.png"
-dest_files=["res://.godot/imported/discard-number.png-de5253388c187dedc1a700c8404fbca7.ctex"]
+source_file="res://art/cards/card-cost-blip.png"
+dest_files=["res://.godot/imported/card-cost-blip.png-43102310de6a7b6e0e05e5167a8b5605.ctex"]
 
 [params]
 

@@ -8,8 +8,7 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("2_18sgt")
-card_name = "basic_defend"
-readable_name = "Block"
+card_name = "Basic Defend"
 one_use = false
 targets_self = false
 base_value = 2
@@ -21,5 +20,5 @@ can_use_to_respond = true
 card_owner = ExtResource("2_4g6lg")
 primary_stat = "endurance"
 secondary_stat = "muscle"
-card_image = ExtResource("1_rx8hn")
+icon_image = ExtResource("1_rx8hn")
 card_skin = ExtResource("2_341n7")

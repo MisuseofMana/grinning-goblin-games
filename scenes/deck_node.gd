@@ -5,6 +5,8 @@ class_name DeckNode
 @export var deck : Array[CardStats]
 @export var hand_size : int = 5
 
+@export var stats_node : StatsNode
+
 func shuffle_deck():
 	deck.shuffle()
 	

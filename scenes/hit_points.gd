@@ -3,9 +3,15 @@ extends Node
 class_name HealthNode
 
 @export var hit_points : int
-@export var max_hit_points : int
+@export var max_hit_points_base : int
+var max_hit_points : int
+
+@export var stats : StatsNode
 
 signal died()
+
+func _ready():
+	max_hit_points += stats.endurance
 
 func take_damage(value):
 	hit_points -= clampi(value, 0, 999)

@@ -2,7 +2,7 @@ extends CardStats
 class_name DefensiveCard
 
 #defend logic
-func card_effect(target: CardImage):
+func card_effect(target: CardComponent):
 	var target_stats = target.card_stats
 	var reduceBy = calculate_adj_value()
 	

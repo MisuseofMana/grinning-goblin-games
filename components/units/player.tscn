@@ -1,0 +1,233 @@
+[gd_scene load_steps=34 format=3 uid="uid://bcxxmjp1ch5pq"]
+
+[ext_resource type="Texture2D" uid="uid://o3k7tcneumyw" path="res://art/sprites/player/idle.png" id="1_mgs54"]
+[ext_resource type="Script" path="res://scenes/unit_sprite.gd" id="3_oibvf"]
+[ext_resource type="Script" path="res://scenes/hit_points.gd" id="4_pesub"]
+[ext_resource type="Script" path="res://scenes/stats_node.gd" id="5_3v8wn"]
+[ext_resource type="Script" path="res://scenes/deck_node.gd" id="6_0wsgh"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="6_g68ne"]
+[ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="7_v0q5i"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="8_7gshq"]
+[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="9_6yps7"]
+[ext_resource type="PackedScene" uid="uid://bx3b6tvvx5et5" path="res://components/units/battle_readout.tscn" id="9_nsbm0"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/damaging_card.gd" id="10_ldags"]
+[ext_resource type="Script" path="res://components/units/recieve_card.gd" id="11_amxom"]
+[ext_resource type="Texture2D" uid="uid://cos7ix7u2m2bv" path="res://art/cards/card_art/basic-defend.png" id="11_r5ho4"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/defensive_card.gd" id="12_iqfmo"]
+[ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="13_rls4y"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/healing_card.gd" id="14_wnfm2"]
+[ext_resource type="Texture2D" uid="uid://crh46ebsb881q" path="res://art/cards/card_art/basic_ward.png" id="15_cjvro"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/token_card.gd" id="16_y3n87"]
+[ext_resource type="Resource" uid="uid://dj4d0nwgcjmgy" path="res://components/tokens/TokenDictionary/TokenTypes/ward.tres" id="17_71wsq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6avc0"]
+atlas = ExtResource("1_mgs54")
+region = Rect2(0, 0, 28, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vbg3"]
+atlas = ExtResource("1_mgs54")
+region = Rect2(28, 0, 28, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hh6pg"]
+atlas = ExtResource("1_mgs54")
+region = Rect2(56, 0, 28, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smq8u"]
+atlas = ExtResource("1_mgs54")
+region = Rect2(84, 0, 28, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_duyyu"]
+atlas = ExtResource("1_mgs54")
+region = Rect2(112, 0, 28, 63)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_urjdb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6avc0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vbg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hh6pg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smq8u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_duyyu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_uetin"]
+resource_local_to_scene = true
+script = ExtResource("7_v0q5i")
+stats = {
+"endurance": 4,
+"finesse": 3,
+"health": 50,
+"knowledge": 0,
+"max_health": 50,
+"muscle": 5,
+"nuance": 0
+}
+
+[sub_resource type="Resource" id="Resource_wgyaw"]
+resource_local_to_scene = true
+script = ExtResource("10_ldags")
+card_name = "Basic Attack"
+one_use = false
+targets_self = false
+base_value = 5
+play_cost = 1
+card_description = "Deals %s physical dmg to target"
+tool_tip = "Use on enemies, deals physical damage depending on your %s."
+debuff_value = 0
+hide_cost = false
+can_use_to_respond = false
+card_owner = SubResource("Resource_uetin")
+primary_stat = "muscle"
+secondary_stat = "finesse"
+icon_image = ExtResource("9_6yps7")
+card_skin = ExtResource("8_7gshq")
+
+[sub_resource type="Resource" id="Resource_kcgof"]
+resource_local_to_scene = true
+script = ExtResource("12_iqfmo")
+card_name = "Basic Defend"
+one_use = false
+targets_self = false
+base_value = 2
+play_cost = 1
+card_description = "Prevent %s physical dmg"
+tool_tip = "Prevents physical damage this turn based on your %s. Defense dissapears at the end of each turn."
+debuff_value = 0
+hide_cost = false
+can_use_to_respond = true
+card_owner = SubResource("Resource_uetin")
+primary_stat = "endurance"
+secondary_stat = "muscle"
+icon_image = ExtResource("11_r5ho4")
+card_skin = ExtResource("8_7gshq")
+
+[sub_resource type="Resource" id="Resource_buubr"]
+resource_local_to_scene = true
+script = ExtResource("14_wnfm2")
+card_name = "Basic Heal"
+one_use = true
+targets_self = true
+base_value = 5
+play_cost = 1
+card_description = "Restore %s health"
+tool_tip = "Restore health up to your maximum limit, healing increases based on %s."
+debuff_value = 0
+hide_cost = false
+can_use_to_respond = false
+card_owner = SubResource("Resource_uetin")
+primary_stat = "nuance"
+secondary_stat = "knowledge"
+icon_image = ExtResource("13_rls4y")
+card_skin = ExtResource("8_7gshq")
+
+[sub_resource type="Resource" id="Resource_jhw7i"]
+resource_local_to_scene = true
+script = ExtResource("16_y3n87")
+token_resource = ExtResource("17_71wsq")
+card_name = "Basic Ward"
+one_use = false
+targets_self = false
+base_value = 2
+play_cost = 1
+card_description = "Prevent %s magic dmg"
+tool_tip = "Prevents magical damage this turn based on your %s. Ward dissapears at the end of each turn."
+debuff_value = 0
+hide_cost = false
+can_use_to_respond = true
+card_owner = SubResource("Resource_uetin")
+primary_stat = "nuance"
+secondary_stat = "knowledge"
+icon_image = ExtResource("15_cjvro")
+card_skin = ExtResource("8_7gshq")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_67tj2"]
+radius = 11.0
+height = 62.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ab5fk"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 100, 0)
+emission_shape = 3
+emission_box_extents = Vector3(40, 20, 1)
+orbit_velocity_min = -0.0999999
+orbit_velocity_max = 0.1
+radial_velocity_min = -20.0
+radial_velocity_max = 40.0
+gravity = Vector3(0, -100, 0)
+linear_accel_min = -67.79
+linear_accel_max = 71.15
+color = Color(1, 0.37745, 0.398392, 1)
+hue_variation_min = -0.13
+hue_variation_max = 0.18
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ibgll"]
+
+[node name="Player" type="AnimatedSprite2D"]
+position = Vector2(0, -63)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_urjdb")
+animation = &"idle"
+autoplay = "idle"
+script = ExtResource("3_oibvf")
+
+[node name="HealthNode" type="Node" parent="."]
+script = ExtResource("4_pesub")
+hit_points = 50
+
+[node name="StatsNode" type="Node" parent="."]
+script = ExtResource("5_3v8wn")
+muscle = 3
+finesse = 1
+endurance = 2
+nuance = 1
+is_friendly = true
+
+[node name="DeckNode" type="Node" parent="." node_paths=PackedStringArray("stats_node")]
+script = ExtResource("6_0wsgh")
+deck = Array[ExtResource("6_g68ne")]([SubResource("Resource_wgyaw"), SubResource("Resource_wgyaw"), SubResource("Resource_wgyaw"), SubResource("Resource_kcgof"), SubResource("Resource_kcgof"), SubResource("Resource_kcgof"), SubResource("Resource_buubr"), SubResource("Resource_buubr"), SubResource("Resource_jhw7i"), SubResource("Resource_jhw7i")])
+stats_node = NodePath("../StatsNode")
+
+[node name="BattleReadout" parent="." instance=ExtResource("9_nsbm0")]
+offset_left = -20.0
+offset_top = -62.0
+offset_right = 20.0
+offset_bottom = -36.0
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
+script = ExtResource("11_amxom")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CapsuleShape2D_67tj2")
+
+[node name="UnitParticles" type="GPUParticles2D" parent="."]
+scale = Vector2(0.336442, 1e-05)
+emitting = false
+amount = 400
+process_material = SubResource("ParticleProcessMaterial_ab5fk")
+explosiveness = 0.5
+randomness = 0.5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("")
+libraries = {
+"": SubResource("AnimationLibrary_ibgll")
+}
+
+[connection signal="died" from="HealthNode" to="." method="_on_health_node_died"]
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="check_card_compatibility"]

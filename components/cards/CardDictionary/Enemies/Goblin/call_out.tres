@@ -7,8 +7,7 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_upinq")
-card_name = "call_out"
-readable_name = "Call Out"
+card_name = "Call Out"
 one_use = true
 targets_self = true
 base_value = 0
@@ -16,8 +15,9 @@ play_cost = 0
 card_description = "Summon another goblin."
 tool_tip = ""
 debuff_value = 0
+hide_cost = true
 can_use_to_respond = false
 primary_stat = "nuance"
 secondary_stat = ""
-card_image = ExtResource("1_7hg2u")
+icon_image = ExtResource("1_7hg2u")
 card_skin = ExtResource("2_x7j6o")
