@@ -1,9 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://ds00fm2wg81wp"]
+[gd_scene load_steps=20 format=3 uid="uid://ds00fm2wg81wp"]
 
 [ext_resource type="Script" path="res://components/cards/hand_of_cards.gd" id="1_50x24"]
 [ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card.tscn" id="2_7blnv"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
-[ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="3_uqau4"]
 [ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="4_trt7w"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
@@ -21,7 +20,7 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="Resource" id="Resource_h2i0j"]
+[sub_resource type="Resource" id="Resource_47xte"]
 resource_local_to_scene = true
 script = ExtResource("4_trt7w")
 stats = {
@@ -33,12 +32,8 @@ stats = {
 "muscle": 5,
 "nuance": 0
 }
-deck = Array[ExtResource("3_uqau4")]([])
-animation_names = Array[String](["idle"])
-character_type = "player"
-is_self = true
 
-[sub_resource type="Resource" id="Resource_k3nf4"]
+[sub_resource type="Resource" id="Resource_njxf5"]
 resource_local_to_scene = true
 script = ExtResource("7_v61md")
 card_name = "basic_defend"
@@ -51,7 +46,7 @@ tool_tip = "Prevents physical damage this turn based on your %s. Defense dissape
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = true
-card_owner = SubResource("Resource_h2i0j")
+card_owner = SubResource("Resource_47xte")
 primary_stat = "endurance"
 secondary_stat = "muscle"
 icon_image = ExtResource("6_gjxqs")
@@ -95,12 +90,12 @@ curve = SubResource("Curve2D_wguu1")
 
 [node name="CardFollowPath2" type="PathFollow2D" parent="CardArc"]
 position = Vector2(320.002, -5.93374)
-rotation = -0.000365339
+rotation = -0.000365317
 progress = 190.165
 cubic_interp = false
 
 [node name="DraggableCard" parent="CardArc/CardFollowPath2" instance=ExtResource("2_7blnv")]
-card_stats = SubResource("Resource_k3nf4")
+card_stats = SubResource("Resource_njxf5")
 
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")

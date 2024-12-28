@@ -81,14 +81,13 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_1dluw")
 animation = &"idle"
 autoplay = "idle"
-frame = 3
-frame_progress = 0.968365
+frame = 4
+frame_progress = 0.358728
 script = ExtResource("6_hd08x")
 
 [node name="HealthNode" type="Node" parent="."]
 script = ExtResource("7_gvn7c")
 hit_points = 35
-max_hit_points = 35
 
 [node name="StatsNode" type="Node" parent="."]
 script = ExtResource("8_wykft")

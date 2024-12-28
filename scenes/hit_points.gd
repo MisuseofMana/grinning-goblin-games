@@ -11,7 +11,7 @@ var max_hit_points : int
 signal died()
 
 func _ready():
-	max_hit_points += stats.endurance
+	max_hit_points += stats.getPrimaryStatMod(stats.endurance)
 
 func take_damage(value):
 	hit_points -= clampi(value, 0, 999)
