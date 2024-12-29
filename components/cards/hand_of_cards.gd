@@ -19,21 +19,16 @@ var action_points_remaining : int = 3 :
 	set(value):
 		action_points_remaining = value
 		action_points_counter.text = str(max_action_points)
-var hand_size : int = 5
 var discardArray : Array = []
 var burnArray : Array = []
 
 signal action_points_depleted()
-
-
 
 func _ready():
 #	clear out the test cards in the arc
 	for arc in card_arc.get_children():
 		card_arc.remove_child(arc)
 		arc.queue_free()
-	
-	drawHandSize()
 	
 func refreshActionPoints():
 	action_points_remaining = max_action_points
@@ -49,19 +44,18 @@ func playerTurnSetup():
 func addCardToHand(cardResource: CardStats):
 	var newFollowNode = PathFollow2D.new()
 	var newCard = CARD.instantiate()
-	newCard.scale = Vector2(0,0)
-	newCard.card_stats = cardResource
+	newCard.scale = Vector2(1,1)
 	card_arc.add_child(newFollowNode)
 	newFollowNode.add_child(newCard)
+	newCard.set_card_stats(cardResource)
 	
-	newCard.hand_of_cards = self
-	newCard.card_discarded.connect(putCardInDiscard)
-	newCard.card_burnt.connect(putCardInBurnPile)
-	newCard.reduce_action_points.connect(reduceActionPointsBy)
-	newCard.tree_exited.connect(updateAllCardPositions)
+	#newCard.card_discarded.connect(putCardInDiscard)
+	#newCard.card_burnt.connect(putCardInBurnPile)
+	#newCard.reduce_action_points.connect(reduceActionPointsBy)
+	#newCard.tree_exited.connect(updateAllCardPositions)
 	
 	updateAllCardPositions()
-	changeCardAvailibilty(newCard)
+	#changeCardAvailibilty(newCard)
 
 func putCardInDiscard(cardStats : CardStats):
 	discardArray.append(cardStats)
@@ -75,25 +69,6 @@ func discardHand():
 	for followPath in card_arc.get_children():
 		await self.get_tree().create_timer(0.2).timeout
 		followPath.get_child(0).goToDiscard()
-
-func drawHandSize():
-	drawCards(hand_size)
-#
-func drawCards(howMany):
-	if player.find_node('DeckNode').size() < howMany:
-		deck.append_array(discardArray)
-		discardArray = []
-		discard_pile.num_in_discard = discardArray.size()
-		deck.shuffle()
-		
-	var incr = howMany
-	while incr > 0:
-		await self.get_tree().create_timer(0.1).timeout
-		if deck.size():
-			var chosenCard = deck.pop_at(0)
-			addCardToHand(chosenCard)
-		incr -= 1
-	deck_pile.label_number = deck.size()
 
 func useable(cardNode : CardComponent):
 	if cardNode.card_stats.play_cost > action_points_remaining:
@@ -142,8 +117,7 @@ func changeCardAvailibilty(cardNode):
 		cardNode.undraggable = true
 		cardNode.z_index = 0
 		create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -50), 0.2)
-			
-
 
 func overlap_something(area):
+	print(area)
 	pass # Replace with function body.

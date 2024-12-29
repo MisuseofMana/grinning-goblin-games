@@ -13,11 +13,7 @@ signal all_enemies_died()
 
 func set_up_enemies(enemyArray : Array[UnitStats]):
 	for unitstat in enemyArray:
-		print('set_up_enemies')
-		#var newEnemyUnit = UNIT.instantiate()
-		#newEnemyUnit.check_for_other_enemies.connect(checkForOtherEnemies)
-		#newEnemyUnit.unit_stats = unitstat
-		#add_child(newEnemyUnit)
+		print(unitstat)
 
 # called from battle scene controller
 func startEnemyPhase():

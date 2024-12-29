@@ -255,13 +255,12 @@ frame = 2
 frame_progress = 0.746552
 
 [node name="EnemyMarkers" type="Node2D" parent="."]
-position = Vector2(-10, 0)
 
 [node name="First" type="Marker2D" parent="EnemyMarkers"]
 position = Vector2(581, 155)
 
 [node name="Second" type="Marker2D" parent="EnemyMarkers"]
-position = Vector2(500, 171)
+position = Vector2(499, 155)
 
 [node name="Third" type="Marker2D" parent="EnemyMarkers"]
 position = Vector2(422, 155)
@@ -271,7 +270,6 @@ script = ExtResource("7_7drj6")
 animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
 
 [node name="Goblin" parent="Enemies" instance=ExtResource("15_62nu6")]
-visible = false
 position = Vector2(509, 164)
 frame = 1
 frame_progress = 0.418115

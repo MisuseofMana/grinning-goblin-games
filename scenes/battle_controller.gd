@@ -4,12 +4,12 @@ class_name BattleScene
 @onready var battle_scene = $"."
 @onready var card_interface = $HandOfCards
 
-@onready var player: Unit = $Player
+@onready var player: UnitSprite = $Player
 @onready var enemies = $Enemies
 @onready var turn_label = $TurnLabel
 @onready var turn_change_sound = $Sounds/TurnChangeSound
-@onready var enemy_card_template = $EnemyCardContainer/Path2D/PathFollow2D/EnemyCardTemplate
 @onready var anims = $FlavorAssets/AnimationPlayer
+@onready var enemy_markers = $EnemyMarkers
 
 @export var stage_background = Texture2D
 
@@ -29,11 +29,9 @@ var currentLocation = Locations.FOREST
 
 var monsters : Dictionary = {
 	Locations.FOREST: [
-		preload("res://components/units/UnitDictionary/UnitTypes/goblin.tres")
+		preload("res://components/units/goblin.tscn"),
 	]
 }
-
-var selectedEnemies : Array[UnitStats] = []
 
 enum TurnPhases {
 	START_NEW_ENCOUNTER,
@@ -43,14 +41,8 @@ enum TurnPhases {
 }
 
 func _ready():
-	await showTurnSwap("Your Turn")
-
-func buildNewEncounter():
-	selectedEnemies = []
-	var howManyMonsters = randi_range(1, 2)
-	for number in howManyMonsters: 
-		selectedEnemies.append(monsters[currentLocation].pick_random())
-
+	runPhase(TurnPhases.START_NEW_ENCOUNTER)
+	
 func runEnemiesTurn():
 	runPhase(TurnPhases.ENEMIES_TURN)
 
@@ -60,24 +52,28 @@ func runPlayerTurn():
 func runPhase(phase: TurnPhases):
 	match phase:
 		TurnPhases.START_NEW_ENCOUNTER:
-			buildNewEncounter()
-			enemies.set_up_enemies(selectedEnemies)
-#			create new enemies
-#			shuffle all cards into deck
-#			start player phase
+			var howManyMonsters = randi_range(1, 3)
+			for number in howManyMonsters: 
+				var newMonster : PackedScene = monsters[currentLocation].pick_random()
+				var monsterNode = newMonster.instantiate()
+				monsterNode.position = enemy_markers.get_child(number).position
+				enemies.add_child(monsterNode)
+			runPhase(TurnPhases.START_PLAYERS_TURN)
 		TurnPhases.START_PLAYERS_TURN:
 			await showTurnSwap("Your Turn")
 			players_turn = true
 			hand_of_cards.refreshActionPoints()
-			await hand_of_cards.discardHand()
-			hand_of_cards.drawHandSize()
-			hand_of_cards.changeAllCardAvailability()
+			var cardsDrawn : Array[CardStats] = player.deck.draw_hand_size()
+			for cardStats in cardsDrawn:
+				hand_of_cards.addCardToHand(cardStats)
+			#hand_of_cards.changeAllCardAvailability()
 		TurnPhases.ENEMIES_TURN:
 			await showTurnSwap("Enemy Turn")
 			players_turn = false
 			hand_of_cards.changeAllCardAvailability()
 			enemy_logic.startEnemyPhase()
 		TurnPhases.GO_TO_NEXT_ENCOUNTER:
+			player.deck.put_discard_into_deck()
 			anims.play("scroll_bg")
 
 func showTurnSwap(text):

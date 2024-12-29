@@ -1,4 +1,3 @@
-@tool
 @icon("res://icons/CardStats.svg")
 extends TextureRect
 class_name CardComponent
@@ -15,15 +14,10 @@ class_name CardComponent
 const CARD_COST_BLIP = preload("res://art/cards/card-cost-blip.png")
 const BURN_CARD_COST_BLIP = preload("res://art/cards/burn-card-cost-blip.png")
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
-
-signal card_used(whichCard)
-
-func _ready():
-	updateCardData()
 	
 func updateCardData():
 #	setup card information
-	card.texture = card_stats.card_skin
+	texture = card_stats.card_skin
 	card_name.text = card_stats.card_name
 	icon_image.texture = card_stats.icon_image
 	
@@ -49,17 +43,7 @@ func swapCardBackTexture():
 	icon_image.hide()
 	description.hide()
 	card_name.hide()
-	card.texture = CARD_TEMPLATE_BACK
-	
-func runCardEffect(card_owner):
-	print('run card effect')
-	card_used.emit(card_stats)
-	pass
-	#if card_stats.targets_self:
-		#card_stats.card_effect(card_owner)
-	#else:
-		#card_stats.card_effect(player)
-	#enemy_card_accepted.emit()
+	texture = CARD_TEMPLATE_BACK
 		
 func formatCardStringInterp(noBBCode):
 	var color

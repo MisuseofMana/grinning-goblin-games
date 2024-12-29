@@ -18,6 +18,7 @@ play_cost = 1
 card_description = "Inflict %s poison on target."
 tool_tip = ""
 debuff_value = 0
+hide_cost = false
 can_use_to_respond = false
 card_owner = ExtResource("2_c3am5")
 primary_stat = "nuance"

@@ -1,14 +1,17 @@
-[gd_scene load_steps=19 format=3 uid="uid://cr33bga3fetxx"]
+[gd_scene load_steps=23 format=3 uid="uid://cr33bga3fetxx"]
 
 [ext_resource type="Texture2D" uid="uid://ctx6vlhujj8sk" path="res://art/sprites/goblin/idle.png" id="1_4x88u"]
+[ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="3_eafw4"]
+[ext_resource type="PackedScene" uid="uid://0pyqt38pl3f4" path="res://components/health_node.tscn" id="3_mpfox"]
+[ext_resource type="PackedScene" uid="uid://ctud24sf1fqks" path="res://components/stats_node.tscn" id="4_7cfsr"]
+[ext_resource type="PackedScene" uid="uid://b0spuyowpthca" path="res://components/deck_node.tscn" id="5_rtdee"]
 [ext_resource type="Script" path="res://scenes/unit_sprite.gd" id="6_hd08x"]
-[ext_resource type="Resource" uid="uid://dlw2cn7turh68" path="res://components/cards/CardDictionary/Enemies/Goblin/goblin_bite.tres" id="7_d5jfg"]
-[ext_resource type="Script" path="res://scenes/hit_points.gd" id="7_gvn7c"]
 [ext_resource type="PackedScene" uid="uid://bx3b6tvvx5et5" path="res://components/units/battle_readout.tscn" id="8_e6p4e"]
 [ext_resource type="Script" path="res://components/units/recieve_card.gd" id="8_fnxs7"]
-[ext_resource type="Script" path="res://scenes/stats_node.gd" id="8_wykft"]
-[ext_resource type="Script" path="res://scenes/deck_node.gd" id="9_24bga"]
+[ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="8_l5ca6"]
+[ext_resource type="Texture2D" uid="uid://dohmn7ea4wnen" path="res://art/cards/card_art/goblin/goblin_bite.png" id="9_q4gue"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="10_loe31"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/damaging_card.gd" id="10_piqgh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kstin"]
 atlas = ExtResource("1_4x88u")
@@ -53,6 +56,24 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Resource" id="Resource_xe7c1"]
+resource_local_to_scene = true
+script = ExtResource("10_piqgh")
+card_name = "Bite Down"
+one_use = false
+targets_self = false
+base_value = 5
+play_cost = 0
+card_description = "A nasty bite! Deals %s dmg to you"
+tool_tip = ""
+debuff_value = 0
+hide_cost = false
+can_use_to_respond = false
+primary_stat = ""
+secondary_stat = ""
+icon_image = ExtResource("9_q4gue")
+card_skin = ExtResource("8_l5ca6")
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3v3b"]
 radius = 15.0
 height = 54.0
@@ -87,25 +108,31 @@ frame_progress = 0.358728
 script = ExtResource("6_hd08x")
 metadata/_edit_group_ = true
 
-[node name="HealthNode" type="Node" parent="."]
-script = ExtResource("7_gvn7c")
+[node name="Modifiers" parent="." instance=ExtResource("3_eafw4")]
+
+[node name="HealthNode" parent="." node_paths=PackedStringArray("stats", "modifiers") instance=ExtResource("3_mpfox")]
 hit_points = 35
+max_hit_points_base = 35
+stats = NodePath("../StatsNode")
+modifiers = NodePath("../Modifiers")
 
-[node name="StatsNode" type="Node" parent="."]
-script = ExtResource("8_wykft")
+[node name="StatsNode" parent="." instance=ExtResource("4_7cfsr")]
 muscle = 2
-finesse = 1
 endurance = 1
+nuance = 0
+is_friendly = false
 
-[node name="DeckNode" type="Node" parent="."]
-script = ExtResource("9_24bga")
-deck = Array[ExtResource("10_loe31")]([ExtResource("7_d5jfg")])
+[node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("5_rtdee")]
+deck = Array[ExtResource("10_loe31")]([SubResource("Resource_xe7c1")])
+stats_node = NodePath("../StatsNode")
 
-[node name="BattleReadout" parent="." instance=ExtResource("8_e6p4e")]
-offset_left = -20.0
-offset_top = -60.0
-offset_right = 20.0
-offset_bottom = -34.0
+[node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("8_e6p4e")]
+offset_left = -17.0
+offset_top = -52.5
+offset_right = 23.0
+offset_bottom = -26.5
+stats = NodePath("../StatsNode")
+health = NodePath("../HealthNode")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://0pyqt38pl3f4"]
+
+[ext_resource type="Script" path="res://scenes/hit_points.gd" id="1_wjd3d"]
+
+[node name="HealthNode" type="Node" node_paths=PackedStringArray("stats")]
+script = ExtResource("1_wjd3d")
+hit_points = 50
+max_hit_points_base = 50
+stats = NodePath("")

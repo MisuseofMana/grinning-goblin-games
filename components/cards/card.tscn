@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://doa41q24r2eid"]
+[gd_scene load_steps=8 format=3 uid="uid://doa41q24r2eid"]
 
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="1_2al02"]
 [ext_resource type="Script" path="res://scenes/card_stats.gd" id="2_vhlj7"]
 [ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="3_bis42"]
 [ext_resource type="Resource" uid="uid://getptn3kqhxl" path="res://components/cards/CardDictionary/Player/HealCards/basic_heal.tres" id="3_kvvc5"]
-[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="4_5cy4j"]
-[ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/card-cost-blip.png" id="5_64ioj"]
+[ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="4_k3k1f"]
+[ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="6_f5ubv"]
+[ext_resource type="Texture2D" uid="uid://brtypga5cij3r" path="res://art/cards/burn-card-cost-blip.png" id="7_htwk4"]
 
 [node name="Card" type="TextureRect"]
 anchors_preset = -1
@@ -22,6 +23,8 @@ texture = ExtResource("1_2al02")
 script = ExtResource("2_vhlj7")
 card_stats = ExtResource("3_kvvc5")
 
+[node name="Modifiers" parent="." instance=ExtResource("4_k3k1f")]
+
 [node name="CardName" type="Label" parent="."]
 texture_filter = 1
 layout_mode = 1
@@ -36,7 +39,7 @@ grow_horizontal = 2
 theme = ExtResource("3_bis42")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
-text = "Missing Data"
+text = "Basic Heal"
 
 [node name="IconImage" type="TextureRect" parent="."]
 texture_filter = 1
@@ -49,7 +52,7 @@ offset_top = 36.0
 offset_right = 76.0
 offset_bottom = 158.0
 grow_horizontal = 2
-texture = ExtResource("4_5cy4j")
+texture = ExtResource("6_f5ubv")
 
 [node name="Description" type="RichTextLabel" parent="."]
 texture_filter = 1
@@ -67,7 +70,7 @@ theme = ExtResource("3_bis42")
 theme_override_constants/line_separation = -8
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "Example Text Here"
+text = "Restore <null> health"
 scroll_active = false
 
 [node name="CostIndicator" type="TextureRect" parent="."]
@@ -78,7 +81,7 @@ offset_top = -2.0
 offset_right = 26.0
 offset_bottom = 28.0
 theme = ExtResource("3_bis42")
-texture = ExtResource("5_64ioj")
+texture = ExtResource("7_htwk4")
 metadata/_edit_group_ = true
 
 [node name="Cost" type="Label" parent="CostIndicator"]

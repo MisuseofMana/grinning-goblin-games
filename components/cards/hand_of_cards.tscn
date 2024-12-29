@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://ds00fm2wg81wp"]
+[gd_scene load_steps=14 format=3 uid="uid://ds00fm2wg81wp"]
 
 [ext_resource type="Script" path="res://components/cards/hand_of_cards.gd" id="1_50x24"]
+[ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/draggable_card.tscn" id="2_db747"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
@@ -57,6 +58,8 @@ rotation = -0.000365339
 progress = 190.165
 cubic_interp = false
 
+[node name="DraggableCard" parent="CardArc/CardFollowPath2" instance=ExtResource("2_db747")]
+
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")
 volume_db = -20.0
@@ -97,5 +100,5 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 0.3
 
-[connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]
 [connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]
+[connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]

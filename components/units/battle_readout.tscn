@@ -19,6 +19,7 @@ ProgressBar/styles/fill = SubResource("StyleBoxFlat_nmasm")
 [node name="BattleReadout" type="VBoxContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(0.8, 0.8)
 script = ExtResource("1_1ykwv")
 
 [node name="TokenContainer" parent="." instance=ExtResource("2_a3l74")]

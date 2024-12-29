@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctud24sf1fqks"]
+
+[ext_resource type="Script" path="res://scenes/stats_node.gd" id="1_er2so"]
+
+[node name="StatsNode" type="Node"]
+script = ExtResource("1_er2so")
+muscle = 3
+finesse = 1
+endurance = 2
+nuance = 1
+is_friendly = true

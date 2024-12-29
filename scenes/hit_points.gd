@@ -7,11 +7,13 @@ class_name HealthNode
 var max_hit_points : int
 
 @export var stats : StatsNode
+@export var modifiers : Modifiers
 
 signal died()
 
 func _ready():
-	max_hit_points += stats.getPrimaryStatMod(stats.endurance)
+	max_hit_points += max_hit_points_base + modifiers.getPrimaryStatMod(stats.endurance)
+	hit_points = clampi(hit_points, 1, max_hit_points)
 
 func take_damage(value):
 	hit_points -= clampi(value, 0, 999)
