@@ -1,6 +1,7 @@
-[gd_scene load_steps=34 format=3 uid="uid://bcxxmjp1ch5pq"]
+[gd_scene load_steps=35 format=3 uid="uid://bcxxmjp1ch5pq"]
 
 [ext_resource type="Texture2D" uid="uid://o3k7tcneumyw" path="res://art/sprites/player/idle.png" id="1_mgs54"]
+[ext_resource type="Script" path="res://components/units/modifiers.gd" id="3_ddfr4"]
 [ext_resource type="Script" path="res://scenes/unit_sprite.gd" id="3_oibvf"]
 [ext_resource type="Script" path="res://scenes/hit_points.gd" id="4_pesub"]
 [ext_resource type="Script" path="res://scenes/stats_node.gd" id="5_3v8wn"]
@@ -182,14 +183,18 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_urjdb")
 animation = &"idle"
 autoplay = "idle"
+frame = 1
+frame_progress = 0.0122931
 script = ExtResource("3_oibvf")
 metadata/_edit_group_ = true
 
-[node name="HealthNode" type="Node" parent="." node_paths=PackedStringArray("stats")]
+[node name="Modifiers" type="Node" parent="."]
+script = ExtResource("3_ddfr4")
+
+[node name="HealthNode" type="Node" parent="."]
 script = ExtResource("4_pesub")
 hit_points = 50
 max_hit_points_base = 50
-stats = NodePath("../StatsNode")
 
 [node name="StatsNode" type="Node" parent="."]
 script = ExtResource("5_3v8wn")
