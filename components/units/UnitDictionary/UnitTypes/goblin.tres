@@ -1,9 +1,6 @@
-[gd_resource type="Resource" script_class="UnitStats" load_steps=5 format=3 uid="uid://d2yjrckw43wta"]
+[gd_resource type="Resource" script_class="UnitStats" load_steps=2 format=3 uid="uid://d2yjrckw43wta"]
 
-[ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="1_kg2ma"]
 [ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="1_yf1cq"]
-[ext_resource type="Resource" uid="uid://dlw2cn7turh68" path="res://components/cards/CardDictionary/Enemies/Goblin/goblin_bite.tres" id="2_4ww2p"]
-[ext_resource type="Resource" uid="uid://bndwrmrbredr4" path="res://components/cards/CardDictionary/Enemies/Goblin/call_out.tres" id="3_spwvp"]
 
 [resource]
 resource_local_to_scene = true
@@ -17,7 +14,3 @@ stats = {
 "muscle": 5,
 "nuance": 0
 }
-deck = Array[ExtResource("1_kg2ma")]([ExtResource("2_4ww2p"), ExtResource("2_4ww2p"), ExtResource("2_4ww2p"), ExtResource("3_spwvp")])
-animation_names = Array[String](["idle"])
-character_type = "goblin"
-is_self = false

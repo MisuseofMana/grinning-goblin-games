@@ -23,9 +23,9 @@ var hand_size : int = 5
 var discardArray : Array = []
 var burnArray : Array = []
 
-@onready var deck = player.
-
 signal action_points_depleted()
+
+
 
 func _ready():
 #	clear out the test cards in the arc
@@ -33,19 +33,18 @@ func _ready():
 		card_arc.remove_child(arc)
 		arc.queue_free()
 	
-	deck.shuffle()
-	deck_pile.label_number = deck.size()
-	drawCards(hand_size)
+	drawHandSize()
 	
 func refreshActionPoints():
 	action_points_remaining = max_action_points
 		
 func add_random_card_to_hand():
-	drawCards(1)
+	pass
+	#drawCards(1)
 
 func playerTurnSetup():
 	await discardHand()
-	drawCards(hand_size)
+	#drawCards(hand_size)
 
 func addCardToHand(cardResource: CardStats):
 	var newFollowNode = PathFollow2D.new()
@@ -79,9 +78,9 @@ func discardHand():
 
 func drawHandSize():
 	drawCards(hand_size)
-
+#
 func drawCards(howMany):
-	if deck.size() < howMany:
+	if player.find_node('DeckNode').size() < howMany:
 		deck.append_array(discardArray)
 		discardArray = []
 		discard_pile.num_in_discard = discardArray.size()
@@ -144,3 +143,7 @@ func changeCardAvailibilty(cardNode):
 		cardNode.z_index = 0
 		create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -50), 0.2)
 			
+
+
+func overlap_something(area):
+	pass # Replace with function body.

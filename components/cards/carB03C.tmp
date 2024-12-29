@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="1_2al02"]
 [ext_resource type="Script" path="res://scenes/card_stats.gd" id="2_vhlj7"]
+[ext_resource type="Resource" uid="uid://dppkgtvdmpwwt" path="res://components/cards/CardDictionary/Player/AttackCards/basic_spell.tres" id="3_35unu"]
 [ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="3_bis42"]
-[ext_resource type="Resource" uid="uid://getptn3kqhxl" path="res://components/cards/CardDictionary/Player/HealCards/basic_heal.tres" id="3_kvvc5"]
 [ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="4_5cy4j"]
 [ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/card-cost-blip.png" id="5_64ioj"]
 
@@ -13,14 +13,14 @@ anchor_left = 0.075
 anchor_top = 0.356
 anchor_right = 0.075
 anchor_bottom = 0.356
-offset_left = -46.0
-offset_top = -127.16
-offset_right = 146.0
-offset_bottom = 128.84
+offset_left = -48.0
+offset_top = -128.16
+offset_right = 144.0
+offset_bottom = 127.84
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_2al02")
 script = ExtResource("2_vhlj7")
-card_stats = ExtResource("3_kvvc5")
+card_stats = ExtResource("3_35unu")
 
 [node name="CardName" type="Label" parent="."]
 texture_filter = 1
@@ -28,14 +28,15 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -67.0
-offset_top = 4.0
-offset_right = 66.0
-offset_bottom = 30.0
+offset_left = -62.0
+offset_top = 8.0
+offset_right = 136.0
+offset_bottom = 46.0
 grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
 theme = ExtResource("3_bis42")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 48
 text = "Missing Data"
 
 [node name="IconImage" type="TextureRect" parent="."]
@@ -46,9 +47,10 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -76.0
 offset_top = 36.0
-offset_right = 76.0
-offset_bottom = 158.0
+offset_right = 228.0
+offset_bottom = 280.0
 grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_5cy4j")
 
 [node name="Description" type="RichTextLabel" parent="."]
@@ -59,13 +61,13 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -74.0
 offset_top = 166.0
-offset_right = 76.0
-offset_bottom = 241.0
+offset_right = 222.0
+offset_bottom = 310.0
 grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
 mouse_filter = 1
 theme = ExtResource("3_bis42")
-theme_override_constants/line_separation = -8
-theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "Example Text Here"
 scroll_active = false
@@ -73,23 +75,23 @@ scroll_active = false
 [node name="CostIndicator" type="TextureRect" parent="."]
 texture_filter = 1
 layout_mode = 1
-offset_left = -4.0
-offset_top = -2.0
-offset_right = 26.0
-offset_bottom = 28.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 60.0
+offset_bottom = 60.0
+scale = Vector2(0.5, 0.5)
 theme = ExtResource("3_bis42")
 texture = ExtResource("5_64ioj")
-metadata/_edit_group_ = true
 
 [node name="Cost" type="Label" parent="CostIndicator"]
 layout_mode = 1
-offset_left = 10.0
-offset_top = -1.0
-offset_right = 22.0
-offset_bottom = 25.0
+offset_left = 16.0
+offset_top = -4.0
+offset_right = 44.0
+offset_bottom = 51.0
 theme = ExtResource("3_bis42")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "1"
 horizontal_alignment = 1
 vertical_alignment = 1

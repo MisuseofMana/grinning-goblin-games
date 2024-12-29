@@ -77,6 +77,7 @@ hue_variation_max = 0.18
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibgll"]
 
 [node name="Goblin" type="AnimatedSprite2D"]
+position = Vector2(43, 106)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_1dluw")
 animation = &"idle"
@@ -84,11 +85,11 @@ autoplay = "idle"
 frame = 3
 frame_progress = 0.968365
 script = ExtResource("6_hd08x")
+metadata/_edit_group_ = true
 
 [node name="HealthNode" type="Node" parent="."]
 script = ExtResource("7_gvn7c")
 hit_points = 35
-max_hit_points = 35
 
 [node name="StatsNode" type="Node" parent="."]
 script = ExtResource("8_wykft")

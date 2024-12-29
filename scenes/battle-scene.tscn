@@ -1,10 +1,14 @@
-[gd_scene load_steps=30 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=36 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://bu305i6xvayai" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
 [ext_resource type="Texture2D" uid="uid://pwewpuefxjom" path="res://art/ui/ui-background-cutout.png" id="2_jaqan"]
 [ext_resource type="PackedScene" uid="uid://bcxxmjp1ch5pq" path="res://components/units/player.tscn" id="3_kt5qk"]
 [ext_resource type="Script" path="res://scenes/enemy_controller.gd" id="7_7drj6"]
+[ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="9_gjyky"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="10_iohac"]
+[ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="11_psplo"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/healing_card.gd" id="12_6ieyv"]
 [ext_resource type="Texture2D" uid="uid://clv1s8w5roogn" path="res://art/ui/xp_bar.png" id="12_52kwo"]
 [ext_resource type="Script" path="res://scenes/xp_bar.gd" id="13_5jlb7"]
 [ext_resource type="Texture2D" uid="uid://crxrqibwaskm6" path="res://art/ui/xp_bar_dot.png" id="13_65iss"]
@@ -60,6 +64,38 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -402, 121, -133.897, 40.816, 133.897, -40.816, -174, 168, 0, 0, 0, 0, 24, 18)
 }
 point_count = 3
+
+[sub_resource type="Resource" id="Resource_l1lho"]
+resource_local_to_scene = true
+script = ExtResource("9_gjyky")
+stats = {
+"endurance": 4,
+"finesse": 3,
+"health": 50,
+"knowledge": 0,
+"max_health": 50,
+"muscle": 5,
+"nuance": 0
+}
+
+[sub_resource type="Resource" id="Resource_g3shs"]
+resource_local_to_scene = true
+script = ExtResource("12_6ieyv")
+card_name = "Basic Heal"
+one_use = true
+targets_self = true
+base_value = 5
+play_cost = 1
+card_description = "Restore %s health"
+tool_tip = "Restore health up to your maximum limit, healing increases based on %s."
+debuff_value = 0
+hide_cost = false
+can_use_to_respond = false
+card_owner = SubResource("Resource_l1lho")
+primary_stat = "nuance"
+secondary_stat = "knowledge"
+icon_image = ExtResource("11_psplo")
+card_skin = ExtResource("10_iohac")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rdevo"]
 lifetime_randomness = 0.5
@@ -215,6 +251,8 @@ libraries = {
 
 [node name="Player" parent="." instance=ExtResource("3_kt5qk")]
 position = Vector2(90, 160)
+frame = 2
+frame_progress = 0.746552
 
 [node name="EnemyMarkers" type="Node2D" parent="."]
 
@@ -233,7 +271,8 @@ animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
 
 [node name="Goblin" parent="Enemies" instance=ExtResource("15_62nu6")]
 position = Vector2(509, 164)
-frame_progress = 0.0
+frame = 1
+frame_progress = 0.418115
 
 [node name="EnemyCardContainer" type="Node2D" parent="."]
 position = Vector2(700, -18)
@@ -250,6 +289,7 @@ rotates = false
 loop = false
 
 [node name="Card" parent="EnemyCardContainer/Path2D/PathFollow2D" instance=ExtResource("20_yae8r")]
+card_stats = SubResource("Resource_g3shs")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="EnemyCardContainer/Path2D/PathFollow2D"]
 z_index = 100
@@ -498,7 +538,6 @@ autoplay = true
 [connection signal="child_exiting_tree" from="EnemyCardContainer/Path2D" to="EnemyCardContainer/Path2D" method="_on_child_exiting_tree"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="Enemies" method="animationSequencer"]
 [connection signal="pressed" from="EnemyCardContainer/AcceptButton" to="EnemyCardContainer" method="onCardAccept"]
-[connection signal="action_points_depleted" from="HandOfCards" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="EndTurnButton" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="DebugBar/DebugToggle" to="DebugBar" method="_on_button_pressed"]
 [connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button2" to="HandOfCards" method="add_random_card_to_hand"]

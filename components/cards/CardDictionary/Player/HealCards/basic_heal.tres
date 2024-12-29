@@ -16,6 +16,7 @@ play_cost = 1
 card_description = "Restore %s health"
 tool_tip = "Restore health up to your maximum limit, healing increases based on %s."
 debuff_value = 0
+hide_cost = false
 can_use_to_respond = false
 card_owner = ExtResource("2_xdhov")
 primary_stat = "nuance"

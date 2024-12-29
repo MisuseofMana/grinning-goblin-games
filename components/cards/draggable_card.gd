@@ -10,55 +10,13 @@ class_name DraggableCard
 @onready var card_shimmer = $CardShimmer
 @onready var card = $Card
 
-@export var card_stats : CardStats
-
 signal card_burnt(followNode : PathFollow2D)
 signal card_discarded(followNode : PathFollow2D)
 signal reduce_action_points(play_cost: int)
 
-const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
-
-var overlappingAreas : Array[Area2D] = []
-
-var is_dragging : bool = false
-var undraggable: bool = false
-var global_card_pos
-var local_card_pos
-var card_rotation
-const SPEED := 0.2
-const delay := 4
-
 func _ready():
 	card.card_stats = card_stats
 
-func _physics_process(delta):
-	if is_dragging && not undraggable:
-		create_tween().tween_property(self, "global_position", get_global_mouse_position(), delay * delta)
-		card_shimmer.emitting = true
-
-func _dragging_card_gui_input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if undraggable:
-			error_sound.play()
-#		when a card is being dragged, scale and drag
-		if event.is_pressed():
-			create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
-			if not local_card_pos:
-				local_card_pos = draggable_card.position
-			draggable_card.get_parent().rotation = 0
-			is_dragging = true
-		else:
-			if overlappingAreas.size():
-				print('overlapping')
-				returnCardToHand()
-#				check for card target compatibility
-				#if hand_of_cards.useable(self):
-					#card_shimmer.emitting = false
-					#useCardOn(overlappingAreas[0].get_parent())
-				#else:
-					#returnCardToHand()
-			else:
-				returnCardToHand()
 
 func useCardOn(target):
 	reduce_action_points.emit(self.card_stats.play_cost)
@@ -86,7 +44,7 @@ func _on_card_mouse_entered():
 	if not is_dragging && not undraggable:
 		present.z_index = 100
 		pickup_sound.play()
-		create_tween().tween_property(self, "scale", Vector2(1.2, 1.2), SPEED)
+		
 		#$ToolTip.show()
 
 func _on_card_mouse_exited():

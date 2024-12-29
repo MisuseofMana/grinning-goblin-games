@@ -1,0 +1,215 @@
+[gd_scene load_steps=26 format=3 uid="uid://dkrt4twau3rbt"]
+
+[ext_resource type="Script" path="res://components/cards/draggable_card.gd" id="1_hofyb"]
+[ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card.tscn" id="2_pf1w1"]
+[ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="3_a782e"]
+[ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="4_fjox3"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="4_wclge"]
+[ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="5_gcd88"]
+[ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="5_rclin"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/healing_card.gd" id="6_0yxrx"]
+[ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="6_8m6iu"]
+[ext_resource type="AudioStream" uid="uid://c7ujf2yspx3kd" path="res://audio/card_drop_4.wav" id="7_7biwf"]
+[ext_resource type="AudioStream" uid="uid://bmymqsr2pc8r3" path="res://audio/card_drop_1.wav" id="8_kv5f6"]
+[ext_resource type="AudioStream" uid="uid://ccnlum7wv4pej" path="res://audio/card_drop_2.wav" id="9_p1pin"]
+[ext_resource type="AudioStream" uid="uid://dino3c5yktk1d" path="res://audio/card_drop_3.wav" id="10_xo022"]
+[ext_resource type="AudioStream" uid="uid://cenkn62k76yu2" path="res://audio/failed_card_drop.wav" id="11_nr8oy"]
+[ext_resource type="Texture2D" uid="uid://cfif66f3lo0x5" path="res://art/cards/nine-patch-tooltip.png" id="12_6bypn"]
+
+[sub_resource type="Resource" id="Resource_vqht3"]
+resource_local_to_scene = true
+script = ExtResource("3_a782e")
+stats = {
+"endurance": 4,
+"finesse": 3,
+"health": 50,
+"knowledge": 0,
+"max_health": 50,
+"muscle": 5,
+"nuance": 0
+}
+
+[sub_resource type="Resource" id="Resource_750k7"]
+resource_local_to_scene = true
+script = ExtResource("6_0yxrx")
+card_name = "Basic Heal"
+one_use = true
+targets_self = true
+base_value = 5
+play_cost = 1
+card_description = "Restore %s health"
+tool_tip = "Restore health up to your maximum limit, healing increases based on %s."
+debuff_value = 0
+hide_cost = false
+can_use_to_respond = false
+card_owner = SubResource("Resource_vqht3")
+primary_stat = "nuance"
+secondary_stat = "knowledge"
+icon_image = ExtResource("5_rclin")
+card_skin = ExtResource("4_wclge")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_fqe74"]
+streams_count = 3
+stream_0/stream = ExtResource("4_fjox3")
+stream_1/stream = ExtResource("5_gcd88")
+stream_2/stream = ExtResource("6_8m6iu")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_y6go0"]
+random_pitch = 1.2
+streams_count = 4
+stream_0/stream = ExtResource("7_7biwf")
+stream_1/stream = ExtResource("8_kv5f6")
+stream_2/stream = ExtResource("9_p1pin")
+stream_3/stream = ExtResource("10_xo022")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_futsg"]
+random_pitch = 1.2
+streams_count = 1
+stream_0/stream = ExtResource("11_nr8oy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2m1l2"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, 64, 0)
+emission_shape_scale = Vector3(40, 20, 0)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 10, 0)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+spread = 100.0
+initial_velocity_min = 10.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, -100, 0)
+scale_max = 5.0
+color = Color(0.809304, 0.472654, 1, 1)
+hue_variation_min = 0.02
+hue_variation_max = 0.2
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_e5mar"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(48, 64, 0)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 48.0
+emission_ring_radius = 68.0
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 10, 0)
+radial_accel_min = -50.0
+radial_accel_max = 50.0
+tangential_accel_min = -2.23517e-06
+tangential_accel_max = -2.23517e-06
+damping_max = 20.0
+
+[sub_resource type="Animation" id="Animation_ftxpx"]
+resource_name = "valid_selection"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0.501249, 1, 0.672074, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ysc62"]
+_data = {
+"valid_selection": SubResource("Animation_ftxpx")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqh0s"]
+size = Vector2(80, 119)
+
+[node name="DraggableCard" type="Node2D"]
+script = ExtResource("1_hofyb")
+
+[node name="Card" parent="." instance=ExtResource("2_pf1w1")]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 192.0
+offset_bottom = 256.0
+card_stats = SubResource("Resource_750k7")
+
+[node name="MouseOverSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(48, 63)
+stream = SubResource("AudioStreamRandomizer_fqe74")
+volume_db = -20.0
+
+[node name="ValidDropSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(48, 63)
+stream = SubResource("AudioStreamRandomizer_y6go0")
+volume_db = -20.0
+
+[node name="ErrorSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(48, 63)
+stream = SubResource("AudioStreamRandomizer_futsg")
+volume_db = -20.0
+
+[node name="CardBurn" type="GPUParticles2D" parent="."]
+z_index = 2
+position = Vector2(48, 63)
+emitting = false
+amount = 75
+process_material = SubResource("ParticleProcessMaterial_2m1l2")
+one_shot = true
+
+[node name="CardShimmer" type="GPUParticles2D" parent="."]
+z_index = 2
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_e5mar")
+visibility_rect = Rect2(0, 0, 96, 128)
+trail_lifetime = 0.2
+trail_sections = 2
+trail_section_subdivisions = 5
+
+[node name="CardAnimations" type="AnimationPlayer" parent="."]
+root_node = NodePath("")
+libraries = {
+"": SubResource("AnimationLibrary_ysc62")
+}
+
+[node name="ToolTip" type="NinePatchRect" parent="."]
+visible = false
+offset_left = -64.0
+offset_top = -130.0
+offset_right = 68.0
+offset_bottom = -70.0
+texture = ExtResource("12_6bypn")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="ToolTip"]
+visible = false
+layout_mode = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 124.0
+offset_bottom = 50.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = -1
+text = "Something here that explains the card in detail"
+autowrap_mode = 2
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(18, 14)
+collision_mask = 0
+monitoring = false
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(30, 49.5)
+shape = SubResource("RectangleShape2D_dqh0s")
+
+[connection signal="finished" from="ValidDropSound" to="." method="_on_valid_drop_sound_finished"]
+[connection signal="animation_finished" from="CardAnimations" to="." method="_on_card_animations_animation_finished"]

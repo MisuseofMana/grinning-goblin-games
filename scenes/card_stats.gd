@@ -6,7 +6,7 @@ class_name CardComponent
 @export var card_stats : CardStats
 
 @onready var card = $"."
-@onready var card_name = $Name
+@onready var card_name = $CardName
 @onready var icon_image = $IconImage
 @onready var description = $Description
 @onready var cost_indicator = $CostIndicator

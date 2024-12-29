@@ -63,7 +63,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_uetin"]
+[sub_resource type="Resource" id="Resource_fph7c"]
 resource_local_to_scene = true
 script = ExtResource("7_v0q5i")
 stats = {
@@ -76,7 +76,7 @@ stats = {
 "nuance": 0
 }
 
-[sub_resource type="Resource" id="Resource_wgyaw"]
+[sub_resource type="Resource" id="Resource_1jvvu"]
 resource_local_to_scene = true
 script = ExtResource("10_ldags")
 card_name = "Basic Attack"
@@ -89,13 +89,13 @@ tool_tip = "Use on enemies, deals physical damage depending on your %s."
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_uetin")
+card_owner = SubResource("Resource_fph7c")
 primary_stat = "muscle"
 secondary_stat = "finesse"
 icon_image = ExtResource("9_6yps7")
 card_skin = ExtResource("8_7gshq")
 
-[sub_resource type="Resource" id="Resource_kcgof"]
+[sub_resource type="Resource" id="Resource_c8qlh"]
 resource_local_to_scene = true
 script = ExtResource("12_iqfmo")
 card_name = "Basic Defend"
@@ -108,13 +108,13 @@ tool_tip = "Prevents physical damage this turn based on your %s. Defense dissape
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = true
-card_owner = SubResource("Resource_uetin")
+card_owner = SubResource("Resource_fph7c")
 primary_stat = "endurance"
 secondary_stat = "muscle"
 icon_image = ExtResource("11_r5ho4")
 card_skin = ExtResource("8_7gshq")
 
-[sub_resource type="Resource" id="Resource_buubr"]
+[sub_resource type="Resource" id="Resource_sf8wa"]
 resource_local_to_scene = true
 script = ExtResource("14_wnfm2")
 card_name = "Basic Heal"
@@ -127,13 +127,13 @@ tool_tip = "Restore health up to your maximum limit, healing increases based on 
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_uetin")
+card_owner = SubResource("Resource_fph7c")
 primary_stat = "nuance"
 secondary_stat = "knowledge"
 icon_image = ExtResource("13_rls4y")
 card_skin = ExtResource("8_7gshq")
 
-[sub_resource type="Resource" id="Resource_jhw7i"]
+[sub_resource type="Resource" id="Resource_dyhsr"]
 resource_local_to_scene = true
 script = ExtResource("16_y3n87")
 token_resource = ExtResource("17_71wsq")
@@ -147,7 +147,7 @@ tool_tip = "Prevents magical damage this turn based on your %s. Ward dissapears 
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = true
-card_owner = SubResource("Resource_uetin")
+card_owner = SubResource("Resource_fph7c")
 primary_stat = "nuance"
 secondary_stat = "knowledge"
 icon_image = ExtResource("15_cjvro")
@@ -177,16 +177,19 @@ hue_variation_max = 0.18
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibgll"]
 
 [node name="Player" type="AnimatedSprite2D"]
-position = Vector2(0, -63)
+position = Vector2(41, 111)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_urjdb")
 animation = &"idle"
 autoplay = "idle"
 script = ExtResource("3_oibvf")
+metadata/_edit_group_ = true
 
-[node name="HealthNode" type="Node" parent="."]
+[node name="HealthNode" type="Node" parent="." node_paths=PackedStringArray("stats")]
 script = ExtResource("4_pesub")
 hit_points = 50
+max_hit_points_base = 50
+stats = NodePath("../StatsNode")
 
 [node name="StatsNode" type="Node" parent="."]
 script = ExtResource("5_3v8wn")
@@ -198,14 +201,16 @@ is_friendly = true
 
 [node name="DeckNode" type="Node" parent="." node_paths=PackedStringArray("stats_node")]
 script = ExtResource("6_0wsgh")
-deck = Array[ExtResource("6_g68ne")]([SubResource("Resource_wgyaw"), SubResource("Resource_wgyaw"), SubResource("Resource_wgyaw"), SubResource("Resource_kcgof"), SubResource("Resource_kcgof"), SubResource("Resource_kcgof"), SubResource("Resource_buubr"), SubResource("Resource_buubr"), SubResource("Resource_jhw7i"), SubResource("Resource_jhw7i")])
+deck = Array[ExtResource("6_g68ne")]([SubResource("Resource_1jvvu"), SubResource("Resource_1jvvu"), SubResource("Resource_1jvvu"), SubResource("Resource_c8qlh"), SubResource("Resource_c8qlh"), SubResource("Resource_c8qlh"), SubResource("Resource_sf8wa"), SubResource("Resource_sf8wa"), SubResource("Resource_dyhsr"), SubResource("Resource_dyhsr")])
 stats_node = NodePath("../StatsNode")
 
-[node name="BattleReadout" parent="." instance=ExtResource("9_nsbm0")]
+[node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("9_nsbm0")]
 offset_left = -20.0
 offset_top = -62.0
 offset_right = 20.0
 offset_bottom = -36.0
+stats = NodePath("../StatsNode")
+health = NodePath("../HealthNode")
 
 [node name="Hitbox" type="Area2D" parent="."]
 collision_layer = 0
