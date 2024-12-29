@@ -1,7 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://ds00fm2wg81wp"]
+[gd_scene load_steps=13 format=3 uid="uid://ds00fm2wg81wp"]
 
 [ext_resource type="Script" path="res://components/cards/hand_of_cards.gd" id="1_50x24"]
-[ext_resource type="PackedScene" uid="uid://dkrt4twau3rbt" path="res://components/cards/draggable_card.tscn" id="2_0h3fe"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
@@ -54,12 +53,9 @@ curve = SubResource("Curve2D_wguu1")
 
 [node name="CardFollowPath2" type="PathFollow2D" parent="CardArc"]
 position = Vector2(320.002, -5.93374)
-rotation = -0.000365317
+rotation = -0.000365339
 progress = 190.165
 cubic_interp = false
-
-[node name="DraggableCard" parent="CardArc/CardFollowPath2" instance=ExtResource("2_7blnv")]
-card_stats = SubResource("Resource_njxf5")
 
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")
