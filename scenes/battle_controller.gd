@@ -58,9 +58,9 @@ func runPhase(phase: TurnPhases):
 				var monsterNode = newMonster.instantiate()
 				monsterNode.position = enemy_markers.get_child(number).position
 				enemies.add_child(monsterNode)
-			runPhase(TurnPhases.START_PLAYERS_TURN)
+			runPlayerTurn()
 		TurnPhases.START_PLAYERS_TURN:
-			await showTurnSwap("Your Turn")
+			showTurnSwap("Your Turn")
 			players_turn = true
 			hand_of_cards.refreshActionPoints()
 			var cardsDrawn : Array[CardStats] = player.deck.draw_hand_size()

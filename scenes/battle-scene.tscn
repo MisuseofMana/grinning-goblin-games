@@ -516,13 +516,13 @@ disabled = true
 text = "Build Deck"
 
 [node name="TurnLabel" type="Label" parent="."]
-offset_left = 230.0
-offset_top = 36.0
-offset_right = 393.0
-offset_bottom = 62.0
+offset_left = 228.0
+offset_top = 98.0
+offset_right = 432.0
+offset_bottom = 149.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "Your Turn"
 horizontal_alignment = 1
 
