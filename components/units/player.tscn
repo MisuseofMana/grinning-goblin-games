@@ -65,7 +65,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_jdctq"]
+[sub_resource type="Resource" id="Resource_yk2ko"]
 resource_local_to_scene = true
 script = ExtResource("7_v0q5i")
 stats = {
@@ -78,7 +78,7 @@ stats = {
 "nuance": 0
 }
 
-[sub_resource type="Resource" id="Resource_86e3i"]
+[sub_resource type="Resource" id="Resource_t0owq"]
 resource_local_to_scene = true
 script = ExtResource("12_iqfmo")
 card_name = "Basic Defend"
@@ -91,13 +91,13 @@ tool_tip = "Prevents physical damage this turn based on your %s. Defense dissape
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = true
-card_owner = SubResource("Resource_jdctq")
+card_owner = SubResource("Resource_yk2ko")
 primary_stat = "endurance"
 secondary_stat = "muscle"
 icon_image = ExtResource("11_r5ho4")
 card_skin = ExtResource("8_7gshq")
 
-[sub_resource type="Resource" id="Resource_myil5"]
+[sub_resource type="Resource" id="Resource_uswmu"]
 resource_local_to_scene = true
 script = ExtResource("7_v0q5i")
 stats = {
@@ -110,7 +110,7 @@ stats = {
 "nuance": 0
 }
 
-[sub_resource type="Resource" id="Resource_uohfq"]
+[sub_resource type="Resource" id="Resource_y41er"]
 resource_local_to_scene = true
 script = ExtResource("10_ldags")
 card_name = "Magic Attack"
@@ -123,13 +123,13 @@ tool_tip = "Use on enemies, deals magical damage depending on your %s."
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_myil5")
+card_owner = SubResource("Resource_uswmu")
 primary_stat = "knowledge"
 secondary_stat = "nuance"
 icon_image = ExtResource("14_kfqxp")
 card_skin = ExtResource("8_7gshq")
 
-[sub_resource type="Resource" id="Resource_81410"]
+[sub_resource type="Resource" id="Resource_1kuw7"]
 resource_local_to_scene = true
 script = ExtResource("16_y3n87")
 token_resource = ExtResource("18_m8jct")
@@ -143,13 +143,13 @@ tool_tip = ""
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_myil5")
+card_owner = SubResource("Resource_uswmu")
 primary_stat = "nuance"
 secondary_stat = "finesse"
 icon_image = ExtResource("16_vasr6")
 card_skin = ExtResource("8_7gshq")
 
-[sub_resource type="Resource" id="Resource_kwd2l"]
+[sub_resource type="Resource" id="Resource_cht5m"]
 resource_local_to_scene = true
 script = ExtResource("10_ldags")
 card_name = "Basic Attack"
@@ -162,13 +162,13 @@ tool_tip = "Use on enemies, deals physical damage depending on your %s."
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_jdctq")
+card_owner = SubResource("Resource_yk2ko")
 primary_stat = "muscle"
 secondary_stat = "finesse"
 icon_image = ExtResource("9_6yps7")
 card_skin = ExtResource("8_7gshq")
 
-[sub_resource type="Resource" id="Resource_yvmym"]
+[sub_resource type="Resource" id="Resource_uamky"]
 resource_local_to_scene = true
 script = ExtResource("7_v0q5i")
 stats = {
@@ -181,7 +181,7 @@ stats = {
 "nuance": 0
 }
 
-[sub_resource type="Resource" id="Resource_mym4e"]
+[sub_resource type="Resource" id="Resource_cw7wt"]
 resource_local_to_scene = true
 script = ExtResource("10_ldags")
 card_name = "Magic Attack"
@@ -194,13 +194,13 @@ tool_tip = "Use on enemies, deals magical damage depending on your %s."
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_yvmym")
+card_owner = SubResource("Resource_uamky")
 primary_stat = "knowledge"
 secondary_stat = "nuance"
 icon_image = ExtResource("14_kfqxp")
 card_skin = ExtResource("8_7gshq")
 
-[sub_resource type="Resource" id="Resource_lkxk6"]
+[sub_resource type="Resource" id="Resource_e3tup"]
 resource_local_to_scene = true
 script = ExtResource("16_y3n87")
 token_resource = ExtResource("17_71wsq")
@@ -214,7 +214,7 @@ tool_tip = "Prevents magical damage this turn based on your %s. Ward dissapears 
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = true
-card_owner = SubResource("Resource_myil5")
+card_owner = SubResource("Resource_uswmu")
 primary_stat = "nuance"
 secondary_stat = "knowledge"
 icon_image = ExtResource("15_cjvro")
@@ -265,7 +265,7 @@ modifiers = NodePath("../Modifiers")
 [node name="StatsNode" parent="." instance=ExtResource("5_b3p2f")]
 
 [node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("6_s84ip")]
-deck = Array[ExtResource("6_g68ne")]([SubResource("Resource_86e3i"), SubResource("Resource_86e3i"), SubResource("Resource_uohfq"), SubResource("Resource_81410"), SubResource("Resource_kwd2l"), SubResource("Resource_kwd2l"), SubResource("Resource_kwd2l"), SubResource("Resource_86e3i"), SubResource("Resource_mym4e"), SubResource("Resource_81410"), SubResource("Resource_lkxk6")])
+deck = Array[ExtResource("6_g68ne")]([SubResource("Resource_t0owq"), SubResource("Resource_t0owq"), SubResource("Resource_y41er"), SubResource("Resource_1kuw7"), SubResource("Resource_cht5m"), SubResource("Resource_cht5m"), SubResource("Resource_cht5m"), SubResource("Resource_t0owq"), SubResource("Resource_cw7wt"), SubResource("Resource_1kuw7"), SubResource("Resource_e3tup")])
 stats_node = NodePath("../StatsNode")
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("9_nsbm0")]
