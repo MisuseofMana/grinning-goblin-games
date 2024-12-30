@@ -1,6 +1,5 @@
 extends Control
 
-@onready var overlap_detection = $Card/OverlapDetection
 @onready var card : CardComponent = $Card
 
 const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
@@ -39,11 +38,11 @@ func returnCardToOrigin():
 	create_tween().tween_property(self, "position", card_origin, SPEED)
 	is_dragging = false
 	
-func overlaps_changed(overlaps : Array[Area2D]):
-	if overlaps.size():
-		target = overlaps[0]
-	if target.owner is UnitSprite:
-	elif target.owner is CardComponent:
+#func overlaps_changed(overlaps : Array[Area2D]):
+	#if overlaps.size():
+		#target = overlaps[0]
+	#if target.owner is UnitSprite:
+	#elif target.owner is CardComponent:
 
 func _on_mouse_entered():
 	if not is_dragging:

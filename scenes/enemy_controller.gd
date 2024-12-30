@@ -11,6 +11,11 @@ signal set_card_owner(owner : Unit)
 signal set_card_stats(stats : CardStats)
 signal all_enemies_died()
 
+func _ready():
+#	remove testing enemies from enemies node
+	for testEnemy in get_children():
+		testEnemy.queue_free()
+
 func set_up_enemies(enemyArray : Array[UnitStats]):
 	for unitstat in enemyArray:
 		print(unitstat)

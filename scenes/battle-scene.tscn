@@ -228,6 +228,7 @@ hand_of_cards = NodePath("HandOfCards")
 enemy_logic = NodePath("Enemies")
 
 [node name="FlavorAssets" type="Node2D" parent="."]
+visible = false
 
 [node name="Node2D" type="Node2D" parent="FlavorAssets"]
 
@@ -261,7 +262,7 @@ position = Vector2(-10, 0)
 position = Vector2(581, 155)
 
 [node name="Second" type="Marker2D" parent="EnemyMarkers"]
-position = Vector2(500, 171)
+position = Vector2(500, 161)
 
 [node name="Third" type="Marker2D" parent="EnemyMarkers"]
 position = Vector2(422, 155)

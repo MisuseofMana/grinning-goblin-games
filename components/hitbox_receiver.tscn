@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://fkpnfc8tmhkj"]
-
-[ext_resource type="Script" path="res://components/units/recieve_card.gd" id="1_8w2hy"]
-
-[node name="HitboxReceiver" type="Area2D"]
-collision_layer = 0
-monitorable = false
-script = ExtResource("1_8w2hy")
