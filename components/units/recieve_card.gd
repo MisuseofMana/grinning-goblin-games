@@ -1,5 +1,14 @@
 extends Area2D
 
-func check_card_compatibility(area : Area2D):
-	print(area)
-	return 
+signal new_overlap_acquired(target)
+
+var overlapping_areas : Array[Area2D]
+
+func handle_new_overlap(area : Area2D):
+	overlapping_areas.push_front(area)
+	new_overlap_acquired.emit(overlapping_areas[0])
+
+func handle_remove_overlap(area : Area2D):
+	overlapping_areas.erase(area)
+	if overlapping_areas.size():
+		new_overlap_acquired.emit(overlapping_areas[0])

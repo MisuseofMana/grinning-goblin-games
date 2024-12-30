@@ -40,12 +40,10 @@ func returnCardToOrigin():
 	is_dragging = false
 	
 func overlaps_changed(overlaps : Array[Area2D]):
-	target = overlaps[0]
-	print(target.owner)
+	if overlaps.size():
+		target = overlaps[0]
 	if target.owner is UnitSprite:
-		print('unit overlap')
 	elif target.owner is CardComponent:
-		print('card overlap')
 
 func _on_mouse_entered():
 	if not is_dragging:

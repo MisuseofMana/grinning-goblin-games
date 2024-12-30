@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dkrt4twau3rbt"]
+[gd_scene load_steps=10 format=3 uid="uid://dkrt4twau3rbt"]
 
 [ext_resource type="Script" path="res://components/cards/draggable_card.gd" id="1_c01rp"]
 [ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card.tscn" id="2_pf1w1"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="4_wclge"]
 [ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="5_rclin"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/healing_card.gd" id="6_0yxrx"]
-[ext_resource type="Script" path="res://components/cards/overlap_detection.gd" id="7_owxpd"]
+[ext_resource type="PackedScene" uid="uid://c0mo5kh8r0wm6" path="res://components/hitbox_sender.tscn" id="7_6x07m"]
 
 [sub_resource type="Resource" id="Resource_mtxxy"]
 resource_local_to_scene = true
@@ -40,9 +40,6 @@ secondary_stat = "knowledge"
 icon_image = ExtResource("5_rclin")
 card_skin = ExtResource("4_wclge")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gkkwj"]
-size = Vector2(187.908, 252.069)
-
 [node name="DraggableCard" type="Control"]
 layout_mode = 3
 anchors_preset = 0
@@ -53,21 +50,10 @@ metadata/_edit_group_ = true
 layout_mode = 1
 card_stats = SubResource("Resource_pd3oe")
 
-[node name="OverlapDetection" type="Area2D" parent="Card"]
-position = Vector2(96.0422, 126.189)
-collision_layer = 0
-monitorable = false
-script = ExtResource("7_owxpd")
-
-[node name="CardCollision" type="CollisionShape2D" parent="Card/OverlapDetection"]
-position = Vector2(-0.000732422, 2)
-shape = SubResource("RectangleShape2D_gkkwj")
+[node name="HitboxSender" parent="Card" instance=ExtResource("7_6x07m")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [connection signal="gui_input" from="." to="." method="event_on_card"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
-[connection signal="area_entered" from="Card/OverlapDetection" to="Card/OverlapDetection" method="overlap_something"]
-[connection signal="area_exited" from="Card/OverlapDetection" to="Card/OverlapDetection" method="unoverlap_something"]
-[connection signal="overlaps_changed" from="Card/OverlapDetection" to="." method="overlaps_changed"]

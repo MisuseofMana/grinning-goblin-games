@@ -7,11 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://b0spuyowpthca" path="res://components/deck_node.tscn" id="5_rtdee"]
 [ext_resource type="Script" path="res://scenes/unit_sprite.gd" id="6_hd08x"]
 [ext_resource type="PackedScene" uid="uid://bx3b6tvvx5et5" path="res://components/units/battle_readout.tscn" id="8_e6p4e"]
-[ext_resource type="Script" path="res://components/units/recieve_card.gd" id="8_fnxs7"]
 [ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="8_l5ca6"]
 [ext_resource type="Texture2D" uid="uid://dohmn7ea4wnen" path="res://art/cards/card_art/goblin/goblin_bite.png" id="9_q4gue"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="10_loe31"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/damaging_card.gd" id="10_piqgh"]
+[ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/hitbox_receiver.tscn" id="12_vlbf6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kstin"]
 atlas = ExtResource("1_4x88u")
@@ -56,7 +56,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_bl1jn"]
+[sub_resource type="Resource" id="Resource_4wm4y"]
 resource_local_to_scene = true
 script = ExtResource("10_piqgh")
 card_name = "Bite Down"
@@ -74,9 +74,9 @@ secondary_stat = ""
 icon_image = ExtResource("9_q4gue")
 card_skin = ExtResource("8_l5ca6")
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h3v3b"]
-radius = 15.0
-height = 54.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yawj0"]
+radius = 16.5
+height = 56.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b3rmo"]
 lifetime_randomness = 0.2
@@ -123,7 +123,7 @@ nuance = 0
 is_friendly = false
 
 [node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("5_rtdee")]
-deck = Array[ExtResource("10_loe31")]([SubResource("Resource_bl1jn")])
+deck = Array[ExtResource("10_loe31")]([SubResource("Resource_4wm4y")])
 stats_node = NodePath("../StatsNode")
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("8_e6p4e")]
@@ -134,13 +134,11 @@ offset_bottom = -26.5
 stats = NodePath("../StatsNode")
 health = NodePath("../HealthNode")
 
-[node name="Hitbox" type="Area2D" parent="."]
-collision_layer = 0
-monitorable = false
-script = ExtResource("8_fnxs7")
+[node name="HitboxReceiver" parent="." instance=ExtResource("12_vlbf6")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource("CapsuleShape2D_h3v3b")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxReceiver"]
+position = Vector2(-1.5, 0)
+shape = SubResource("CapsuleShape2D_yawj0")
 
 [node name="UnitParticles" type="GPUParticles2D" parent="."]
 scale = Vector2(0.336442, 1e-05)
@@ -155,5 +153,3 @@ root_node = NodePath("")
 libraries = {
 "": SubResource("AnimationLibrary_ibgll")
 }
-
-[connection signal="area_entered" from="Hitbox" to="Hitbox" method="check_card_compatibility"]
