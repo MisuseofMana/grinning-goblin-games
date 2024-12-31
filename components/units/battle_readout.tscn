@@ -35,6 +35,6 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(40, 5)
 layout_mode = 2
 theme = SubResource("Theme_sk5jr")
-max_value = 0.0
+max_value = 50.0
 step = 1.0
 show_percentage = false

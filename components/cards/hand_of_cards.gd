@@ -49,10 +49,10 @@ func addCardToHand(cardResource: CardStats):
 	newFollowNode.add_child(newCard)
 	newCard.set_card_stats(cardResource)
 	
-	#newCard.card_discarded.connect(putCardInDiscard)
-	#newCard.card_burnt.connect(putCardInBurnPile)
-	#newCard.reduce_action_points.connect(reduceActionPointsBy)
-	#newCard.tree_exited.connect(updateAllCardPositions)
+	newCard.card_discarded.connect(putCardInDiscard)
+	newCard.card_burnt.connect(putCardInBurnPile)
+	newCard.action_points_reduced_by.connect(reduceActionPointsBy)
+	newCard.tree_exited.connect(updateAllCardPositions)
 	
 	updateAllCardPositions()
 	#changeCardAvailibilty(newCard)

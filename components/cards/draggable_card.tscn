@@ -41,7 +41,7 @@ icon_image = ExtResource("5_rclin")
 card_skin = ExtResource("4_wclge")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7cvqo"]
-size = Vector2(90, 119)
+size = Vector2(57, 84)
 
 [node name="DraggableCard" type="Control"]
 layout_mode = 3
@@ -56,7 +56,7 @@ card_stats = SubResource("Resource_pd3oe")
 [node name="TwoWayDetection" parent="." instance=ExtResource("7_pm1nj")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]
-position = Vector2(2, -63.5)
+position = Vector2(1.5, -61)
 shape = SubResource("RectangleShape2D_7cvqo")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -64,3 +64,4 @@ shape = SubResource("RectangleShape2D_7cvqo")
 [connection signal="gui_input" from="." to="." method="event_on_card"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="new_overlap_acquired" from="TwoWayDetection" to="." method="check_drop_spot_validity"]

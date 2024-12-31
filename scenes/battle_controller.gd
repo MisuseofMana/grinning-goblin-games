@@ -57,6 +57,7 @@ func runPhase(phase: TurnPhases):
 				var newMonster : PackedScene = monsters[currentLocation].pick_random()
 				var monsterNode = newMonster.instantiate()
 				monsterNode.position = enemy_markers.get_child(number).position
+				monsterNode.name = 'Enemy_' + str(number)
 				enemies.add_child(monsterNode)
 			runPlayerTurn()
 		TurnPhases.START_PLAYERS_TURN:

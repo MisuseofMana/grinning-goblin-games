@@ -4,7 +4,22 @@ class_name UnitSprite
 
 @export var anims : AnimationPlayer
 @export var deck : DeckNode
+@export var health : HealthNode
+@export var stats : StatsNode
 
-func _on_health_node_died():
-	print('you died')
-	pass # Replace with function body.
+func die():
+	if stats.is_self:
+		print('game over')
+	else:
+		anims.play('death_animation')
+		
+func takeDamage(howMuch):
+	health.take_damage(howMuch)
+	
+func addToHealth(howMuch):
+	health.heal(howMuch)
+	
+func take_turn():
+	print('take_turn is not overwritten')
+	pass
+	

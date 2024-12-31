@@ -228,7 +228,6 @@ hand_of_cards = NodePath("HandOfCards")
 enemy_logic = NodePath("Enemies")
 
 [node name="FlavorAssets" type="Node2D" parent="."]
-visible = false
 
 [node name="Node2D" type="Node2D" parent="FlavorAssets"]
 

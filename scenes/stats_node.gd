@@ -11,3 +11,4 @@ class_name StatsNode
 @export var debuffs : Dictionary = {}
 
 @export var is_friendly : bool
+@export var is_self : bool
