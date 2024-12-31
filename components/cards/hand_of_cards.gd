@@ -117,7 +117,3 @@ func changeCardAvailibilty(cardNode):
 		cardNode.undraggable = true
 		cardNode.z_index = 0
 		create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -50), 0.2)
-
-func overlap_something(area):
-	print(area)
-	pass # Replace with function body.

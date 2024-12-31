@@ -31,6 +31,10 @@ func _physics_process(delta):
 		create_tween().tween_property(self, "global_position", get_global_mouse_position() + Vector2(0, card.size.y / 4), delay * delta)
 
 func check_drop_spot_validity(area):
+	if area == null :
+		create_tween().tween_property(self, "modulate", Color(1,1,1), SPEED)
+		return
+		
 	target = area.owner
 	if card.card_stats.targets_self == area.owner.stats.is_friendly:
 		create_tween().tween_property(self, "modulate", Color(0, 0.941, 0.376), SPEED)

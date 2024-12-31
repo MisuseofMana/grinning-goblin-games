@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bcxxmjp1ch5pq"]
+[gd_scene load_steps=25 format=3 uid="uid://bcxxmjp1ch5pq"]
 
 [ext_resource type="Texture2D" uid="uid://o3k7tcneumyw" path="res://art/sprites/player/idle.png" id="1_mgs54"]
 [ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="3_hnclq"]
@@ -7,8 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://ctud24sf1fqks" path="res://components/stats_node.tscn" id="5_b3p2f"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="6_g68ne"]
 [ext_resource type="PackedScene" uid="uid://b0spuyowpthca" path="res://components/deck_node.tscn" id="6_s84ip"]
-[ext_resource type="Resource" uid="uid://c534yv87m0b1" path="res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres" id="8_kvntr"]
+[ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="8_gfvld"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="9_8dy76"]
 [ext_resource type="PackedScene" uid="uid://bx3b6tvvx5et5" path="res://components/units/battle_readout.tscn" id="9_nsbm0"]
+[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="10_hd8o6"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/damaging_card.gd" id="11_uit7a"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/card_and_unit_area_detection.tscn" id="21_nqyrs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6avc0"]
@@ -53,6 +56,38 @@ animations = [{
 "name": &"idle",
 "speed": 5.0
 }]
+
+[sub_resource type="Resource" id="Resource_vrd4y"]
+resource_local_to_scene = true
+script = ExtResource("8_gfvld")
+stats = {
+"endurance": 4,
+"finesse": 3,
+"health": 50,
+"knowledge": 0,
+"max_health": 50,
+"muscle": 5,
+"nuance": 0
+}
+
+[sub_resource type="Resource" id="Resource_ycjvg"]
+resource_local_to_scene = true
+script = ExtResource("11_uit7a")
+card_name = "Basic Attack"
+one_use = false
+targets_self = false
+base_value = 5
+play_cost = 1
+card_description = "Deals %s physical dmg to target"
+tool_tip = "Use on enemies, deals physical damage depending on your %s."
+debuff_value = 0
+hide_cost = false
+can_use_to_respond = false
+card_owner = SubResource("Resource_vrd4y")
+primary_stat = "muscle"
+secondary_stat = "finesse"
+icon_image = ExtResource("10_hd8o6")
+card_skin = ExtResource("9_8dy76")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7bv7s"]
 radius = 11.0
@@ -103,7 +138,7 @@ modifiers = NodePath("../Modifiers")
 [node name="StatsNode" parent="." instance=ExtResource("5_b3p2f")]
 
 [node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("6_s84ip")]
-deck = Array[ExtResource("6_g68ne")]([ExtResource("8_kvntr"), ExtResource("8_kvntr"), ExtResource("8_kvntr"), ExtResource("8_kvntr"), ExtResource("8_kvntr"), ExtResource("8_kvntr"), ExtResource("8_kvntr"), ExtResource("8_kvntr"), ExtResource("8_kvntr")])
+deck = Array[ExtResource("6_g68ne")]([SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg")])
 stats_node = NodePath("../StatsNode")
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("9_nsbm0")]

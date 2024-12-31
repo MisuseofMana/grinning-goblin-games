@@ -19,7 +19,6 @@ func _ready():
 func take_damage(value):
 	var howMuch = value
 	while howMuch > 0:
-		print(howMuch)
 		await get_tree().create_timer(0.1).timeout
 		howMuch -= 1
 		hit_points -= clampi(1, 0, max_hit_points)

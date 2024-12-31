@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cr33bga3fetxx"]
+[gd_scene load_steps=24 format=3 uid="uid://cr33bga3fetxx"]
 
 [ext_resource type="Texture2D" uid="uid://ctx6vlhujj8sk" path="res://art/sprites/goblin/idle.png" id="1_4x88u"]
 [ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="3_eafw4"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="10_loe31"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/damaging_card.gd" id="10_piqgh"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/card_and_unit_area_detection.tscn" id="12_vlbf6"]
+[ext_resource type="PackedScene" uid="uid://34o105ivvj6t" path="res://target_indicator.tscn" id="13_w37tv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kstin"]
 atlas = ExtResource("1_4x88u")
@@ -56,7 +57,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_awpu6"]
+[sub_resource type="Resource" id="Resource_6is52"]
 resource_local_to_scene = true
 script = ExtResource("10_piqgh")
 card_name = "Bite Down"
@@ -110,7 +111,6 @@ anims = NodePath("AnimationPlayer")
 deck = NodePath("DeckNode")
 health = NodePath("HealthNode")
 stats = NodePath("StatsNode")
-metadata/_edit_group_ = true
 
 [node name="Modifiers" parent="." instance=ExtResource("3_eafw4")]
 
@@ -127,7 +127,7 @@ nuance = 0
 is_friendly = false
 
 [node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("5_rtdee")]
-deck = Array[ExtResource("10_loe31")]([SubResource("Resource_awpu6")])
+deck = Array[ExtResource("10_loe31")]([SubResource("Resource_6is52")])
 stats_node = NodePath("../StatsNode")
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("8_e6p4e")]
@@ -158,4 +158,9 @@ libraries = {
 "": SubResource("AnimationLibrary_ibgll")
 }
 
+[node name="TargetIndicator" parent="." instance=ExtResource("13_w37tv")]
+visible = false
+
 [connection signal="health_updated" from="HealthNode" to="BattleReadout" method="update_readout"]
+[connection signal="area_entered" from="TwoWayDetection" to="TargetIndicator" method="became_target"]
+[connection signal="target_has_changed" from="TwoWayDetection" to="TargetIndicator" method="_on_two_way_detection_target_has_changed"]
