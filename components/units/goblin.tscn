@@ -57,7 +57,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_6is52"]
+[sub_resource type="Resource" id="Resource_x21nc"]
 resource_local_to_scene = true
 script = ExtResource("10_piqgh")
 card_name = "Bite Down"
@@ -127,7 +127,7 @@ nuance = 0
 is_friendly = false
 
 [node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("5_rtdee")]
-deck = Array[ExtResource("10_loe31")]([SubResource("Resource_6is52")])
+deck = Array[ExtResource("10_loe31")]([SubResource("Resource_x21nc")])
 stats_node = NodePath("../StatsNode")
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("8_e6p4e")]
@@ -158,7 +158,7 @@ libraries = {
 "": SubResource("AnimationLibrary_ibgll")
 }
 
-[node name="TargetIndicator" parent="." instance=ExtResource("13_w37tv")]
+[node name="TargetIndicator" parent="." groups=["target_indicators"] instance=ExtResource("13_w37tv")]
 visible = false
 
 [connection signal="health_updated" from="HealthNode" to="BattleReadout" method="update_readout"]

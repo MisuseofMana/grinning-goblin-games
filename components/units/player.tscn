@@ -57,7 +57,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_vrd4y"]
+[sub_resource type="Resource" id="Resource_grarr"]
 resource_local_to_scene = true
 script = ExtResource("8_gfvld")
 stats = {
@@ -70,7 +70,7 @@ stats = {
 "nuance": 0
 }
 
-[sub_resource type="Resource" id="Resource_ycjvg"]
+[sub_resource type="Resource" id="Resource_y6fqj"]
 resource_local_to_scene = true
 script = ExtResource("11_uit7a")
 card_name = "Basic Attack"
@@ -83,7 +83,7 @@ tool_tip = "Use on enemies, deals physical damage depending on your %s."
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_vrd4y")
+card_owner = SubResource("Resource_grarr")
 primary_stat = "muscle"
 secondary_stat = "finesse"
 icon_image = ExtResource("10_hd8o6")
@@ -138,7 +138,7 @@ modifiers = NodePath("../Modifiers")
 [node name="StatsNode" parent="." instance=ExtResource("5_b3p2f")]
 
 [node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("6_s84ip")]
-deck = Array[ExtResource("6_g68ne")]([SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg"), SubResource("Resource_ycjvg")])
+deck = Array[ExtResource("6_g68ne")]([SubResource("Resource_y6fqj"), SubResource("Resource_y6fqj"), SubResource("Resource_y6fqj"), SubResource("Resource_y6fqj"), SubResource("Resource_y6fqj"), SubResource("Resource_y6fqj"), SubResource("Resource_y6fqj"), SubResource("Resource_y6fqj"), SubResource("Resource_y6fqj")])
 stats_node = NodePath("../StatsNode")
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("9_nsbm0")]
