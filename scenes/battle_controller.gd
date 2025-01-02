@@ -67,9 +67,9 @@ func runPhase(phase: TurnPhases):
 			var cardsDrawn : Array[CardStats] = player.deck.draw_hand_size()
 			for cardStats in cardsDrawn:
 				hand_of_cards.addCardToHand(cardStats)
-			#hand_of_cards.changeAllCardAvailability()
+			hand_of_cards.changeAllCardAvailability()
 		TurnPhases.ENEMIES_TURN:
-			await showTurnSwap("Enemy Turn")
+			showTurnSwap("Enemy Turn")
 			players_turn = false
 			hand_of_cards.changeAllCardAvailability()
 			enemy_logic.startEnemyPhase()

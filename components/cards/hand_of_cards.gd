@@ -22,7 +22,7 @@ var action_points_remaining : int = 3 :
 var discardArray : Array = []
 var burnArray : Array = []
 
-signal action_points_depleted()
+signal end_player_turn()
 
 func _ready():
 #	clear out the test cards in the arc
@@ -51,11 +51,12 @@ func addCardToHand(cardResource: CardStats):
 	
 	newCard.card_discarded.connect(putCardInDiscard)
 	newCard.card_burnt.connect(putCardInBurnPile)
-	newCard.action_points_reduced_by.connect(reduceActionPointsBy)
+	newCard.card_used.connect(reduceActionPointsBy)
 	newCard.tree_exited.connect(updateAllCardPositions)
-	
+	newCard.tree_exited.connect(checkForValidPlayerActions)
+
 	updateAllCardPositions()
-	#changeCardAvailibilty(newCard)
+	changeCardAvailibilty(newCard)
 
 func putCardInDiscard(cardStats : CardStats):
 	discardArray.append(cardStats)
@@ -70,36 +71,38 @@ func discardHand():
 		await self.get_tree().create_timer(0.2).timeout
 		followPath.get_child(0).goToDiscard()
 
-func useable(cardNode : CardComponent):
-	if cardNode.card_stats.play_cost > action_points_remaining:
+func useable(cardNode : DraggableCard):
+	if cardNode.card.card_stats.play_cost > action_points_remaining:
 		return false
-	var canUseAsResponse = not battleScene.players_turn and cardNode.card_stats.can_use_to_respond
-	var canUseOnTurn = not cardNode.card_stats.can_use_to_respond and battleScene.players_turn
+	var canUseAsResponse = not battleScene.players_turn and cardNode.card.card_stats.can_use_to_respond
+	var canUseOnTurn = not cardNode.card.card_stats.can_use_to_respond and battleScene.players_turn
 	return canUseAsResponse or canUseOnTurn
 	
-func reduceActionPointsBy(howMany):
-	action_points_remaining -= howMany
+func reduceActionPointsBy(dragCard: DraggableCard):
+	var card_stats : CardStats = dragCard.card.card_stats
+	dragCard.get_parent().queue_free()
+	action_points_remaining -= card_stats.play_cost
 	action_points_counter.text = str(action_points_remaining)
 	ap_particles.emitting = true
-	if action_points_remaining <= 0:
-		action_points_depleted.emit()
+	checkForValidPlayerActions()
 		
-func playerHasCardsThatCanBeUsed():
+func checkForValidPlayerActions():
 	if action_points_remaining <= 0:
-		return false
+		end_player_turn.emit()
 	for followNode in card_arc.get_children():
 		var cardNode = followNode.get_child(0)
 		if useable(cardNode) == true:
-			return true
+			return
+	end_player_turn.emit()
 
 func updateAllCardPositions():
 	var numberOfCards = card_arc.get_children().size()
 	var path_division = 1.0 / (numberOfCards + 1.0)
 	var pos_incrementer = path_division
+	paper_sound.play()
 	for followPath in card_arc.get_children():
 		create_tween().tween_property(followPath, "progress_ratio", path_division, 0.4)
 		create_tween().tween_property(followPath.get_child(0), "scale", Vector2(1,1), 0.4)
-		paper_sound.play()
 		path_division += pos_incrementer
 
 func changeAllCardAvailability():
@@ -111,9 +114,9 @@ func changeCardAvailibilty(cardNode):
 	if useable(cardNode):
 		cardNode.modulate = Color(1, 1, 1)
 		cardNode.undraggable = false
-		create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -64), 0.2)
+		create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, 0), 0.2)
 	else:
 		cardNode.modulate = Color(0.2, 0.2, 0.2)
 		cardNode.undraggable = true
 		cardNode.z_index = 0
-		create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -50), 0.2)
+		create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, 20), 0.2)

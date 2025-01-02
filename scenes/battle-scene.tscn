@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=40 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://bu305i6xvayai" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://scenes/xp_bar.gd" id="13_5jlb7"]
 [ext_resource type="Texture2D" uid="uid://crxrqibwaskm6" path="res://art/ui/xp_bar_dot.png" id="13_65iss"]
 [ext_resource type="Script" path="res://scenes/debug_bar.gd" id="13_di01h"]
+[ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/card_and_unit_area_detection.tscn" id="13_w1168"]
 [ext_resource type="Texture2D" uid="uid://cjqknwpldyhi7" path="res://art/ui/ui-slot.png" id="14_65f5q"]
 [ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cards/hand_of_cards.tscn" id="15_6uhf2"]
 [ext_resource type="PackedScene" uid="uid://cr33bga3fetxx" path="res://components/units/goblin.tscn" id="15_62nu6"]
@@ -61,11 +62,11 @@ _data = {
 
 [sub_resource type="Curve2D" id="Curve2D_catov"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -402, 121, -133.897, 40.816, 133.897, -40.816, -174, 168, 0, 0, 0, 0, 24, 18)
+"points": PackedVector2Array(0, 0, 0, 0, 16, -30, 148.518, -36.6922, -148.518, 36.6922, -155, 125, 0, 0, 0, 0, -379, 125)
 }
 point_count = 3
 
-[sub_resource type="Resource" id="Resource_l1lho"]
+[sub_resource type="Resource" id="Resource_gck0d"]
 resource_local_to_scene = true
 script = ExtResource("9_gjyky")
 stats = {
@@ -78,7 +79,7 @@ stats = {
 "nuance": 0
 }
 
-[sub_resource type="Resource" id="Resource_g3shs"]
+[sub_resource type="Resource" id="Resource_w5e7p"]
 resource_local_to_scene = true
 script = ExtResource("12_6ieyv")
 card_name = "Basic Heal"
@@ -91,28 +92,46 @@ tool_tip = "Restore health up to your maximum limit, healing increases based on 
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_l1lho")
+card_owner = SubResource("Resource_gck0d")
 primary_stat = "nuance"
 secondary_stat = "knowledge"
 icon_image = ExtResource("11_psplo")
 card_skin = ExtResource("10_iohac")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rdevo"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ayava"]
+size = Vector2(161.302, 237.535)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ntyxr"]
+resource_local_to_scene = true
 lifetime_randomness = 0.5
 particle_flag_disable_z = true
-emission_shape_scale = Vector3(30, 30, 1)
+emission_shape_scale = Vector3(20, 30, 1)
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 0, 0)
 spread = 50.0
-initial_velocity_min = 10.0
-initial_velocity_max = 20.0
-radial_velocity_min = -10.0
-radial_velocity_max = 100.0
+initial_velocity_min = -180.0
+initial_velocity_max = 180.0
 gravity = Vector3(0, -100, 0)
-radial_accel_min = -2.23517e-06
-radial_accel_max = 100.0
-scale_max = 10.0
-color = Color(0.978934, 0.448088, 9.62615e-07, 1)
+scale_max = 8.0
+scale_over_velocity_max = 1.0
+color = Color(1, 0.314833, 0.727129, 1)
+hue_variation_min = 0.00999998
+hue_variation_max = 0.1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rkyu8"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(45, 30, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, 20, 0)
+spread = 15.0
+gravity = Vector3(0, 200, 0)
+scale_max = 4.0
+color = Color(0.671925, 0.518977, 1, 1)
+hue_variation_min = 0.00999998
+hue_variation_max = 0.1
 
 [sub_resource type="Animation" id="Animation_cljky"]
 length = 0.001
@@ -126,12 +145,12 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [1.0]
+"values": [0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Path2D/PathFollow2D/GPUParticles2D:emitting")
+tracks/1/path = NodePath("Path2D/PathFollow2D/Evaporate:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -140,10 +159,58 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Path2D/PathFollow2D/Card:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Path2D/PathFollow2D/Card:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.349066]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Path2D/PathFollow2D/Debuff:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Path2D/PathFollow2D/Card/TwoWayDetection/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_tf18c"]
 resource_name = "evaporate"
-length = 0.6
+length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -154,19 +221,31 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(0.5),
 "update": 0,
-"values": [0.0]
+"values": [1.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Path2D/PathFollow2D/GPUParticles2D:emitting")
+tracks/1/path = NodePath("Path2D/PathFollow2D/Evaporate:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.166667),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Path2D/PathFollow2D/Card:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 2),
+"update": 0,
+"values": [Vector2(0.507593, 0.507593), Vector2(0.6, 0.5), Vector2(1e-05, 0.5)]
 }
 
 [sub_resource type="Animation" id="Animation_wmbit"]
@@ -182,7 +261,43 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(2, 0.5),
 "update": 0,
-"values": [1.0, 0.0]
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path2D/PathFollow2D/Card:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.5), Vector2(0.411, 0.6), Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Path2D/PathFollow2D/Card:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.349066, 0.174533, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Path2D/PathFollow2D/Card/TwoWayDetection/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="Animation" id="Animation_jcxoy"]
@@ -199,12 +314,65 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path2D/PathFollow2D/Card:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0174533, 0.0, 0.0174533, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Path2D/PathFollow2D/Card:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.51, 0.51), Vector2(0.51, 0.51), Vector2(0.51, 0.51), Vector2(0.5, 0.5)]
+}
+
+[sub_resource type="Animation" id="Animation_gyg8v"]
+resource_name = "debuff"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D/Debuff:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path2D/PathFollow2D/Card:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.55, 0.49), Vector2(0.5, 0.55), Vector2(0.5, 0.5)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gvsxv"]
 _data = {
 "RESET": SubResource("Animation_cljky"),
+"debuff": SubResource("Animation_gyg8v"),
 "evaporate": SubResource("Animation_tf18c"),
 "fly_in": SubResource("Animation_wmbit"),
 "hover": SubResource("Animation_jcxoy")
@@ -276,33 +444,51 @@ position = Vector2(509, 164)
 frame = 1
 frame_progress = 0.418115
 
-[node name="EnemyCardContainer" type="Node2D" parent="."]
+[node name="EnemyCardContainer" type="Node2D" parent="." node_paths=PackedStringArray("playerUnit")]
 position = Vector2(700, -18)
 script = ExtResource("16_5f438")
+playerUnit = NodePath("../Player")
 
 [node name="Path2D" type="Path2D" parent="EnemyCardContainer"]
-position = Vector2(15, 2)
 curve = SubResource("Curve2D_catov")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="EnemyCardContainer/Path2D"]
-position = Vector2(24, 18)
-progress = 496.207
+position = Vector2(16, -30)
 rotates = false
 loop = false
 
 [node name="Card" parent="EnemyCardContainer/Path2D/PathFollow2D" instance=ExtResource("20_yae8r")]
-card_stats = SubResource("Resource_g3shs")
+rotation = 0.349066
+card_stats = SubResource("Resource_w5e7p")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="EnemyCardContainer/Path2D/PathFollow2D"]
+[node name="TwoWayDetection" parent="EnemyCardContainer/Path2D/PathFollow2D/Card" instance=ExtResource("13_w1168")]
+scale = Vector2(1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCardContainer/Path2D/PathFollow2D/Card/TwoWayDetection"]
+position = Vector2(96.3763, 127.841)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ayava")
+disabled = true
+
+[node name="Evaporate" type="GPUParticles2D" parent="EnemyCardContainer/Path2D/PathFollow2D"]
 z_index = 100
 z_as_relative = false
-position = Vector2(0.193237, 1.40096)
 emitting = false
 amount = 60
-process_material = SubResource("ParticleProcessMaterial_rdevo")
-lifetime = 0.6
+process_material = SubResource("ParticleProcessMaterial_ntyxr")
+lifetime = 0.5
 one_shot = true
 explosiveness = 0.5
+trail_lifetime = 0.6
+
+[node name="Debuff" type="GPUParticles2D" parent="EnemyCardContainer/Path2D/PathFollow2D"]
+z_index = 100
+z_as_relative = false
+position = Vector2(0, 39)
+amount = 60
+process_material = SubResource("ParticleProcessMaterial_rkyu8")
+lifetime = 0.3
+one_shot = true
 trail_lifetime = 0.6
 
 [node name="EnemyCardAnimations" type="AnimationPlayer" parent="EnemyCardContainer"]
@@ -312,10 +498,10 @@ libraries = {
 
 [node name="AcceptButton" type="Button" parent="EnemyCardContainer"]
 visible = false
-offset_left = -442.0
-offset_top = 193.0
-offset_right = -332.0
-offset_bottom = 214.0
+offset_left = -436.0
+offset_top = 206.0
+offset_right = -326.0
+offset_bottom = 227.0
 text = "Accept Effect"
 
 [node name="HandOfCards" parent="." node_paths=PackedStringArray("battleScene", "player") instance=ExtResource("15_6uhf2")]
@@ -516,6 +702,7 @@ disabled = true
 text = "Build Deck"
 
 [node name="TurnLabel" type="Label" parent="."]
+visible = false
 offset_left = 228.0
 offset_top = 98.0
 offset_right = 432.0
@@ -537,9 +724,14 @@ volume_db = -10.0
 autoplay = true
 
 [connection signal="animation_finished" from="FlavorAssets/AnimationPlayer" to="." method="animationHandler"]
+[connection signal="set_card_owner" from="Enemies" to="EnemyCardContainer" method="onOwnershipChange"]
+[connection signal="set_card_stats" from="Enemies" to="EnemyCardContainer" method="onCardUpdate"]
+[connection signal="show_accept_button" from="Enemies" to="EnemyCardContainer" method="showAcceptButton"]
 [connection signal="child_exiting_tree" from="EnemyCardContainer/Path2D" to="EnemyCardContainer/Path2D" method="_on_child_exiting_tree"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="Enemies" method="animationSequencer"]
+[connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="EnemyCardContainer" method="on_animation_finished"]
 [connection signal="pressed" from="EnemyCardContainer/AcceptButton" to="EnemyCardContainer" method="onCardAccept"]
+[connection signal="end_player_turn" from="HandOfCards" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="EndTurnButton" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="DebugBar/DebugToggle" to="DebugBar" method="_on_button_pressed"]
 [connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button2" to="HandOfCards" method="add_random_card_to_hand"]

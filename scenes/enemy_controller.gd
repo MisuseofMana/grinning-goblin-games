@@ -7,9 +7,9 @@ var allEnemies : Array[Node]
 
 signal show_accept_button()
 signal all_enemies_turn_over()
-signal set_card_owner(owner : Unit)
 signal set_card_stats(stats : CardStats)
 signal all_enemies_died()
+signal set_card_owner(cardOwner: UnitSprite)
 
 func _ready():
 #	remove testing enemies from enemies node
@@ -27,9 +27,9 @@ func startEnemyPhase():
 
 func startEnemiesTurn():
 	if allEnemies.size():
-		var randomCard : CardStats = allEnemies[0].unit_stats.deck.pick_random()
-		set_card_owner.emit(allEnemies[0])
+		var randomCard = allEnemies[0].deck.deck.pick_random()
 		set_card_stats.emit(randomCard)
+		set_card_owner.emit(allEnemies[0])
 		animations.play('fly_in')
 	else:
 		all_enemies_turn_over.emit()

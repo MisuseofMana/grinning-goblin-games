@@ -46,11 +46,13 @@ size = Vector2(57, 84)
 [node name="DraggableCard" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+size_flags_vertical = 8
 script = ExtResource("1_c01rp")
-metadata/_edit_group_ = true
 
 [node name="Card" parent="." instance=ExtResource("2_pf1w1")]
 layout_mode = 1
+offset_top = -192.0
+offset_bottom = 64.0
 card_stats = SubResource("Resource_pd3oe")
 
 [node name="TwoWayDetection" parent="." instance=ExtResource("7_pm1nj")]
