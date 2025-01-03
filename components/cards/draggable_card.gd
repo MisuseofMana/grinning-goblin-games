@@ -33,22 +33,24 @@ func _physics_process(delta):
 
 func check_drop_spot_validity(areas):
 	if areas.size():
-		target = areas[0].owner
-		if target is UnitSprite:
-			if card.card_stats.targets_self == target.stats.is_friendly:
+		target = areas[0]
+		if target.owner is UnitSprite:
+			print(card.card_stats.targets_self == target.owner.stats.is_friendly)
+			isValidTarget = card.card_stats.targets_self == target.owner.stats.is_friendly
+			if isValidTarget:
 				create_tween().tween_property(self, "modulate", Color(0, 0.941, 0.376), SPEED)
-				isValidTarget = true
 			else:
 				create_tween().tween_property(self, "modulate", Color(1, 0.435, 0.366), SPEED)
-				isValidTarget = false
-		elif target is Node2D:
+		elif target.get_parent() is CardComponent:
 			print('checking card compatibility')
-			#if card.card_stats.targets_self == target.stats.is_friendly:
-				#create_tween().tween_property(self, "modulate", Color(0, 0.941, 0.376), SPEED)
-				#isValidTarget = true
-			#else:
-				#create_tween().tween_property(self, "modulate", Color(1, 0.435, 0.366), SPEED)
-				#isValidTarget = false
+			var cardStats = target.get_parent().card_stats
+			print(cardStats.accepts_card_types)
+			print(card.card_stats.card_type)
+			isValidTarget = cardStats.accepts_card_types.has(card.card_stats.card_type)
+			if isValidTarget:
+				create_tween().tween_property(self, "modulate", Color(0, 0.941, 0.376), SPEED)
+			else:
+				create_tween().tween_property(self, "modulate", Color(1, 0.435, 0.366), SPEED)
 	if not areas.size():
 		create_tween().tween_property(self, "modulate", Color(1,1,1), SPEED)
 		isValidTarget = false
@@ -62,7 +64,10 @@ func event_on_card(event):
 			is_dragging = true
 		else:
 			if isValidTarget:
-				card.card_stats.card_effect(target)
+				if target.owner is UnitSprite:
+					card.card_stats.card_effect(target.owner)
+				elif target.get_parent() is CardComponent:
+					card.card_stats.card_effect(target.get_parent())
 				is_dragging = false
 				if card.card_stats.one_use:
 					card_burnt.emit(card.card_stats)

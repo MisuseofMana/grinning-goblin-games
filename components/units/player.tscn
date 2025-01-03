@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bcxxmjp1ch5pq"]
+[gd_scene load_steps=29 format=3 uid="uid://bcxxmjp1ch5pq"]
 
 [ext_resource type="Texture2D" uid="uid://o3k7tcneumyw" path="res://art/sprites/player/idle.png" id="1_mgs54"]
 [ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="3_hnclq"]
@@ -60,7 +60,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_nf6ip"]
+[sub_resource type="Resource" id="Resource_7jvpc"]
 resource_local_to_scene = true
 script = ExtResource("8_1vqgo")
 stats = {
@@ -73,7 +73,7 @@ stats = {
 "nuance": 0
 }
 
-[sub_resource type="Resource" id="Resource_tpbk2"]
+[sub_resource type="Resource" id="Resource_8b7sg"]
 resource_local_to_scene = true
 script = ExtResource("11_c8ufh")
 card_name = "Basic Attack"
@@ -85,27 +85,17 @@ card_description = "Deals %s physical dmg to target"
 tool_tip = "Use on enemies, deals physical damage depending on your %s."
 debuff_value = 0
 hide_cost = false
+can_use_whenever = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_nf6ip")
+card_owner = SubResource("Resource_7jvpc")
+accepts_card_types = Array[int]([])
+card_type = 0
 primary_stat = "muscle"
 secondary_stat = "finesse"
 icon_image = ExtResource("10_hh75t")
 card_skin = ExtResource("9_8vojt")
 
-[sub_resource type="Resource" id="Resource_36i5d"]
-resource_local_to_scene = true
-script = ExtResource("8_1vqgo")
-stats = {
-"endurance": 4,
-"finesse": 3,
-"health": 50,
-"knowledge": 0,
-"max_health": 50,
-"muscle": 5,
-"nuance": 0
-}
-
-[sub_resource type="Resource" id="Resource_lehmc"]
+[sub_resource type="Resource" id="Resource_5f44d"]
 resource_local_to_scene = true
 script = ExtResource("13_yo2wj")
 card_name = "Basic Defend"
@@ -117,8 +107,11 @@ card_description = "Prevent up to %s physical dmg"
 tool_tip = "Drop on an enemies physical attack card to reduce it's damage by up to %s"
 debuff_value = 0
 hide_cost = false
+can_use_whenever = false
 can_use_to_respond = true
-card_owner = SubResource("Resource_36i5d")
+card_owner = SubResource("Resource_7jvpc")
+accepts_card_types = Array[int]([])
+card_type = 2
 primary_stat = "endurance"
 secondary_stat = "muscle"
 icon_image = ExtResource("12_xpjfp")
@@ -172,7 +165,7 @@ modifiers = NodePath("../Modifiers")
 [node name="StatsNode" parent="." instance=ExtResource("5_b3p2f")]
 
 [node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("6_s84ip")]
-deck = Array[ExtResource("6_g68ne")]([SubResource("Resource_tpbk2"), SubResource("Resource_tpbk2"), SubResource("Resource_tpbk2"), SubResource("Resource_tpbk2"), SubResource("Resource_lehmc"), SubResource("Resource_lehmc"), SubResource("Resource_lehmc"), SubResource("Resource_lehmc"), SubResource("Resource_lehmc")])
+deck = Array[ExtResource("6_g68ne")]([SubResource("Resource_8b7sg"), SubResource("Resource_8b7sg"), SubResource("Resource_8b7sg"), SubResource("Resource_8b7sg"), SubResource("Resource_8b7sg"), SubResource("Resource_5f44d"), SubResource("Resource_5f44d"), SubResource("Resource_5f44d"), SubResource("Resource_5f44d"), SubResource("Resource_5f44d")])
 stats_node = NodePath("../StatsNode")
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("9_nsbm0")]
@@ -191,6 +184,7 @@ position = Vector2(-96.0422, -126.189)
 shape = SubResource("CapsuleShape2D_7bv7s")
 
 [node name="Sprite2D" parent="." instance=ExtResource("14_aoeqe")]
+visible = false
 position = Vector2(0, -59)
 
 [node name="UnitParticles" type="GPUParticles2D" parent="."]

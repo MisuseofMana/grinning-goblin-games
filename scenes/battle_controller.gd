@@ -41,6 +41,7 @@ var monsters : Dictionary = {
 
 enum TurnPhases {
 	START_NEW_ENCOUNTER,
+	PLAYER_UPKEEP,
 	START_PLAYERS_TURN,
 	ENEMIES_TURN,
 	GO_TO_NEXT_ENCOUNTER
@@ -51,6 +52,9 @@ func _ready():
 	
 func runEnemiesTurn():
 	runPhase(TurnPhases.ENEMIES_TURN)
+
+func runPlayerUpkeep():
+	runPhase(TurnPhases.PLAYER_UPKEEP)
 
 func runPlayerTurn():
 	runPhase(TurnPhases.START_PLAYERS_TURN)
@@ -65,6 +69,9 @@ func runPhase(phase: TurnPhases):
 				monsterNode.position = enemy_markers.get_child(number).position
 				monsterNode.name = 'Enemy_' + str(number)
 				enemies.add_child(monsterNode)
+			runPlayerTurn()
+		TurnPhases.PLAYER_UPKEEP:
+			hand_of_cards.discardHand()
 			runPlayerTurn()
 		TurnPhases.START_PLAYERS_TURN:
 			showTurnSwap("Your Turn")
@@ -87,7 +94,7 @@ func showTurnSwap(text):
 	turn_label.text = text
 	turn_change_sound.play()
 	turn_label.show()
-	await battle_scene.get_tree().create_timer(0.7).timeout
+	await get_tree().create_timer(0.7).timeout
 	turn_label.hide()
 	
 func animationHandler(anim_name):

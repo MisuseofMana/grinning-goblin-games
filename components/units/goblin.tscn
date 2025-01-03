@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://cr33bga3fetxx"]
+[gd_scene load_steps=22 format=3 uid="uid://cr33bga3fetxx"]
 
 [ext_resource type="Texture2D" uid="uid://ctx6vlhujj8sk" path="res://art/sprites/goblin/idle.png" id="1_4x88u"]
 [ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="3_eafw4"]
@@ -7,10 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://b0spuyowpthca" path="res://components/deck_node.tscn" id="5_rtdee"]
 [ext_resource type="Script" path="res://scenes/unit_sprite.gd" id="6_hd08x"]
 [ext_resource type="PackedScene" uid="uid://bx3b6tvvx5et5" path="res://components/units/battle_readout.tscn" id="8_e6p4e"]
-[ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="8_l5ca6"]
-[ext_resource type="Texture2D" uid="uid://dohmn7ea4wnen" path="res://art/cards/card_art/goblin/goblin_bite.png" id="9_q4gue"]
+[ext_resource type="Resource" uid="uid://dlw2cn7turh68" path="res://components/cards/CardDictionary/Enemies/Goblin/goblin_bite.tres" id="8_v63jg"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="10_loe31"]
-[ext_resource type="Script" path="res://components/cards/CardFunctions/damaging_card.gd" id="10_piqgh"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/card_and_unit_area_detection.tscn" id="12_vlbf6"]
 [ext_resource type="PackedScene" uid="uid://34o105ivvj6t" path="res://target_indicator.tscn" id="13_yk2pj"]
 
@@ -56,24 +54,6 @@ animations = [{
 "name": &"idle",
 "speed": 5.0
 }]
-
-[sub_resource type="Resource" id="Resource_2il0s"]
-resource_local_to_scene = true
-script = ExtResource("10_piqgh")
-card_name = "Bite Down"
-one_use = false
-targets_self = false
-base_value = 5
-play_cost = 0
-card_description = "A nasty bite! Deals %s dmg to you"
-tool_tip = ""
-debuff_value = 0
-hide_cost = true
-can_use_to_respond = false
-primary_stat = ""
-secondary_stat = ""
-icon_image = ExtResource("9_q4gue")
-card_skin = ExtResource("8_l5ca6")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yawj0"]
 radius = 16.5
@@ -134,7 +114,7 @@ nuance = 0
 is_friendly = false
 
 [node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("5_rtdee")]
-deck = Array[ExtResource("10_loe31")]([SubResource("Resource_2il0s")])
+deck = Array[ExtResource("10_loe31")]([ExtResource("8_v63jg")])
 stats_node = NodePath("../StatsNode")
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("8_e6p4e")]

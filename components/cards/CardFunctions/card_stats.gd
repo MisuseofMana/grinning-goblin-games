@@ -11,9 +11,14 @@ class_name CardStats
 @export var debuff_value : int = 0
 @export var hide_cost : bool = false
 
+@export var can_use_whenever : bool
 @export var can_use_to_respond : bool
-
 @export var card_owner : UnitStats
+
+enum CardTypes {PHYS_DAMAGE, MAG_DAMAGE, DEFENSE, WARD, HEAL, TOKEN}
+
+@export var accepts_card_types : Array[CardTypes] = []
+@export var card_type : CardTypes
 
 @export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var primary_stat : String
 @export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var secondary_stat : String

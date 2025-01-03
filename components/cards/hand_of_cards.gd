@@ -69,14 +69,14 @@ func putCardInBurnPile(cardStats : CardStats):
 func discardHand():
 	for followPath in card_arc.get_children():
 		await self.get_tree().create_timer(0.2).timeout
-		followPath.get_child(0).goToDiscard()
+		putCardInDiscard(followPath.get_child(0).card.card_stats)
 
 func useable(cardNode : DraggableCard):
 	if cardNode.card.card_stats.play_cost > action_points_remaining:
 		return false
 	var canUseAsResponse = not battleScene.players_turn and cardNode.card.card_stats.can_use_to_respond
 	var canUseOnTurn = not cardNode.card.card_stats.can_use_to_respond and battleScene.players_turn
-	return canUseAsResponse or canUseOnTurn
+	return canUseAsResponse or canUseOnTurn or cardNode.card.card_stats.can_use_whenever
 	
 func reduceActionPointsBy(dragCard: DraggableCard):
 	var card_stats : CardStats = dragCard.card.card_stats

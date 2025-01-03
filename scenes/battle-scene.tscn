@@ -91,8 +91,11 @@ card_description = "Restore %s health"
 tool_tip = "Restore health up to your maximum limit, healing increases based on %s."
 debuff_value = 0
 hide_cost = false
+can_use_whenever = false
 can_use_to_respond = false
 card_owner = SubResource("Resource_gck0d")
+accepts_card_types = Array[int]([])
+card_type = 0
 primary_stat = "nuance"
 secondary_stat = "knowledge"
 icon_image = ExtResource("11_psplo")
@@ -523,6 +526,7 @@ patch_margin_right = 5
 patch_margin_bottom = 3
 script = ExtResource("13_5jlb7")
 metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="XPBar"]
 layout_mode = 2
@@ -722,6 +726,7 @@ volume_db = -10.0
 autoplay = true
 
 [connection signal="animation_finished" from="FlavorAssets/AnimationPlayer" to="." method="animationHandler"]
+[connection signal="all_enemies_turn_over" from="Enemies" to="." method="runPlayerUpkeep"]
 [connection signal="set_card_owner" from="Enemies" to="EnemyCardContainer" method="onOwnershipChange"]
 [connection signal="set_card_stats" from="Enemies" to="EnemyCardContainer" method="onCardUpdate"]
 [connection signal="show_accept_button" from="Enemies" to="EnemyCardContainer" method="showAcceptButton"]
