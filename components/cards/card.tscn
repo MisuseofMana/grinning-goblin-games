@@ -9,10 +9,15 @@
 [ext_resource type="Texture2D" uid="uid://brtypga5cij3r" path="res://art/cards/burn-card-cost-blip.png" id="7_htwk4"]
 
 [node name="Card" type="TextureRect"]
-offset_left = -96.0
-offset_top = -128.0
-offset_right = 96.0
-offset_bottom = 128.0
+anchors_preset = -1
+anchor_left = -0.075
+anchor_top = -0.178
+anchor_right = 0.075
+anchor_bottom = 0.178
+offset_left = -48.0
+offset_top = -63.92
+offset_right = 48.0
+offset_bottom = 63.92
 scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(96, 128)
 texture = ExtResource("1_2al02")

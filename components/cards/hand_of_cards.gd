@@ -34,6 +34,7 @@ func refreshActionPoints():
 	action_points_remaining = max_action_points
 		
 func add_random_card_to_hand():
+	print('no debug available, needs reworked')
 	pass
 	#drawCards(1)
 
@@ -49,41 +50,50 @@ func addCardToHand(cardResource: CardStats):
 	newFollowNode.add_child(newCard)
 	newCard.set_card_stats(cardResource)
 	
-	newCard.card_discarded.connect(putCardInDiscard)
-	newCard.card_burnt.connect(putCardInBurnPile)
-	newCard.card_used.connect(reduceActionPointsBy)
+	newCard.card_used.connect(handleCardUse)
 	newCard.tree_exited.connect(updateAllCardPositions)
 	newCard.tree_exited.connect(checkForValidPlayerActions)
 
 	updateAllCardPositions()
 	changeCardAvailibilty(newCard)
-
-func putCardInDiscard(cardStats : CardStats):
-	discardArray.append(cardStats)
-	discard_pile.num_in_discard = discardArray.size()
-	
-func putCardInBurnPile(cardStats : CardStats):
-	burnArray.append(cardStats)
-	discard_pile.num_in_burn = burnArray.size()
 	
 func discardHand():
 	for followPath in card_arc.get_children():
 		await self.get_tree().create_timer(0.2).timeout
-		putCardInDiscard(followPath.get_child(0).card.card_stats)
+		putCardInDiscard(followPath.get_child(0))
 
-func useable(cardNode : DraggableCard):
+func putCardInDiscard(dragCard : DraggableCard):
+	var card_stats : CardStats = dragCard.card.card_stats
+	dragCard.anims.play('discard')
+	create_tween().tween_property(dragCard, "global_position", Vector2(579,342), 0.4)
+	discardArray.append(card_stats)
+	discard_pile.num_in_discard = discardArray.size()
+	
+func putCardInBurnPile(dragCard : DraggableCard):
+	var card_stats : CardStats = dragCard.card.card_stats
+	dragCard.anims.play('burn')
+	create_tween().tween_property(dragCard, "global_position", Vector2(600,315), 0.4)
+	burnArray.append(card_stats)
+	discard_pile.num_in_burn = burnArray.size()
+
+func isCardUsable(cardNode : DraggableCard):
 	if cardNode.card.card_stats.play_cost > action_points_remaining:
 		return false
 	var canUseAsResponse = not battleScene.players_turn and cardNode.card.card_stats.can_use_to_respond
 	var canUseOnTurn = not cardNode.card.card_stats.can_use_to_respond and battleScene.players_turn
 	return canUseAsResponse or canUseOnTurn or cardNode.card.card_stats.can_use_whenever
 	
-func reduceActionPointsBy(dragCard: DraggableCard):
+func handleCardUse(dragCard: DraggableCard):
 	var card_stats : CardStats = dragCard.card.card_stats
-	dragCard.get_parent().queue_free()
 	action_points_remaining -= card_stats.play_cost
 	action_points_counter.text = str(action_points_remaining)
 	ap_particles.emitting = true
+	
+	if card_stats.one_use:
+		putCardInBurnPile(dragCard)
+	else:
+		putCardInDiscard(dragCard)
+	
 	checkForValidPlayerActions()
 		
 func checkForValidPlayerActions():
@@ -91,7 +101,7 @@ func checkForValidPlayerActions():
 		end_player_turn.emit()
 	for followNode in card_arc.get_children():
 		var cardNode = followNode.get_child(0)
-		if useable(cardNode) == true:
+		if isCardUsable(cardNode) == true:
 			return
 	end_player_turn.emit()
 
@@ -111,7 +121,7 @@ func changeAllCardAvailability():
 		changeCardAvailibilty(cardNode)
 
 func changeCardAvailibilty(cardNode):
-	if useable(cardNode):
+	if isCardUsable(cardNode):
 		cardNode.modulate = Color(1, 1, 1)
 		cardNode.undraggable = false
 		create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, 0), 0.2)

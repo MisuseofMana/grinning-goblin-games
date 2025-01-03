@@ -3,8 +3,7 @@ class_name DraggableCard
 
 @onready var card : CardComponent = $Card
 @onready var collider = $TwoWayDetection/CollisionShape2D
-
-const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
+@onready var anims: AnimationPlayer = $AnimationPlayer
 
 var target
 var isValidTarget : bool
@@ -69,15 +68,14 @@ func event_on_card(event):
 				elif target.get_parent() is CardComponent:
 					card.card_stats.card_effect(target.get_parent())
 				is_dragging = false
-				if card.card_stats.one_use:
-					card_burnt.emit(card.card_stats)
-				else:
-					card_discarded.emit(card.card_stats)
+				undraggable = true
 				card_used.emit(self)
+				$SuccessSound.play()
 			else:
 				returnCardToOrigin()
 
 func returnCardToOrigin():
+	$ErrorSound.play()
 	collider.disabled = true
 	z_index = 0
 	is_dragging = false

@@ -13,7 +13,8 @@ class_name CardComponent
 
 const CARD_COST_BLIP = preload("res://art/cards/card-cost-blip.png")
 const BURN_CARD_COST_BLIP = preload("res://art/cards/burn-card-cost-blip.png")
-const CARD_TEMPLATE_BACK = preload("res://art/cards/card-template-back.png")
+const DISCARD_BACK = preload("res://art/cards/card-template-back.png")
+const BURN_BACK = preload("res://art/cards/card-burn-pile.png")
 	
 func updateCardData():
 #	setup card information
@@ -38,12 +39,11 @@ func updateCardData():
 func hideCostIndicator():
 	cost_indicator.hide()
 	
-func swapCardBackTexture():
+func hideCardDetails():
 	hideCostIndicator()
 	icon_image.hide()
 	description.hide()
 	card_name.hide()
-	texture = CARD_TEMPLATE_BACK
 		
 func formatCardStringInterp(noBBCode):
 	var color
@@ -60,3 +60,11 @@ func formatCardStringInterp(noBBCode):
 		return adjustedValue
 	else:
 		return "[color=%s]%s[/color]" % [color, str(adjustedValue)]
+
+func swapToBurnBack():
+	hideCardDetails()
+	texture = BURN_BACK
+	
+func swapToDiscardBack():
+	hideCardDetails()
+	texture = DISCARD_BACK

@@ -62,7 +62,7 @@ _data = {
 
 [sub_resource type="Curve2D" id="Curve2D_catov"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 16, -30, 148.518, -36.6922, -148.518, 36.6922, -155, 125, 0, 0, 0, 0, -379, 125)
+"points": PackedVector2Array(0, 0, 0, 0, 16, -30, 148.518, -36.6922, -148.518, 36.6922, -155, 125, 0, 0, 0, 0, -429, 73)
 }
 point_count = 3
 
@@ -456,12 +456,21 @@ playerUnit = NodePath("../Player")
 curve = SubResource("Curve2D_catov")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="EnemyCardContainer/Path2D"]
-position = Vector2(16, -30)
+position = Vector2(-429, 73)
+progress = 529.194
 rotates = false
 loop = false
 
 [node name="Card" parent="EnemyCardContainer/Path2D/PathFollow2D" instance=ExtResource("20_yae8r")]
+anchor_left = 0.075
+anchor_top = 0.356
+anchor_bottom = 0.356
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 192.0
+offset_bottom = 256.0
 rotation = 0.349066
+pivot_offset = Vector2(0, 0)
 card_stats = SubResource("Resource_w5e7p")
 
 [node name="TwoWayDetection" parent="EnemyCardContainer/Path2D/PathFollow2D/Card" instance=ExtResource("13_w1168")]
@@ -734,7 +743,6 @@ autoplay = true
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="Enemies" method="animationSequencer"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="EnemyCardContainer" method="on_animation_finished"]
 [connection signal="pressed" from="EnemyCardContainer/AcceptButton" to="EnemyCardContainer" method="onCardAccept"]
-[connection signal="end_player_turn" from="HandOfCards" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="EndTurnButton" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="DebugBar/DebugToggle" to="DebugBar" method="_on_button_pressed"]
 [connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button2" to="HandOfCards" method="add_random_card_to_hand"]
