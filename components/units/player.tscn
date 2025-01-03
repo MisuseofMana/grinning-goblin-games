@@ -60,7 +60,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_8tx8l"]
+[sub_resource type="Resource" id="Resource_nf6ip"]
 resource_local_to_scene = true
 script = ExtResource("8_1vqgo")
 stats = {
@@ -73,7 +73,7 @@ stats = {
 "nuance": 0
 }
 
-[sub_resource type="Resource" id="Resource_w3hvt"]
+[sub_resource type="Resource" id="Resource_tpbk2"]
 resource_local_to_scene = true
 script = ExtResource("11_c8ufh")
 card_name = "Basic Attack"
@@ -86,13 +86,13 @@ tool_tip = "Use on enemies, deals physical damage depending on your %s."
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_8tx8l")
+card_owner = SubResource("Resource_nf6ip")
 primary_stat = "muscle"
 secondary_stat = "finesse"
 icon_image = ExtResource("10_hh75t")
 card_skin = ExtResource("9_8vojt")
 
-[sub_resource type="Resource" id="Resource_w6wt0"]
+[sub_resource type="Resource" id="Resource_36i5d"]
 resource_local_to_scene = true
 script = ExtResource("8_1vqgo")
 stats = {
@@ -105,7 +105,7 @@ stats = {
 "nuance": 0
 }
 
-[sub_resource type="Resource" id="Resource_nkcm0"]
+[sub_resource type="Resource" id="Resource_lehmc"]
 resource_local_to_scene = true
 script = ExtResource("13_yo2wj")
 card_name = "Basic Defend"
@@ -118,7 +118,7 @@ tool_tip = "Drop on an enemies physical attack card to reduce it's damage by up 
 debuff_value = 0
 hide_cost = false
 can_use_to_respond = true
-card_owner = SubResource("Resource_w6wt0")
+card_owner = SubResource("Resource_36i5d")
 primary_stat = "endurance"
 secondary_stat = "muscle"
 icon_image = ExtResource("12_xpjfp")
@@ -147,7 +147,7 @@ hue_variation_max = 0.18
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibgll"]
 
-[node name="Player" type="AnimatedSprite2D" node_paths=PackedStringArray("anims", "deck", "health", "stats")]
+[node name="Player" type="AnimatedSprite2D" node_paths=PackedStringArray("anims", "deck", "health", "stats") groups=["player_unit"]]
 position = Vector2(41, 111)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_urjdb")
@@ -172,7 +172,7 @@ modifiers = NodePath("../Modifiers")
 [node name="StatsNode" parent="." instance=ExtResource("5_b3p2f")]
 
 [node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("6_s84ip")]
-deck = Array[ExtResource("6_g68ne")]([SubResource("Resource_w3hvt"), SubResource("Resource_w3hvt"), SubResource("Resource_w3hvt"), SubResource("Resource_w3hvt"), SubResource("Resource_nkcm0"), SubResource("Resource_nkcm0"), SubResource("Resource_nkcm0"), SubResource("Resource_nkcm0"), SubResource("Resource_nkcm0")])
+deck = Array[ExtResource("6_g68ne")]([SubResource("Resource_tpbk2"), SubResource("Resource_tpbk2"), SubResource("Resource_tpbk2"), SubResource("Resource_tpbk2"), SubResource("Resource_lehmc"), SubResource("Resource_lehmc"), SubResource("Resource_lehmc"), SubResource("Resource_lehmc"), SubResource("Resource_lehmc")])
 stats_node = NodePath("../StatsNode")
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("9_nsbm0")]
@@ -183,7 +183,7 @@ offset_bottom = -28.0
 stats = NodePath("../StatsNode")
 health = NodePath("../HealthNode")
 
-[node name="TwoWayDetection" parent="." instance=ExtResource("21_nqyrs")]
+[node name="TwoWayDetection" parent="." groups=["player_hitbox"] instance=ExtResource("21_nqyrs")]
 position = Vector2(96.0422, 126.189)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]

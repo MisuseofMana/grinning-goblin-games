@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cr33bga3fetxx"]
+[gd_scene load_steps=25 format=3 uid="uid://cr33bga3fetxx"]
 
 [ext_resource type="Texture2D" uid="uid://ctx6vlhujj8sk" path="res://art/sprites/goblin/idle.png" id="1_4x88u"]
 [ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="3_eafw4"]
@@ -57,7 +57,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_8f5i2"]
+[sub_resource type="Resource" id="Resource_2il0s"]
 resource_local_to_scene = true
 script = ExtResource("10_piqgh")
 card_name = "Bite Down"
@@ -96,9 +96,16 @@ color = Color(1, 0.37745, 0.398392, 1)
 hue_variation_min = -0.13
 hue_variation_max = 0.18
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ibgll"]
+[sub_resource type="Animation" id="Animation_qo1qc"]
+resource_name = "death_animation"
+length = 0.5
 
-[node name="Goblin" type="AnimatedSprite2D" node_paths=PackedStringArray("anims", "deck", "health", "stats")]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ibgll"]
+_data = {
+"death_animation": SubResource("Animation_qo1qc")
+}
+
+[node name="Goblin" type="AnimatedSprite2D" node_paths=PackedStringArray("anims", "deck", "health", "stats") groups=["enemy_units"]]
 position = Vector2(43, 106)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_1dluw")
@@ -127,7 +134,7 @@ nuance = 0
 is_friendly = false
 
 [node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("5_rtdee")]
-deck = Array[ExtResource("10_loe31")]([SubResource("Resource_8f5i2")])
+deck = Array[ExtResource("10_loe31")]([SubResource("Resource_2il0s")])
 stats_node = NodePath("../StatsNode")
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("8_e6p4e")]
@@ -138,7 +145,7 @@ offset_bottom = -26.5
 stats = NodePath("../StatsNode")
 health = NodePath("../HealthNode")
 
-[node name="TwoWayDetection" parent="." instance=ExtResource("12_vlbf6")]
+[node name="TwoWayDetection" parent="." groups=["enemy_hitboxes"] instance=ExtResource("12_vlbf6")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]
 position = Vector2(-1.5, 0)

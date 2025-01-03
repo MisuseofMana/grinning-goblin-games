@@ -2,6 +2,8 @@
 extends AnimatedSprite2D
 class_name UnitSprite
 
+@onready var collision = $TwoWayDetection/CollisionShape2D
+
 @export var anims : AnimationPlayer
 @export var deck : DeckNode
 @export var health : HealthNode
@@ -22,4 +24,9 @@ func addToHealth(howMuch):
 func take_turn():
 	print('take_turn is not overwritten')
 	pass
-	
+
+func disableTargeting():
+	collision.disabled = true
+
+func enableTargeting():
+	collision.disabled = false

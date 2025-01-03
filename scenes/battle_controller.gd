@@ -16,7 +16,13 @@ class_name BattleScene
 @export var hand_of_cards : HandOfCards
 @export var enemy_logic : EnemyController
 
-var players_turn : bool = true
+var players_turn : bool = true : 
+	set(value):
+		players_turn = value
+		if players_turn:
+			get_tree().call_group("enemy_hitboxes", "enableTargeting")
+		else:
+			get_tree().call_group("enemy_hitboxes", "disableTargeting")
 
 enum Locations {
 	FOREST,

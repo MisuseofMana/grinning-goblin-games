@@ -1,5 +1,7 @@
 extends Area2D
 
+@onready var collision = $CollisionShape2D
+
 signal new_overlap_acquired(target)
 signal target_has_changed()
 
@@ -19,3 +21,9 @@ func handle_remove_overlap(area : Area2D):
 	if overlapping_areas.size() == 0:
 		if owner is not UnitSprite:
 			get_tree().call_group("target_indicators", "hide_indicator")
+
+func disableTargeting():
+	collision.disabled = true
+	
+func enableTargeting():
+	collision.disabled = false
