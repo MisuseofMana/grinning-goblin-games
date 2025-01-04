@@ -50,14 +50,15 @@ enum TurnPhases {
 func _ready():
 	runPhase(TurnPhases.START_NEW_ENCOUNTER)
 	
-func runEnemiesTurn():
-	runPhase(TurnPhases.ENEMIES_TURN)
 
 func runPlayerUpkeep():
 	runPhase(TurnPhases.PLAYER_UPKEEP)
 
 func runPlayerTurn():
 	runPhase(TurnPhases.START_PLAYERS_TURN)
+
+func runEnemiesTurn():
+	runPhase(TurnPhases.ENEMIES_TURN)
 
 func runPhase(phase: TurnPhases):
 	match phase:

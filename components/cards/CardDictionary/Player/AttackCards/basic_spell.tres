@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_gro08"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_48ojb")
 card_name = "Magic Attack"
 one_use = false
@@ -20,7 +19,7 @@ hide_cost = false
 can_use_whenever = false
 can_use_to_respond = false
 card_owner = ExtResource("2_a35t8")
-acceptsCardTypes = Array[int]([])
+accepts_card_types = Array[int]([])
 card_type = 0
 primary_stat = "knowledge"
 secondary_stat = "nuance"

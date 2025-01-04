@@ -66,7 +66,7 @@ _data = {
 }
 point_count = 3
 
-[sub_resource type="Resource" id="Resource_gck0d"]
+[sub_resource type="Resource" id="Resource_76gme"]
 resource_local_to_scene = true
 script = ExtResource("9_gjyky")
 stats = {
@@ -79,7 +79,7 @@ stats = {
 "nuance": 0
 }
 
-[sub_resource type="Resource" id="Resource_w5e7p"]
+[sub_resource type="Resource" id="Resource_vgioi"]
 resource_local_to_scene = true
 script = ExtResource("12_6ieyv")
 card_name = "Basic Heal"
@@ -93,7 +93,7 @@ debuff_value = 0
 hide_cost = false
 can_use_whenever = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_gck0d")
+card_owner = SubResource("Resource_76gme")
 accepts_card_types = Array[int]([])
 card_type = 0
 primary_stat = "nuance"
@@ -470,7 +470,7 @@ offset_right = 192.0
 offset_bottom = 256.0
 rotation = 0.349066
 pivot_offset = Vector2(0, 0)
-card_stats = SubResource("Resource_w5e7p")
+card_stats = SubResource("Resource_vgioi")
 
 [node name="TwoWayDetection" parent="EnemyCardContainer/Path2D/PathFollow2D/Card" instance=ExtResource("13_w1168")]
 
@@ -742,6 +742,7 @@ autoplay = true
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="Enemies" method="animationSequencer"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="EnemyCardContainer" method="on_animation_finished"]
 [connection signal="pressed" from="EnemyCardContainer/AcceptButton" to="EnemyCardContainer" method="onCardAccept"]
+[connection signal="end_player_turn" from="HandOfCards" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="EndTurnButton" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="DebugBar/DebugToggle" to="DebugBar" method="_on_button_pressed"]
 [connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button2" to="HandOfCards" method="add_random_card_to_hand"]
