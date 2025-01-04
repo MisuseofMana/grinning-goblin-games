@@ -15,10 +15,7 @@ class_name HandOfCards
 const CARD = preload("res://components/cards/draggable_card.tscn")
 
 var max_action_points : int = 3
-var action_points_remaining : int = 3 : 
-	set(value):
-		action_points_remaining = value
-		action_points_counter.text = str(max_action_points)
+var action_points_remaining : int = 3
 var discardArray : Array = []
 var burnArray : Array = []
 
@@ -29,6 +26,9 @@ func _ready():
 	for arc in card_arc.get_children():
 		card_arc.remove_child(arc)
 		arc.queue_free()
+		
+	action_points_counter.text = str(action_points_remaining) + '/' + str(max_action_points)
+
 	
 func refreshActionPoints():
 	action_points_remaining = max_action_points
@@ -64,15 +64,15 @@ func discardHand():
 
 func putCardInDiscard(dragCard : DraggableCard):
 	var card_stats : CardStats = dragCard.card.card_stats
-	dragCard.anims.play('discard')
 	create_tween().tween_property(dragCard, "global_position", Vector2(579,342), 0.4)
+	dragCard.anims.play('discard')
 	discardArray.append(card_stats)
 	discard_pile.num_in_discard = discardArray.size()
 	
 func putCardInBurnPile(dragCard : DraggableCard):
 	var card_stats : CardStats = dragCard.card.card_stats
-	dragCard.anims.play('burn')
 	create_tween().tween_property(dragCard, "global_position", Vector2(600,315), 0.4)
+	dragCard.anims.play('burn')
 	burnArray.append(card_stats)
 	discard_pile.num_in_burn = burnArray.size()
 
@@ -86,7 +86,7 @@ func isCardUsable(cardNode : DraggableCard):
 func handleCardUse(dragCard: DraggableCard):
 	var card_stats : CardStats = dragCard.card.card_stats
 	action_points_remaining -= card_stats.play_cost
-	action_points_counter.text = str(action_points_remaining)
+	action_points_counter.text = str(action_points_remaining) + '/' + str(max_action_points)
 	ap_particles.emitting = true
 	
 	if card_stats.one_use:

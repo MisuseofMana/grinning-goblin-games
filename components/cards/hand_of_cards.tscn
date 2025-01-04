@@ -80,17 +80,16 @@ offset_top = -106.0
 offset_right = 95.0
 offset_bottom = -42.0
 texture = ExtResource("9_xp1j5")
-metadata/_edit_group_ = true
 
 [node name="ActionPointsCounter" type="Label" parent="Sprite2D"]
 layout_mode = 0
-offset_left = 22.0
-offset_top = 3.0
-offset_right = 46.0
-offset_bottom = 54.0
+offset_left = 17.0
+offset_top = 17.0
+offset_right = 49.0
+offset_bottom = 43.0
 theme = ExtResource("10_ls4gl")
-theme_override_font_sizes/font_size = 64
-text = "3"
+theme_override_font_sizes/font_size = 32
+text = "3/3"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite2D"]
 material = SubResource("CanvasItemMaterial_wbbth")

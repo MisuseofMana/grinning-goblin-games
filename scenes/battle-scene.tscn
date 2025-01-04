@@ -456,8 +456,7 @@ playerUnit = NodePath("../Player")
 curve = SubResource("Curve2D_catov")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="EnemyCardContainer/Path2D"]
-position = Vector2(-429, 73)
-progress = 529.194
+position = Vector2(16, -30)
 rotates = false
 loop = false
 

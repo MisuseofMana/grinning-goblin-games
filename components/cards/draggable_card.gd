@@ -41,10 +41,7 @@ func check_drop_spot_validity(areas):
 			else:
 				create_tween().tween_property(self, "modulate", Color(1, 0.435, 0.366), SPEED)
 		elif target.get_parent() is CardComponent:
-			print('checking card compatibility')
 			var cardStats = target.get_parent().card_stats
-			print(cardStats.accepts_card_types)
-			print(card.card_stats.card_type)
 			isValidTarget = cardStats.accepts_card_types.has(card.card_stats.card_type)
 			if isValidTarget:
 				create_tween().tween_property(self, "modulate", Color(0, 0.941, 0.376), SPEED)
