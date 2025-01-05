@@ -28,13 +28,11 @@ func _ready():
 		arc.queue_free()
 		
 	action_points_counter.text = str(action_points_remaining) + '/' + str(max_action_points)
-
 	
 func refreshActionPoints():
 	action_points_remaining = max_action_points
 		
 func add_random_card_to_hand():
-	print('no debug available, needs reworked')
 	pass
 	#drawCards(1)
 
@@ -64,15 +62,15 @@ func discardHand():
 
 func putCardInDiscard(dragCard : DraggableCard):
 	var card_stats : CardStats = dragCard.card.card_stats
-	create_tween().tween_property(dragCard, "global_position", Vector2(579,342), 0.4)
 	dragCard.anims.play('discard')
+	create_tween().tween_property(dragCard, "global_position", Vector2(579,342), 0.6)
 	discardArray.append(card_stats)
 	discard_pile.num_in_discard = discardArray.size()
 	
 func putCardInBurnPile(dragCard : DraggableCard):
 	var card_stats : CardStats = dragCard.card.card_stats
-	create_tween().tween_property(dragCard, "global_position", Vector2(600,315), 0.4)
 	dragCard.anims.play('burn')
+	create_tween().tween_property(dragCard, "global_position", Vector2(600,315), 0.6)
 	burnArray.append(card_stats)
 	discard_pile.num_in_burn = burnArray.size()
 
@@ -94,15 +92,17 @@ func handleCardUse(dragCard: DraggableCard):
 	else:
 		putCardInDiscard(dragCard)
 	
-	checkForValidPlayerActions()
+	updateAllCardPositions()
 		
 func checkForValidPlayerActions():
 	if action_points_remaining <= 0:
+		print('no action points left')
 		end_player_turn.emit()
 	for followNode in card_arc.get_children():
-		var cardNode = followNode.get_child(0)
-		if isCardUsable(cardNode) == true:
-			return
+		if not followNode.is_queued_for_deletion():
+			var cardNode = followNode.get_child(0)
+			if isCardUsable(cardNode) == true:
+				return
 	end_player_turn.emit()
 
 func updateAllCardPositions():

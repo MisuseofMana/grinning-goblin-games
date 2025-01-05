@@ -7,7 +7,6 @@
 [ext_resource type="Resource" uid="uid://0ohlp7wyhcde" path="res://components/tokens/TokenDictionary/TokenTypes/armor.tres" id="3_pg6yw"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("2_4tmyk")
 token_resource = ExtResource("3_pg6yw")
 card_name = "Hands Up"
@@ -19,8 +18,11 @@ card_description = "Prevent %s physical dmg"
 tool_tip = ""
 debuff_value = 0
 hide_cost = true
+can_use_whenever = false
 can_use_to_respond = false
 card_owner = ExtResource("2_juhui")
+accepts_card_types = Array[int]([])
+card_type = 0
 primary_stat = "endurance"
 secondary_stat = ""
 icon_image = ExtResource("1_jmojh")

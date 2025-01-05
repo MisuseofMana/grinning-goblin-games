@@ -7,7 +7,6 @@
 [ext_resource type="Resource" uid="uid://ckhcflq0l3v0k" path="res://components/tokens/TokenDictionary/TokenTypes/poison.tres" id="3_dog55"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_ypk3s")
 token_resource = ExtResource("3_dog55")
 card_name = "Poison"
@@ -22,7 +21,7 @@ hide_cost = false
 can_use_whenever = true
 can_use_to_respond = false
 card_owner = ExtResource("2_c3am5")
-acceptsCardTypes = Array[int]([])
+accepts_card_types = Array[int]([])
 card_type = 5
 primary_stat = "nuance"
 secondary_stat = "finesse"

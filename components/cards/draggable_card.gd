@@ -31,7 +31,7 @@ func _physics_process(delta):
 		create_tween().tween_property(self, "global_position", get_global_mouse_position() + Vector2(0, card.size.y / 5), delay * delta)
 
 func check_drop_spot_validity(areas):
-	if areas.size():
+	if areas.size() && not undraggable:
 		target = areas[0]
 		if target.owner is UnitSprite:
 			isValidTarget = card.card_stats.targets_self == target.owner.stats.is_friendly
@@ -66,6 +66,7 @@ func event_on_card(event):
 				is_dragging = false
 				undraggable = true
 				card_used.emit(self)
+				create_tween().tween_property(self, "modulate", Color(1,1,1), SPEED)
 				$SuccessSound.play()
 			else:
 				undraggable = true
@@ -92,3 +93,7 @@ func _on_mouse_exited():
 	if not is_dragging and not undraggable:
 		z_index = 0
 		create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
+
+func animation_handler(anim_name: StringName) -> void:
+	if anim_name == 'discard' or anim_name == 'burn':
+		get_parent().queue_free()

@@ -7,7 +7,6 @@
 [ext_resource type="Resource" uid="uid://dj4d0nwgcjmgy" path="res://components/tokens/TokenDictionary/TokenTypes/ward.tres" id="3_xbnoo"]
 
 [resource]
-resource_local_to_scene = true
 script = ExtResource("1_7lli0")
 token_resource = ExtResource("3_xbnoo")
 card_name = "Basic Ward"
@@ -22,7 +21,7 @@ hide_cost = false
 can_use_whenever = false
 can_use_to_respond = true
 card_owner = ExtResource("2_0d46x")
-acceptsCardTypes = Array[int]([])
+accepts_card_types = Array[int]([])
 card_type = 3
 primary_stat = "nuance"
 secondary_stat = "knowledge"
