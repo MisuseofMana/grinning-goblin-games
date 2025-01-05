@@ -34,7 +34,6 @@ func check_drop_spot_validity(areas):
 	if areas.size():
 		target = areas[0]
 		if target.owner is UnitSprite:
-			print(card.card_stats.targets_self == target.owner.stats.is_friendly)
 			isValidTarget = card.card_stats.targets_self == target.owner.stats.is_friendly
 			if isValidTarget:
 				create_tween().tween_property(self, "modulate", Color(0, 0.941, 0.376), SPEED)
@@ -53,7 +52,7 @@ func check_drop_spot_validity(areas):
 
 func event_on_card(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.is_pressed():
+		if event.is_pressed() and not undraggable:
 			collider.disabled  = false
 			card_origin = position
 			create_tween().tween_property(self, "scale", Vector2(0.7, 0.7), SPEED)
@@ -69,16 +68,20 @@ func event_on_card(event):
 				card_used.emit(self)
 				$SuccessSound.play()
 			else:
+				undraggable = true
 				returnCardToOrigin()
 
 func returnCardToOrigin():
 	$ErrorSound.play()
 	collider.disabled = true
 	z_index = 0
-	is_dragging = false
 	create_tween().tween_property(self, "modulate", Color(1,1,1), SPEED)
 	create_tween().tween_property(self, "position", card_origin, SPEED)
 	create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
+	is_dragging = false
+	await get_tree().create_timer(SPEED).timeout
+	undraggable = false
+	
 
 func _on_mouse_entered():
 	if not is_dragging and not undraggable:

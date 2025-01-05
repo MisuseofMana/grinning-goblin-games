@@ -111,9 +111,10 @@ func updateAllCardPositions():
 	var pos_incrementer = path_division
 	paper_sound.play()
 	for followPath in card_arc.get_children():
-		create_tween().tween_property(followPath, "progress_ratio", path_division, 0.4)
-		create_tween().tween_property(followPath.get_child(0), "scale", Vector2(1,1), 0.4)
-		path_division += pos_incrementer
+		if not followPath.is_queued_for_deletion():
+			create_tween().tween_property(followPath, "progress_ratio", path_division, 0.4)
+			create_tween().tween_property(followPath.get_child(0), "scale", Vector2(1,1), 0.4)
+			path_division += pos_incrementer
 
 func changeAllCardAvailability():
 	for followNode in card_arc.get_children():
