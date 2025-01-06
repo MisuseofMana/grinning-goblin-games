@@ -67,17 +67,17 @@ stream = SubResource("AudioStreamRandomizer_flf2n")
 volume_db = -20.0
 
 [node name="DiscardPiles" parent="." instance=ExtResource("6_cuw25")]
-position = Vector2(584, -48)
-scale = Vector2(0.65, 0.65)
+position = Vector2(587, -36)
+scale = Vector2(0.45, 0.45)
 
 [node name="DeckPile" parent="." instance=ExtResource("7_vgbdv")]
-position = Vector2(36, -36)
-scale = Vector2(0.65, 0.65)
+position = Vector2(45, -31)
+scale = Vector2(0.55, 0.55)
 
 [node name="Sprite2D" type="TextureRect" parent="."]
-offset_left = 31.0
+offset_left = 23.0
 offset_top = -106.0
-offset_right = 95.0
+offset_right = 87.0
 offset_bottom = -42.0
 texture = ExtResource("9_xp1j5")
 

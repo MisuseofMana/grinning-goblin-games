@@ -96,14 +96,17 @@ func handleCardUse(dragCard: DraggableCard):
 		
 func checkForValidPlayerActions():
 	if action_points_remaining <= 0:
-		print('no action points left')
-		end_player_turn.emit()
+		if battleScene.players_turn:
+			end_player_turn.emit()
 	for followNode in card_arc.get_children():
 		if not followNode.is_queued_for_deletion():
 			var cardNode = followNode.get_child(0)
 			if isCardUsable(cardNode) == true:
 				return
-	end_player_turn.emit()
+	if battleScene.players_turn:
+		end_player_turn.emit()
+	else:
+		no_valid_player_options.emit()
 
 func updateAllCardPositions():
 	var numberOfCards = card_arc.get_children().size()
