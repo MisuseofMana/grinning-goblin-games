@@ -1,13 +1,15 @@
 extends Node2D
 class_name EnemyCardContainer
 
-@onready var card = $Path2D/PathFollow2D/Card
+@onready var card : CardComponent = $Path2D/PathFollow2D/Card
 @onready var anims = $EnemyCardAnimations
 
 @onready var accept_button = $AcceptButton
 @export var playerUnit : UnitSprite
 
 var card_owner : UnitSprite
+
+signal card_effect_finished()
 
 func onCardAccept():
 	card.card_stats.card_effect(playerUnit)
@@ -25,6 +27,6 @@ func showAcceptButton():
 	accept_button.show()
 	
 func on_animation_finished(anim_name):
-	pass
-	#if anim_name == 'evaporate':
-		#anims.play('RESET')
+	if anim_name == 'evaporate':
+		card_effect_finished.emit()
+		anims.play('RESET')

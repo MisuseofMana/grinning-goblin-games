@@ -49,7 +49,6 @@ enum TurnPhases {
 
 func _ready():
 	runPhase(TurnPhases.START_NEW_ENCOUNTER)
-	
 
 func runPlayerUpkeep():
 	runPhase(TurnPhases.PLAYER_UPKEEP)

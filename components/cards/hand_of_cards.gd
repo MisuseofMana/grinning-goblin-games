@@ -20,6 +20,7 @@ var discardArray : Array = []
 var burnArray : Array = []
 
 signal end_player_turn()
+signal no_valid_player_options()
 
 func _ready():
 #	clear out the test cards in the arc

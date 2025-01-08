@@ -10,6 +10,8 @@ class_name CardComponent
 @onready var description = $Description
 @onready var cost_indicator = $CostIndicator
 @onready var cost = $CostIndicator/Cost
+@onready var anims: AnimationPlayer = $AnimationPlayer
+
 
 const CARD_COST_BLIP = preload("res://art/cards/card-cost-blip.png")
 const BURN_CARD_COST_BLIP = preload("res://art/cards/burn-card-cost-blip.png")

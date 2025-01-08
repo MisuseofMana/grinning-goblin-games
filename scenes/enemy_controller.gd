@@ -26,7 +26,9 @@ func startEnemyPhase():
 	startEnemiesTurn()
 
 func startEnemiesTurn():
+	print(allEnemies)
 	if allEnemies.size():
+		animations.clear_queue()
 		var randomCard = allEnemies[0].deck.deck.pick_random()
 		set_card_stats.emit(randomCard)
 		set_card_owner.emit(allEnemies[0])
@@ -35,6 +37,7 @@ func startEnemiesTurn():
 		all_enemies_turn_over.emit()
 
 func enemyHasTakenTurn():
+	print('calling takenTurn')
 	allEnemies.remove_at(0)
 	startEnemiesTurn()
 

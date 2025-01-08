@@ -101,5 +101,5 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 0.3
 
-[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]
 [connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]
+[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]
