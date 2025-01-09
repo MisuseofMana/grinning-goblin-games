@@ -1,0 +1,55 @@
+[gd_scene load_steps=12 format=3 uid="uid://bumc5k76yy8hy"]
+
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="1_4w0a8"]
+[ext_resource type="Script" path="res://scenes/card_stats.gd" id="1_7ksvq"]
+[ext_resource type="Script" path="res://components/cards/make_control_draggable.gd" id="2_55517"]
+[ext_resource type="Resource" uid="uid://c534yv87m0b1" path="res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres" id="3_7ym3n"]
+[ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/card_and_unit_area_detection.tscn" id="3_kd7go"]
+[ext_resource type="AudioStream" uid="uid://cenkn62k76yu2" path="res://audio/failed_card_drop.wav" id="4_b41hv"]
+[ext_resource type="AudioStream" uid="uid://cryacle32jqt3" path="res://audio/Gem_Grab_02.ogg" id="5_s05bm"]
+[ext_resource type="AudioStream" uid="uid://cymvfrmdcgcen" path="res://audio/Gem_Grab_03.ogg" id="6_0n0sr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_auv6x"]
+size = Vector2(160, 240)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ax48s"]
+random_pitch = 1.1
+streams_count = 1
+stream_0/stream = ExtResource("4_b41hv")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_dysjo"]
+streams_count = 2
+stream_0/stream = ExtResource("5_s05bm")
+stream_1/stream = ExtResource("6_0n0sr")
+
+[node name="CardComponent" type="TextureRect"]
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.711
+anchor_right = 0.15
+anchor_bottom = 0.711
+offset_left = -96.0
+offset_top = -255.96
+offset_right = 96.0
+offset_bottom = 0.0399933
+texture = ExtResource("1_4w0a8")
+script = ExtResource("1_7ksvq")
+card_stats = ExtResource("3_7ym3n")
+
+[node name="MakeControlDraggable" type="Node" parent="."]
+script = ExtResource("2_55517")
+
+[node name="TwoWayDetection" parent="." instance=ExtResource("3_kd7go")]
+visible = false
+position = Vector2(96, 126.04)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]
+position = Vector2(0, 0.960007)
+shape = SubResource("RectangleShape2D_auv6x")
+
+[node name="ErrorSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_ax48s")
+
+[node name="SuccessSound" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamRandomizer_dysjo")
+pitch_scale = 1.1

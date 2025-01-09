@@ -45,7 +45,7 @@ func calculate_adj_value():
 	if secondary_stat:
 		modifierValue += secondaryStatMods[card_owner.stats[secondary_stat]]
 		modifierValue = clampi(modifierValue, 1, 999)
-	if debuff_value:
+	if debuff_value > 0:
 		modifierValue -= debuff_value
 		modifierValue = clampi(modifierValue, 0, 999)
 	return modifierValue
@@ -59,4 +59,4 @@ func calculate_adj_token_value():
 	
 func addToDebuff():
 	debuff_value += 1
-	values_changed.emit(self)
+	values_changed.emit()

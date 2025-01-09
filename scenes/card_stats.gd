@@ -1,3 +1,4 @@
+@tool
 @icon("res://icons/CardStats.svg")
 extends TextureRect
 class_name CardComponent
@@ -12,12 +13,14 @@ class_name CardComponent
 @onready var cost = $CostIndicator/Cost
 @onready var anims: AnimationPlayer = $AnimationPlayer
 
-
 const CARD_COST_BLIP = preload("res://art/cards/card-cost-blip.png")
 const BURN_CARD_COST_BLIP = preload("res://art/cards/burn-card-cost-blip.png")
 const DISCARD_BACK = preload("res://art/cards/card-template-back.png")
 const BURN_BACK = preload("res://art/cards/card-burn-pile.png")
-	
+
+func _ready():
+	updateCardData()
+
 func updateCardData():
 #	setup card information
 	texture = card_stats.card_skin

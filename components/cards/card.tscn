@@ -8,33 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="6_f5ubv"]
 [ext_resource type="Texture2D" uid="uid://brtypga5cij3r" path="res://art/cards/burn-card-cost-blip.png" id="7_htwk4"]
 
-[sub_resource type="Animation" id="Animation_nlc62"]
-resource_name = "accept_enemy_card"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0.5, 0.5), Vector2(0.6, 0.6), Vector2(0.45, 0.45), Vector2(0.5, 0.5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.233333, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -0.0523599]
-}
-
 [sub_resource type="Animation" id="Animation_vr347"]
 length = 0.001
 tracks/0/type = "value"
@@ -62,6 +35,33 @@ tracks/1/keys = {
 "values": [0.0]
 }
 
+[sub_resource type="Animation" id="Animation_nlc62"]
+resource_name = "accept_enemy_card"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.6, 0.6), Vector2(0.45, 0.45), Vector2(0.5, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.233333, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.0523599]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sw1ai"]
 _data = {
 "RESET": SubResource("Animation_vr347"),
@@ -71,15 +71,13 @@ _data = {
 [node name="Card" type="TextureRect"]
 anchors_preset = -1
 anchor_left = -0.075
-anchor_top = -0.178
+anchor_top = -0.356
 anchor_right = 0.075
-anchor_bottom = 0.178
 offset_left = -48.0
-offset_top = -63.92
+offset_top = -127.84
 offset_right = 48.0
-offset_bottom = 63.92
 scale = Vector2(0.5, 0.5)
-pivot_offset = Vector2(96, 128)
+pivot_offset = Vector2(96, 256)
 texture = ExtResource("1_2al02")
 script = ExtResource("2_vhlj7")
 card_stats = ExtResource("3_kvvc5")
