@@ -26,7 +26,6 @@ func startEnemyPhase():
 	startEnemiesTurn()
 
 func startEnemiesTurn():
-	print(allEnemies)
 	if allEnemies.size():
 		animations.clear_queue()
 		var randomCard = allEnemies[0].deck.deck.pick_random()
