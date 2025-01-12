@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0j8mgfxn8m34"]
+[gd_scene load_steps=2 format=3 uid="uid://bbg0md3i1881m"]
 
 [ext_resource type="Script" path="res://components/cards/make_control_draggable.gd" id="1_brmop"]
 

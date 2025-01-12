@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://components/cards/hand_of_cards.gd" id="1_50x24"]
 [ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card.tscn" id="2_yaj22"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
-[ext_resource type="PackedScene" uid="uid://d0j8mgfxn8m34" path="res://make_control_draggable.tscn" id="3_wuthu"]
+[ext_resource type="PackedScene" uid="uid://bbg0md3i1881m" path="res://make_control_draggable.tscn" id="3_wuthu"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
 [ext_resource type="PackedScene" uid="uid://babdevi0twph6" path="res://components/discard_pile.tscn" id="6_cuw25"]
@@ -13,7 +13,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_wguu1"]
 _data = {
-"points": PackedVector2Array(-61.9437, 7.79239, 61.9437, -7.79239, 130, 0, -62.0618, -8.03093, 62.0618, 8.03093, 510, 0)
+"points": PackedVector2Array(-149.857, 10.7087, 149.857, -10.7087, 160, 0, -150.123, -9.96078, 150.123, 9.96078, 480, 0)
 }
 point_count = 2
 
@@ -50,30 +50,28 @@ anim_speed_min = -1.0
 anim_speed_max = 1.0
 
 [node name="CardInterface" type="Node2D"]
+position = Vector2(0, 360)
 script = ExtResource("1_50x24")
 
 [node name="CardArc" type="Path2D" parent="."]
 curve = SubResource("Curve2D_wguu1")
 
 [node name="CardFollowPath2" type="PathFollow2D" parent="CardArc"]
-position = Vector2(320.002, -5.93374)
-rotation = -0.000365339
-progress = 190.165
+position = Vector2(319.995, -7.75066)
+rotation = 0.00228998
+progress = 160.22
 cubic_interp = false
 
 [node name="Card" parent="CardArc/CardFollowPath2" instance=ExtResource("2_yaj22")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
 offset_left = -96.0
 offset_top = -256.0
 offset_right = 96.0
-grow_horizontal = 2
-grow_vertical = 0
 
-[node name="MakeControlDraggable2" parent="CardArc/CardFollowPath2/Card" instance=ExtResource("3_wuthu")]
+[node name="MakeControlDraggable" parent="CardArc/CardFollowPath2/Card" instance=ExtResource("3_wuthu")]
 
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")
@@ -114,5 +112,5 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 0.3
 
-[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]
 [connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]
+[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]

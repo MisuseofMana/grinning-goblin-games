@@ -4,7 +4,6 @@ class_name MakeControlDraggable
 @onready var parent : Control = get_parent()
 @onready var parentScale : Vector2 = get_parent().scale
 
-
 var target
 var isValidTarget : bool
 
@@ -22,21 +21,24 @@ func _ready():
 	
 func _physics_process(delta):
 	if is_dragging:
-		create_tween().tween_property(parent, "global_position", parent.get_global_mouse_position() + Vector2(0, parent.size.y / 5), delay * delta)
+		create_tween().tween_property(parent, "global_position", parent.get_global_mouse_position() + Vector2(-parent.size.x / 4, -parent.size.y / 4), delay * delta)
 
 func _mouse_input_on_parent(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed() and not undraggable:
+			card_origin = parent.position
 			print(parentScale)
 			create_tween().tween_property(parent, "scale", parentScale * 1.1, SPEED)
 			is_dragging = true
 		else:
+			print('rtorign')
 			returnCardToOrigin()
 
 func returnCardToOrigin():
+	undraggable = true
 	parent.z_index = 0
 	#create_tween().tween_property(self, "modulate", Color(1,1,1), SPEED)
-	#create_tween().tween_property(self, "position", card_origin, SPEED)
+	create_tween().tween_property(parent, "position", card_origin, SPEED)
 	#create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
 	is_dragging = false
 	await get_tree().create_timer(SPEED).timeout
