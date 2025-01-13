@@ -24,9 +24,9 @@ signal no_valid_player_options()
 
 func _ready():
 #	clear out the test cards in the arc
-	#for arc in card_arc.get_children():
-		#card_arc.remove_child(arc)
-		#arc.queue_free()
+	for arc in card_arc.get_children():
+		card_arc.remove_child(arc)
+		arc.queue_free()
 		
 	action_points_counter.text = str(action_points_remaining) + '/' + str(max_action_points)
 	

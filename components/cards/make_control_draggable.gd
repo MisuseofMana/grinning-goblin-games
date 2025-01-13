@@ -27,20 +27,19 @@ func _mouse_input_on_parent(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed() and not undraggable:
 			card_origin = parent.position
-			print(parentScale)
 			create_tween().tween_property(parent, "scale", parentScale * 1.1, SPEED)
 			is_dragging = true
 		else:
-			print('rtorign')
 			returnCardToOrigin()
 
 func returnCardToOrigin():
+	_on_mouse_exited()
+	is_dragging = false
 	undraggable = true
 	parent.z_index = 0
-	#create_tween().tween_property(self, "modulate", Color(1,1,1), SPEED)
 	create_tween().tween_property(parent, "position", card_origin, SPEED)
+	#create_tween().tween_property(self, "modulate", Color(1,1,1), SPEED)
 	#create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
-	is_dragging = false
 	await get_tree().create_timer(SPEED).timeout
 	undraggable = false
 	
