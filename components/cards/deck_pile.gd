@@ -1,28 +1,25 @@
 extends Node2D
 
-@onready var label = $DiscardNumber/Label
+@onready var label = $Label
 
-var label_number : int = 0 :
-	set(value):
-#		store old value
-		var oldValue = label_number
-#		set new value
-		label_number = value
+var deckArray : Array = [] :
+	set(newArray):
 #		animate to new value from old value
-		animateFromTo(oldValue, value)
+		animateLabelFromTo(newArray.size(), deckArray.size(), label)
+		deckArray = newArray
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	label.text = str(label_number)
+	label.text = str(deckArray.size())
 
-func animateFromTo(from: int, to: int):
-	var incrementer = from
-	while incrementer != to:
-		var shouldIncrease = from < to
+func animateLabelFromTo(to: int, from: int, targetNode: Label):
+	var changeIncrementerBy : int = 1 if to - from > 0 else -1
+	
+	var incrementer : int = from
+	while incrementer != to :
+		incrementer += changeIncrementerBy
 		await get_tree().create_timer(0.1).timeout
-		if shouldIncrease:
-			label.text = str(incrementer + 1)
-			incrementer += 1
-		else:
-			label.text = str(incrementer - 1)
-			incrementer -= 1
+		targetNode.text = str(incrementer)
+
+func updateDeck(deck : Array):
+	deckArray.append_array(deck)

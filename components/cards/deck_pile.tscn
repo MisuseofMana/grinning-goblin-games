@@ -3,29 +3,24 @@
 [ext_resource type="Texture2D" uid="uid://cxexanb2k7xp4" path="res://art/cards/deck-icon.png" id="1_67fdg"]
 [ext_resource type="Script" path="res://components/cards/deck_pile.gd" id="1_ur6tp"]
 [ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/card-cost-blip.png" id="2_dcjcx"]
-[ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="3_yn5yb"]
+[ext_resource type="Theme" uid="uid://cwgh0k28oi2dx" path="res://themes/default_theme.tres" id="4_12ynu"]
 
 [node name="DeckPile" type="Node2D"]
-position = Vector2(51, -51)
 script = ExtResource("1_ur6tp")
 
 [node name="DeckIcon" type="Sprite2D" parent="."]
 texture = ExtResource("1_67fdg")
 
-[node name="DiscardNumber" type="Node2D" parent="."]
-position = Vector2(-26, 25)
-
-[node name="DiscardChit" type="Sprite2D" parent="DiscardNumber"]
+[node name="DiscardChit" type="Sprite2D" parent="."]
+position = Vector2(-15.5, 14.5)
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("2_dcjcx")
 
-[node name="Label" type="Label" parent="DiscardNumber"]
-offset_left = -8.0
-offset_top = -15.0
-offset_right = 10.0
-offset_bottom = 11.0
-theme_override_fonts/font = ExtResource("3_yn5yb")
-theme_override_font_sizes/font_size = 32
-text = "0"
+[node name="Label" type="Label" parent="."]
+offset_left = -31.0
+offset_right = 1.0
+offset_bottom = 26.0
+theme = ExtResource("4_12ynu")
+text = "30"
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_use_anchors_ = true

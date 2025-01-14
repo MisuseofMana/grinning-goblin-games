@@ -1,12 +1,14 @@
-@tool
 @icon("res://icons/CardStats.svg")
 extends TextureRect
 class_name CardComponent
 
-@export var card_stats : CardStats
+@export var card_stats : CardStats :
+	set(newValue):
+		card_stats = newValue
 
 @onready var card = $"."
-@onready var card_name = $CardName
+
+@onready var card_label = $CardLabel
 @onready var icon_image = $IconImage
 @onready var description = $Description
 @onready var cost_indicator = $CostIndicator
@@ -18,27 +20,28 @@ const BURN_CARD_COST_BLIP = preload("res://art/cards/burn-card-cost-blip.png")
 const DISCARD_BACK = preload("res://art/cards/card-template-back.png")
 const BURN_BACK = preload("res://art/cards/card-burn-pile.png")
 
-func _ready():
-	updateCardData()
+signal card_used(cardNode : CardComponent)
 
-func updateCardData():
-#	setup card information
-	texture = card_stats.card_skin
-	card_name.text = card_stats.card_name
-	icon_image.texture = card_stats.icon_image
+func _ready():
+	updateCardData(card_stats)
+
+func updateCardData(cardStats : CardStats):
+	texture = cardStats.card_skin
+	card_label.text = cardStats.card_name
+	icon_image.texture = cardStats.icon_image
 	
-	if card_stats.card_description.contains('%'):
-		description.text = card_stats.card_description % formatCardStringInterp(false)
+	if cardStats.card_description.contains('%'):
+		description.text = cardStats.card_description % formatCardStringInterp(false)
 	else:
-		description.text = card_stats.card_description
+		description.text = cardStats.card_description
 		
-	if card_stats.one_use:
+	if cardStats.one_use:
 		cost_indicator.texture = BURN_CARD_COST_BLIP
 	else: 
 		cost_indicator.texture = CARD_COST_BLIP
-	cost.text = str(card_stats.play_cost)
+	cost.text = str(cardStats.play_cost)
 
-	if card_stats.hide_cost:
+	if cardStats.hide_cost:
 		hideCostIndicator()
 	
 func hideCostIndicator():
@@ -48,7 +51,7 @@ func hideCardDetails():
 	hideCostIndicator()
 	icon_image.hide()
 	description.hide()
-	card_name.hide()
+	card_label.hide()
 		
 func formatCardStringInterp(noBBCode):
 	var color
@@ -66,10 +69,8 @@ func formatCardStringInterp(noBBCode):
 	else:
 		return "[color=%s]%s[/color]" % [color, str(adjustedValue)]
 
-func swapToBurnBack():
-	hideCardDetails()
-	texture = BURN_BACK
+func burnCard():
+	anims.play('burn_card')
 	
-func swapToDiscardBack():
-	hideCardDetails()
-	texture = DISCARD_BACK
+func discardCard():
+	anims.play('discard_card')

@@ -21,7 +21,7 @@ func onOwnershipChange(unit : UnitSprite):
 
 func onCardUpdate(stats : CardStats):
 	card.card_stats = stats.duplicate()
-	card.updateCardData()
+	card.updateCardData(stats)
 
 func showAcceptButton():
 	accept_button.show()

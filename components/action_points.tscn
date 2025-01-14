@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://dnhhuvaiapr8k"]
+
+[ext_resource type="Texture2D" uid="uid://bnimnyhvmbkvv" path="res://art/ui/action_points_meter.png" id="1_vkw6f"]
+[ext_resource type="Script" path="res://components/action_points.gd" id="2_grmke"]
+[ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="2_j87iw"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_kav0a"]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sfiky"]
+lifetime_randomness = 0.2
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(2, 2, 1)
+emission_shape = 1
+emission_sphere_radius = 10.0
+orbit_velocity_min = -0.5
+orbit_velocity_max = 0.5
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -2.23517e-06
+radial_accel_max = 100.0
+scale_min = 1.5
+scale_max = 5.0
+color = Color(0.997248, 0.656308, 0.577987, 1)
+hue_variation_min = -0.1
+hue_variation_max = 0.1
+anim_speed_min = -1.0
+anim_speed_max = 1.0
+
+[node name="Sprite2D" type="TextureRect"]
+offset_right = 64.0
+offset_bottom = 64.0
+texture = ExtResource("1_vkw6f")
+script = ExtResource("2_grmke")
+
+[node name="ActionPointsCounter" type="Label" parent="."]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 17.0
+offset_right = 49.0
+offset_bottom = 43.0
+theme = ExtResource("2_j87iw")
+theme_override_font_sizes/font_size = 32
+text = "3/3"
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_kav0a")
+position = Vector2(32, 33)
+emitting = false
+amount = 40
+process_material = SubResource("ParticleProcessMaterial_sfiky")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.3

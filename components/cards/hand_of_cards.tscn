@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ds00fm2wg81wp"]
+[gd_scene load_steps=9 format=3 uid="uid://ds00fm2wg81wp"]
 
 [ext_resource type="Script" path="res://components/cards/hand_of_cards.gd" id="1_50x24"]
 [ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card.tscn" id="2_yaj22"]
@@ -6,10 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://bbg0md3i1881m" path="res://make_control_draggable.tscn" id="3_wuthu"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
-[ext_resource type="PackedScene" uid="uid://babdevi0twph6" path="res://components/discard_pile.tscn" id="6_cuw25"]
-[ext_resource type="PackedScene" uid="uid://c2s4d0va0x5gy" path="res://components/cards/deck_pile.tscn" id="7_vgbdv"]
-[ext_resource type="Texture2D" uid="uid://bnimnyhvmbkvv" path="res://art/ui/action_points_meter.png" id="9_xp1j5"]
-[ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="10_ls4gl"]
 
 [sub_resource type="Curve2D" id="Curve2D_wguu1"]
 _data = {
@@ -24,31 +20,6 @@ stream_0/stream = ExtResource("3_dbsbv")
 stream_1/stream = ExtResource("4_wc7mt")
 stream_2/stream = ExtResource("5_3h3ci")
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wbbth"]
-particles_animation = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_83y4o"]
-lifetime_randomness = 0.2
-particle_flag_disable_z = true
-emission_shape_scale = Vector3(5, 5, 1)
-emission_shape = 1
-emission_sphere_radius = 10.0
-orbit_velocity_min = -0.5
-orbit_velocity_max = 0.5
-gravity = Vector3(0, 0, 0)
-radial_accel_min = -2.23517e-06
-radial_accel_max = 100.0
-scale_min = 1.5
-scale_max = 5.0
-color = Color(0.760236, 0.709881, 1, 1)
-hue_variation_min = -0.1
-hue_variation_max = 0.1
-anim_speed_min = -1.0
-anim_speed_max = 1.0
-
 [node name="CardInterface" type="Node2D"]
 position = Vector2(0, 360)
 script = ExtResource("1_50x24")
@@ -57,8 +28,8 @@ script = ExtResource("1_50x24")
 curve = SubResource("Curve2D_wguu1")
 
 [node name="CardFollowPath2" type="PathFollow2D" parent="CardArc"]
-position = Vector2(319.995, -7.75066)
-rotation = 0.00228998
+position = Vector2(319.996, -7.75066)
+rotation = 0.0022902
 progress = 160.22
 cubic_interp = false
 
@@ -76,41 +47,6 @@ offset_right = 96.0
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")
 volume_db = -20.0
-
-[node name="DiscardPiles" parent="." instance=ExtResource("6_cuw25")]
-position = Vector2(587, -36)
-scale = Vector2(0.45, 0.45)
-
-[node name="DeckPile" parent="." instance=ExtResource("7_vgbdv")]
-position = Vector2(45, -31)
-scale = Vector2(0.55, 0.55)
-
-[node name="Sprite2D" type="TextureRect" parent="."]
-offset_left = 23.0
-offset_top = -106.0
-offset_right = 87.0
-offset_bottom = -42.0
-texture = ExtResource("9_xp1j5")
-
-[node name="ActionPointsCounter" type="Label" parent="Sprite2D"]
-layout_mode = 0
-offset_left = 17.0
-offset_top = 17.0
-offset_right = 49.0
-offset_bottom = 43.0
-theme = ExtResource("10_ls4gl")
-theme_override_font_sizes/font_size = 32
-text = "3/3"
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="Sprite2D"]
-material = SubResource("CanvasItemMaterial_wbbth")
-position = Vector2(32, 33)
-emitting = false
-amount = 40
-process_material = SubResource("ParticleProcessMaterial_83y4o")
-lifetime = 0.5
-one_shot = true
-explosiveness = 0.3
 
 [connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]
 [connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]

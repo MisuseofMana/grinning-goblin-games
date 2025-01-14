@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://doa41q24r2eid"]
+[gd_scene load_steps=12 format=3 uid="uid://doa41q24r2eid"]
 
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="1_2al02"]
 [ext_resource type="Script" path="res://scenes/card_stats.gd" id="2_vhlj7"]
@@ -62,10 +62,14 @@ tracks/1/keys = {
 "values": [0.0, -0.0523599]
 }
 
+[sub_resource type="Animation" id="Animation_gpjmu"]
+resource_name = "burn_card"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sw1ai"]
 _data = {
 "RESET": SubResource("Animation_vr347"),
-"accept_enemy_card": SubResource("Animation_nlc62")
+"accept_enemy_card": SubResource("Animation_nlc62"),
+"burn_card": SubResource("Animation_gpjmu")
 }
 
 [node name="Card" type="TextureRect"]
@@ -84,7 +88,7 @@ card_stats = ExtResource("3_kvvc5")
 
 [node name="Modifiers" parent="." instance=ExtResource("4_k3k1f")]
 
-[node name="CardName" type="Label" parent="."]
+[node name="CardLabel" type="Label" parent="."]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 5

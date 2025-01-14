@@ -4,31 +4,27 @@ class_name HandOfCards
 @onready var hand_of_cards = $"."
 @onready var card_arc = $CardArc
 @onready var paper_sound: AudioStreamPlayer2D = $PaperSound
-@onready var action_points_counter = $Sprite2D/ActionPointsCounter
 @onready var ap_particles = $Sprite2D/GPUParticles2D
-@onready var discard_pile = $DiscardPiles
-@onready var deck_pile = $DeckPile
 
 @export var battleScene : BattleScene
 @export var player : UnitSprite
 
-const CARD = preload("res://components/cards/draggable_card.tscn")
+const CARD = preload("res://components/cards/card.tscn")
 
 var max_action_points : int = 3
 var action_points_remaining : int = 3
-var discardArray : Array = []
-var burnArray : Array = []
 
 signal end_player_turn()
 signal no_valid_player_options()
+signal action_points_changed(byHowMany : int)
+signal card_discarded(cardStats : CardStats)
+signal card_burned(cardStats : CardStats)
 
 func _ready():
 #	clear out the test cards in the arc
-	#for arc in card_arc.get_children():
-		#card_arc.remove_child(arc)
-		#arc.queue_free()
-		
-	action_points_counter.text = str(action_points_remaining) + '/' + str(max_action_points)
+	for arc in card_arc.get_children():
+		card_arc.remove_child(arc)
+		arc.queue_free()
 	
 func refreshActionPoints():
 	action_points_remaining = max_action_points
@@ -41,17 +37,17 @@ func playerTurnSetup():
 	await discardHand()
 	#drawCards(hand_size)
 
-func addCardToHand(cardResource: CardStats):
+func addCardToHand(cardStats: CardStats):
 	var newFollowNode = PathFollow2D.new()
 	var newCard = CARD.instantiate()
 	newCard.scale = Vector2(1,1)
 	card_arc.add_child(newFollowNode)
 	newFollowNode.add_child(newCard)
-	newCard.set_card_stats(cardResource)
-	
+	newCard.card_stats = cardStats
 	newCard.card_used.connect(handleCardUse)
 	newCard.tree_exited.connect(updateAllCardPositions)
 	newCard.tree_exited.connect(checkForValidPlayerActions)
+	
 
 	updateAllCardPositions()
 	changeCardAvailibilty(newCard)
@@ -61,37 +57,34 @@ func discardHand():
 		await self.get_tree().create_timer(0.2).timeout
 		putCardInDiscard(followPath.get_child(0))
 
-func putCardInDiscard(dragCard : DraggableCard):
-	var card_stats : CardStats = dragCard.card.card_stats
-	dragCard.anims.play('discard')
-	create_tween().tween_property(dragCard, "global_position", Vector2(579,342), 0.6)
-	discardArray.append(card_stats)
-	discard_pile.num_in_discard = discardArray.size()
+func putCardInDiscard(card : CardComponent):
+	var card_stats : CardStats = card.card_stats
+	card.anims.play('discard')
+	create_tween().tween_property(card, "global_position", Vector2(579,342), 0.6)
+	card.discardCard()
 	
-func putCardInBurnPile(dragCard : DraggableCard):
-	var card_stats : CardStats = dragCard.card.card_stats
-	dragCard.anims.play('burn')
-	create_tween().tween_property(dragCard, "global_position", Vector2(600,315), 0.6)
-	burnArray.append(card_stats)
-	discard_pile.num_in_burn = burnArray.size()
-
-func isCardUsable(cardNode : DraggableCard):
-	if cardNode.card.card_stats.play_cost > action_points_remaining:
+func putCardInBurnPile(card : CardComponent):
+	var card_stats : CardStats = card.card_stats
+	card.anims.play('burn')
+	create_tween().tween_property(card, "global_position", Vector2(600,315), 0.6)
+	card.burnCard()
+	
+func isCardUsable(card : CardComponent):
+	if card.card_stats.play_cost > action_points_remaining:
 		return false
-	var canUseAsResponse = not battleScene.players_turn and cardNode.card.card_stats.can_use_to_respond
-	var canUseOnTurn = not cardNode.card.card_stats.can_use_to_respond and battleScene.players_turn
-	return canUseAsResponse or canUseOnTurn or cardNode.card.card_stats.can_use_whenever
+	var canUseAsResponse = not battleScene.players_turn and card.card_stats.can_use_to_respond
+	var canUseOnTurn = not card.card_stats.can_use_to_respond and battleScene.players_turn
+	return canUseAsResponse or canUseOnTurn or card.card_stats.can_use_whenever
 	
-func handleCardUse(dragCard: DraggableCard):
-	var card_stats : CardStats = dragCard.card.card_stats
-	action_points_remaining -= card_stats.play_cost
-	action_points_counter.text = str(action_points_remaining) + '/' + str(max_action_points)
+func handleCardUse(card: CardComponent):
+	var card_stats : CardStats = card.card_stats
+	action_points_changed.emit(card_stats.play_cost)
 	ap_particles.emitting = true
 	
 	if card_stats.one_use:
-		putCardInBurnPile(dragCard)
+		putCardInBurnPile(card)
 	else:
-		putCardInDiscard(dragCard)
+		putCardInDiscard(card)
 	
 	updateAllCardPositions()
 		
@@ -125,7 +118,7 @@ func changeAllCardAvailability():
 		var cardNode = followNode.get_child(0)
 		changeCardAvailibilty(cardNode)
 
-func changeCardAvailibilty(cardNode):
+func changeCardAvailibilty(cardNode: CardComponent):
 	if isCardUsable(cardNode):
 		cardNode.modulate = Color(1, 1, 1)
 		cardNode.undraggable = false

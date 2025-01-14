@@ -4,23 +4,29 @@
 [ext_resource type="Script" path="res://components/discard_pile.gd" id="1_vausx"]
 [ext_resource type="Texture2D" uid="uid://73ao4n0v4r80" path="res://art/cards/card-burn-pile.png" id="2_88c44"]
 [ext_resource type="Texture2D" uid="uid://cs8v15ouvtlop" path="res://art/cards/card-cost-blip.png" id="2_ee4ao"]
-[ext_resource type="FontFile" uid="uid://d4mppqpfww4e7" path="res://fonts/pixel-font.ttf" id="3_5038y"]
+[ext_resource type="Theme" uid="uid://cwgh0k28oi2dx" path="res://themes/default_theme.tres" id="4_3ilt5"]
 
 [node name="DiscardPile" type="Node2D"]
 script = ExtResource("1_vausx")
 
 [node name="CardBack2" type="Sprite2D" parent="."]
 modulate = Color(0.737975, 0.72261, 1, 1)
-position = Vector2(16, -32)
-scale = Vector2(0.5, 0.5)
+position = Vector2(12, -25)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_88c44")
 
+[node name="CardBack" type="Sprite2D" parent="."]
+position = Vector2(-5, -15)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_mtuga")
+
 [node name="BurnNumber" type="Node2D" parent="."]
-position = Vector2(56, 24)
+position = Vector2(36, -3)
 metadata/_edit_group_ = true
 
 [node name="BurnChit" type="Sprite2D" parent="BurnNumber"]
-modulate = Color(0.23877, 0.187826, 1, 1)
+modulate = Color(0.375965, 0.464406, 1, 1)
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("2_ee4ao")
 
 [node name="NumberBurned" type="Label" parent="BurnNumber"]
@@ -28,22 +34,18 @@ offset_left = -8.0
 offset_top = -15.0
 offset_right = 10.0
 offset_bottom = 11.0
-theme_override_fonts/font = ExtResource("3_5038y")
-theme_override_font_sizes/font_size = 32
+theme = ExtResource("4_3ilt5")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="CardBack" type="Sprite2D" parent="."]
-position = Vector2(-16, -8)
-texture = ExtResource("1_mtuga")
-
 [node name="DiscardNumber" type="Node2D" parent="."]
-position = Vector2(24, 48)
+position = Vector2(12, 18)
 metadata/_edit_group_ = true
 
 [node name="DiscardChit" type="Sprite2D" parent="DiscardNumber"]
+scale = Vector2(1.2, 1.2)
 texture = ExtResource("2_ee4ao")
 
 [node name="NumberDiscarded" type="Label" parent="DiscardNumber"]
@@ -51,8 +53,7 @@ offset_left = -8.0
 offset_top = -15.0
 offset_right = 10.0
 offset_bottom = 11.0
-theme_override_fonts/font = ExtResource("3_5038y")
-theme_override_font_sizes/font_size = 32
+theme = ExtResource("4_3ilt5")
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1

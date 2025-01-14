@@ -27,11 +27,9 @@ func _mouse_input_on_parent(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed() and not undraggable:
 			card_origin = parent.position
-			print(parentScale)
 			create_tween().tween_property(parent, "scale", parentScale * 1.1, SPEED)
 			is_dragging = true
 		else:
-			print('rtorign')
 			returnCardToOrigin()
 
 func returnCardToOrigin():
