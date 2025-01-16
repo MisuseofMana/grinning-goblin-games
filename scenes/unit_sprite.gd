@@ -5,21 +5,21 @@ class_name UnitSprite
 @onready var collision = $TwoWayDetection/CollisionShape2D
 
 @export var anims : AnimationPlayer
-@export var deck : DeckNode
-@export var health : HealthNode
-@export var stats : StatsNode
+@export var deckNode : DeckNode
+@export var healthNode : HealthNode
+@export var statsNode : StatsNode
 
 func die():
-	if stats.is_self:
+	if statsNode.is_self:
 		print('game over')
 	else:
 		anims.play('death_animation')
 		
 func takeDamage(howMuch):
-	health.take_damage(howMuch)
+	healthNode.take_damage(howMuch)
 	
 func addToHealth(howMuch):
-	health.heal(howMuch)
+	healthNode.heal(howMuch)
 	
 func take_turn():
 	print('take_turn is not overwritten')

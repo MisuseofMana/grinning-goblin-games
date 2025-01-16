@@ -80,7 +80,7 @@ hue_variation_max = 0.18
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibgll"]
 
-[node name="Player" type="AnimatedSprite2D" node_paths=PackedStringArray("anims", "deck", "health", "stats") groups=["player_unit"]]
+[node name="Player" type="AnimatedSprite2D" node_paths=PackedStringArray("anims", "deckNode", "healthNode", "statsNode") groups=["player_unit"]]
 position = Vector2(41, 111)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_urjdb")
@@ -90,31 +90,30 @@ frame = 1
 frame_progress = 0.0122931
 script = ExtResource("3_oibvf")
 anims = NodePath("AnimationPlayer")
-deck = NodePath("DeckNode")
-health = NodePath("HealthNode")
-stats = NodePath("StatsNode")
+deckNode = NodePath("DeckNode")
+healthNode = NodePath("HealthNode")
+statsNode = NodePath("StatsNode")
 
 [node name="Modifiers" parent="." instance=ExtResource("3_hnclq")]
 
-[node name="HealthNode" parent="." node_paths=PackedStringArray("stats", "modifiers") instance=ExtResource("4_1xpga")]
+[node name="HealthNode" parent="." node_paths=PackedStringArray("statsNode", "modifiers") instance=ExtResource("4_1xpga")]
 hit_points = 25
 max_hit_points_base = 100
-stats = NodePath("../StatsNode")
+statsNode = NodePath("../StatsNode")
 modifiers = NodePath("../Modifiers")
 
 [node name="StatsNode" parent="." instance=ExtResource("5_b3p2f")]
 
-[node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("6_s84ip")]
+[node name="DeckNode" parent="." instance=ExtResource("6_s84ip")]
 deck = Array[ExtResource("6_g68ne")]([ExtResource("8_3b4vm"), ExtResource("8_3b4vm"), ExtResource("8_3b4vm"), ExtResource("9_vxgn2"), ExtResource("9_vxgn2"), ExtResource("9_vxgn2"), ExtResource("10_u5t1y"), ExtResource("10_u5t1y")])
-stats_node = NodePath("../StatsNode")
 
-[node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("9_nsbm0")]
+[node name="BattleReadout" parent="." node_paths=PackedStringArray("statsNode", "healthNode") instance=ExtResource("9_nsbm0")]
 offset_left = -16.0
 offset_top = -54.0
 offset_right = 24.0
 offset_bottom = -28.0
-stats = NodePath("../StatsNode")
-health = NodePath("../HealthNode")
+statsNode = NodePath("../StatsNode")
+healthNode = NodePath("../HealthNode")
 
 [node name="TwoWayDetection" parent="." groups=["player_hitbox"] instance=ExtResource("21_nqyrs")]
 position = Vector2(96.0422, 126.189)
