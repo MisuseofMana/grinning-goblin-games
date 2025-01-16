@@ -14,6 +14,9 @@ var card_rotation
 const SPEED := 0.2
 const delay := 4
 
+signal card_was_picked_up()
+signal card_was_dropped()
+
 func _ready():
 	parent.mouse_entered.connect(_on_mouse_entered)
 	parent.mouse_exited.connect(_on_mouse_exited)
@@ -21,25 +24,26 @@ func _ready():
 	
 func _physics_process(delta):
 	if is_dragging:
-		create_tween().tween_property(parent, "global_position", parent.get_global_mouse_position() + Vector2(-parent.size.x / 4, -parent.size.y / 4), delay * delta)
+		create_tween().tween_property(parent, "global_position", parent.get_global_mouse_position() + Vector2(-parent.size.x / 7, -parent.size.y / 7), delay * delta)
 
 func _mouse_input_on_parent(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed() and not undraggable:
 			card_origin = parent.position
-			create_tween().tween_property(parent, "scale", parentScale * 1.1, SPEED)
+			create_tween().tween_property(parent, "scale", parentScale * 0.5, SPEED)
 			is_dragging = true
+			card_was_picked_up.emit()
 		else:
 			returnCardToOrigin()
 
 func returnCardToOrigin():
-	_on_mouse_exited()
+	card_was_dropped.emit()
 	is_dragging = false
 	undraggable = true
 	parent.z_index = 0
 	create_tween().tween_property(parent, "position", card_origin, SPEED)
-	#create_tween().tween_property(self, "modulate", Color(1,1,1), SPEED)
-	#create_tween().tween_property(self, "scale", Vector2(1, 1), SPEED)
+	create_tween().tween_property(parent, "modulate", Color(1,1,1), SPEED)
+	create_tween().tween_property(parent, "scale", parentScale, SPEED)
 	await get_tree().create_timer(SPEED).timeout
 	undraggable = false
 	

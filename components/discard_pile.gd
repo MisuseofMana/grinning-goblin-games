@@ -1,5 +1,7 @@
 extends Node2D
 
+@export var player : UnitSprite
+
 @onready var number_discarded : Label = $DiscardNumber/NumberDiscarded
 @onready var number_burned: Label = $BurnNumber/NumberBurned
 

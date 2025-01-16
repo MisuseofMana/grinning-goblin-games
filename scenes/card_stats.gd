@@ -2,9 +2,7 @@
 extends TextureRect
 class_name CardComponent
 
-@export var card_stats : CardStats :
-	set(newValue):
-		card_stats = newValue
+@export var card_stats : CardStats
 
 @onready var card = $"."
 

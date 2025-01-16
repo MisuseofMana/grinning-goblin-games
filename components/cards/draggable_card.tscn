@@ -1,66 +1,19 @@
-[gd_scene load_steps=21 format=3 uid="uid://dkrt4twau3rbt"]
+[gd_scene load_steps=15 format=3 uid="uid://cn4jweq6hqwjl"]
 
-[ext_resource type="Script" path="res://components/cards/draggable_card.gd" id="1_c01rp"]
-[ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card.tscn" id="2_pf1w1"]
-[ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="3_a782e"]
+[ext_resource type="Script" path="res://scenes/card_stats.gd" id="2_1awv1"]
+[ext_resource type="Resource" uid="uid://getptn3kqhxl" path="res://components/cards/CardDictionary/Player/HealCards/basic_heal.tres" id="3_thx12"]
+[ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="4_bkas0"]
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="4_wclge"]
 [ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="5_rclin"]
-[ext_resource type="Script" path="res://components/cards/CardFunctions/healing_card.gd" id="6_0yxrx"]
-[ext_resource type="PackedScene" uid="uid://bbg0md3i1881m" path="res://make_control_draggable.tscn" id="7_jp734"]
+[ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="5_y1g05"]
+[ext_resource type="PackedScene" uid="uid://d0j8mgfxn8m34" path="res://make_control_draggable.tscn" id="7_jp734"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/card_and_unit_area_detection.tscn" id="7_pm1nj"]
-[ext_resource type="AudioStream" uid="uid://cenkn62k76yu2" path="res://audio/failed_card_drop.wav" id="8_1en12"]
-[ext_resource type="AudioStream" uid="uid://cryacle32jqt3" path="res://audio/Gem_Grab_02.ogg" id="9_3ymh3"]
-[ext_resource type="AudioStream" uid="uid://cymvfrmdcgcen" path="res://audio/Gem_Grab_03.ogg" id="10_r4w0d"]
+[ext_resource type="Texture2D" uid="uid://brtypga5cij3r" path="res://art/cards/burn-card-cost-blip.png" id="7_rrig5"]
 
-[sub_resource type="Resource" id="Resource_6a12l"]
-resource_local_to_scene = true
-script = ExtResource("3_a782e")
-stats = {
-"endurance": 4,
-"finesse": 3,
-"health": 50,
-"knowledge": 0,
-"max_health": 50,
-"muscle": 5,
-"nuance": 0
-}
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2swvb"]
+size = Vector2(160, 238)
 
-[sub_resource type="Resource" id="Resource_kok8s"]
-resource_local_to_scene = true
-script = ExtResource("6_0yxrx")
-card_name = "Basic Heal"
-one_use = true
-targets_self = true
-base_value = 5
-play_cost = 1
-card_description = "Restore %s health"
-tool_tip = "Restore health up to your maximum limit, healing increases based on %s."
-debuff_value = 0
-hide_cost = false
-can_use_whenever = false
-can_use_to_respond = false
-card_owner = SubResource("Resource_6a12l")
-accepts_card_types = Array[int]([])
-card_type = 0
-primary_stat = "nuance"
-secondary_stat = "knowledge"
-icon_image = ExtResource("5_rclin")
-card_skin = ExtResource("4_wclge")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cvqo"]
-size = Vector2(57, 84)
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_2nelj"]
-random_pitch = 1.1
-streams_count = 1
-stream_0/stream = ExtResource("8_1en12")
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_3vs02"]
-streams_count = 2
-stream_0/stream = ExtResource("9_3ymh3")
-stream_1/stream = ExtResource("10_r4w0d")
-
-[sub_resource type="Animation" id="Animation_vs58c"]
+[sub_resource type="Animation" id="Animation_vr347"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -72,24 +25,23 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(0.5, 0.5)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:modulate")
+tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_kf07f"]
-resource_name = "burn"
-length = 0.6
+[sub_resource type="Animation" id="Animation_nlc62"]
+resource_name = "accept_enemy_card"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -97,126 +49,133 @@ tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.6),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0.7, 0.7), Vector2(1e-05, 0.95), Vector2(1.2, 1.2), Vector2(0.7, 0.7)]
+"values": [Vector2(0.5, 0.5), Vector2(0.6, 0.6), Vector2(0.45, 0.45), Vector2(0.5, 0.5)]
 }
-tracks/1/type = "method"
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Card")
+tracks/1/path = NodePath(".:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"swapToBurnBack"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.3, 0.6),
+"times": PackedFloat32Array(0.233333, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+"values": [0.0, -0.0523599]
 }
 
-[sub_resource type="Animation" id="Animation_ewmvp"]
-resource_name = "discard"
-length = 0.6
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0.7, 0.7), Vector2(1e-05, 0.95), Vector2(1.2, 1.2), Vector2(0.7, 0.7)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Card")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"swapToDiscardBack"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath(".:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.3, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
+[sub_resource type="Animation" id="Animation_gpjmu"]
+resource_name = "burn_card"
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_f3ywh"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sw1ai"]
 _data = {
-"RESET": SubResource("Animation_vs58c"),
-"burn": SubResource("Animation_kf07f"),
-"discard": SubResource("Animation_ewmvp")
+"RESET": SubResource("Animation_vr347"),
+"accept_enemy_card": SubResource("Animation_nlc62"),
+"burn_card": SubResource("Animation_gpjmu")
 }
 
-[node name="DraggableCard" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-size_flags_vertical = 8
-script = ExtResource("1_c01rp")
-
-[node name="Card" parent="." instance=ExtResource("2_pf1w1")]
-layout_mode = 1
-anchor_top = -0.178
-anchor_bottom = 0.178
+[node name="Card" type="TextureRect"]
 offset_left = -96.0
-offset_top = -192.0
+offset_top = -256.0
 offset_right = 96.0
-offset_bottom = 64.0
-pivot_offset = Vector2(96, 128)
-card_stats = SubResource("Resource_kok8s")
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(96, 256)
+texture = ExtResource("4_wclge")
+script = ExtResource("2_1awv1")
+card_stats = ExtResource("3_thx12")
 
-[node name="MakeControlDraggable2" parent="Card" instance=ExtResource("7_jp734")]
+[node name="Modifiers" parent="." instance=ExtResource("4_bkas0")]
+
+[node name="CardLabel" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -67.0
+offset_top = 4.0
+offset_right = 66.0
+offset_bottom = 30.0
+grow_horizontal = 2
+theme = ExtResource("5_y1g05")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Basic Heal"
+
+[node name="IconImage" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -76.0
+offset_top = 36.0
+offset_right = 76.0
+offset_bottom = 158.0
+grow_horizontal = 2
+texture = ExtResource("5_rclin")
+
+[node name="Description" type="RichTextLabel" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = 166.0
+offset_right = 76.0
+offset_bottom = 241.0
+grow_horizontal = 2
+mouse_filter = 1
+theme = ExtResource("5_y1g05")
+theme_override_constants/line_separation = -8
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Restore <null> health"
+scroll_active = false
+
+[node name="CostIndicator" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 1
+offset_left = -4.0
+offset_top = -2.0
+offset_right = 26.0
+offset_bottom = 28.0
+theme = ExtResource("5_y1g05")
+texture = ExtResource("7_rrig5")
+metadata/_edit_group_ = true
+
+[node name="Cost" type="Label" parent="CostIndicator"]
+layout_mode = 1
+offset_left = 10.0
+offset_top = -1.0
+offset_right = 22.0
+offset_bottom = 25.0
+theme = ExtResource("5_y1g05")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TwoWayDetection" parent="." instance=ExtResource("7_pm1nj")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]
-position = Vector2(1.5, -61)
-shape = SubResource("RectangleShape2D_7cvqo")
-
-[node name="ErrorSound" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_2nelj")
-
-[node name="SuccessSound" type="AudioStreamPlayer2D" parent="."]
-stream = SubResource("AudioStreamRandomizer_3vs02")
-pitch_scale = 1.1
+position = Vector2(96, 127)
+shape = SubResource("RectangleShape2D_2swvb")
+disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_f3ywh")
+"": SubResource("AnimationLibrary_sw1ai")
 }
 
-[connection signal="gui_input" from="." to="." method="event_on_card"]
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
-[connection signal="new_overlap_acquired" from="TwoWayDetection" to="." method="check_drop_spot_validity"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="animation_handler"]
+[node name="MakeControlDraggable" parent="." instance=ExtResource("7_jp734")]
+
+[connection signal="card_was_dropped" from="MakeControlDraggable" to="TwoWayDetection" method="disableTargeting"]
+[connection signal="card_was_picked_up" from="MakeControlDraggable" to="TwoWayDetection" method="enableTargeting"]
