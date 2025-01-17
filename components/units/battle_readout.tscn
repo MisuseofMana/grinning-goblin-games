@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx3b6tvvx5et5"]
+[gd_scene load_steps=5 format=3 uid="uid://bx3b6tvvx5et5"]
 
 [ext_resource type="Script" path="res://components/units/battle_readout.gd" id="1_1ykwv"]
 [ext_resource type="Theme" uid="uid://cwgh0k28oi2dx" path="res://themes/default_theme.tres" id="2_7tqqc"]
 [ext_resource type="PackedScene" uid="uid://dfdmlwetrjcw3" path="res://components/tokens/token_display.tscn" id="2_a3l74"]
+[ext_resource type="FontVariation" uid="uid://dbssmd648wpm3" path="res://fonts/label-font-fix.tres" id="3_hhyqc"]
 
 [node name="Readout" type="Control"]
 layout_mode = 3
@@ -27,14 +28,17 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -16.0
-offset_top = -9.0
+offset_top = -7.0
 offset_right = 16.0
-offset_bottom = 9.0
+offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_7tqqc")
+theme_override_fonts/font = ExtResource("3_hhyqc")
+theme_override_font_sizes/font_size = 32
 text = "0/0"
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="TokenContainer" parent="." instance=ExtResource("2_a3l74")]
 visible = false

@@ -1,10 +1,10 @@
-extends Node2D
+extends Control
 class_name DiscardNode
 
 @export var player : UnitSprite
 
-@onready var number_discarded : Label = $DiscardNumber/NumberDiscarded
-@onready var number_burned: Label = $BurnNumber/NumberBurned
+@onready var number_discarded : Label = $DiscardCardBack/MarginContainer/DiscardChit/NumberDiscarded
+@onready var number_burned: Label = $BurnCardBack/MarginContainer/BurnChit/NumberBurned
 
 var discardArray : Array = [] :
 	set(newArray):

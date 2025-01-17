@@ -1,7 +1,7 @@
 extends Control
 
-@onready var action_points_counter = $ActionPointsCounter
-@onready var gpu_particles_2d = $GPUParticles2D
+@onready var counter = $Sprite2D/ActionPointsCounter
+@onready var particles = $GPUParticles2D
 
 @export var player : UnitSprite
 
@@ -12,7 +12,7 @@ var remaining_ap : int :
 		remaining_ap = newValue
 
 func _ready():
-	remaining_ap = player.deckNode.hand_size
+	remaining_ap = player.statsNode.current_ap
 
 func reduce_ap_by(howMuch):
 	remaining_ap = remaining_ap - howMuch
@@ -27,5 +27,5 @@ func animateLabelFromTo(to: int, from: int):
 	while incrementer != to :
 		incrementer += changeIncrementerBy
 		await get_tree().create_timer(0.1).timeout
-		counter.text = str(incrementer)
+		counter.text = str(incrementer) + '/' + str(player.statsNode.ap_max)
 		particles.emitting = true

@@ -8,10 +8,20 @@
 [ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="5_y1g05"]
 [ext_resource type="PackedScene" uid="uid://d0j8mgfxn8m34" path="res://make_control_draggable.tscn" id="7_jp734"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/card_and_unit_area_detection.tscn" id="7_pm1nj"]
-[ext_resource type="Texture2D" uid="uid://brtypga5cij3r" path="res://art/cards/burn-card-cost-blip.png" id="7_rrig5"]
+[ext_resource type="Texture2D" uid="uid://bnimnyhvmbkvv" path="res://art/ui/action_points_meter.png" id="8_x26ct"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2swvb"]
 size = Vector2(160, 238)
+
+[sub_resource type="FontVariation" id="FontVariation_7utfe"]
+spacing_glyph = 20
+spacing_top = -8
+spacing_bottom = -4
+
+[sub_resource type="LabelSettings" id="LabelSettings_oynpr"]
+font_size = 32
+outline_size = 6
+outline_color = Color(0.243137, 0.231373, 0.4, 1)
 
 [sub_resource type="Animation" id="Animation_vr347"]
 length = 0.001
@@ -25,7 +35,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.5, 0.5)]
+"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -40,41 +50,9 @@ tracks/1/keys = {
 "values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_nlc62"]
-resource_name = "accept_enemy_card"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0.5, 0.5), Vector2(0.6, 0.6), Vector2(0.45, 0.45), Vector2(0.5, 0.5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.233333, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -0.0523599]
-}
-
-[sub_resource type="Animation" id="Animation_gpjmu"]
-resource_name = "burn_card"
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sw1ai"]
 _data = {
-"RESET": SubResource("Animation_vr347"),
-"accept_enemy_card": SubResource("Animation_nlc62"),
-"burn_card": SubResource("Animation_gpjmu")
+"RESET": SubResource("Animation_vr347")
 }
 
 [node name="Card" type="TextureRect"]
@@ -83,11 +61,18 @@ offset_top = -256.0
 offset_right = 96.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(96, 256)
+theme = ExtResource("5_y1g05")
 texture = ExtResource("4_wclge")
 script = ExtResource("2_1awv1")
 card_stats = ExtResource("3_thx12")
+
+[node name="TwoWayDetection" parent="." instance=ExtResource("7_pm1nj")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]
+position = Vector2(96, 127)
+shape = SubResource("RectangleShape2D_2swvb")
+disabled = true
 
 [node name="Modifiers" parent="." instance=ExtResource("4_bkas0")]
 
@@ -103,8 +88,6 @@ offset_right = 66.0
 offset_bottom = 30.0
 grow_horizontal = 2
 theme = ExtResource("5_y1g05")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 32
 text = "Basic Heal"
 
 [node name="IconImage" type="TextureRect" parent="."]
@@ -139,36 +122,40 @@ bbcode_enabled = true
 text = "Restore <null> health"
 scroll_active = false
 
-[node name="CostIndicator" type="TextureRect" parent="."]
-texture_filter = 1
+[node name="Control" type="Control" parent="."]
 layout_mode = 1
-offset_left = -4.0
-offset_top = -2.0
-offset_right = 26.0
-offset_bottom = 28.0
-theme = ExtResource("5_y1g05")
-texture = ExtResource("7_rrig5")
-metadata/_edit_group_ = true
+anchors_preset = 0
 
-[node name="Cost" type="Label" parent="CostIndicator"]
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
 layout_mode = 1
-offset_left = 10.0
-offset_top = -1.0
-offset_right = 22.0
-offset_bottom = 25.0
+offset_right = 32.0
+offset_bottom = 32.0
+
+[node name="CostIndicator" type="TextureRect" parent="Control/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("5_y1g05")
+texture = ExtResource("8_x26ct")
+
+[node name="Cost" type="Label" parent="Control/MarginContainer/CostIndicator"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
 theme = ExtResource("5_y1g05")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_7utfe")
 theme_override_font_sizes/font_size = 32
 text = "1"
+label_settings = SubResource("LabelSettings_oynpr")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="TwoWayDetection" parent="." instance=ExtResource("7_pm1nj")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]
-position = Vector2(96, 127)
-shape = SubResource("RectangleShape2D_2swvb")
-disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

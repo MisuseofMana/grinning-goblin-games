@@ -1,15 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://ds00fm2wg81wp"]
+[gd_scene load_steps=8 format=3 uid="uid://ds00fm2wg81wp"]
 
 [ext_resource type="Script" path="res://components/cards/hand_of_cards.gd" id="1_50x24"]
-[ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card.tscn" id="2_yaj22"]
+[ext_resource type="PackedScene" uid="uid://cn4jweq6hqwjl" path="res://components/cards/draggable_card.tscn" id="2_kvk4s"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
-[ext_resource type="PackedScene" uid="uid://d0j8mgfxn8m34" path="res://make_control_draggable.tscn" id="3_wuthu"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
 
 [sub_resource type="Curve2D" id="Curve2D_wguu1"]
 _data = {
-"points": PackedVector2Array(-149.857, 10.7087, 149.857, -10.7087, 160, 0, -150.123, -9.96078, 150.123, 9.96078, 480, 0)
+"points": PackedVector2Array(-149.857, 10.7087, 149.857, -10.7087, 380, 0, -150.123, -9.96078, 150.123, 9.96078, 900, 0)
 }
 point_count = 2
 
@@ -23,20 +22,31 @@ stream_2/stream = ExtResource("5_3h3ci")
 [node name="CardInterface" type="Node2D"]
 position = Vector2(0, 720)
 script = ExtResource("1_50x24")
-metadata/_edit_vertical_guides_ = [640.0]
+metadata/_edit_vertical_guides_ = [640.0, 380.0, 900.0]
 
 [node name="CardArc" type="Path2D" parent="."]
 curve = SubResource("Curve2D_wguu1")
 
 [node name="CardFollowPath2" type="PathFollow2D" parent="CardArc"]
-position = Vector2(319.996, -7.75066)
-rotation = 0.0022902
-progress = 160.22
+position = Vector2(769.943, -5.89631)
+rotation = 0.0280614
+progress = 390.129
 cubic_interp = false
 
-[node name="Card" parent="CardArc/CardFollowPath2" instance=ExtResource("2_yaj22")]
+[node name="CardFollowPath3" type="PathFollow2D" parent="CardArc"]
+position = Vector2(380, 0)
+rotation = -0.0713382
+cubic_interp = false
 
-[node name="MakeControlDraggable" parent="CardArc/CardFollowPath2/Card" instance=ExtResource("3_wuthu")]
+[node name="Card2" parent="CardArc/CardFollowPath3" instance=ExtResource("2_kvk4s")]
+
+[node name="CardFollowPath4" type="PathFollow2D" parent="CardArc"]
+position = Vector2(900, 0)
+rotation = 0.0662537
+progress = 780.257
+cubic_interp = false
+
+[node name="Card2" parent="CardArc/CardFollowPath4" instance=ExtResource("2_kvk4s")]
 
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")

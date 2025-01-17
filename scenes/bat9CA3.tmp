@@ -1,13 +1,10 @@
-[gd_scene load_steps=37 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=34 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://c06k5sgbv2e0l" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
 [ext_resource type="Texture2D" uid="uid://pwewpuefxjom" path="res://art/ui/ui-background-cutout.png" id="2_jaqan"]
 [ext_resource type="PackedScene" uid="uid://bcxxmjp1ch5pq" path="res://components/units/player.tscn" id="3_kt5qk"]
-[ext_resource type="Script" path="res://scenes/accept_button.gd" id="6_3nejl"]
 [ext_resource type="Script" path="res://scenes/enemy_controller.gd" id="7_7drj6"]
-[ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="9_3vtf7"]
-[ext_resource type="Resource" uid="uid://dlw2cn7turh68" path="res://components/cards/CardDictionary/Enemies/Goblin/goblin_bite.tres" id="11_axdtu"]
 [ext_resource type="Texture2D" uid="uid://clv1s8w5roogn" path="res://art/ui/xp_bar.png" id="12_52kwo"]
 [ext_resource type="Script" path="res://scenes/xp_bar.gd" id="13_5jlb7"]
 [ext_resource type="Texture2D" uid="uid://crxrqibwaskm6" path="res://art/ui/xp_bar_dot.png" id="13_65iss"]
@@ -63,7 +60,7 @@ _data = {
 
 [sub_resource type="Curve2D" id="Curve2D_catov"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 16, -30, 210.357, -45.0166, -210.357, 45.0166, -392, 426, 0, 0, 0, 0, -712, 386)
+"points": PackedVector2Array(0, 0, 0, 0, 16, -30, 210.357, -45.0166, -210.357, 45.0166, -291, 346, 0, 0, 0, 0, -776, 325)
 }
 point_count = 3
 
@@ -233,7 +230,6 @@ stream_0/stream = ExtResource("17_ituhd")
 script = ExtResource("1_tfoca")
 hand_of_cards = NodePath("HandOfCards")
 enemy_logic = NodePath("Enemies")
-metadata/_edit_vertical_guides_ = [640.0]
 
 [node name="FlavorAssets" type="Node2D" parent="."]
 
@@ -271,15 +267,6 @@ position = Vector2(1030, 340)
 [node name="Third" type="Marker2D" parent="EnemyMarkers"]
 position = Vector2(890, 300)
 
-[node name="AcceptButton2" type="Button" parent="."]
-offset_left = 523.5
-offset_top = 371.0
-offset_right = 756.5
-offset_bottom = 399.0
-theme = ExtResource("21_xt7dq")
-text = "Accept Effect"
-script = ExtResource("6_3nejl")
-
 [node name="Enemies" type="Node2D" parent="." node_paths=PackedStringArray("animations")]
 script = ExtResource("7_7drj6")
 animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
@@ -310,8 +297,6 @@ rotates = false
 loop = false
 
 [node name="Card" parent="EnemyCardContainer/Path2D/PathFollow2D" instance=ExtResource("20_yae8r")]
-texture = ExtResource("9_3vtf7")
-card_stats = ExtResource("11_axdtu")
 
 [node name="Evaporate" type="GPUParticles2D" parent="EnemyCardContainer/Path2D/PathFollow2D"]
 z_index = 100
@@ -338,6 +323,14 @@ trail_lifetime = 0.6
 libraries = {
 "": SubResource("AnimationLibrary_gvsxv")
 }
+
+[node name="AcceptButton" type="Button" parent="EnemyCardContainer"]
+visible = false
+offset_left = -436.0
+offset_top = 206.0
+offset_right = -326.0
+offset_bottom = 227.0
+text = "Accept Effect"
 
 [node name="HandOfCards" parent="." node_paths=PackedStringArray("battleScene", "player") instance=ExtResource("15_6uhf2")]
 battleScene = NodePath("..")
@@ -580,17 +573,15 @@ volume_db = -10.0
 autoplay = true
 
 [connection signal="animation_finished" from="FlavorAssets/AnimationPlayer" to="." method="animationHandler"]
-[connection signal="pressed" from="AcceptButton2" to="AcceptButton2" method="_hide_self"]
-[connection signal="pressed" from="AcceptButton2" to="EnemyCardContainer" method="onCardAccept"]
 [connection signal="all_enemies_turn_over" from="Enemies" to="." method="runPlayerUpkeep"]
 [connection signal="set_card_owner" from="Enemies" to="EnemyCardContainer" method="onOwnershipChange"]
 [connection signal="set_card_stats" from="Enemies" to="EnemyCardContainer" method="onCardUpdate"]
 [connection signal="show_accept_button" from="Enemies" to="EnemyCardContainer" method="showAcceptButton"]
 [connection signal="card_effect_finished" from="EnemyCardContainer" to="Enemies" method="enemyHasTakenTurn"]
-[connection signal="show_accept_button" from="EnemyCardContainer" to="AcceptButton2" method="_show_self"]
 [connection signal="child_exiting_tree" from="EnemyCardContainer/Path2D" to="EnemyCardContainer/Path2D" method="_on_child_exiting_tree"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="Enemies" method="animationSequencer"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="EnemyCardContainer" method="on_animation_finished"]
+[connection signal="pressed" from="EnemyCardContainer/AcceptButton" to="EnemyCardContainer" method="onCardAccept"]
 [connection signal="end_player_turn" from="HandOfCards" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="EndTurnButton" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="DebugBar/DebugToggle" to="DebugBar" method="_on_button_pressed"]

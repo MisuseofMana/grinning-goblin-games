@@ -8,6 +8,9 @@ class_name StatsNode
 @export var knowledge : int = 0
 @export var nuance : int = 0
 
+@export var ap_max : int = 3
+@export var current_ap : int = 3
+
 @export var debuffs : Dictionary = {}
 
 @export var is_friendly : bool

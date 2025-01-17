@@ -9,12 +9,12 @@ class_name CardComponent
 @onready var card_label = $CardLabel
 @onready var icon_image = $IconImage
 @onready var description = $Description
-@onready var cost_indicator = $CostIndicator
-@onready var cost = $CostIndicator/Cost
+@onready var cost_indicator = $Control/MarginContainer/CostIndicator
+@onready var cost = $Control/MarginContainer/CostIndicator/Cost
 @onready var anims: AnimationPlayer = $AnimationPlayer
 
-const CARD_COST_BLIP = preload("res://art/cards/card-cost-blip.png")
-const BURN_CARD_COST_BLIP = preload("res://art/cards/burn-card-cost-blip.png")
+const CARD_COST_BLIP = preload("res://art/ui/action_points_meter.png")
+const BURN_CARD_COST_BLIP = preload("res://art/ui/burn-card-badge.png")
 const DISCARD_BACK = preload("res://art/cards/card-template-back.png")
 const BURN_BACK = preload("res://art/cards/card-burn-pile.png")
 

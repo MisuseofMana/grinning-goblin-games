@@ -1,6 +1,7 @@
-extends Node2D
+extends Control
 
-@onready var label = $Label
+@onready var label = $DiscardChit/Label
+
 @export var player : UnitSprite
 
 var deckArray : Array[CardStats] = [] :
