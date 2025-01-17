@@ -50,7 +50,10 @@ func hideCardDetails():
 	icon_image.hide()
 	description.hide()
 	card_label.hide()
-		
+
+func determine_if_valid_drop_spot(areaInQuestion: Area2D):
+	print(areaInQuestion)
+
 func formatCardStringInterp(noBBCode):
 	var color
 	var adjustedValue = card_stats.calculate_adj_value()

@@ -77,7 +77,6 @@ _data = {
 }
 
 [node name="Card" type="TextureRect"]
-anchors_preset = -1
 offset_left = -96.0
 offset_top = -256.0
 offset_right = 96.0

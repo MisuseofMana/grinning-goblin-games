@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://components/cards/CardFunctions/token_card.gd" id="12_xqd20"]
 [ext_resource type="Resource" uid="uid://dj4d0nwgcjmgy" path="res://components/tokens/TokenDictionary/TokenTypes/ward.tres" id="13_fryp7"]
 
-[sub_resource type="Resource" id="Resource_4lcoc"]
+[sub_resource type="Resource" id="Resource_h0y7i"]
 resource_local_to_scene = true
 script = ExtResource("3_n5mqj")
 stats = {
@@ -27,7 +27,7 @@ stats = {
 "nuance": 0
 }
 
-[sub_resource type="Resource" id="Resource_3bkqv"]
+[sub_resource type="Resource" id="Resource_qagba"]
 resource_local_to_scene = true
 script = ExtResource("6_5v4v8")
 card_name = "Basic Attack"
@@ -41,7 +41,7 @@ debuff_value = 0
 hide_cost = false
 can_use_whenever = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_4lcoc")
+card_owner = SubResource("Resource_h0y7i")
 accepts_card_types = Array[int]([])
 card_type = 0
 primary_stat = "muscle"
@@ -49,7 +49,7 @@ secondary_stat = "finesse"
 icon_image = ExtResource("5_6nhwe")
 card_skin = ExtResource("4_ip05h")
 
-[sub_resource type="Resource" id="Resource_0j1w3"]
+[sub_resource type="Resource" id="Resource_c2aor"]
 resource_local_to_scene = true
 script = ExtResource("8_tcojo")
 card_name = "Basic Defend"
@@ -63,7 +63,7 @@ debuff_value = 0
 hide_cost = false
 can_use_whenever = false
 can_use_to_respond = true
-card_owner = SubResource("Resource_4lcoc")
+card_owner = SubResource("Resource_h0y7i")
 accepts_card_types = Array[int]([])
 card_type = 0
 primary_stat = "endurance"
@@ -71,7 +71,7 @@ secondary_stat = "muscle"
 icon_image = ExtResource("7_tt5cq")
 card_skin = ExtResource("4_ip05h")
 
-[sub_resource type="Resource" id="Resource_xx0k3"]
+[sub_resource type="Resource" id="Resource_p8keh"]
 resource_local_to_scene = true
 script = ExtResource("10_ti032")
 card_name = "Basic Heal"
@@ -85,7 +85,7 @@ debuff_value = 0
 hide_cost = false
 can_use_whenever = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_4lcoc")
+card_owner = SubResource("Resource_h0y7i")
 accepts_card_types = Array[int]([])
 card_type = 0
 primary_stat = "nuance"
@@ -93,7 +93,7 @@ secondary_stat = "knowledge"
 icon_image = ExtResource("9_ravud")
 card_skin = ExtResource("4_ip05h")
 
-[sub_resource type="Resource" id="Resource_jms11"]
+[sub_resource type="Resource" id="Resource_mv8d3"]
 resource_local_to_scene = true
 script = ExtResource("12_xqd20")
 token_resource = ExtResource("13_fryp7")
@@ -108,7 +108,7 @@ debuff_value = 0
 hide_cost = false
 can_use_whenever = false
 can_use_to_respond = true
-card_owner = SubResource("Resource_4lcoc")
+card_owner = SubResource("Resource_h0y7i")
 accepts_card_types = Array[int]([])
 card_type = 0
 primary_stat = "nuance"
@@ -118,4 +118,4 @@ card_skin = ExtResource("4_ip05h")
 
 [node name="DeckNode" type="Node"]
 script = ExtResource("1_npq3v")
-deck = Array[ExtResource("2_3o6ua")]([SubResource("Resource_3bkqv"), SubResource("Resource_3bkqv"), SubResource("Resource_3bkqv"), SubResource("Resource_0j1w3"), SubResource("Resource_0j1w3"), SubResource("Resource_0j1w3"), SubResource("Resource_xx0k3"), SubResource("Resource_xx0k3"), SubResource("Resource_jms11"), SubResource("Resource_jms11")])
+deck = Array[ExtResource("2_3o6ua")]([SubResource("Resource_qagba"), SubResource("Resource_qagba"), SubResource("Resource_qagba"), SubResource("Resource_c2aor"), SubResource("Resource_c2aor"), SubResource("Resource_c2aor"), SubResource("Resource_p8keh"), SubResource("Resource_p8keh"), SubResource("Resource_mv8d3"), SubResource("Resource_mv8d3")])

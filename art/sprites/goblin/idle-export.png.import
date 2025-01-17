@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c06k5sgbv2e0l"
-path="res://.godot/imported/forest.png-0acafd1892d5c841d6033526be5abf3a.ctex"
+uid="uid://d1wnkmbe14tsv"
+path="res://.godot/imported/idle-export.png-78219b23bef90934276e8fa6dda2728b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/backgrounds/forest.png"
-dest_files=["res://.godot/imported/forest.png-0acafd1892d5c841d6033526be5abf3a.ctex"]
+source_file="res://art/sprites/goblin/idle-export.png"
+dest_files=["res://.godot/imported/idle-export.png-78219b23bef90934276e8fa6dda2728b.ctex"]
 
 [params]
 

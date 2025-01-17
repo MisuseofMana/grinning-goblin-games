@@ -5,11 +5,9 @@ extends Node2D
 
 var deckArray : Array[CardStats] = [] :
 	set(newArray):
-#		animate to new value from old value
 		animateLabelFromTo(newArray.size(), deckArray.size(), label)
 		deckArray = newArray
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	deckArray = player.deckNode.deck
 	label.text = str(deckArray.size())

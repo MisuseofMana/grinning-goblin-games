@@ -1,4 +1,5 @@
 extends Node2D
+class_name DiscardNode
 
 @export var player : UnitSprite
 
@@ -17,8 +18,10 @@ var burnArray : Array = [] :
 		animateLabelFromTo(newArray.size(), burnArray.size(), number_burned)
 		burnArray = newArray
 		
-# Called when the node enters the scene tree for the first time.
 func _ready():
+#	TODO: Hook up load state
+#	set discard array to save file
+#	set burn array to save file
 	pass
 
 func animateLabelFromTo(to: int, from: int, targetNode: Label):

@@ -21,12 +21,11 @@ UnitSprites="*res://globals/unit_sprites.gd"
 
 [display]
 
-window/size/viewport_width=640
-window/size/viewport_height=360
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="res://art/ui/cursor.png"
 window/canvas_textures/default_texture_filter=0
@@ -47,7 +46,7 @@ card_markers="card markers for discard and deck shuffle"
 
 [gui]
 
-theme/custom_font="res://fonts/pixel-font.ttf"
+theme/custom_font="res://fonts/m5x7.ttf"
 theme/default_font_antialiasing=0
 
 [layer_names]

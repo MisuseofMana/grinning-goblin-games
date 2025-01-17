@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://bcxxmjp1ch5pq"]
 
-[ext_resource type="Texture2D" uid="uid://o3k7tcneumyw" path="res://art/sprites/player/idle.png" id="1_mgs54"]
+[ext_resource type="Texture2D" uid="uid://bqxwsimjepqco" path="res://art/sprites/player/idle2.png" id="1_331m4"]
 [ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="3_hnclq"]
 [ext_resource type="Script" path="res://scenes/unit_sprite.gd" id="3_oibvf"]
 [ext_resource type="PackedScene" uid="uid://0pyqt38pl3f4" path="res://components/health_node.tscn" id="4_1xpga"]
@@ -14,43 +14,43 @@
 [ext_resource type="PackedScene" uid="uid://34o105ivvj6t" path="res://target_indicator.tscn" id="14_aoeqe"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/card_and_unit_area_detection.tscn" id="21_nqyrs"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6avc0"]
-atlas = ExtResource("1_mgs54")
-region = Rect2(0, 0, 28, 63)
+[sub_resource type="AtlasTexture" id="AtlasTexture_nte8v"]
+atlas = ExtResource("1_331m4")
+region = Rect2(0, 0, 112, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3vbg3"]
-atlas = ExtResource("1_mgs54")
-region = Rect2(28, 0, 28, 63)
+[sub_resource type="AtlasTexture" id="AtlasTexture_m766r"]
+atlas = ExtResource("1_331m4")
+region = Rect2(112, 0, 112, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hh6pg"]
-atlas = ExtResource("1_mgs54")
-region = Rect2(56, 0, 28, 63)
+[sub_resource type="AtlasTexture" id="AtlasTexture_31wrc"]
+atlas = ExtResource("1_331m4")
+region = Rect2(224, 0, 112, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_smq8u"]
-atlas = ExtResource("1_mgs54")
-region = Rect2(84, 0, 28, 63)
+[sub_resource type="AtlasTexture" id="AtlasTexture_rkm38"]
+atlas = ExtResource("1_331m4")
+region = Rect2(336, 0, 112, 252)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_duyyu"]
-atlas = ExtResource("1_mgs54")
-region = Rect2(112, 0, 28, 63)
+[sub_resource type="AtlasTexture" id="AtlasTexture_pfxog"]
+atlas = ExtResource("1_331m4")
+region = Rect2(448, 0, 112, 252)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_urjdb"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6avc0")
+"texture": SubResource("AtlasTexture_nte8v")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3vbg3")
+"texture": SubResource("AtlasTexture_m766r")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hh6pg")
+"texture": SubResource("AtlasTexture_31wrc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_smq8u")
+"texture": SubResource("AtlasTexture_rkm38")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_duyyu")
+"texture": SubResource("AtlasTexture_pfxog")
 }],
 "loop": true,
 "name": &"idle",
@@ -58,8 +58,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7bv7s"]
-radius = 11.0
-height = 62.0
+radius = 45.0
+height = 254.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ab5fk"]
 lifetime_randomness = 0.2
@@ -81,13 +81,9 @@ hue_variation_max = 0.18
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibgll"]
 
 [node name="Player" type="AnimatedSprite2D" node_paths=PackedStringArray("anims", "deckNode", "healthNode", "statsNode") groups=["player_unit"]]
-position = Vector2(41, 111)
-scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_urjdb")
 animation = &"idle"
 autoplay = "idle"
-frame = 1
-frame_progress = 0.0122931
 script = ExtResource("3_oibvf")
 anims = NodePath("AnimationPlayer")
 deckNode = NodePath("DeckNode")
@@ -96,35 +92,39 @@ statsNode = NodePath("StatsNode")
 
 [node name="Modifiers" parent="." instance=ExtResource("3_hnclq")]
 
+[node name="StatsNode" parent="." instance=ExtResource("5_b3p2f")]
+
 [node name="HealthNode" parent="." node_paths=PackedStringArray("statsNode", "modifiers") instance=ExtResource("4_1xpga")]
 hit_points = 25
 max_hit_points_base = 100
 statsNode = NodePath("../StatsNode")
 modifiers = NodePath("../Modifiers")
 
-[node name="StatsNode" parent="." instance=ExtResource("5_b3p2f")]
-
 [node name="DeckNode" parent="." instance=ExtResource("6_s84ip")]
 deck = Array[ExtResource("6_g68ne")]([ExtResource("8_3b4vm"), ExtResource("8_3b4vm"), ExtResource("8_3b4vm"), ExtResource("9_vxgn2"), ExtResource("9_vxgn2"), ExtResource("9_vxgn2"), ExtResource("10_u5t1y"), ExtResource("10_u5t1y")])
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("statsNode", "healthNode") instance=ExtResource("9_nsbm0")]
-offset_left = -16.0
-offset_top = -54.0
-offset_right = 24.0
-offset_bottom = -28.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -133.0
+offset_top = -282.0
+offset_right = -133.0
+offset_bottom = -282.0
+grow_horizontal = 2
+grow_vertical = 2
 statsNode = NodePath("../StatsNode")
 healthNode = NodePath("../HealthNode")
 
 [node name="TwoWayDetection" parent="." groups=["player_hitbox"] instance=ExtResource("21_nqyrs")]
-position = Vector2(96.0422, 126.189)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]
-position = Vector2(-96.0422, -126.189)
 shape = SubResource("CapsuleShape2D_7bv7s")
 
-[node name="Sprite2D" parent="." instance=ExtResource("14_aoeqe")]
-visible = false
-position = Vector2(0, -59)
+[node name="TargetIndicator" parent="." instance=ExtResource("14_aoeqe")]
+position = Vector2(3, -193)
 
 [node name="UnitParticles" type="GPUParticles2D" parent="."]
 scale = Vector2(0.336442, 1e-05)
@@ -141,4 +141,4 @@ libraries = {
 }
 
 [connection signal="health_updated" from="HealthNode" to="BattleReadout" method="update_readout"]
-[connection signal="target_has_changed" from="TwoWayDetection" to="Sprite2D" method="_on_two_way_detection_target_has_changed"]
+[connection signal="target_has_changed" from="TwoWayDetection" to="TargetIndicator" method="_on_two_way_detection_target_has_changed"]

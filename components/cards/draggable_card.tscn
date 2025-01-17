@@ -177,5 +177,6 @@ libraries = {
 
 [node name="MakeControlDraggable" parent="." instance=ExtResource("7_jp734")]
 
+[connection signal="target_has_changed" from="TwoWayDetection" to="." method="determine_if_valid_drop_spot"]
 [connection signal="card_was_dropped" from="MakeControlDraggable" to="TwoWayDetection" method="disableTargeting"]
 [connection signal="card_was_picked_up" from="MakeControlDraggable" to="TwoWayDetection" method="enableTargeting"]

@@ -13,7 +13,9 @@ signal died()
 signal health_updated(newHealth, newMaxHealth)
 
 func _ready():
-	max_hit_points += max_hit_points_base + modifiers.getPrimaryStatMod(statsNode.endurance)
+	var endurance = statsNode.endurance
+	print(endurance)
+	max_hit_points += max_hit_points_base + modifiers.getPrimaryStatMod(endurance)
 	hit_points = clampi(hit_points, 1, max_hit_points)
 
 func take_damage(value):

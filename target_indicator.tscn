@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://34o105ivvj6t"]
 
-[ext_resource type="Texture2D" uid="uid://d0xlqp73dk02o" path="res://art/ui/deck_arrow.png" id="1_p643h"]
+[ext_resource type="Texture2D" uid="uid://dlngxwb22jpnb" path="res://art/ui/pointer.png" id="1_ismcc"]
 [ext_resource type="Script" path="res://target_indicator.gd" id="2_ml82x"]
 
 [sub_resource type="Animation" id="Animation_x570a"]
@@ -15,7 +15,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.5, 0.5)]
+"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -32,6 +32,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_opmnf"]
 resource_name = "bobbing"
+length = 1.8
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -40,10 +41,10 @@ tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(0.5, -2, 2),
+"times": PackedFloat32Array(0, 0.5, 1, 1.3, 1.6),
+"transitions": PackedFloat32Array(0.5, -2, 2, -2, 2),
 "update": 0,
-"values": [Vector2(0.5, 0.5), Vector2(0.5, 0.55), Vector2(0.5, 0.5)]
+"values": [Vector2(1, 1), Vector2(1.1, 1), Vector2(1, 1), Vector2(1.1, 1), Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -52,10 +53,10 @@ tracks/1/path = NodePath(".:offset")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(0.5, -2, 2),
+"times": PackedFloat32Array(0, 0.5, 1, 1.3, 1.6),
+"transitions": PackedFloat32Array(0.5, -2, 2, -2, 2),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-3, 0), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(0, -3), Vector2(0, 0), Vector2(0, -3), Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0ukyh"]
@@ -64,10 +65,8 @@ _data = {
 "bobbing": SubResource("Animation_opmnf")
 }
 
-[node name="Sprite2D" type="Sprite2D" groups=["target_indicators"]]
-rotation = 1.57079
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_p643h")
+[node name="TargetIndicator" type="Sprite2D" groups=["target_indicators"]]
+texture = ExtResource("1_ismcc")
 script = ExtResource("2_ml82x")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

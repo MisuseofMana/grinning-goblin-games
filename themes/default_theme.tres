@@ -1,4 +1,6 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cwgh0k28oi2dx"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cwgh0k28oi2dx"]
+
+[ext_resource type="FontFile" uid="uid://2xg85lmmnkng" path="res://fonts/m5x7.ttf" id="1_x1qvt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jhg4w"]
 bg_color = Color(0.941176, 0.623529, 0.443137, 1)
@@ -15,8 +17,36 @@ shadow_color = Color(0.131728, 0.0841189, 0.138078, 1)
 shadow_size = 2
 shadow_offset = Vector2(2, 2)
 
+[sub_resource type="FontVariation" id="FontVariation_24goj"]
+spacing_top = -6
+spacing_bottom = -2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2idnu"]
+bg_color = Color(0.482353, 0.384314, 0.407843, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r51ws"]
+bg_color = Color(0.92875, 0.112819, 0.396425, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+anti_aliasing = false
+
 [resource]
+default_font = ExtResource("1_x1qvt")
 Button/colors/font_color = Color(0.133333, 0.0823529, 0.137255, 1)
 Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_x1qvt")
 Button/styles/normal = SubResource("StyleBoxFlat_jhg4w")
+Label/constants/outline_size = 4
 Label/font_sizes/font_size = 32
+Label/fonts/font = SubResource("FontVariation_24goj")
+ProgressBar/font_sizes/font_size = 5
+ProgressBar/fonts/font = ExtResource("1_x1qvt")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_2idnu")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_r51ws")

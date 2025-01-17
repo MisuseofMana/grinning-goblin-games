@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c06k5sgbv2e0l"
-path="res://.godot/imported/forest.png-0acafd1892d5c841d6033526be5abf3a.ctex"
+uid="uid://dlngxwb22jpnb"
+path="res://.godot/imported/pointer.png-5a5d4469934c184f6f1077fea3cd9a43.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/backgrounds/forest.png"
-dest_files=["res://.godot/imported/forest.png-0acafd1892d5c841d6033526be5abf3a.ctex"]
+source_file="res://art/ui/pointer.png"
+dest_files=["res://.godot/imported/pointer.png-5a5d4469934c184f6f1077fea3cd9a43.ctex"]
 
 [params]
 

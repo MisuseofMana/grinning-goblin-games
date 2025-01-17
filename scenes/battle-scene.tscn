@@ -1,6 +1,6 @@
 [gd_scene load_steps=42 format=3 uid="uid://dp10y70k8l5qp"]
 
-[ext_resource type="Texture2D" uid="uid://bu305i6xvayai" path="res://art/backgrounds/forest.png" id="1_pchfv"]
+[ext_resource type="Texture2D" uid="uid://c06k5sgbv2e0l" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
 [ext_resource type="Texture2D" uid="uid://pwewpuefxjom" path="res://art/ui/ui-background-cutout.png" id="2_jaqan"]
 [ext_resource type="PackedScene" uid="uid://bcxxmjp1ch5pq" path="res://components/units/player.tscn" id="3_kt5qk"]
@@ -69,7 +69,7 @@ _data = {
 }
 point_count = 3
 
-[sub_resource type="Resource" id="Resource_syqmm"]
+[sub_resource type="Resource" id="Resource_ys71a"]
 resource_local_to_scene = true
 script = ExtResource("9_gjyky")
 stats = {
@@ -82,7 +82,7 @@ stats = {
 "nuance": 0
 }
 
-[sub_resource type="Resource" id="Resource_5u55y"]
+[sub_resource type="Resource" id="Resource_cunns"]
 resource_local_to_scene = true
 script = ExtResource("12_6ieyv")
 card_name = "Basic Heal"
@@ -96,7 +96,7 @@ debuff_value = 0
 hide_cost = false
 can_use_whenever = false
 can_use_to_respond = false
-card_owner = SubResource("Resource_syqmm")
+card_owner = SubResource("Resource_ys71a")
 accepts_card_types = Array[int]([])
 card_type = 0
 primary_stat = "nuance"
@@ -399,15 +399,12 @@ enemy_logic = NodePath("Enemies")
 [node name="Node2D" type="Node2D" parent="FlavorAssets"]
 
 [node name="Background" type="Sprite2D" parent="FlavorAssets/Node2D"]
-position = Vector2(321, 125)
-texture = ExtResource("1_pchfv")
-
-[node name="Background2" type="Sprite2D" parent="FlavorAssets/Node2D"]
-position = Vector2(941, 125)
+position = Vector2(1260, 250)
 texture = ExtResource("1_pchfv")
 
 [node name="Board" type="Sprite2D" parent="FlavorAssets"]
-position = Vector2(320, 180)
+position = Vector2(640, 360)
+scale = Vector2(2, 2)
 texture = ExtResource("2_jaqan")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="FlavorAssets"]
@@ -416,31 +413,37 @@ libraries = {
 "": SubResource("AnimationLibrary_3sw5y")
 }
 
-[node name="Player" parent="." instance=ExtResource("3_kt5qk")]
-position = Vector2(90, 160)
-frame = 2
+[node name="Player" parent="." node_paths=PackedStringArray("discardNode") instance=ExtResource("3_kt5qk")]
+position = Vector2(180, 300)
 frame_progress = 0.746552
+discardNode = NodePath("../DiscardAndBurn")
 
 [node name="EnemyMarkers" type="Node2D" parent="."]
 position = Vector2(-10, 0)
 
 [node name="First" type="Marker2D" parent="EnemyMarkers"]
-position = Vector2(581, 155)
+position = Vector2(1160, 300)
 
 [node name="Second" type="Marker2D" parent="EnemyMarkers"]
-position = Vector2(500, 161)
+position = Vector2(1030, 340)
 
 [node name="Third" type="Marker2D" parent="EnemyMarkers"]
-position = Vector2(422, 155)
+position = Vector2(890, 300)
 
 [node name="Enemies" type="Node2D" parent="." node_paths=PackedStringArray("animations")]
 script = ExtResource("7_7drj6")
 animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
 
 [node name="Goblin" parent="Enemies" instance=ExtResource("15_62nu6")]
-visible = false
-position = Vector2(509, 164)
-frame = 1
+position = Vector2(1150, 300)
+frame_progress = 0.418115
+
+[node name="Goblin2" parent="Enemies" instance=ExtResource("15_62nu6")]
+position = Vector2(880, 300)
+frame_progress = 0.418115
+
+[node name="Goblin3" parent="Enemies" instance=ExtResource("15_62nu6")]
+position = Vector2(1020, 340)
 frame_progress = 0.418115
 
 [node name="EnemyCardContainer" type="Node2D" parent="." node_paths=PackedStringArray("playerUnit")]
@@ -457,6 +460,7 @@ rotates = false
 loop = false
 
 [node name="Card" parent="EnemyCardContainer/Path2D/PathFollow2D" instance=ExtResource("20_yae8r")]
+anchors_preset = -1
 anchor_left = 0.075
 anchor_top = 0.356
 anchor_right = 0.075
@@ -467,7 +471,7 @@ offset_right = 192.0
 offset_bottom = 256.0
 rotation = 0.349066
 pivot_offset = Vector2(0, 0)
-card_stats = SubResource("Resource_5u55y")
+card_stats = SubResource("Resource_cunns")
 
 [node name="TwoWayDetection2" parent="EnemyCardContainer/Path2D/PathFollow2D/Card" instance=ExtResource("13_w1168")]
 
@@ -518,11 +522,12 @@ player = NodePath("../Player")
 position = Vector2(52, 310)
 player = NodePath("../Player")
 
-[node name="ActionPoints" parent="." instance=ExtResource("15_nw1iw")]
-offset_left = 21.0
-offset_top = 223.0
-offset_right = 85.0
-offset_bottom = 287.0
+[node name="ActionPoints" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_nw1iw")]
+offset_left = 80.0
+offset_top = 460.0
+offset_right = 144.0
+offset_bottom = 524.0
+player = NodePath("../Player")
 
 [node name="DiscardAndBurn" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_e5xx5")]
 position = Vector2(577, 287)

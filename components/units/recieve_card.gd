@@ -12,7 +12,7 @@ var owners_array : Array = []
 func handle_new_overlap(area : Area2D):
 	overlapping_areas.push_front(area)
 	new_overlap_acquired.emit(overlapping_areas)
-	target_has_changed.emit()
+	target_has_changed.emit(overlapping_areas[0])
 
 # when a card is removed from a unit or an enemy card
 func handle_remove_overlap(area : Area2D):

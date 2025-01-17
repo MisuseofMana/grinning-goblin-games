@@ -6,7 +6,7 @@ func _ready():
 func hide_indicator():
 	hide()
 
-func _on_two_way_detection_target_has_changed():
+func _on_two_way_detection_target_has_changed(_area : Area2D):
 	get_tree().call_group("target_indicators", "hide_indicator")
 	show()
 	

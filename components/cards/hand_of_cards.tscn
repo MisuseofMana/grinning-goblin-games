@@ -21,8 +21,9 @@ stream_1/stream = ExtResource("4_wc7mt")
 stream_2/stream = ExtResource("5_3h3ci")
 
 [node name="CardInterface" type="Node2D"]
-position = Vector2(0, 360)
+position = Vector2(0, 720)
 script = ExtResource("1_50x24")
+metadata/_edit_vertical_guides_ = [640.0]
 
 [node name="CardArc" type="Path2D" parent="."]
 curve = SubResource("Curve2D_wguu1")
@@ -34,7 +35,6 @@ progress = 160.22
 cubic_interp = false
 
 [node name="Card" parent="CardArc/CardFollowPath2" instance=ExtResource("2_yaj22")]
-anchors_preset = 0
 
 [node name="MakeControlDraggable" parent="CardArc/CardFollowPath2/Card" instance=ExtResource("3_wuthu")]
 
@@ -42,5 +42,5 @@ anchors_preset = 0
 stream = SubResource("AudioStreamRandomizer_flf2n")
 volume_db = -20.0
 
-[connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]
 [connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]
+[connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]

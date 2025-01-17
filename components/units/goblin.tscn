@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://cr33bga3fetxx"]
 
-[ext_resource type="Texture2D" uid="uid://ctx6vlhujj8sk" path="res://art/sprites/goblin/idle.png" id="1_4x88u"]
+[ext_resource type="Texture2D" uid="uid://d1wnkmbe14tsv" path="res://art/sprites/goblin/idle-export.png" id="1_7jpib"]
 [ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="3_eafw4"]
 [ext_resource type="PackedScene" uid="uid://0pyqt38pl3f4" path="res://components/health_node.tscn" id="3_mpfox"]
 [ext_resource type="PackedScene" uid="uid://ctud24sf1fqks" path="res://components/stats_node.tscn" id="4_7cfsr"]
@@ -14,50 +14,50 @@
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/card_and_unit_area_detection.tscn" id="12_vlbf6"]
 [ext_resource type="PackedScene" uid="uid://34o105ivvj6t" path="res://target_indicator.tscn" id="13_yk2pj"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kstin"]
-atlas = ExtResource("1_4x88u")
-region = Rect2(0, 0, 43, 56)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouyfk"]
+atlas = ExtResource("1_7jpib")
+region = Rect2(0, 0, 172, 224)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_31q6q"]
-atlas = ExtResource("1_4x88u")
-region = Rect2(43, 0, 43, 56)
+[sub_resource type="AtlasTexture" id="AtlasTexture_mxr36"]
+atlas = ExtResource("1_7jpib")
+region = Rect2(172, 0, 172, 224)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2yvo4"]
-atlas = ExtResource("1_4x88u")
-region = Rect2(86, 0, 43, 56)
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xoi4"]
+atlas = ExtResource("1_7jpib")
+region = Rect2(344, 0, 172, 224)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2vy5o"]
-atlas = ExtResource("1_4x88u")
-region = Rect2(129, 0, 43, 56)
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rg7j"]
+atlas = ExtResource("1_7jpib")
+region = Rect2(516, 0, 172, 224)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qdv0p"]
-atlas = ExtResource("1_4x88u")
-region = Rect2(172, 0, 43, 56)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahgni"]
+atlas = ExtResource("1_7jpib")
+region = Rect2(688, 0, 172, 224)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1dluw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kstin")
+"texture": SubResource("AtlasTexture_ouyfk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_31q6q")
+"texture": SubResource("AtlasTexture_mxr36")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2yvo4")
+"texture": SubResource("AtlasTexture_8xoi4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2vy5o")
+"texture": SubResource("AtlasTexture_3rg7j")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qdv0p")
+"texture": SubResource("AtlasTexture_ahgni")
 }],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }]
 
-[sub_resource type="Resource" id="Resource_q5qk1"]
+[sub_resource type="Resource" id="Resource_feqk6"]
 resource_local_to_scene = true
 script = ExtResource("10_piqgh")
 card_name = "Bite Down"
@@ -79,8 +79,8 @@ icon_image = ExtResource("9_q4gue")
 card_skin = ExtResource("8_l5ca6")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yawj0"]
-radius = 16.5
-height = 56.0
+radius = 35.0
+height = 138.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b3rmo"]
 lifetime_randomness = 0.2
@@ -108,27 +108,18 @@ _data = {
 "death_animation": SubResource("Animation_qo1qc")
 }
 
-[node name="Goblin" type="AnimatedSprite2D" node_paths=PackedStringArray("anims", "deck", "health", "stats") groups=["enemy_units"]]
-position = Vector2(43, 106)
-scale = Vector2(2, 2)
+[node name="Goblin" type="AnimatedSprite2D" node_paths=PackedStringArray("anims", "deckNode", "healthNode", "statsNode") groups=["enemy_units"]]
 sprite_frames = SubResource("SpriteFrames_1dluw")
 animation = &"idle"
 autoplay = "idle"
-frame = 4
 frame_progress = 0.358728
 script = ExtResource("6_hd08x")
 anims = NodePath("AnimationPlayer")
-deck = NodePath("DeckNode")
-health = NodePath("HealthNode")
-stats = NodePath("StatsNode")
+deckNode = NodePath("DeckNode")
+healthNode = NodePath("HealthNode")
+statsNode = NodePath("StatsNode")
 
 [node name="Modifiers" parent="." instance=ExtResource("3_eafw4")]
-
-[node name="HealthNode" parent="." node_paths=PackedStringArray("stats", "modifiers") instance=ExtResource("3_mpfox")]
-hit_points = 35
-max_hit_points_base = 35
-stats = NodePath("../StatsNode")
-modifiers = NodePath("../Modifiers")
 
 [node name="StatsNode" parent="." instance=ExtResource("4_7cfsr")]
 muscle = 2
@@ -136,26 +127,33 @@ endurance = 1
 nuance = 0
 is_friendly = false
 
-[node name="DeckNode" parent="." node_paths=PackedStringArray("stats_node") instance=ExtResource("5_rtdee")]
-deck = Array[ExtResource("10_loe31")]([SubResource("Resource_q5qk1")])
-stats_node = NodePath("../StatsNode")
+[node name="HealthNode" parent="." node_paths=PackedStringArray("statsNode", "modifiers") instance=ExtResource("3_mpfox")]
+hit_points = 35
+max_hit_points_base = 35
+statsNode = NodePath("../StatsNode")
+modifiers = NodePath("../Modifiers")
 
-[node name="BattleReadout" parent="." node_paths=PackedStringArray("stats", "health") instance=ExtResource("8_e6p4e")]
-offset_left = -17.0
-offset_top = -52.5
-offset_right = 23.0
-offset_bottom = -26.5
-stats = NodePath("../StatsNode")
-health = NodePath("../HealthNode")
+[node name="DeckNode" parent="." instance=ExtResource("5_rtdee")]
+deck = Array[ExtResource("10_loe31")]([SubResource("Resource_feqk6")])
+
+[node name="BattleReadout" parent="." node_paths=PackedStringArray("statsNode", "healthNode") instance=ExtResource("8_e6p4e")]
+anchors_preset = -1
+anchor_top = -0.196
+anchor_bottom = -0.196
+offset_left = -77.0
+offset_top = -98.096
+offset_right = -77.0
+offset_bottom = -98.096
+statsNode = NodePath("../StatsNode")
+healthNode = NodePath("../HealthNode")
 
 [node name="TwoWayDetection" parent="." groups=["enemy_hitboxes"] instance=ExtResource("12_vlbf6")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]
-position = Vector2(-1.5, 0)
 shape = SubResource("CapsuleShape2D_yawj0")
 
-[node name="Sprite2D" parent="." instance=ExtResource("13_yk2pj")]
-position = Vector2(-1.5, -56)
+[node name="TargetIndicator" parent="." instance=ExtResource("13_yk2pj")]
+position = Vector2(0, -180)
 
 [node name="UnitParticles" type="GPUParticles2D" parent="."]
 scale = Vector2(0.336442, 1e-05)
@@ -172,4 +170,4 @@ libraries = {
 }
 
 [connection signal="health_updated" from="HealthNode" to="BattleReadout" method="update_readout"]
-[connection signal="target_has_changed" from="TwoWayDetection" to="Sprite2D" method="_on_two_way_detection_target_has_changed"]
+[connection signal="target_has_changed" from="TwoWayDetection" to="TargetIndicator" method="_on_two_way_detection_target_has_changed"]

@@ -1,10 +1,10 @@
-extends VBoxContainer
+extends Control
 
 @export var statsNode : StatsNode
 @export var healthNode : HealthNode
 
 @onready var health_bar = $ProgressBar
-@onready var label = $Label
+@onready var label = $ProgressBar/Label
 
 func _ready():
 	update_readout(healthNode.hit_points, healthNode.max_hit_points)
