@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/deck_node.gd" id="1_npq3v"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="2_3o6ua"]
-[ext_resource type="Script" path="res://components/units/UnitDictionary/unit_stats.gd" id="3_n5mqj"]
+[ext_resource type="Script" path="res://components/CardTargets/UnitDictionary/unit_stats.gd" id="3_n5mqj"]
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="4_ip05h"]
 [ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="5_6nhwe"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/damaging_card.gd" id="6_5v4v8"]

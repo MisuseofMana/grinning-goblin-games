@@ -1,7 +1,7 @@
 @tool
 @icon("res://icons/UnitSprite.svg")
 extends AnimatedSprite2D
-class_name UnitSprite
+class_name CardTarget
 
 @onready var collision = $TwoWayDetection/CollisionShape2D
 

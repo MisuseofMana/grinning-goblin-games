@@ -1,4 +1,4 @@
-extends Control
+class_name TargetReadout extends Control
 
 @export var statsNode : StatsNode
 @export var healthNode : HealthNode

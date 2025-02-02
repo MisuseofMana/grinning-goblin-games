@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://components/cards/CardFunctions/token_card.gd" id="1_7lli0"]
 [ext_resource type="Texture2D" uid="uid://crh46ebsb881q" path="res://art/cards/card_art/basic_ward.png" id="1_cyrt5"]
-[ext_resource type="Resource" uid="uid://gxjvq7sdixw2" path="res://components/units/UnitDictionary/UnitTypes/player.tres" id="2_0d46x"]
+[ext_resource type="Resource" uid="uid://gxjvq7sdixw2" path="res://components/CardTargets/UnitDictionary/Enemies/player.tres" id="2_0d46x"]
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_lk5j4"]
 [ext_resource type="Resource" uid="uid://dj4d0nwgcjmgy" path="res://components/tokens/TokenDictionary/TokenTypes/ward.tres" id="3_xbnoo"]
 

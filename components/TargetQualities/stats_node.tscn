@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctud24sf1fqks"]
+
+[ext_resource type="Script" path="res://scenes/stats_node.gd" id="1_fsqfs"]
+
+[node name="StatsNode" type="Node"]
+script = ExtResource("1_fsqfs")
+is_friendly = true

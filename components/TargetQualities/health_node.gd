@@ -2,19 +2,18 @@
 extends Node
 class_name HealthNode
 
-@export var hit_points : int
-@export var max_hit_points_base : int
+@export var hit_points : int = 0
+@export var max_hit_points_base : int = 0
 var max_hit_points : int
 
 @export var statsNode : StatsNode
 @export var modifiers : Modifiers
 
-signal died()
+signal died
 signal health_updated(newHealth, newMaxHealth)
 
 func _ready():
 	var endurance = statsNode.endurance
-	print(endurance)
 	max_hit_points += max_hit_points_base + modifiers.getPrimaryStatMod(endurance)
 	hit_points = clampi(hit_points, 1, max_hit_points)
 
@@ -37,6 +36,6 @@ func heal(value):
 
 func check_alive():
 	if hit_points <= 0:
-		print('dead')
+		print('unit died')
 		died.emit()
 	

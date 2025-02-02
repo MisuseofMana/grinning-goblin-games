@@ -24,7 +24,7 @@ func _ready():
 	
 func _physics_process(delta):
 	if is_dragging:
-		create_tween().tween_property(parent, "global_position", parent.get_global_mouse_position() + Vector2(-parent.size.x / 7, -parent.size.y / 7), delay * delta)
+		create_tween().tween_property(parent, "global_position", parent.get_global_mouse_position() + Vector2(-parent.size.x / 4, -parent.size.y / 4), delay * delta)
 
 func _mouse_input_on_parent(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

@@ -16,8 +16,7 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
 
-Globals="*res://globals/globals.gd"
-UnitSprites="*res://globals/unit_sprites.gd"
+GameState="*res://globals/GameState.gd"
 
 [display]
 

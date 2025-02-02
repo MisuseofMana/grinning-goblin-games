@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c06k5sgbv2e0l" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
 [ext_resource type="Texture2D" uid="uid://pwewpuefxjom" path="res://art/ui/ui-background-cutout.png" id="2_jaqan"]
-[ext_resource type="PackedScene" uid="uid://bcxxmjp1ch5pq" path="res://components/units/player.tscn" id="3_kt5qk"]
+[ext_resource type="PackedScene" uid="uid://bcxxmjp1ch5pq" path="res://components/CardTargets/UnitDictionary/Player/player.tscn" id="3_kt5qk"]
 [ext_resource type="Script" path="res://scenes/accept_button.gd" id="6_3nejl"]
 [ext_resource type="Script" path="res://scenes/enemy_controller.gd" id="7_7drj6"]
 [ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="9_3vtf7"]
@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://scenes/debug_bar.gd" id="13_di01h"]
 [ext_resource type="Texture2D" uid="uid://cjqknwpldyhi7" path="res://art/ui/ui-slot.png" id="14_65f5q"]
 [ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cards/hand_of_cards.tscn" id="15_6uhf2"]
-[ext_resource type="PackedScene" uid="uid://cr33bga3fetxx" path="res://components/units/goblin.tscn" id="15_62nu6"]
+[ext_resource type="PackedScene" uid="uid://cr33bga3fetxx" path="res://components/CardTargets/goblin.tscn" id="15_62nu6"]
 [ext_resource type="PackedScene" uid="uid://babdevi0twph6" path="res://components/discard_pile.tscn" id="15_e5xx5"]
 [ext_resource type="PackedScene" uid="uid://c2s4d0va0x5gy" path="res://components/cards/deck_pile.tscn" id="15_jiox7"]
 [ext_resource type="PackedScene" uid="uid://dnhhuvaiapr8k" path="res://components/action_points.tscn" id="15_nw1iw"]
@@ -576,22 +576,15 @@ stream = SubResource("AudioStreamRandomizer_f72cc")
 
 [node name="ForestMusic" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("22_c0x5w")
-volume_db = -10.0
+volume_db = -20.0
 autoplay = true
 
 [connection signal="animation_finished" from="FlavorAssets/AnimationPlayer" to="." method="animationHandler"]
 [connection signal="pressed" from="AcceptButton2" to="AcceptButton2" method="_hide_self"]
 [connection signal="pressed" from="AcceptButton2" to="EnemyCardContainer" method="onCardAccept"]
-[connection signal="all_enemies_turn_over" from="Enemies" to="." method="runPlayerUpkeep"]
-[connection signal="set_card_owner" from="Enemies" to="EnemyCardContainer" method="onOwnershipChange"]
-[connection signal="set_card_stats" from="Enemies" to="EnemyCardContainer" method="onCardUpdate"]
-[connection signal="show_accept_button" from="Enemies" to="EnemyCardContainer" method="showAcceptButton"]
-[connection signal="card_effect_finished" from="EnemyCardContainer" to="Enemies" method="enemyHasTakenTurn"]
-[connection signal="show_accept_button" from="EnemyCardContainer" to="AcceptButton2" method="_show_self"]
 [connection signal="child_exiting_tree" from="EnemyCardContainer/Path2D" to="EnemyCardContainer/Path2D" method="_on_child_exiting_tree"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="Enemies" method="animationSequencer"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="EnemyCardContainer" method="on_animation_finished"]
-[connection signal="end_player_turn" from="HandOfCards" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="EndTurnButton" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="DebugBar/DebugToggle" to="DebugBar" method="_on_button_pressed"]
 [connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button2" to="HandOfCards" method="add_random_card_to_hand"]

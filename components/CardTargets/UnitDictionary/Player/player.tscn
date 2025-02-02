@@ -1,16 +1,12 @@
-[gd_scene load_steps=23 format=3 uid="uid://bcxxmjp1ch5pq"]
+[gd_scene load_steps=19 format=3 uid="uid://bcxxmjp1ch5pq"]
 
 [ext_resource type="Texture2D" uid="uid://bqxwsimjepqco" path="res://art/sprites/player/idle2.png" id="1_331m4"]
-[ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="3_hnclq"]
-[ext_resource type="Script" path="res://scenes/unit_sprite.gd" id="3_oibvf"]
-[ext_resource type="PackedScene" uid="uid://0pyqt38pl3f4" path="res://components/health_node.tscn" id="4_1xpga"]
-[ext_resource type="PackedScene" uid="uid://ctud24sf1fqks" path="res://components/stats_node.tscn" id="5_b3p2f"]
-[ext_resource type="Script" path="res://components/cards/CardFunctions/card_stats.gd" id="6_g68ne"]
-[ext_resource type="PackedScene" uid="uid://b0spuyowpthca" path="res://components/deck_node.tscn" id="6_s84ip"]
-[ext_resource type="Resource" uid="uid://c534yv87m0b1" path="res://components/cards/CardDictionary/Player/AttackCards/basic_phys_attack.tres" id="8_3b4vm"]
-[ext_resource type="PackedScene" uid="uid://bx3b6tvvx5et5" path="res://components/units/battle_readout.tscn" id="9_nsbm0"]
-[ext_resource type="Resource" uid="uid://c4k3kk3bkrtt7" path="res://components/cards/CardDictionary/Player/DefenseCards/basic_defend.tres" id="9_vxgn2"]
-[ext_resource type="Resource" uid="uid://getptn3kqhxl" path="res://components/cards/CardDictionary/Player/HealCards/basic_heal.tres" id="10_u5t1y"]
+[ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/TargetQualities/modifiers_node.tscn" id="3_hnclq"]
+[ext_resource type="Script" path="res://components/CardTargets/card_target.gd" id="3_oibvf"]
+[ext_resource type="PackedScene" uid="uid://0pyqt38pl3f4" path="res://components/TargetQualities/health_node.tscn" id="4_1xpga"]
+[ext_resource type="PackedScene" uid="uid://ctud24sf1fqks" path="res://components/TargetQualities/stats_node.tscn" id="5_b3p2f"]
+[ext_resource type="PackedScene" uid="uid://b0spuyowpthca" path="res://components/CardTargets/deck_node.tscn" id="6_s84ip"]
+[ext_resource type="PackedScene" uid="uid://bx3b6tvvx5et5" path="res://components/TargetQualities/battle_readout.tscn" id="9_nsbm0"]
 [ext_resource type="PackedScene" uid="uid://34o105ivvj6t" path="res://target_indicator.tscn" id="14_aoeqe"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/card_and_unit_area_detection.tscn" id="21_nqyrs"]
 
@@ -101,7 +97,6 @@ statsNode = NodePath("../StatsNode")
 modifiers = NodePath("../Modifiers")
 
 [node name="DeckNode" parent="." instance=ExtResource("6_s84ip")]
-deck = Array[ExtResource("6_g68ne")]([ExtResource("8_3b4vm"), ExtResource("8_3b4vm"), ExtResource("8_3b4vm"), ExtResource("9_vxgn2"), ExtResource("9_vxgn2"), ExtResource("9_vxgn2"), ExtResource("10_u5t1y"), ExtResource("10_u5t1y")])
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("statsNode", "healthNode") instance=ExtResource("9_nsbm0")]
 anchors_preset = 8
@@ -141,4 +136,3 @@ libraries = {
 }
 
 [connection signal="health_updated" from="HealthNode" to="BattleReadout" method="update_readout"]
-[connection signal="target_has_changed" from="TwoWayDetection" to="TargetIndicator" method="_on_two_way_detection_target_has_changed"]

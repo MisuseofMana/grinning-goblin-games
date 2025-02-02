@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/card_stats.gd" id="2_1awv1"]
 [ext_resource type="Resource" uid="uid://getptn3kqhxl" path="res://components/cards/CardDictionary/Player/HealCards/basic_heal.tres" id="3_thx12"]
-[ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="4_bkas0"]
+[ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/TargetQualities/modifiers_node.tscn" id="4_bkas0"]
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="4_wclge"]
 [ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="5_rclin"]
 [ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="5_y1g05"]

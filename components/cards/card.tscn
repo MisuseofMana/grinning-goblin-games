@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scenes/card_stats.gd" id="2_vhlj7"]
 [ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="3_bis42"]
 [ext_resource type="Resource" uid="uid://getptn3kqhxl" path="res://components/cards/CardDictionary/Player/HealCards/basic_heal.tres" id="3_kvvc5"]
-[ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/modifiers.tscn" id="4_k3k1f"]
+[ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/TargetQualities/modifiers_node.tscn" id="4_k3k1f"]
 [ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="6_f5ubv"]
 [ext_resource type="Texture2D" uid="uid://bnimnyhvmbkvv" path="res://art/ui/action_points_meter.png" id="8_bjxy8"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/card_and_unit_area_detection.tscn" id="8_o2qbh"]

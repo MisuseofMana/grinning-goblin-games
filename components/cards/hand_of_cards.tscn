@@ -28,8 +28,8 @@ metadata/_edit_vertical_guides_ = [640.0, 380.0, 900.0]
 curve = SubResource("Curve2D_wguu1")
 
 [node name="CardFollowPath2" type="PathFollow2D" parent="CardArc"]
-position = Vector2(769.943, -5.89631)
-rotation = 0.0280614
+position = Vector2(769.944, -5.8963)
+rotation = 0.0280615
 progress = 390.129
 cubic_interp = false
 
@@ -52,5 +52,5 @@ cubic_interp = false
 stream = SubResource("AudioStreamRandomizer_flf2n")
 volume_db = -20.0
 
-[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]
 [connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]
+[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]

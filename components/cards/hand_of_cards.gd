@@ -103,7 +103,7 @@ func updateAllCardPositions():
 	for followPath in card_arc.get_children():
 		if not followPath.is_queued_for_deletion():
 			create_tween().tween_property(followPath, "progress_ratio", path_division, 0.4)
-			create_tween().tween_property(followPath.get_child(0), "scale", Vector2(0.5,0.5), 0.4)
+			create_tween().tween_property(followPath.get_child(0), "scale", Vector2(1,1), 0.4)
 			path_division += pos_incrementer
 
 func changeAllCardAvailability():

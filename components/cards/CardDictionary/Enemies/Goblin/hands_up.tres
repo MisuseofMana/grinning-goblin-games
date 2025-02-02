@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="1_52akc"]
 [ext_resource type="Texture2D" uid="uid://d2ymg3iqh11de" path="res://art/cards/card_art/goblin/hands_up.png" id="1_jmojh"]
 [ext_resource type="Script" path="res://components/cards/CardFunctions/token_card.gd" id="2_4tmyk"]
-[ext_resource type="Resource" uid="uid://d2yjrckw43wta" path="res://components/units/UnitDictionary/UnitTypes/goblin.tres" id="2_juhui"]
+[ext_resource type="Resource" uid="uid://d2yjrckw43wta" path="res://components/CardTargets/UnitDictionary/Enemies/goblin.tres" id="2_juhui"]
 [ext_resource type="Resource" uid="uid://0ohlp7wyhcde" path="res://components/tokens/TokenDictionary/TokenTypes/armor.tres" id="3_pg6yw"]
 
 [resource]

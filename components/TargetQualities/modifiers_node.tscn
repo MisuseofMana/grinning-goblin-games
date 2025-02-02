@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bi6cus3fyu7ux"]
 
-[ext_resource type="Script" path="res://components/units/modifiers.gd" id="1_b1sx4"]
+[ext_resource type="Script" path="res://components/TargetQualities/modifiers_node.gd" id="1_b1sx4"]
 
 [node name="Modifiers" type="Node"]
 script = ExtResource("1_b1sx4")

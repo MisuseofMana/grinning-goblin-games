@@ -50,9 +50,13 @@ func hideCardDetails():
 	icon_image.hide()
 	description.hide()
 	card_label.hide()
+	
+func targetIsValid(target : UnitSprite) -> bool:
+	if card_stats.targets_self and target
+	return !card_stats.targets_self
 
 func determine_if_valid_drop_spot(areaInQuestion: Area2D):
-	print(areaInQuestion)
+	print(targetIsValid(areaInQuestion.owner))
 
 func formatCardStringInterp(noBBCode):
 	var color
