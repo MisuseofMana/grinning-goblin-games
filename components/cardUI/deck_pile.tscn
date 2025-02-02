@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2s4d0va0x5gy"]
+
+[ext_resource type="Texture2D" uid="uid://cxexanb2k7xp4" path="res://art/cards/deck-icon.png" id="1_67fdg"]
+[ext_resource type="Script" path="res://components/cardUI/deck_pile.gd" id="1_ur6tp"]
+[ext_resource type="Texture2D" uid="uid://bnn2yexxqpcc6" path="res://art/cards/card-cost-blip-export.png" id="3_a5h3a"]
+[ext_resource type="Theme" uid="uid://cwgh0k28oi2dx" path="res://themes/default_theme.tres" id="4_12ynu"]
+
+[node name="DeckPile" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ur6tp")
+
+[node name="DeckIcon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -67.0
+offset_right = 80.0
+offset_bottom = 67.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_67fdg")
+
+[node name="DiscardChit" type="TextureRect" parent="."]
+self_modulate = Color(0.843137, 0.392157, 0.298039, 1)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_bottom = 60.0
+grow_horizontal = 0
+texture = ExtResource("3_a5h3a")
+
+[node name="Label" type="Label" parent="DiscardChit"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.0
+offset_top = -7.0
+offset_right = 19.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_12ynu")
+theme_override_colors/font_outline_color = Color(0.496949, 0.194283, 0.132357, 1)
+theme_override_constants/outline_size = 7
+theme_override_font_sizes/font_size = 48
+text = "30"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,26 +1,24 @@
-[gd_scene load_steps=37 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=35 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://c06k5sgbv2e0l" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
 [ext_resource type="Texture2D" uid="uid://pwewpuefxjom" path="res://art/ui/ui-background-cutout.png" id="2_jaqan"]
-[ext_resource type="PackedScene" uid="uid://bcxxmjp1ch5pq" path="res://components/CardTargets/UnitDictionary/Player/player.tscn" id="3_kt5qk"]
+[ext_resource type="PackedScene" uid="uid://d10ain1idyjan" path="res://components/unitTargets/variants/player/player.tscn" id="4_0fckc"]
 [ext_resource type="Script" path="res://scenes/accept_button.gd" id="6_3nejl"]
 [ext_resource type="Script" path="res://scenes/enemy_controller.gd" id="7_7drj6"]
 [ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="9_3vtf7"]
-[ext_resource type="Resource" uid="uid://dlw2cn7turh68" path="res://components/cards/CardDictionary/Enemies/Goblin/goblin_bite.tres" id="11_axdtu"]
 [ext_resource type="Texture2D" uid="uid://clv1s8w5roogn" path="res://art/ui/xp_bar.png" id="12_52kwo"]
 [ext_resource type="Script" path="res://scenes/xp_bar.gd" id="13_5jlb7"]
 [ext_resource type="Texture2D" uid="uid://crxrqibwaskm6" path="res://art/ui/xp_bar_dot.png" id="13_65iss"]
 [ext_resource type="Script" path="res://scenes/debug_bar.gd" id="13_di01h"]
 [ext_resource type="Texture2D" uid="uid://cjqknwpldyhi7" path="res://art/ui/ui-slot.png" id="14_65f5q"]
-[ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cards/hand_of_cards.tscn" id="15_6uhf2"]
-[ext_resource type="PackedScene" uid="uid://cr33bga3fetxx" path="res://components/CardTargets/goblin.tscn" id="15_62nu6"]
-[ext_resource type="PackedScene" uid="uid://babdevi0twph6" path="res://components/discard_pile.tscn" id="15_e5xx5"]
-[ext_resource type="PackedScene" uid="uid://c2s4d0va0x5gy" path="res://components/cards/deck_pile.tscn" id="15_jiox7"]
-[ext_resource type="PackedScene" uid="uid://dnhhuvaiapr8k" path="res://components/action_points.tscn" id="15_nw1iw"]
+[ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cardUI/hand_of_cards.tscn" id="15_6uhf2"]
+[ext_resource type="PackedScene" uid="uid://babdevi0twph6" path="res://components/cardUI/discard_pile.tscn" id="15_e5xx5"]
+[ext_resource type="PackedScene" uid="uid://c2s4d0va0x5gy" path="res://components/cardUI/deck_pile.tscn" id="15_jiox7"]
+[ext_resource type="PackedScene" uid="uid://dnhhuvaiapr8k" path="res://components/cardUI/action_points.tscn" id="15_nw1iw"]
 [ext_resource type="Script" path="res://scenes/enemy_card_container.gd" id="16_5f438"]
 [ext_resource type="AudioStream" uid="uid://dweruxr81kj5f" path="res://audio/battle_scene/BattlePhaseTransition.wav" id="17_ituhd"]
-[ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card.tscn" id="20_yae8r"]
+[ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card_base.tscn" id="20_yae8r"]
 [ext_resource type="Theme" uid="uid://cwgh0k28oi2dx" path="res://themes/default_theme.tres" id="21_xt7dq"]
 [ext_resource type="AudioStream" uid="uid://c402qy7b2rooa" path="res://audio/battle_scene/forest_scene/Full_Loop.wav" id="22_c0x5w"]
 
@@ -254,9 +252,8 @@ libraries = {
 "": SubResource("AnimationLibrary_3sw5y")
 }
 
-[node name="Player" parent="." node_paths=PackedStringArray("discardNode") instance=ExtResource("3_kt5qk")]
-position = Vector2(180, 300)
-frame_progress = 0.746552
+[node name="Player" parent="." node_paths=PackedStringArray("discardNode") instance=ExtResource("4_0fckc")]
+position = Vector2(209, 421)
 discardNode = NodePath("../DiscardAndBurn")
 
 [node name="EnemyMarkers" type="Node2D" parent="."]
@@ -284,22 +281,9 @@ script = ExtResource("6_3nejl")
 script = ExtResource("7_7drj6")
 animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
 
-[node name="Goblin" parent="Enemies" instance=ExtResource("15_62nu6")]
-position = Vector2(1150, 300)
-frame_progress = 0.418115
-
-[node name="Goblin2" parent="Enemies" instance=ExtResource("15_62nu6")]
-position = Vector2(880, 300)
-frame_progress = 0.418115
-
-[node name="Goblin3" parent="Enemies" instance=ExtResource("15_62nu6")]
-position = Vector2(1020, 340)
-frame_progress = 0.418115
-
-[node name="EnemyCardContainer" type="Node2D" parent="." node_paths=PackedStringArray("playerUnit")]
+[node name="EnemyCardContainer" type="Node2D" parent="."]
 position = Vector2(1352, -36)
 script = ExtResource("16_5f438")
-playerUnit = NodePath("../Player")
 
 [node name="Path2D" type="Path2D" parent="EnemyCardContainer"]
 curve = SubResource("Curve2D_catov")
@@ -311,7 +295,6 @@ loop = false
 
 [node name="Card" parent="EnemyCardContainer/Path2D/PathFollow2D" instance=ExtResource("20_yae8r")]
 texture = ExtResource("9_3vtf7")
-card_stats = ExtResource("11_axdtu")
 
 [node name="Evaporate" type="GPUParticles2D" parent="EnemyCardContainer/Path2D/PathFollow2D"]
 z_index = 100
@@ -339,31 +322,27 @@ libraries = {
 "": SubResource("AnimationLibrary_gvsxv")
 }
 
-[node name="HandOfCards" parent="." node_paths=PackedStringArray("battleScene", "player") instance=ExtResource("15_6uhf2")]
+[node name="HandOfCards" parent="." node_paths=PackedStringArray("battleScene") instance=ExtResource("15_6uhf2")]
 battleScene = NodePath("..")
-player = NodePath("../Player")
 
-[node name="DeckPileReadout" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_jiox7")]
+[node name="DeckPileReadout" parent="." instance=ExtResource("15_jiox7")]
 offset_left = 100.0
 offset_top = 630.0
 offset_right = 100.0
 offset_bottom = 630.0
-player = NodePath("../Player")
 
-[node name="ActionPoints" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_nw1iw")]
+[node name="ActionPoints" parent="." instance=ExtResource("15_nw1iw")]
 offset_left = 109.0
 offset_top = 464.0
 offset_right = 237.0
 offset_bottom = 592.0
-player = NodePath("../Player")
 
-[node name="DiscardAndBurn" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_e5xx5")]
+[node name="DiscardAndBurn" parent="." instance=ExtResource("15_e5xx5")]
 offset_left = 1089.0
 offset_top = 453.0
 offset_right = 1339.0
 offset_bottom = 734.0
 scale = Vector2(0.6, 0.6)
-player = NodePath("../Player")
 
 [node name="XPBar" type="NinePatchRect" parent="."]
 anchors_preset = 5

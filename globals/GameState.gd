@@ -1,4 +1,4 @@
 extends Node
 
 @export var playerDeck : Array[CardComponent] = []
-@export var enemies : Array[UnitSprite] = []
+@export var enemies : Array[UnitTarget] = []

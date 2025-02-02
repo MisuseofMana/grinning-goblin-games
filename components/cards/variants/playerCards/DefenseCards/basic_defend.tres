@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="DefensiveCard" load_steps=5 format=3 uid="uid://c4k3kk3bkrtt7"]
+
+[ext_resource type="Texture2D" uid="uid://cos7ix7u2m2bv" path="res://art/cards/card_art/basic-defend.png" id="1_rx8hn"]
+[ext_resource type="Resource" uid="uid://gxjvq7sdixw2" path="res://components/CardTargets/Variants/Enemies/player.tres" id="2_4g6lg"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/defensive_card.gd" id="2_18sgt"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_341n7"]
+
+[resource]
+script = ExtResource("2_18sgt")
+card_name = "Basic Defend"
+one_use = false
+targets_self = false
+base_value = 2
+play_cost = 1
+card_description = "Prevent up to %s physical dmg"
+tool_tip = "Drop on an enemies physical attack card to reduce it's damage by up to %s"
+debuff_value = 0
+hide_cost = false
+can_use_whenever = false
+can_use_to_respond = true
+card_owner = ExtResource("2_4g6lg")
+accepts_card_types = Array[int]([])
+card_type = 2
+primary_stat = "endurance"
+secondary_stat = "muscle"
+icon_image = ExtResource("1_rx8hn")
+card_skin = ExtResource("2_341n7")

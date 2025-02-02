@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="DamagingCard" load_steps=5 format=3 uid="uid://c534yv87m0b1"]
+
+[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="1_hcq7o"]
+[ext_resource type="Resource" uid="uid://gxjvq7sdixw2" path="res://components/CardTargets/Variants/Enemies/player.tres" id="2_8bb2f"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_m83u2"]
+[ext_resource type="Script" path="res://components/cards/CardFunctions/damaging_card.gd" id="2_ml3km"]
+
+[resource]
+script = ExtResource("2_ml3km")
+card_name = "Basic Attack"
+one_use = false
+targets_self = false
+base_value = 5
+play_cost = 1
+card_description = "Deals %s physical dmg to target"
+tool_tip = "Use on enemies, deals physical damage depending on your %s."
+debuff_value = 0
+hide_cost = false
+can_use_whenever = false
+can_use_to_respond = false
+card_owner = ExtResource("2_8bb2f")
+accepts_card_types = Array[int]([])
+card_type = 0
+primary_stat = "muscle"
+secondary_stat = "finesse"
+icon_image = ExtResource("1_hcq7o")
+card_skin = ExtResource("2_m83u2")

@@ -1,0 +1,221 @@
+[gd_scene load_steps=15 format=3 uid="uid://doa41q24r2eid"]
+
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="1_2al02"]
+[ext_resource type="Script" path="res://components/cards/card_base.gd" id="2_vhlj7"]
+[ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="3_bis42"]
+[ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/unitTargets/unitQualityNodes/modifiers_node.tscn" id="4_k3k1f"]
+[ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="6_f5ubv"]
+[ext_resource type="Texture2D" uid="uid://bnimnyhvmbkvv" path="res://art/ui/action_points_meter.png" id="8_bjxy8"]
+[ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/nodeUtilitiy/card_and_unit_area_detection.tscn" id="8_o2qbh"]
+
+[sub_resource type="GDScript" id="GDScript_jqly4"]
+script/source = "extends Area2D
+
+@onready var collision = $CollisionShape2D
+
+signal new_overlap_acquired(target)
+signal target_has_changed()
+
+var overlapping_areas : Array[Area2D]
+var owners_array : Array = []
+
+# when a new overlap occurs on a unit or a card
+func handle_new_overlap(area : Area2D):
+	overlapping_areas.push_front(area)
+	new_overlap_acquired.emit(overlapping_areas)
+	target_has_changed.emit(overlapping_areas[0])
+
+# when a card is removed from a unit or an enemy card
+func handle_remove_overlap(area : Area2D):
+	overlapping_areas.erase(area)
+	new_overlap_acquired.emit(overlapping_areas)
+	if overlapping_areas.size() == 0:
+		if owner is not UnitTarget:
+			get_tree().call_group(\"target_indicators\", \"hide_indicator\")
+
+func disableTargeting():
+	collision.disabled = true
+	
+func enableTargeting():
+	collision.disabled = false
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2swvb"]
+size = Vector2(160, 238)
+
+[sub_resource type="FontVariation" id="FontVariation_w0tjc"]
+spacing_glyph = 20
+spacing_top = -8
+spacing_bottom = -4
+
+[sub_resource type="Animation" id="Animation_vr347"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_nlc62"]
+resource_name = "accept_enemy_card"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.233333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.6, 0.6), Vector2(0.45, 0.45), Vector2(0.5, 0.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.233333, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.0523599]
+}
+
+[sub_resource type="Animation" id="Animation_gpjmu"]
+resource_name = "burn_card"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sw1ai"]
+_data = {
+"RESET": SubResource("Animation_vr347"),
+"accept_enemy_card": SubResource("Animation_nlc62"),
+"burn_card": SubResource("Animation_gpjmu")
+}
+
+[node name="Card" type="TextureRect"]
+offset_left = -96.0
+offset_top = -256.0
+offset_right = 96.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(96, 256)
+theme = ExtResource("3_bis42")
+texture = ExtResource("1_2al02")
+script = ExtResource("2_vhlj7")
+
+[node name="TwoWayDetection" parent="." instance=ExtResource("8_o2qbh")]
+script = SubResource("GDScript_jqly4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]
+position = Vector2(96, 127)
+shape = SubResource("RectangleShape2D_2swvb")
+disabled = true
+
+[node name="Modifiers" parent="." instance=ExtResource("4_k3k1f")]
+
+[node name="CardDetails" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardLabel" type="Label" parent="CardDetails"]
+texture_filter = 1
+layout_mode = 1
+offset_left = 24.0
+offset_top = 4.0
+offset_right = 168.0
+offset_bottom = 30.0
+theme = ExtResource("3_bis42")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "Card Name"
+
+[node name="IconImage" type="TextureRect" parent="CardDetails"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -76.0
+offset_top = 36.0
+offset_right = 76.0
+offset_bottom = 158.0
+grow_horizontal = 2
+texture = ExtResource("6_f5ubv")
+
+[node name="Description" type="RichTextLabel" parent="CardDetails"]
+texture_filter = 1
+layout_mode = 1
+offset_left = 22.0
+offset_top = 163.0
+offset_right = 171.0
+offset_bottom = 241.0
+mouse_filter = 1
+theme = ExtResource("3_bis42")
+theme_override_constants/line_separation = -8
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Card effect here."
+scroll_active = false
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+offset_right = 32.0
+offset_bottom = 32.0
+
+[node name="CostIndicator" type="TextureRect" parent="Control/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource("3_bis42")
+texture = ExtResource("8_bjxy8")
+
+[node name="Cost" type="Label" parent="Control/MarginContainer/CostIndicator"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme = ExtResource("3_bis42")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = SubResource("FontVariation_w0tjc")
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sw1ai")
+}

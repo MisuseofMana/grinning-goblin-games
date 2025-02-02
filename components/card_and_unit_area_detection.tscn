@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://fkpnfc8tmhkj"]
-
-[ext_resource type="Script" path="res://components/CardTargets/recieve_card.gd" id="1_iiweh"]
-
-[node name="TwoWayDetection" type="Area2D"]
-script = ExtResource("1_iiweh")
-
-[connection signal="area_entered" from="." to="." method="handle_new_overlap"]
-[connection signal="area_exited" from="." to="." method="handle_remove_overlap"]

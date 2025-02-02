@@ -7,18 +7,18 @@ var allEnemies : Array[Node]
 
 signal show_accept_button()
 signal all_enemies_turn_over()
-signal set_card_stats(stats : CardStats)
+signal set_card_stats(stats : CardComponent)
 signal all_enemies_died()
-signal set_card_owner(cardOwner: UnitSprite)
+signal set_card_owner(cardOwner: UnitTarget)
 
 func _ready():
 #	remove testing enemies from enemies node
 	for testEnemy in get_children():
 		testEnemy.queue_free()
 
-func set_up_enemies(enemyArray : Array[UnitStats]):
-	for unitstat in enemyArray:
-		print(unitstat)
+func set_up_enemies(enemyArray : Array[UnitTarget]):
+	for unit in enemyArray:
+		print(unit.statsNode)
 
 # called from battle scene controller
 func startEnemyPhase():

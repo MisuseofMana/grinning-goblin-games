@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://fkpnfc8tmhkj"]
+
+[node name="TwoWayDetection" type="Area2D"]
+
+[connection signal="area_entered" from="." to="." method="handle_new_overlap"]
+[connection signal="area_exited" from="." to="." method="handle_remove_overlap"]

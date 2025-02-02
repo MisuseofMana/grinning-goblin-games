@@ -4,7 +4,7 @@ class_name BattleScene
 @onready var battle_scene = $"."
 @onready var card_interface = $HandOfCards
 
-@onready var player: UnitSprite = $Player
+@onready var player: UnitTarget = $Player
 @onready var enemies = $Enemies
 @onready var turn_label = $TurnLabel
 @onready var turn_change_sound = $Sounds/TurnChangeSound
@@ -35,7 +35,7 @@ var currentLocation = Locations.FOREST
 
 var monsters : Dictionary = {
 	Locations.FOREST: [
-		preload("res://components/units/goblin.tscn"),
+		preload("res://components/unitTargets/variants/enemies/forestEnemies/goblin.tscn"),
 	]
 }
 
@@ -77,7 +77,7 @@ func runPhase(phase: TurnPhases):
 			showTurnSwap("Your Turn")
 			players_turn = true
 			hand_of_cards.refreshActionPoints()
-			var cardsDrawn : Array[CardStats] = player.deckNode.draw_hand_size()
+			var cardsDrawn : Array[CardComponent] = player.deckNode.draw_hand_size()
 			for cardStats in cardsDrawn:
 				hand_of_cards.addCardToHand(cardStats)
 			hand_of_cards.changeAllCardAvailability()

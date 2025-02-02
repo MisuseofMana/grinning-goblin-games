@@ -33,8 +33,12 @@ window/canvas_textures/default_texture_filter=0
 
 folder_colors={
 "res://art/": "yellow",
+"res://audio/": "pink",
+"res://components/cardUI/": "teal",
 "res://components/cards/": "red",
+"res://components/deckManagement/": "gray",
 "res://components/tokens/": "purple",
+"res://components/unitTargets/": "green",
 "res://icons/": "gray",
 "res://scenes/": "teal"
 }

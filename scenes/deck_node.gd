@@ -8,10 +8,10 @@ signal hand_of_cards_changed(old_hand, new_hand)
 signal deck_changed(old_deck, new_deck)
 signal card_drawn(card)
 
-@export var deck : Array[CardStats]
+@export var deck : Array[CardComponent]
 @export var hand_size : int = 5
 
-var currentHand : Array[CardStats] = [] : 
+var currentHand : Array[CardComponent] = [] : 
 	set(newHand):
 		hand_of_cards_changed.emit(currentHand, newHand)
 		currentHand = newHand
@@ -25,11 +25,11 @@ func shuffle_deck():
 func draw_hand_size():
 	return add_card_to_hand(hand_size)
 
-func add_discard_to_deck(discardArray : Array[CardStats]):
+func add_discard_to_deck(discardArray : Array[CardComponent]):
 	deck.append_array(discardArray)
 
 func add_card_to_hand(howMany):
-	var cardArray : Array[CardStats]
+	var cardArray : Array[CardComponent]
 	var incr = 0
 	while incr < howMany:
 		var drawnCard = deck.pop_front()
