@@ -255,18 +255,19 @@ libraries = {
 [node name="Player" parent="." node_paths=PackedStringArray("discardNode") instance=ExtResource("4_0fckc")]
 position = Vector2(209, 421)
 discardNode = NodePath("../DiscardAndBurn")
+is_friendly = true
 
 [node name="EnemyMarkers" type="Node2D" parent="."]
-position = Vector2(-10, 0)
+position = Vector2(-10, 16)
 
 [node name="First" type="Marker2D" parent="EnemyMarkers"]
-position = Vector2(1160, 300)
+position = Vector2(1160, 389)
 
 [node name="Second" type="Marker2D" parent="EnemyMarkers"]
-position = Vector2(1030, 340)
+position = Vector2(1030, 429)
 
 [node name="Third" type="Marker2D" parent="EnemyMarkers"]
-position = Vector2(890, 300)
+position = Vector2(890, 389)
 
 [node name="AcceptButton2" type="Button" parent="."]
 offset_left = 523.5
@@ -325,24 +326,27 @@ libraries = {
 [node name="HandOfCards" parent="." node_paths=PackedStringArray("battleScene") instance=ExtResource("15_6uhf2")]
 battleScene = NodePath("..")
 
-[node name="DeckPileReadout" parent="." instance=ExtResource("15_jiox7")]
+[node name="DeckPileReadout" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_jiox7")]
 offset_left = 100.0
 offset_top = 630.0
 offset_right = 100.0
 offset_bottom = 630.0
+player = NodePath("../Player")
 
-[node name="ActionPoints" parent="." instance=ExtResource("15_nw1iw")]
+[node name="ActionPoints" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_nw1iw")]
 offset_left = 109.0
 offset_top = 464.0
 offset_right = 237.0
 offset_bottom = 592.0
+player = NodePath("../Player")
 
-[node name="DiscardAndBurn" parent="." instance=ExtResource("15_e5xx5")]
+[node name="DiscardAndBurn" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_e5xx5")]
 offset_left = 1089.0
 offset_top = 453.0
 offset_right = 1339.0
 offset_bottom = 734.0
 scale = Vector2(0.6, 0.6)
+player = NodePath("../Player")
 
 [node name="XPBar" type="NinePatchRect" parent="."]
 anchors_preset = 5

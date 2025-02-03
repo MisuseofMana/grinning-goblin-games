@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0spuyowpthca"]
+[gd_scene load_steps=3 format=3 uid="uid://b0spuyowpthca"]
 
 [ext_resource type="Script" path="res://scenes/deck_node.gd" id="1_j4f2b"]
+[ext_resource type="PackedScene" uid="uid://brsnekppc63j0" path="res://components/cards/variants/playerCards/AttackCards/card_basic_attack.tscn" id="2_ygohl"]
 
 [node name="DeckNode" type="Node"]
 script = ExtResource("1_j4f2b")
+deck = Array[Resource]([ExtResource("2_ygohl"), ExtResource("2_ygohl"), ExtResource("2_ygohl")])

@@ -8,16 +8,14 @@ class_name HandOfCards
 @export var battleScene : BattleScene
 @export var player : UnitTarget
 
-const MAKE_CONTROL_DRAGGABLE = preload("res://components/nodeUtilitiy/make_control_draggable.tscn")
-
 var max_action_points : int = 3
 var action_points_remaining : int = 3
 
 signal end_player_turn()
 signal no_valid_player_options()
 signal action_points_changed(byHowMany : int)
-signal card_discarded(cardStats : CardComponent)
-signal card_burned(cardStats : CardComponent)
+signal card_discarded(cardStats : Resource)
+signal card_burned(cardStats : Resource)
 
 func _ready():
 #	clear out the test cards in the arc
@@ -32,12 +30,12 @@ func playerTurnSetup():
 	await discardHand()
 	player.deck.draw_hand_size()
 
-func addCardToHand(cardComponent: CardComponent):
+func addCardToHand(cardComponent: Resource):
 	var newFollowNode = PathFollow2D.new()
 	var newCard = cardComponent.instantiate()
 	card_arc.add_child(newFollowNode)
 	newFollowNode.add_child(newCard)
-	newCard.add_child(MAKE_CONTROL_DRAGGABLE.instantiate())
+	newCard.card_owner = player
 	newCard.card_used.connect(handleCardUse)
 	newCard.tree_exited.connect(updateAllCardPositions)
 	newCard.tree_exited.connect(checkForValidPlayerActions)
@@ -62,11 +60,11 @@ func putCardInBurnPile(card : CardComponent):
 	card.burnCard()
 	
 func isCardUsable(card : CardComponent):
-	if card.card_stats.play_cost > action_points_remaining:
+	if card.play_cost > action_points_remaining:
 		return false
-	var canUseAsResponse = not battleScene.players_turn and card.card_stats.can_use_to_respond
-	var canUseOnTurn = not card.card_stats.can_use_to_respond and battleScene.players_turn
-	return canUseAsResponse or canUseOnTurn or card.card_stats.can_use_whenever
+	var canUseAsResponse = not battleScene.players_turn and card.can_use_to_respond
+	var canUseOnTurn = not card.can_use_to_respond and battleScene.players_turn
+	return canUseAsResponse or canUseOnTurn or card.can_use_whenever
 	
 func handleCardUse(card: CardComponent):
 	action_points_changed.emit(card.play_cost)

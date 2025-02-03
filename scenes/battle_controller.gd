@@ -77,9 +77,9 @@ func runPhase(phase: TurnPhases):
 			showTurnSwap("Your Turn")
 			players_turn = true
 			hand_of_cards.refreshActionPoints()
-			var cardsDrawn : Array[CardComponent] = player.deckNode.draw_hand_size()
-			for cardStats in cardsDrawn:
-				hand_of_cards.addCardToHand(cardStats)
+			var cardsDrawn : Array[Resource] = player.deckNode.draw_hand_size()
+			for cardComp in cardsDrawn:
+				hand_of_cards.addCardToHand(cardComp)
 			hand_of_cards.changeAllCardAvailability()
 		TurnPhases.ENEMIES_TURN:
 			showTurnSwap("Enemy Turn")

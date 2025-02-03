@@ -39,15 +39,16 @@ func _get_configuration_warnings():
 		errors.append("StatsNode export must be assigned.")
 	if not anims:
 		errors.append("Anims export must be assigned.")
-	if not discardNode && statsNode.is_self:
+	if not discardNode && is_player:
 		errors.append("DiscardNode must be assigned.")
 	return errors
 
 @export_group("Target Info")
 @export var is_friendly : bool = false
+@export var is_player : bool = false
 
 func die():
-	if statsNode.is_self:
+	if is_player:
 		print('game over')
 	else:
 		anims.play('death_animation')

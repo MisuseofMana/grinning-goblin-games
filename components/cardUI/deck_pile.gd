@@ -4,7 +4,7 @@ extends Control
 
 @export var player : UnitTarget
 
-var deckArray : Array[CardComponent] = [] :
+var deckArray : Array[Resource] = [] :
 	set(newArray):
 		animateLabelFromTo(newArray.size(), deckArray.size(), label)
 		deckArray = newArray

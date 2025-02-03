@@ -5,6 +5,9 @@
 
 [node name="Card" instance=ExtResource("1_ci8k4")]
 
+[node name="CollisionShape2D" parent="TwoWayDetection" index="0"]
+disabled = false
+
 [node name="CardLabel" parent="CardDetails" index="0"]
 text = "Basic Attack"
 

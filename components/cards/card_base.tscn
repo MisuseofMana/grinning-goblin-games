@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://doa41q24r2eid"]
+[gd_scene load_steps=16 format=3 uid="uid://doa41q24r2eid"]
 
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="1_2al02"]
 [ext_resource type="Script" path="res://components/cards/card_base.gd" id="2_vhlj7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="6_f5ubv"]
 [ext_resource type="Texture2D" uid="uid://bnimnyhvmbkvv" path="res://art/ui/action_points_meter.png" id="8_bjxy8"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/nodeUtilitiy/card_and_unit_area_detection.tscn" id="8_o2qbh"]
+[ext_resource type="PackedScene" uid="uid://d0j8mgfxn8m34" path="res://components/nodeUtilitiy/make_control_draggable.tscn" id="8_sjpop"]
 
 [sub_resource type="GDScript" id="GDScript_jqly4"]
 script/source = "extends Area2D
@@ -219,3 +220,9 @@ vertical_alignment = 1
 libraries = {
 "": SubResource("AnimationLibrary_sw1ai")
 }
+
+[node name="MakeControlDraggable" parent="." instance=ExtResource("8_sjpop")]
+
+[connection signal="input_event" from="TwoWayDetection" to="MakeControlDraggable" method="_mouse_input_on_parent"]
+[connection signal="mouse_entered" from="TwoWayDetection" to="MakeControlDraggable" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="TwoWayDetection" to="MakeControlDraggable" method="_on_mouse_exited"]

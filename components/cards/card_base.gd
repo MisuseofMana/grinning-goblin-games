@@ -3,22 +3,26 @@ extends TextureRect
 class_name CardComponent
 
 @onready var card_details = $CardDetails
-@onready var description = $Description
+@onready var description = $CardDetails/Description
 @onready var cost_indicator = $Control/MarginContainer/CostIndicator
 @onready var cost = $Control/MarginContainer/CostIndicator/Cost
 @onready var anims: AnimationPlayer = $AnimationPlayer
 @onready var modifiers = $Modifiers
+@onready var detection = $TwoWayDetection/CollisionShape2D
 
 @export var card_owner : UnitTarget
 
 @export_group("Card Stats")
 @export var is_burn_card : bool = false
 @export var play_cost : int = 1
+@export var can_use_to_respond : bool = false
 @export var hide_cost_indicator : bool = false
 @export var targets_self : bool = false
 @export var base_value : int = 0
 @export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var primary_stat : String
 @export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var secondary_stat : String
+
+@export var card_is_draggable : bool = true
 
 var debuff_value = 0
 
@@ -27,6 +31,10 @@ const DISCARD_BACK = preload("res://art/cards/card-template-back.png")
 const BURN_BACK = preload("res://art/cards/card-burn-pile.png")
 
 signal card_used(cardNode : CardComponent)
+
+func _ready():
+	if not card_is_draggable:
+		detection.disabled = true
 
 func updateCardData():
 	if description.text.contains('%'):

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ds00fm2wg81wp"]
 
 [ext_resource type="Script" path="res://components/cardUI/hand_of_cards.gd" id="1_50x24"]
-[ext_resource type="PackedScene" uid="uid://cn4jweq6hqwjl" path="res://components/cards/draggable_card.tscn" id="2_kvk4s"]
+[ext_resource type="PackedScene" uid="uid://brsnekppc63j0" path="res://components/cards/variants/playerCards/AttackCards/card_basic_attack.tscn" id="2_825yd"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
@@ -27,26 +27,12 @@ metadata/_edit_vertical_guides_ = [640.0, 380.0, 900.0]
 [node name="CardArc" type="Path2D" parent="."]
 curve = SubResource("Curve2D_wguu1")
 
-[node name="CardFollowPath2" type="PathFollow2D" parent="CardArc"]
-position = Vector2(769.944, -5.8963)
-rotation = 0.0280615
-progress = 390.129
-cubic_interp = false
+[node name="PathFollow2D" type="PathFollow2D" parent="CardArc"]
+position = Vector2(639.995, -7.75096)
+rotation = 0.00102969
+progress = 260.163
 
-[node name="CardFollowPath3" type="PathFollow2D" parent="CardArc"]
-position = Vector2(380, 0)
-rotation = -0.0713382
-cubic_interp = false
-
-[node name="Card2" parent="CardArc/CardFollowPath3" instance=ExtResource("2_kvk4s")]
-
-[node name="CardFollowPath4" type="PathFollow2D" parent="CardArc"]
-position = Vector2(900, 0)
-rotation = 0.0662537
-progress = 780.257
-cubic_interp = false
-
-[node name="Card2" parent="CardArc/CardFollowPath4" instance=ExtResource("2_kvk4s")]
+[node name="Card" parent="CardArc/PathFollow2D" instance=ExtResource("2_825yd")]
 
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")
