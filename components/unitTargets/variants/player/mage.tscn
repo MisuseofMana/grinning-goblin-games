@@ -48,3 +48,6 @@ max_hit_points_base = 15
 
 [node name="DeckNode" parent="." index="5"]
 deck = Array[Resource]([ExtResource("3_sya16"), ExtResource("3_sya16"), ExtResource("3_sya16"), ExtResource("4_e3ufj"), ExtResource("4_e3ufj"), ExtResource("4_e3ufj"), ExtResource("5_dpmjn"), ExtResource("5_dpmjn")])
+
+[node name="TargetIndicator" parent="." index="7"]
+visible = false

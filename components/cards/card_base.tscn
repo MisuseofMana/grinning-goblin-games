@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://doa41q24r2eid"]
+[gd_scene load_steps=17 format=3 uid="uid://doa41q24r2eid"]
 
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="1_2al02"]
 [ext_resource type="Script" path="res://components/cards/card_base.gd" id="2_vhlj7"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bnimnyhvmbkvv" path="res://art/ui/action_points_meter.png" id="8_bjxy8"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/nodeUtilitiy/card_and_unit_area_detection.tscn" id="8_o2qbh"]
 [ext_resource type="PackedScene" uid="uid://d0j8mgfxn8m34" path="res://components/nodeUtilitiy/make_card_draggable.tscn" id="8_sjpop"]
+[ext_resource type="Material" uid="uid://b0o286b0adb0t" path="res://particles/fire.tres" id="9_jk66l"]
 
 [sub_resource type="FontVariation" id="FontVariation_w0tjc"]
 spacing_glyph = 20
@@ -15,7 +16,7 @@ spacing_top = -8
 spacing_bottom = -4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2swvb"]
-size = Vector2(159, 237)
+size = Vector2(93, 127)
 
 [sub_resource type="Animation" id="Animation_vr347"]
 length = 0.001
@@ -42,6 +43,42 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TwoWayDetection/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_nlc62"]
@@ -73,16 +110,130 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_gpjmu"]
 resource_name = "burn_card"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TwoWayDetection/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(0.5, -2, 2),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0, 0.6), Vector2(0.5, 0.5)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"swap_to_burn_back"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles2D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:self_modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
-[sub_resource type="Animation" id="Animation_rn3gb"]
+[sub_resource type="Animation" id="Animation_rdldh"]
 resource_name = "discard_card"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TwoWayDetection/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(0.5, -2, 2),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0, 0.6), Vector2(0.5, 0.5)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"swap_to_discard_back"
+}]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sw1ai"]
 _data = {
 "RESET": SubResource("Animation_vr347"),
 "accept_enemy_card": SubResource("Animation_nlc62"),
 "burn_card": SubResource("Animation_gpjmu"),
-"discard_card": SubResource("Animation_rn3gb")
+"discard_card": SubResource("Animation_rdldh")
 }
 
 [node name="Card" type="TextureRect"]
@@ -196,6 +347,13 @@ libraries = {
 
 [node name="MakeCardDraggable" parent="." node_paths=PackedStringArray("detection_area") instance=ExtResource("8_sjpop")]
 detection_area = NodePath("../TwoWayDetection")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(96, 255)
+emitting = false
+amount = 25
+process_material = ExtResource("9_jk66l")
+one_shot = true
 
 [connection signal="card_was_dropped" from="MakeCardDraggable" to="TwoWayDetection" method="disableTargeting"]
 [connection signal="card_was_picked_up" from="MakeCardDraggable" to="TwoWayDetection" method="enableTargeting"]

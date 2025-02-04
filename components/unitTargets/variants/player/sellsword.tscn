@@ -11,6 +11,9 @@ statsNode = NodePath("StatsNode")
 is_friendly = true
 is_player = true
 
+[node name="UnitSprite" parent="." index="0"]
+frame = 4
+
 [node name="StatsNode" parent="." index="3"]
 muscle = 3
 finesse = 1

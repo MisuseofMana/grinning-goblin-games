@@ -50,7 +50,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 3.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_238uk"]
@@ -266,8 +266,9 @@ animation = &"idle"
 autoplay = "idle"
 offset = Vector2(0, -126)
 
-[node name="TwoWayDetection" parent="." groups=["player_hitbox"] instance=ExtResource("8_dyn65")]
+[node name="TwoWayDetection" parent="." node_paths=PackedStringArray("target_indicator") groups=["player_hitbox"] instance=ExtResource("8_dyn65")]
 position = Vector2(0, -129)
+target_indicator = NodePath("../TargetIndicator")
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]

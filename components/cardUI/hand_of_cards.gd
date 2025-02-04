@@ -7,15 +7,16 @@ class_name HandOfCards
 
 @export var battleScene : BattleScene
 @export var player : UnitTarget
+@export var graveyard : DiscardNode
 
 var max_action_points : int = 3
 var action_points_remaining : int = 3
 
 signal end_player_turn()
 signal no_valid_player_options()
-signal action_points_changed(byHowMany : int)
-signal card_discarded(cardStats : Resource)
-signal card_burned(cardStats : Resource)
+signal action_points_decreased(byHowMany : int)
+signal add_to_burn_pile(card : CardComponent)
+signal add_to_discard_pile(card : CardComponent)
 
 func _ready():
 #	clear out the test cards in the arc
@@ -37,28 +38,30 @@ func addCardToHand(cardComponent: Resource):
 	card_arc.add_child(newFollowNode)
 	newFollowNode.add_child(newCard)
 	newCard.updateCardData.call_deferred()
-	newCard.card_used.connect(handleCardUse)
+	newCard.card_sent_to_graveyard.connect(delete_card)
 	newCard.tree_exited.connect(updateAllCardPositions)
 	newCard.tree_exited.connect(checkForValidPlayerActions)
 
 	updateAllCardPositions()
 	changeCardAvailibilty(newCard)
-	
-func discardHand():
+
+func delete_card(card : CardComponent):
+	action_points_decreased.emit(card.play_cost)
+	if card.is_burn_card:
+		add_to_burn_pile.emit(card)
+	else:
+		add_to_discard_pile.emit(card)
 	for followPath in card_arc.get_children():
+		if followPath.get_child(0) == card:
+			followPath.queue_free()
+
+func discardHand():
+	var hand_of_cards = card_arc.get_children()
+	hand_of_cards.reverse()
+	for followPath in hand_of_cards:
 		var cardNode : CardComponent = followPath.get_child(0)
 		await self.get_tree().create_timer(0.1).timeout
-		putCardInDiscard(cardNode)
-
-func putCardInDiscard(card : CardComponent):
-	card.anims.play('discard')
-	create_tween().tween_property(card, "global_position", Vector2(579,342), 0.6)
-	card.discardCard()
-	
-func putCardInBurnPile(card : CardComponent):
-	card.anims.play('burn')
-	create_tween().tween_property(card, "global_position", Vector2(600,315), 0.6)
-	card.burnCard()
+		cardNode.discardCard()
 	
 func isCardUsable(card : CardComponent):
 	if card.play_cost > action_points_remaining:
@@ -66,16 +69,6 @@ func isCardUsable(card : CardComponent):
 	var canUseAsResponse = not battleScene.players_turn and card.can_use_to_respond
 	var canUseOnTurn = not card.can_use_to_respond and battleScene.players_turn
 	return canUseAsResponse or canUseOnTurn or card.can_use_whenever
-	
-func handleCardUse(card: CardComponent):
-	action_points_changed.emit(card.play_cost)
-	
-	if card.one_use:
-		putCardInBurnPile(card)
-	else:
-		putCardInDiscard(card)
-	
-	updateAllCardPositions()
 		
 func checkForValidPlayerActions():
 	if action_points_remaining <= 0:

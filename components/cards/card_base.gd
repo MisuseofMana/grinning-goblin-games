@@ -9,6 +9,7 @@ class_name CardComponent
 @onready var anims: AnimationPlayer = $AnimationPlayer
 @onready var modifiers = $Modifiers
 @onready var detection = $TwoWayDetection/CollisionShape2D
+@onready var make_card_draggable = $MakeCardDraggable
 
 @export var card_owner : UnitTarget
 
@@ -27,23 +28,18 @@ class_name CardComponent
 @export var card_is_draggable : bool = true
 
 var debuff_value = 0
-
-const BURN_CARD_COST_BLIP = preload("res://art/ui/burn-card-badge.png")
+const BURN_CARD_BADGE = preload("res://art/ui/burn-card-badge.png")
 const DISCARD_BACK = preload("res://art/cards/card-template-back.png")
 const BURN_BACK = preload("res://art/cards/card-burn-pile.png")
 
-signal card_used(cardNode : CardComponent)
-
-func _ready():
-	if not card_is_draggable:
-		detection.disabled = true
+signal card_sent_to_graveyard(cardNode : CardComponent)
 
 func updateCardData():
 	if description.text.contains('%'):
-		print('formatting')
 		description.text = description.text % formatCardStringInterp(false)
 	if is_burn_card:
-		cost_indicator.texture = BURN_CARD_COST_BLIP
+		print('swapping')
+		cost_indicator.texture = BURN_CARD_BADGE
 	if hide_cost_indicator:
 		hideCostIndicator()
 	cost.text = str(play_cost)
@@ -54,6 +50,14 @@ func hideCostIndicator():
 func hideCardDetails():
 	hideCostIndicator()
 	card_details.hide()
+	
+func swap_to_burn_back():
+	hideCardDetails()
+	texture = BURN_BACK
+	
+func swap_to_discard_back():
+	hideCardDetails()
+	texture = DISCARD_BACK
 	
 func formatCardStringInterp(noBBCode):
 	var color
@@ -73,10 +77,18 @@ func formatCardStringInterp(noBBCode):
 
 func burnCard():
 	anims.play('burn_card')
+	go_to_discard_area()
 	
 func discardCard():
 	anims.play('discard_card')
-
+	go_to_discard_area()
+	
+func go_to_discard_area():
+	make_card_draggable.undraggable = true
+	detection.disabled = true
+	await get_tree().create_tween().tween_property(self, "global_position", Vector2(1100, 480), 0.6).finished
+	card_sent_to_graveyard.emit(self)
+	
 func calculate_adj_value():
 	var modifierValue : int = base_value
 	if primary_stat:

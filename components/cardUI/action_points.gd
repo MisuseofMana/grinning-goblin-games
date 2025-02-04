@@ -5,11 +5,15 @@ extends Control
 
 @export var player : UnitTarget
 
+signal ran_out_of_ap
+
 var remaining_ap : int :
 	set(newValue):
 #		animate to new value from old value
 		animateLabelFromTo(newValue, remaining_ap)
 		remaining_ap = newValue
+		if remaining_ap <= 0:
+			ran_out_of_ap.emit()
 
 func _ready():
 	remaining_ap = player.statsNode.current_ap

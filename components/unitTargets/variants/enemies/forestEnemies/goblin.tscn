@@ -3,14 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://cal5vxpxe60ke" path="res://components/unitTargets/card_target_base.tscn" id="1_tt3a3"]
 [ext_resource type="Texture2D" uid="uid://d1wnkmbe14tsv" path="res://art/sprites/goblin/idle-export.png" id="2_gv56u"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vn85w"]
-atlas = ExtResource("2_gv56u")
-region = Rect2(0, 0, 172, 224)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8vljb"]
-atlas = ExtResource("2_gv56u")
-region = Rect2(172, 0, 172, 224)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_m3edi"]
 atlas = ExtResource("2_gv56u")
 region = Rect2(344, 0, 172, 224)
@@ -23,15 +15,17 @@ region = Rect2(516, 0, 172, 224)
 atlas = ExtResource("2_gv56u")
 region = Rect2(688, 0, 172, 224)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vn85w"]
+atlas = ExtResource("2_gv56u")
+region = Rect2(0, 0, 172, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vljb"]
+atlas = ExtResource("2_gv56u")
+region = Rect2(172, 0, 172, 224)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_c6i3k"]
 animations = [{
 "frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vn85w")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8vljb")
-}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_m3edi")
 }, {
@@ -40,10 +34,16 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_54poh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vn85w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vljb")
 }],
 "loop": true,
 "name": &"idle",
-"speed": 5.0
+"speed": 3.0
 }]
 
 [node name="CardTarget" node_paths=PackedStringArray("anims", "deckNode", "healthNode", "statsNode") instance=ExtResource("1_tt3a3")]
@@ -56,6 +56,8 @@ metadata/_edit_group_ = true
 
 [node name="UnitSprite" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_c6i3k")
+frame = 3
+frame_progress = 0.807298
 
 [node name="StatsNode" parent="." index="3"]
 muscle = 2

@@ -7,6 +7,7 @@ signal tokens_updated(stats: StatsNode)
 signal check_for_other_enemies()
 
 @onready var collision = $TwoWayDetection/CollisionShape2D
+@onready var unit_sprite = $UnitSprite
 
 @export var anims : AnimationPlayer:
 	set(newValue):
@@ -46,6 +47,9 @@ func _get_configuration_warnings():
 @export_group("Target Info")
 @export var is_friendly : bool = false
 @export var is_player : bool = false
+
+func _ready():
+	unit_sprite.frame = randi_range(0, unit_sprite.sprite_frames.get_frame_count("idle") - 1)
 
 func die():
 	if is_player:

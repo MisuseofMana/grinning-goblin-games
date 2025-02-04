@@ -28,25 +28,23 @@ func _get_configuration_warnings():
 	if not player:
 		errors.append("Player export must be assigned.")
 	return errors
-	
-func _ready():
-#	TODO: Hook up load state
-#	set discard array to save file
-#	set burn array to save file
-	pass
-	
 
 func animateLabelFromTo(to: int, from: int, targetNode: Label):
 	var changeIncrementerBy : int = 1 if to - from > 0 else -1
-	
+	print(from, to)
 	var incrementer : int = from
 	while incrementer != to :
 		incrementer += changeIncrementerBy
 		await get_tree().create_timer(0.1).timeout
 		targetNode.text = str(incrementer)
 
-func updateDiscard(discard : Array):
-	discardArray.append_array(discard)
+
+func add_card_to_discard(card : CardComponent):
+	var newDiscardArray = discardArray.duplicate()
+	newDiscardArray.append(card)
+	discardArray = newDiscardArray
 	
-func addToBurnPile(burn : Array):
-	burnArray.append_array(burn)
+func add_card_to_burn(card : CardComponent):
+	var newBurnArray = burnArray.duplicate()
+	newBurnArray.append(card)
+	burnArray = newBurnArray
