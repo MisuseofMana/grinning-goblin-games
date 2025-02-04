@@ -1,8 +1,10 @@
 extends Node
-class_name MakeControlDraggable
+class_name MakeCardDraggable
 
-@onready var parent : Control = get_parent()
+@onready var parent : CardComponent = get_parent()
 @onready var parentScale : Vector2 = get_parent().scale
+
+@export var detection_area : TwoWayDetection
 
 var target
 var isValidTarget : bool
@@ -18,21 +20,26 @@ signal card_was_picked_up()
 signal card_was_dropped()
 
 func _ready():
+	parent.gui_input.connect(_mouse_input_on_parent)
 	parent.mouse_entered.connect(_on_mouse_entered)
 	parent.mouse_exited.connect(_on_mouse_exited)
-	parent.gui_input.connect(_mouse_input_on_parent)
-	
+
 func _physics_process(delta):
 	if is_dragging:
 		create_tween().tween_property(parent, "global_position", parent.get_global_mouse_position() + Vector2(-parent.size.x / 4, -parent.size.y / 4), delay * delta)
-
-func _mouse_input_on_parent(event):
+		
+func _mouse_input_on_parent(event: InputEvent):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed() and not undraggable:
 			card_origin = parent.position
 			create_tween().tween_property(parent, "scale", parentScale * 0.5, SPEED)
 			is_dragging = true
 			card_was_picked_up.emit()
+		elif event.is_released() and detection_area.drop_spot_is_valid():
+			if parent.is_burn_card:
+				parent.burnCard()
+			else:
+				parent.discardCard()
 		else:
 			returnCardToOrigin()
 

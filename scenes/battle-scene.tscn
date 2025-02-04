@@ -1,9 +1,10 @@
-[gd_scene load_steps=35 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=36 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://c06k5sgbv2e0l" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
 [ext_resource type="Texture2D" uid="uid://pwewpuefxjom" path="res://art/ui/ui-background-cutout.png" id="2_jaqan"]
-[ext_resource type="PackedScene" uid="uid://d10ain1idyjan" path="res://components/unitTargets/variants/player/player.tscn" id="4_0fckc"]
+[ext_resource type="PackedScene" uid="uid://d10ain1idyjan" path="res://components/unitTargets/variants/player/sellsword.tscn" id="4_0fckc"]
+[ext_resource type="PackedScene" uid="uid://cr0b7ubj02j6l" path="res://components/unitTargets/variants/player/mage.tscn" id="4_n2o5n"]
 [ext_resource type="Script" path="res://scenes/accept_button.gd" id="6_3nejl"]
 [ext_resource type="Script" path="res://scenes/enemy_controller.gd" id="7_7drj6"]
 [ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="9_3vtf7"]
@@ -227,8 +228,9 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("17_ituhd")
 
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("hand_of_cards", "enemy_logic")]
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("player", "hand_of_cards", "enemy_logic")]
 script = ExtResource("1_tfoca")
+player = NodePath("Mage")
 hand_of_cards = NodePath("HandOfCards")
 enemy_logic = NodePath("Enemies")
 metadata/_edit_vertical_guides_ = [640.0]
@@ -252,10 +254,14 @@ libraries = {
 "": SubResource("AnimationLibrary_3sw5y")
 }
 
-[node name="Player" parent="." node_paths=PackedStringArray("discardNode") instance=ExtResource("4_0fckc")]
+[node name="Sellsword" parent="." node_paths=PackedStringArray("discardNode") instance=ExtResource("4_0fckc")]
+position = Vector2(336, 450)
+discardNode = NodePath("../DiscardAndBurn")
+
+[node name="Mage" parent="." node_paths=PackedStringArray("discardNode") instance=ExtResource("4_n2o5n")]
 position = Vector2(209, 421)
 discardNode = NodePath("../DiscardAndBurn")
-is_friendly = true
+is_player = true
 
 [node name="EnemyMarkers" type="Node2D" parent="."]
 position = Vector2(-10, 16)
@@ -282,9 +288,10 @@ script = ExtResource("6_3nejl")
 script = ExtResource("7_7drj6")
 animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
 
-[node name="EnemyCardContainer" type="Node2D" parent="."]
+[node name="EnemyCardContainer" type="Node2D" parent="." node_paths=PackedStringArray("playerUnit")]
 position = Vector2(1352, -36)
 script = ExtResource("16_5f438")
+playerUnit = NodePath("../Mage")
 
 [node name="Path2D" type="Path2D" parent="EnemyCardContainer"]
 curve = SubResource("Curve2D_catov")
@@ -323,22 +330,23 @@ libraries = {
 "": SubResource("AnimationLibrary_gvsxv")
 }
 
-[node name="HandOfCards" parent="." node_paths=PackedStringArray("battleScene") instance=ExtResource("15_6uhf2")]
+[node name="HandOfCards" parent="." node_paths=PackedStringArray("battleScene", "player") instance=ExtResource("15_6uhf2")]
 battleScene = NodePath("..")
+player = NodePath("../Mage")
 
 [node name="DeckPileReadout" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_jiox7")]
 offset_left = 100.0
 offset_top = 630.0
 offset_right = 100.0
 offset_bottom = 630.0
-player = NodePath("../Player")
+player = NodePath("../Mage")
 
 [node name="ActionPoints" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_nw1iw")]
 offset_left = 109.0
 offset_top = 464.0
 offset_right = 237.0
 offset_bottom = 592.0
-player = NodePath("../Player")
+player = NodePath("../Mage")
 
 [node name="DiscardAndBurn" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_e5xx5")]
 offset_left = 1089.0
@@ -346,7 +354,7 @@ offset_top = 453.0
 offset_right = 1339.0
 offset_bottom = 734.0
 scale = Vector2(0.6, 0.6)
-player = NodePath("../Player")
+player = NodePath("../Mage")
 
 [node name="XPBar" type="NinePatchRect" parent="."]
 anchors_preset = 5

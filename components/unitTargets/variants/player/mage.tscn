@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://cr0b7ubj02j6l"]
+
+[ext_resource type="PackedScene" uid="uid://cal5vxpxe60ke" path="res://components/unitTargets/card_target_base.tscn" id="1_c7omk"]
+[ext_resource type="Texture2D" uid="uid://d011h3g14jdm0" path="res://art/sprites/player/mage/idle-export.png" id="2_jof3n"]
+[ext_resource type="PackedScene" uid="uid://bswjv7mxupvsc" path="res://components/cards/variants/playerCards/attackCards/basic_magic_attack.tscn" id="3_sya16"]
+[ext_resource type="PackedScene" uid="uid://cn200gry42a1" path="res://components/cards/variants/playerCards/defenseCards/basic_ward.tscn" id="4_e3ufj"]
+[ext_resource type="PackedScene" uid="uid://b3tqjdmnntqo0" path="res://components/cards/variants/playerCards/healCards/basic_heal.tscn" id="5_dpmjn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60rw4"]
+atlas = ExtResource("2_jof3n")
+region = Rect2(0, 0, 124, 252)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gtcfm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60rw4")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="Mage" node_paths=PackedStringArray("anims", "deckNode", "healthNode", "statsNode") instance=ExtResource("1_c7omk")]
+anims = NodePath("Animations")
+deckNode = NodePath("DeckNode")
+healthNode = NodePath("HealthNode")
+statsNode = NodePath("StatsNode")
+is_friendly = true
+
+[node name="UnitSprite" parent="." index="0"]
+position = Vector2(-8, 0)
+sprite_frames = SubResource("SpriteFrames_gtcfm")
+autoplay = ""
+
+[node name="TwoWayDetection" parent="." index="1"]
+position = Vector2(-8, -128)
+
+[node name="StatsNode" parent="." index="3"]
+finesse = 1
+endurance = 1
+knowledge = 3
+nuance = 2
+
+[node name="HealthNode" parent="." index="4"]
+hit_points = 15
+max_hit_points_base = 15
+
+[node name="DeckNode" parent="." index="5"]
+deck = Array[Resource]([ExtResource("3_sya16"), ExtResource("3_sya16"), ExtResource("3_sya16"), ExtResource("4_e3ufj"), ExtResource("4_e3ufj"), ExtResource("4_e3ufj"), ExtResource("5_dpmjn"), ExtResource("5_dpmjn")])

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ds00fm2wg81wp"]
 
 [ext_resource type="Script" path="res://components/cardUI/hand_of_cards.gd" id="1_50x24"]
-[ext_resource type="PackedScene" uid="uid://brsnekppc63j0" path="res://components/cards/variants/playerCards/AttackCards/card_basic_attack.tscn" id="2_825yd"]
+[ext_resource type="PackedScene" uid="uid://brsnekppc63j0" path="res://components/cards/variants/playerCards/attackCards/basic_phys_attack.tscn" id="2_825yd"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
@@ -38,5 +38,5 @@ progress = 260.163
 stream = SubResource("AudioStreamRandomizer_flf2n")
 volume_db = -20.0
 
-[connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]
 [connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]
+[connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]

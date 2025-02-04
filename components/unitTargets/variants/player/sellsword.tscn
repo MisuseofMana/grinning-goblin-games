@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d10ain1idyjan"]
 
 [ext_resource type="PackedScene" uid="uid://cal5vxpxe60ke" path="res://components/unitTargets/card_target_base.tscn" id="1_heyf1"]
-[ext_resource type="PackedScene" uid="uid://brsnekppc63j0" path="res://components/cards/variants/playerCards/AttackCards/card_basic_attack.tscn" id="2_e7ie7"]
+[ext_resource type="PackedScene" uid="uid://brsnekppc63j0" path="res://components/cards/variants/playerCards/attackCards/basic_phys_attack.tscn" id="2_e7ie7"]
 
 [node name="Player" node_paths=PackedStringArray("anims", "deckNode", "healthNode", "statsNode") instance=ExtResource("1_heyf1")]
 anims = NodePath("Animations")
@@ -16,6 +16,10 @@ muscle = 3
 finesse = 1
 endurance = 2
 nuance = 1
+
+[node name="HealthNode" parent="." index="4"]
+hit_points = 25
+max_hit_points_base = 25
 
 [node name="DeckNode" parent="." index="5"]
 deck = Array[Resource]([ExtResource("2_e7ie7"), ExtResource("2_e7ie7"), ExtResource("2_e7ie7"), ExtResource("2_e7ie7"), ExtResource("2_e7ie7")])

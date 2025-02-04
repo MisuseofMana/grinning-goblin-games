@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bswjv7mxupvsc"]
+
+[ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card_base.tscn" id="1_wrrho"]
+[ext_resource type="Texture2D" uid="uid://balvcoo4miss8" path="res://art/cards/card_art/basic_spell.png" id="2_pj5pq"]
+
+[node name="Card" instance=ExtResource("1_wrrho")]
+base_value = 4
+primary_stat = "knowledge"
+secondary_stat = "nuance"
+
+[node name="CardLabel" parent="CardDetails" index="0"]
+text = "Magic Attack"
+
+[node name="IconImage" parent="CardDetails" index="1"]
+texture = ExtResource("2_pj5pq")
+
+[node name="Description" parent="CardDetails" index="2"]
+text = "Deal %s magic dmg to target"

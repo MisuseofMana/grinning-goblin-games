@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhprvgdrobyis"]
+
+[ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card_base.tscn" id="1_fhudh"]
+[ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="2_bvn48"]
+[ext_resource type="Texture2D" uid="uid://dohmn7ea4wnen" path="res://art/cards/card_art/goblin/goblin_bite.png" id="3_rwvy2"]
+
+[node name="Card" instance=ExtResource("1_fhudh")]
+texture = ExtResource("2_bvn48")
+accepts_cards = true
+hide_cost_indicator = true
+base_value = 4
+primary_stat = "muscle"
+secondary_stat = "finesse"
+card_is_draggable = false
+
+[node name="CardLabel" parent="CardDetails" index="0"]
+text = "Goblin Bite"
+
+[node name="IconImage" parent="CardDetails" index="1"]
+texture = ExtResource("3_rwvy2")
+
+[node name="Description" parent="CardDetails" index="2"]
+text = "A nasty bite,
+deals %s phys damage"
+
+[node name="Control" parent="." index="2"]
+visible = false

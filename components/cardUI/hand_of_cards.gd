@@ -32,10 +32,11 @@ func playerTurnSetup():
 
 func addCardToHand(cardComponent: Resource):
 	var newFollowNode = PathFollow2D.new()
-	var newCard = cardComponent.instantiate()
+	var newCard : CardComponent = cardComponent.instantiate()
+	newCard.card_owner = player
 	card_arc.add_child(newFollowNode)
 	newFollowNode.add_child(newCard)
-	newCard.card_owner = player
+	newCard.updateCardData.call_deferred()
 	newCard.card_used.connect(handleCardUse)
 	newCard.tree_exited.connect(updateAllCardPositions)
 	newCard.tree_exited.connect(checkForValidPlayerActions)
@@ -109,10 +110,10 @@ func changeAllCardAvailability():
 func changeCardAvailibilty(cardNode: CardComponent):
 	if isCardUsable(cardNode):
 		cardNode.modulate = Color(1, 1, 1)
-		cardNode.get_node("MakeControlDraggable").undraggable = false
+		cardNode.get_node("MakeCardDraggable").undraggable = false
 		#create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, 0), 0.2)
 	else:
 		cardNode.modulate = Color(0.2, 0.2, 0.2)
-		cardNode.get_node("MakeControlDraggable").undraggable = false
+		cardNode.get_node("MakeCardDraggable").undraggable = false
 		cardNode.z_index = 0
 		#create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, 20), 0.2)

@@ -4,7 +4,6 @@ class_name BattleScene
 @onready var battle_scene = $"."
 @onready var card_interface = $HandOfCards
 
-@onready var player: UnitTarget = $Player
 @onready var enemies = $Enemies
 @onready var turn_label = $TurnLabel
 @onready var turn_change_sound = $Sounds/TurnChangeSound
@@ -12,7 +11,7 @@ class_name BattleScene
 @onready var enemy_markers = $EnemyMarkers
 
 @export var stage_background = Texture2D
-
+@export var player : UnitTarget
 @export var hand_of_cards : HandOfCards
 @export var enemy_logic : EnemyController
 

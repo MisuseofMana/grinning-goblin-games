@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cchoe2ksx08py"]
+
+[ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card_base.tscn" id="1_6p46d"]
+[ext_resource type="Texture2D" uid="uid://cos7ix7u2m2bv" path="res://art/cards/card_art/basic-defend.png" id="2_dv5f6"]
+
+[node name="Card" instance=ExtResource("1_6p46d")]
+can_use_to_respond = true
+base_value = 2
+primary_stat = "endurance"
+secondary_stat = "muscle"
+
+[node name="CardLabel" parent="CardDetails" index="0"]
+text = "Basic Block"
+
+[node name="IconImage" parent="CardDetails" index="1"]
+texture = ExtResource("2_dv5f6")
+
+[node name="Description" parent="CardDetails" index="2"]
+text = "Subtract %s phys dmg from enemy card"
+
+[node name="Cost" parent="Control/MarginContainer/CostIndicator" index="0"]
+text = "1"

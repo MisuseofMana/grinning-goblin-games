@@ -13,9 +13,11 @@ class_name CardComponent
 @export var card_owner : UnitTarget
 
 @export_group("Card Stats")
+@export var accepts_cards: bool = false
 @export var is_burn_card : bool = false
 @export var play_cost : int = 1
 @export var can_use_to_respond : bool = false
+@export var can_use_whenever : bool = false
 @export var hide_cost_indicator : bool = false
 @export var targets_self : bool = false
 @export var base_value : int = 0
@@ -38,6 +40,7 @@ func _ready():
 
 func updateCardData():
 	if description.text.contains('%'):
+		print('formatting')
 		description.text = description.text % formatCardStringInterp(false)
 	if is_burn_card:
 		cost_indicator.texture = BURN_CARD_COST_BLIP
@@ -51,12 +54,7 @@ func hideCostIndicator():
 func hideCardDetails():
 	hideCostIndicator()
 	card_details.hide()
-		
-func determine_if_valid_drop_spot(areaInQuestion: Area2D):
-	var targetNode : UnitTarget = areaInQuestion.owner
-	if targetNode:
-		pass
-
+	
 func formatCardStringInterp(noBBCode):
 	var color
 	var adjustedValue = calculate_adj_value()
@@ -82,17 +80,17 @@ func discardCard():
 func calculate_adj_value():
 	var modifierValue : int = base_value
 	if primary_stat:
-		modifierValue += modifiers.getPrimaryStatMod(card_owner.stats[primary_stat])
+		modifierValue += modifiers.getPrimaryStatMod(card_owner.statsNode[primary_stat])
 		modifierValue = clampi(modifierValue, 1, 999)
 	if secondary_stat:
-		modifierValue += modifiers.getSecondaryStatMod(card_owner.stats[secondary_stat])
+		modifierValue += modifiers.getSecondaryStatMod(card_owner.statsNode[secondary_stat])
 		modifierValue = clampi(modifierValue, 1, 999)
 	return modifierValue
 	
 func calculate_adj_token_value():
 	var modifierValue = base_value
 	if primary_stat:
-		modifierValue += modifiers.getTokenModifier(card_owner.stats[primary_stat])
+		modifierValue += modifiers.getTokenModifier(card_owner.statsNode[primary_stat])
 	modifierValue = clampi(modifierValue, 0, 999)
 	return modifierValue
 	

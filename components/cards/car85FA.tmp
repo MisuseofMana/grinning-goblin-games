@@ -7,12 +7,61 @@
 [ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="6_f5ubv"]
 [ext_resource type="Texture2D" uid="uid://bnimnyhvmbkvv" path="res://art/ui/action_points_meter.png" id="8_bjxy8"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/nodeUtilitiy/card_and_unit_area_detection.tscn" id="8_o2qbh"]
-[ext_resource type="PackedScene" uid="uid://d0j8mgfxn8m34" path="res://components/nodeUtilitiy/make_card_draggable.tscn" id="8_sjpop"]
+[ext_resource type="PackedScene" uid="uid://d0j8mgfxn8m34" path="res://components/nodeUtilitiy/make_control_draggable.tscn" id="8_sjpop"]
 
 [sub_resource type="FontVariation" id="FontVariation_w0tjc"]
 spacing_glyph = 20
 spacing_top = -8
 spacing_bottom = -4
+
+[sub_resource type="GDScript" id="GDScript_jqly4"]
+script/source = "class_name TwoWayDetection extends Area2D
+
+@onready var collision = $CollisionShape2D
+@onready var self_owner = get_parent()
+
+signal new_overlap_acquired(target)
+signal target_has_changed()
+
+var overlapping_areas : Array[Area2D]
+
+func drop_spot_is_valid(areaInQuestion: Area2D):
+	if areaInQuestion.owner is UnitTarget:
+		var targetNode : UnitTarget = areaInQuestion.owner
+		var selfTarget: bool = targetNode.is_friendly and self_owner.targets_self
+		var enemyTarget: bool = not targetNode.is_friendly and not self_owner.targets_self
+		print(\"enemyTarget \", enemyTarget)
+		print(\"selfTarget \", selfTarget)
+		return selfTarget or enemyTarget
+	if areaInQuestion.owner is CardComponent:
+		print('overlapping another card')
+		
+# when a new overlap occurs on a unit or a card
+func handle_new_overlap(area : Area2D):
+	overlapping_areas.push_front(area)
+	if drop_spot_is_valid(area):
+		self_owner.modulate = Color(0, 1, 0)
+	elif not drop_spot_is_valid(area):
+		self_owner.modulate = Color(1, 0, 0)
+	new_overlap_acquired.emit(overlapping_areas)
+	target_has_changed.emit(overlapping_areas[0])
+
+# when a card is removed from a unit or an enemy card
+func handle_remove_overlap(area : Area2D):
+	overlapping_areas.erase(area)
+	new_overlap_acquired.emit(overlapping_areas)
+	if area.owner is UnitTarget:
+		get_tree().call_group(\"target_indicators\", \"hide_indicator\")
+	if overlapping_areas.is_empty():
+		self_owner.modulate = Color(1, 1, 1)
+			
+
+func disableTargeting():
+	collision.disabled = true
+	
+func enableTargeting():
+	collision.disabled = false
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2swvb"]
 size = Vector2(159, 237)
@@ -74,15 +123,11 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_gpjmu"]
 resource_name = "burn_card"
 
-[sub_resource type="Animation" id="Animation_rn3gb"]
-resource_name = "discard_card"
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sw1ai"]
 _data = {
 "RESET": SubResource("Animation_vr347"),
 "accept_enemy_card": SubResource("Animation_nlc62"),
-"burn_card": SubResource("Animation_gpjmu"),
-"discard_card": SubResource("Animation_rn3gb")
+"burn_card": SubResource("Animation_gpjmu")
 }
 
 [node name="Card" type="TextureRect"]
@@ -183,6 +228,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="TwoWayDetection" parent="." instance=ExtResource("8_o2qbh")]
+script = SubResource("GDScript_jqly4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]
 position = Vector2(96.5, 127.5)
@@ -194,8 +240,7 @@ libraries = {
 "": SubResource("AnimationLibrary_sw1ai")
 }
 
-[node name="MakeCardDraggable" parent="." node_paths=PackedStringArray("detection_area") instance=ExtResource("8_sjpop")]
-detection_area = NodePath("../TwoWayDetection")
+[node name="MakeControlDraggable" parent="." instance=ExtResource("8_sjpop")]
 
-[connection signal="card_was_dropped" from="MakeCardDraggable" to="TwoWayDetection" method="disableTargeting"]
-[connection signal="card_was_picked_up" from="MakeCardDraggable" to="TwoWayDetection" method="enableTargeting"]
+[connection signal="card_was_dropped" from="MakeControlDraggable" to="TwoWayDetection" method="disableTargeting"]
+[connection signal="card_was_picked_up" from="MakeControlDraggable" to="TwoWayDetection" method="enableTargeting"]

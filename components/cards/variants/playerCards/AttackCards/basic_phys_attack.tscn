@@ -4,18 +4,18 @@
 [ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="2_tg27g"]
 
 [node name="Card" instance=ExtResource("1_ci8k4")]
-
-[node name="CollisionShape2D" parent="TwoWayDetection" index="0"]
-disabled = false
+base_value = 4
+primary_stat = "muscle"
+secondary_stat = "finesse"
 
 [node name="CardLabel" parent="CardDetails" index="0"]
-text = "Basic Attack"
+text = "Phys. Attack"
 
 [node name="IconImage" parent="CardDetails" index="1"]
 texture = ExtResource("2_tg27g")
 
 [node name="Description" parent="CardDetails" index="2"]
-text = "Deals %s physical dmg to target."
+text = "Deals %s physical dmg to target"
 
 [node name="Cost" parent="Control/MarginContainer/CostIndicator" index="0"]
 text = "1"
