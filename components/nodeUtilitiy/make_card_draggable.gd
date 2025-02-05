@@ -36,6 +36,7 @@ func _mouse_input_on_parent(event: InputEvent):
 			is_dragging = true
 			card_was_picked_up.emit()
 		elif event.is_released() and detection_area.drop_spot_is_valid():
+			parent.effect_node._run_card_effect(detection_area.overlapping_areas[0].owner)
 			is_dragging = false
 			if parent.is_burn_card:
 				parent.burnCard()

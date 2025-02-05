@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="TokenStats" load_steps=3 format=3 uid="uid://dj4d0nwgcjmgy"]
-
-[ext_resource type="Script" path="res://components/tokens/TokenDictionary/token_stats.gd" id="1_ps50r"]
-[ext_resource type="Texture2D" uid="uid://crh46ebsb881q" path="res://art/cards/card_art/basic_ward.png" id="2_twfmy"]
-
-[resource]
-script = ExtResource("1_ps50r")
-token_icon = ExtResource("2_twfmy")
-token_type = "WARD"

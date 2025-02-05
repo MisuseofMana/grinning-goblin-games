@@ -59,7 +59,6 @@ metadata/_edit_group_ = true
 
 [node name="UnitSprite" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_c6i3k")
-frame = 0
 
 [node name="StatsNode" parent="." index="3"]
 muscle = 2
@@ -70,11 +69,11 @@ hit_points = 25
 max_hit_points_base = 25
 
 [node name="DeckNode" parent="." index="5"]
-deck = Array[Resource]([ExtResource("3_mg7qb"), ExtResource("4_25juk"), ExtResource("5_i7bdd")])
+deck = Array[Resource]([ExtResource("3_mg7qb"), ExtResource("3_mg7qb"), ExtResource("3_mg7qb"), ExtResource("3_mg7qb"), ExtResource("5_i7bdd"), ExtResource("5_i7bdd"), ExtResource("4_25juk")])
 
 [node name="BattleReadout" parent="." index="6"]
-offset_top = -274.0
-offset_bottom = -274.0
+offset_top = -294.5
+offset_bottom = -294.5
 
 [node name="TargetIndicator" parent="." index="7"]
-position = Vector2(0, -311)
+position = Vector2(0, -331.5)

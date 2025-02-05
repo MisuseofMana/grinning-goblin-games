@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="TokenStats" load_steps=3 format=3 uid="uid://0ohlp7wyhcde"]
-
-[ext_resource type="Script" path="res://components/tokens/TokenDictionary/token_stats.gd" id="1_3lc3h"]
-[ext_resource type="Texture2D" uid="uid://cos7ix7u2m2bv" path="res://art/cards/card_art/basic-defend.png" id="2_i5b0n"]
-
-[resource]
-script = ExtResource("1_3lc3h")
-token_icon = ExtResource("2_i5b0n")
-token_type = "ARMOR"

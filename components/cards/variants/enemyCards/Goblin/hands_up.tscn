@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://b22b6vtmoj6jb"]
+[gd_scene load_steps=5 format=3 uid="uid://b22b6vtmoj6jb"]
 
 [ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card_base.tscn" id="1_mmvoe"]
 [ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="2_q4v2u"]
+[ext_resource type="Script" path="res://components/cards/cardEffects/token_card.gd" id="3_8vy76"]
 [ext_resource type="Texture2D" uid="uid://d2ymg3iqh11de" path="res://art/cards/card_art/goblin/hands_up.png" id="3_ubhru"]
 
 [node name="Card" instance=ExtResource("1_mmvoe")]
@@ -13,6 +14,10 @@ primary_stat = "endurance"
 secondary_stat = "finesse"
 card_is_draggable = false
 
+[node name="CardEffect" parent="." index="0"]
+script = ExtResource("3_8vy76")
+token_resource = null
+
 [node name="CardLabel" parent="CardDetails" index="0"]
 text = "Hands Up"
 
@@ -22,8 +27,8 @@ texture = ExtResource("3_ubhru")
 [node name="Description" parent="CardDetails" index="2"]
 text = "Enemy gains %s armor token(s)"
 
-[node name="Control" parent="." index="2"]
+[node name="Control" parent="." index="3"]
 visible = false
 
-[node name="MakeCardDraggable" parent="." index="5"]
+[node name="MakeCardDraggable" parent="." index="6"]
 undraggable = true

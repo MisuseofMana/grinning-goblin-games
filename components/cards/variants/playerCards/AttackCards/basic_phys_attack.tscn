@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://brsnekppc63j0"]
+[gd_scene load_steps=4 format=3 uid="uid://brsnekppc63j0"]
 
 [ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card_base.tscn" id="1_ci8k4"]
+[ext_resource type="Script" path="res://components/cards/cardEffects/damaging_card.gd" id="2_e28vq"]
 [ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="2_tg27g"]
 
 [node name="Card" instance=ExtResource("1_ci8k4")]
 base_value = 4
 primary_stat = "muscle"
 secondary_stat = "finesse"
+
+[node name="CardEffect" parent="." index="0"]
+script = ExtResource("2_e28vq")
 
 [node name="CardLabel" parent="CardDetails" index="0"]
 text = "Phys. Attack"

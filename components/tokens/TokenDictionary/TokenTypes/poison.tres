@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="TokenStats" load_steps=3 format=3 uid="uid://ckhcflq0l3v0k"]
-
-[ext_resource type="Script" path="res://components/tokens/TokenDictionary/token_stats.gd" id="1_8535m"]
-[ext_resource type="Texture2D" uid="uid://dgw086s37h551" path="res://art/cards/card_art/poison.png" id="2_a871a"]
-
-[resource]
-script = ExtResource("1_8535m")
-token_icon = ExtResource("2_a871a")
-token_type = "POISON"

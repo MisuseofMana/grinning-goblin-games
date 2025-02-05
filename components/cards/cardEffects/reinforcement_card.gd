@@ -1,8 +1,7 @@
-extends CardStats
+extends CardEffect
 class_name ReinforcementCard
 
 #meant to be overwritten in extended CardStats scripts 
-func card_effect(_target: Unit):
+func _run_card_effect(target: UnitTarget):
 #	reinforce 
-	print('summon a reinforcement')
-	pass
+	print('summonning a reinforcement')

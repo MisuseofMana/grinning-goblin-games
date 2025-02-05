@@ -11,6 +11,8 @@ class_name CardComponent
 @onready var detection = $TwoWayDetection/CollisionShape2D
 @onready var make_card_draggable = $MakeCardDraggable
 
+@onready var effect_node = $CardEffect
+
 @export var card_owner : UnitTarget
 
 @export_group("Card Stats")

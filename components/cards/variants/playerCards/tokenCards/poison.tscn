@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://caeikylmdbuku"]
+[gd_scene load_steps=4 format=3 uid="uid://caeikylmdbuku"]
 
 [ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card_base.tscn" id="1_p5on4"]
 [ext_resource type="Texture2D" uid="uid://dgw086s37h551" path="res://art/cards/card_art/poison.png" id="2_8mseb"]
+[ext_resource type="Script" path="res://components/cards/cardEffects/token_card.gd" id="2_h82nf"]
 
 [node name="Card" instance=ExtResource("1_p5on4")]
+
+[node name="CardEffect" parent="." index="0"]
+script = ExtResource("2_h82nf")
+token_resource = null
 
 [node name="CardLabel" parent="CardDetails" index="0"]
 text = "Poison"

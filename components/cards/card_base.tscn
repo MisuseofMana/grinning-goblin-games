@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://doa41q24r2eid"]
+[gd_scene load_steps=18 format=3 uid="uid://doa41q24r2eid"]
 
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="1_2al02"]
 [ext_resource type="Script" path="res://components/cards/card_base.gd" id="2_vhlj7"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/nodeUtilitiy/card_and_unit_area_detection.tscn" id="8_o2qbh"]
 [ext_resource type="PackedScene" uid="uid://d0j8mgfxn8m34" path="res://components/nodeUtilitiy/make_card_draggable.tscn" id="8_sjpop"]
 [ext_resource type="Material" uid="uid://b0o286b0adb0t" path="res://particles/fire.tres" id="9_jk66l"]
+[ext_resource type="PackedScene" uid="uid://dlem8pqa05d66" path="res://components/cards/cardEffects/card_effect.tscn" id="10_pjc5i"]
 
 [sub_resource type="FontVariation" id="FontVariation_w0tjc"]
 spacing_glyph = 20
@@ -247,6 +248,8 @@ mouse_default_cursor_shape = 2
 theme = ExtResource("3_bis42")
 texture = ExtResource("1_2al02")
 script = ExtResource("2_vhlj7")
+
+[node name="CardEffect" parent="." instance=ExtResource("10_pjc5i")]
 
 [node name="Modifiers" parent="." instance=ExtResource("4_k3k1f")]
 

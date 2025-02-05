@@ -5,23 +5,24 @@ class_name EnemyCardContainer
 @export var playerUnit : UnitTarget
 @onready var path_follow_2d = $Path2D/PathFollow2D
 
+var cardInPlay : CardComponent
+
 var card_owner : UnitTarget
 
 signal card_effect_finished()
 signal show_accept_button()
 
 func onCardAccept():
-	var cardInPlay : CardComponent = path_follow_2d.get_node("Card")
-	cardInPlay.card_effect(playerUnit)
+	cardInPlay.effect_node._run_card_effect(playerUnit)
 	anims.play('evaporate')
 	
 func replace_card(card: Resource, newOwner: UnitTarget):
 	path_follow_2d.get_child(0).queue_free()
 	var newCard : CardComponent = card.instantiate()
 	newCard.card_owner = newOwner
-	newCard.name = "Card"
 	newCard.updateCardData.call_deferred()
 	path_follow_2d.add_child(newCard)
+	cardInPlay = newCard
 	
 func on_animation_finished(anim_name):
 	if anim_name == 'fly_in':
