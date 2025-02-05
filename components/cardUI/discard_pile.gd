@@ -31,7 +31,6 @@ func _get_configuration_warnings():
 
 func animateLabelFromTo(to: int, from: int, targetNode: Label):
 	var changeIncrementerBy : int = 1 if to - from > 0 else -1
-	print(from, to)
 	var incrementer : int = from
 	while incrementer != to :
 		incrementer += changeIncrementerBy

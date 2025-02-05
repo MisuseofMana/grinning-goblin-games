@@ -38,7 +38,6 @@ func updateCardData():
 	if description.text.contains('%'):
 		description.text = description.text % formatCardStringInterp(false)
 	if is_burn_card:
-		print('swapping')
 		cost_indicator.texture = BURN_CARD_BADGE
 	if hide_cost_indicator:
 		hideCostIndicator()

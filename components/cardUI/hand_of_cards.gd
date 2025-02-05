@@ -13,7 +13,6 @@ var max_action_points : int = 3
 var action_points_remaining : int = 3
 
 signal end_player_turn()
-signal no_valid_player_options()
 signal action_points_decreased(byHowMany : int)
 signal add_to_burn_pile(card : CardComponent)
 signal add_to_discard_pile(card : CardComponent)
@@ -71,6 +70,7 @@ func isCardUsable(card : CardComponent):
 	return canUseAsResponse or canUseOnTurn or card.can_use_whenever
 		
 func checkForValidPlayerActions():
+	var can_play_a_card = false
 	if action_points_remaining <= 0:
 		if battleScene.players_turn:
 			end_player_turn.emit()
@@ -78,11 +78,9 @@ func checkForValidPlayerActions():
 		if not followNode.is_queued_for_deletion():
 			var cardNode = followNode.get_child(0)
 			if isCardUsable(cardNode) == true:
-				return
-	if battleScene.players_turn:
+				can_play_a_card = true
+	if battleScene.players_turn and not can_play_a_card:
 		end_player_turn.emit()
-	else:
-		no_valid_player_options.emit()
 
 func updateAllCardPositions():
 	var numberOfCards = card_arc.get_children().size()

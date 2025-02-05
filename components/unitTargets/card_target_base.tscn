@@ -264,6 +264,7 @@ script = ExtResource("2_4j76e")
 sprite_frames = SubResource("SpriteFrames_urjdb")
 animation = &"idle"
 autoplay = "idle"
+frame = 1
 offset = Vector2(0, -126)
 
 [node name="TwoWayDetection" parent="." node_paths=PackedStringArray("target_indicator") groups=["player_hitbox"] instance=ExtResource("8_dyn65")]

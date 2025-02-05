@@ -330,9 +330,10 @@ libraries = {
 "": SubResource("AnimationLibrary_gvsxv")
 }
 
-[node name="HandOfCards" parent="." node_paths=PackedStringArray("battleScene", "player") instance=ExtResource("15_6uhf2")]
+[node name="HandOfCards" parent="." node_paths=PackedStringArray("battleScene", "player", "graveyard") instance=ExtResource("15_6uhf2")]
 battleScene = NodePath("..")
 player = NodePath("../Mage")
+graveyard = NodePath("../DiscardAndBurn")
 
 [node name="DeckPileReadout" parent="." node_paths=PackedStringArray("player") instance=ExtResource("15_jiox7")]
 offset_left = 100.0
@@ -549,11 +550,10 @@ disabled = true
 text = "Build Deck"
 
 [node name="TurnLabel" type="Label" parent="."]
-visible = false
-offset_left = 228.0
-offset_top = 98.0
-offset_right = 432.0
-offset_bottom = 149.0
+offset_left = 539.0
+offset_top = 185.0
+offset_right = 743.0
+offset_bottom = 236.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 64
@@ -573,6 +573,8 @@ autoplay = true
 [connection signal="animation_finished" from="FlavorAssets/AnimationPlayer" to="." method="animationHandler"]
 [connection signal="pressed" from="AcceptButton2" to="AcceptButton2" method="_hide_self"]
 [connection signal="pressed" from="AcceptButton2" to="EnemyCardContainer" method="onCardAccept"]
+[connection signal="enemy_card_replaced" from="Enemies" to="EnemyCardContainer" method="replace_card"]
+[connection signal="show_accept_button" from="Enemies" to="AcceptButton2" method="_show_self"]
 [connection signal="child_exiting_tree" from="EnemyCardContainer/Path2D" to="EnemyCardContainer/Path2D" method="_on_child_exiting_tree"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="Enemies" method="animationSequencer"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="EnemyCardContainer" method="on_animation_finished"]

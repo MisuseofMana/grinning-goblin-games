@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvqw1sdxebro6"]
+[gd_scene load_steps=12 format=3 uid="uid://dvqw1sdxebro6"]
 
 [ext_resource type="PackedScene" uid="uid://cal5vxpxe60ke" path="res://components/unitTargets/card_target_base.tscn" id="1_tt3a3"]
 [ext_resource type="Texture2D" uid="uid://d1wnkmbe14tsv" path="res://art/sprites/goblin/idle-export.png" id="2_gv56u"]
+[ext_resource type="PackedScene" uid="uid://bhprvgdrobyis" path="res://components/cards/variants/enemyCards/goblin/goblin_bite.tscn" id="3_mg7qb"]
+[ext_resource type="PackedScene" uid="uid://ckxf0hrwjv5e0" path="res://components/cards/variants/enemyCards/goblin/call_out.tscn" id="4_25juk"]
+[ext_resource type="PackedScene" uid="uid://b22b6vtmoj6jb" path="res://components/cards/variants/enemyCards/goblin/hands_up.tscn" id="5_i7bdd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m3edi"]
 atlas = ExtResource("2_gv56u")
@@ -56,8 +59,7 @@ metadata/_edit_group_ = true
 
 [node name="UnitSprite" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_c6i3k")
-frame = 3
-frame_progress = 0.807298
+frame = 0
 
 [node name="StatsNode" parent="." index="3"]
 muscle = 2
@@ -66,6 +68,9 @@ endurance = 1
 [node name="HealthNode" parent="." index="4"]
 hit_points = 25
 max_hit_points_base = 25
+
+[node name="DeckNode" parent="." index="5"]
+deck = Array[Resource]([ExtResource("3_mg7qb"), ExtResource("4_25juk"), ExtResource("5_i7bdd")])
 
 [node name="BattleReadout" parent="." index="6"]
 offset_top = -274.0

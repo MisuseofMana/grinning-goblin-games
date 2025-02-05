@@ -25,3 +25,6 @@ deals %s phys damage"
 
 [node name="Control" parent="." index="2"]
 visible = false
+
+[node name="MakeCardDraggable" parent="." index="5"]
+undraggable = true

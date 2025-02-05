@@ -10,7 +10,7 @@ var target
 var isValidTarget : bool
 
 var is_dragging : bool = false
-var undraggable: bool = false
+@export var undraggable: bool = false
 var card_origin : Vector2
 var card_rotation
 const SPEED := 0.2

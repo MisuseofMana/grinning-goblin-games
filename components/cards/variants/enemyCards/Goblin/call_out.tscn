@@ -7,6 +7,7 @@
 [node name="Card" instance=ExtResource("1_ocy78")]
 texture = ExtResource("2_8kg45")
 accepts_cards = true
+card_is_draggable = false
 
 [node name="CardLabel" parent="CardDetails" index="0"]
 text = "Call Out"
@@ -19,3 +20,6 @@ text = "Summons more goblins"
 
 [node name="Control" parent="." index="2"]
 visible = false
+
+[node name="MakeCardDraggable" parent="." index="5"]
+undraggable = true

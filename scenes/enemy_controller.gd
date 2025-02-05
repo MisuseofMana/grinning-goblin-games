@@ -7,18 +7,13 @@ var allEnemies : Array[Node]
 
 signal show_accept_button()
 signal all_enemies_turn_over()
-signal set_card_stats(stats : CardComponent)
 signal all_enemies_died()
-signal set_card_owner(cardOwner: UnitTarget)
+signal enemy_card_replaced(card: Resource, newOwner: UnitTarget)
 
 func _ready():
 #	remove testing enemies from enemies node
 	for testEnemy in get_children():
 		testEnemy.queue_free()
-
-func set_up_enemies(enemyArray : Array[UnitTarget]):
-	for unit in enemyArray:
-		print(unit.statsNode)
 
 # called from battle scene controller
 func startEnemyPhase():
@@ -28,9 +23,8 @@ func startEnemyPhase():
 func startEnemiesTurn():
 	if allEnemies.size():
 		animations.clear_queue()
-		var randomCard = allEnemies[0].deck.deck.pick_random()
-		set_card_stats.emit(randomCard)
-		set_card_owner.emit(allEnemies[0])
+		var randomCard : Resource = allEnemies.front().deckNode.deck.pick_random()
+		enemy_card_replaced.emit(randomCard, allEnemies[0])
 		animations.play('fly_in')
 	else:
 		all_enemies_turn_over.emit()
