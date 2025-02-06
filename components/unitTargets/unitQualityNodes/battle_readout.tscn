@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bx3b6tvvx5et5"]
+[gd_scene load_steps=5 format=3 uid="uid://bx3b6tvvx5et5"]
 
 [ext_resource type="Script" path="res://components/unitTargets/unitQualityNodes/battle_readout.gd" id="1_1ykwv"]
+[ext_resource type="PackedScene" uid="uid://23iww5mbd615" path="res://components/tokens/variants/poison.tscn" id="2_1svfh"]
 [ext_resource type="Theme" uid="uid://cwgh0k28oi2dx" path="res://themes/default_theme.tres" id="2_7tqqc"]
 [ext_resource type="FontVariation" uid="uid://dbssmd648wpm3" path="res://fonts/label-font-fix.tres" id="3_hhyqc"]
 
@@ -16,11 +17,14 @@ offset_bottom = 40.0
 theme_override_constants/separation = 1
 
 [node name="TokenContainer" type="GridContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 22)
+custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 columns = 5
+
+[node name="Control" parent="VBoxContainer/TokenContainer" instance=ExtResource("2_1svfh")]
+layout_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]
 custom_minimum_size = Vector2(152, 20)

@@ -9,14 +9,9 @@ var tokenValue : int = 0:
 		animateLabelFromTo(newValue, oldValue)
 		tokenValue = newValue
 
-func update_token_image(icon):
-	token_icon.texture = icon
-
-func update_token_text(text):
-	label.text = str(text)
-
 func run_token_effect(effectValue: int):
-	print('token effect needs overwritten')
+	var unit: UnitTarget = owner.unit
+	unit.takeDamage(tokenValue)
 
 func reduce_token_value():
 	run_token_effect(tokenValue)
@@ -29,4 +24,7 @@ func animateLabelFromTo(to: int, from: int):
 	while incrementer != to :
 		incrementer += changeIncrementerBy
 		await get_tree().create_timer(0.1).timeout
+		if incrementer <= 0:
+			queue_free()
+			break
 		label.text = str(incrementer)

@@ -2,9 +2,10 @@ class_name TargetReadout extends Control
 
 @export var statsNode : StatsNode
 @export var healthNode : HealthNode
+@export var unit: UnitTarget
 
-@onready var health_bar = $ProgressBar
-@onready var label = $ProgressBar/Label
+@onready var health_bar = $VBoxContainer/ProgressBar
+@onready var label = $VBoxContainer/ProgressBar/Label
 
 @onready var token_container = $VBoxContainer/TokenContainer
 

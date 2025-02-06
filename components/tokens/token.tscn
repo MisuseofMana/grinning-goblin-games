@@ -7,14 +7,14 @@
 custom_minimum_size = Vector2(25, 22)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 25.0
-offset_bottom = 22.0
+offset_right = 40.0
+offset_bottom = 31.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("2_imqjw")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(28, 22)
+custom_minimum_size = Vector2(40, 32)
 layout_mode = 0
 offset_right = 25.0
 offset_bottom = 22.0
@@ -27,10 +27,10 @@ expand_mode = 1
 custom_minimum_size = Vector2(25, 22)
 layout_mode = 0
 offset_top = -1.0
-offset_right = 29.0
-offset_bottom = 21.0
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 24
+offset_right = 42.0
+offset_bottom = 29.0
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 32
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1

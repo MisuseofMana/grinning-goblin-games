@@ -8,6 +8,7 @@ signal check_for_other_enemies()
 
 @onready var collision = $TwoWayDetection/CollisionShape2D
 @onready var unit_sprite = $UnitSprite
+@onready var battle_readout = $BattleReadout
 
 @export var anims : AnimationPlayer:
 	set(newValue):
