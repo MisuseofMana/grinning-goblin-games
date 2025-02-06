@@ -1,34 +1,22 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7mma634apn8i"]
 
-[ext_resource type="Texture2D" uid="uid://cos7ix7u2m2bv" path="res://art/cards/card_art/basic-defend.png" id="1_nc0vr"]
+[ext_resource type="Texture2D" uid="uid://uswiix823t44" path="res://art/tokens/armor.png" id="2_hwp3p"]
 [ext_resource type="Script" path="res://components/tokens/token.gd" id="2_imqjw"]
 
-[node name="Control" type="Control"]
-custom_minimum_size = Vector2(25, 22)
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 31.0
+[node name="Token" type="TextureRect"]
+custom_minimum_size = Vector2(30, 30)
+offset_right = 30.0
+offset_bottom = 30.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+texture = ExtResource("2_hwp3p")
+expand_mode = 1
 script = ExtResource("2_imqjw")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(40, 32)
-layout_mode = 0
-offset_right = 25.0
-offset_bottom = 22.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("1_nc0vr")
-expand_mode = 1
-
 [node name="Label" type="Label" parent="."]
-custom_minimum_size = Vector2(25, 22)
 layout_mode = 0
-offset_top = -1.0
-offset_right = 42.0
-offset_bottom = 29.0
+offset_right = 32.0
+offset_bottom = 27.0
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 32
 text = "0"

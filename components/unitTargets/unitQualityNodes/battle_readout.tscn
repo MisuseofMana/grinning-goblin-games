@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bx3b6tvvx5et5"]
+[gd_scene load_steps=7 format=3 uid="uid://bx3b6tvvx5et5"]
 
 [ext_resource type="Script" path="res://components/unitTargets/unitQualityNodes/battle_readout.gd" id="1_1ykwv"]
 [ext_resource type="PackedScene" uid="uid://23iww5mbd615" path="res://components/tokens/variants/poison.tscn" id="2_1svfh"]
 [ext_resource type="Theme" uid="uid://cwgh0k28oi2dx" path="res://themes/default_theme.tres" id="2_7tqqc"]
+[ext_resource type="PackedScene" uid="uid://csymimobrakbh" path="res://components/tokens/variants/armor.tscn" id="3_3ej5r"]
 [ext_resource type="FontVariation" uid="uid://dbssmd648wpm3" path="res://fonts/label-font-fix.tres" id="3_hhyqc"]
+[ext_resource type="PackedScene" uid="uid://cywxtslwxmr8l" path="res://components/tokens/variants/ward.tscn" id="4_hvp43"]
 
 [node name="Readout" type="Control"]
 layout_mode = 3
@@ -14,16 +16,22 @@ script = ExtResource("1_1ykwv")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/separation = 1
+theme_override_constants/separation = 5
 
 [node name="TokenContainer" type="GridContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 32)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 columns = 5
 
-[node name="Control" parent="VBoxContainer/TokenContainer" instance=ExtResource("2_1svfh")]
+[node name="Poison" parent="VBoxContainer/TokenContainer" instance=ExtResource("2_1svfh")]
+layout_mode = 2
+
+[node name="Armor" parent="VBoxContainer/TokenContainer" instance=ExtResource("3_3ej5r")]
+layout_mode = 2
+
+[node name="Ward" parent="VBoxContainer/TokenContainer" instance=ExtResource("4_hvp43")]
 layout_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="VBoxContainer"]

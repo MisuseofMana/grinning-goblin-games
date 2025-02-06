@@ -73,7 +73,7 @@ func disableTargeting():
 
 func enableTargeting():
 	collision.disabled = false
-	
+
 func add_cards_to_deck(cardArray : Array[CardComponent]):
 	deckNode.deck.append_array(cardArray)
 

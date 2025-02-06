@@ -360,3 +360,5 @@ one_shot = true
 
 [connection signal="card_was_dropped" from="MakeCardDraggable" to="TwoWayDetection" method="disableTargeting"]
 [connection signal="card_was_picked_up" from="MakeCardDraggable" to="TwoWayDetection" method="enableTargeting"]
+[connection signal="card_was_used_on" from="MakeCardDraggable" to="CardEffect" method="_run_card_effect"]
+[connection signal="reduce_action_points" from="MakeCardDraggable" to="." method="reduce_ap_by_card_cost"]

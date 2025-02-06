@@ -18,6 +18,8 @@ const delay := 4
 
 signal card_was_picked_up()
 signal card_was_dropped()
+signal card_was_used_on(target: Node)
+signal reduce_action_points
 
 func _ready():
 	parent.gui_input.connect(_mouse_input_on_parent)
@@ -36,7 +38,8 @@ func _mouse_input_on_parent(event: InputEvent):
 			is_dragging = true
 			card_was_picked_up.emit()
 		elif event.is_released() and detection_area.drop_spot_is_valid():
-			parent.effect_node._run_card_effect(detection_area.overlapping_areas[0].owner)
+			reduce_action_points.emit()
+			card_was_used_on.emit(detection_area.overlapping_areas[0].owner)
 			is_dragging = false
 			if parent.is_burn_card:
 				parent.burnCard()

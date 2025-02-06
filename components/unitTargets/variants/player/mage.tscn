@@ -30,6 +30,7 @@ is_friendly = true
 position = Vector2(-8, 0)
 sprite_frames = SubResource("SpriteFrames_gtcfm")
 autoplay = ""
+frame = 0
 
 [node name="TwoWayDetection" parent="." index="1"]
 position = Vector2(-8, -128)
@@ -45,12 +46,12 @@ hit_points = 15
 max_hit_points_base = 15
 
 [node name="DeckNode" parent="." index="5"]
-deck = Array[Resource]([ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls")])
+deck = Array[PackedScene]([ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls")])
 
 [node name="BattleReadout" parent="." index="6" node_paths=PackedStringArray("unit")]
-offset_top = -304.5
-offset_bottom = -304.5
+offset_top = -317.5
+offset_bottom = -317.5
 unit = NodePath("..")
 
 [node name="TargetIndicator" parent="." index="7"]
-position = Vector2(3, -341.5)
+position = Vector2(3, -354.5)

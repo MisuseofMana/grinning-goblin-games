@@ -1,10 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://23iww5mbd615"]
 
 [ext_resource type="PackedScene" uid="uid://b7mma634apn8i" path="res://components/tokens/token.tscn" id="1_wbesn"]
-[ext_resource type="Texture2D" uid="uid://dgw086s37h551" path="res://art/cards/card_art/poison.png" id="2_cafi8"]
+[ext_resource type="Texture2D" uid="uid://1umuqdoawij" path="res://art/tokens/poison.png" id="2_hlhaj"]
 
-[node name="Control" instance=ExtResource("1_wbesn")]
-
-[node name="TextureRect" parent="." index="0"]
-offset_right = 27.0
-texture = ExtResource("2_cafi8")
+[node name="Poison" instance=ExtResource("1_wbesn")]
+texture = ExtResource("2_hlhaj")

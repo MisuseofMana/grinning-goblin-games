@@ -13,6 +13,7 @@ class_name BattleScene
 @export var stage_background = Texture2D
 @export var player : UnitTarget
 @export var hand_of_cards : HandOfCards
+@export var deckPile : DeckPile
 @export var enemy_logic : EnemyController
 
 var players_turn : bool = true : 
@@ -57,6 +58,9 @@ func runPlayerTurn():
 
 func runEnemiesTurn():
 	runPhase(TurnPhases.ENEMIES_TURN)
+	
+func runEndEncounter():
+	runPhase(TurnPhases.GO_TO_NEXT_ENCOUNTER)
 
 func runPhase(phase: TurnPhases):
 	match phase:
@@ -71,14 +75,12 @@ func runPhase(phase: TurnPhases):
 			runPlayerTurn()
 		TurnPhases.PLAYER_UPKEEP:
 			hand_of_cards.discardHand()
-			runPlayerTurn()
+#			reduce token values
 		TurnPhases.START_PLAYERS_TURN:
 			showTurnSwap("Your Turn")
 			players_turn = true
 			hand_of_cards.refreshActionPoints()
-			var cardsDrawn : Array[Resource] = player.deckNode.draw_hand_size()
-			for cardComp in cardsDrawn:
-				hand_of_cards.addCardToHand(cardComp)
+			deckPile.get_cards_from_deck(player.deckNode.hand_size)
 			hand_of_cards.changeAllCardAvailability()
 		TurnPhases.ENEMIES_TURN:
 			showTurnSwap("Enemy Turn")

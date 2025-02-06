@@ -16,13 +16,20 @@ signal end_player_turn()
 signal action_points_decreased(byHowMany : int)
 signal add_to_burn_pile(card : CardComponent)
 signal add_to_discard_pile(card : CardComponent)
+signal finished_hand_discard
+signal hand_of_cards_changed(old_hand, new_hand)
 
+var currentHand : Array[Resource] = [] : 
+	set(newHand):
+		hand_of_cards_changed.emit(currentHand, newHand)
+		currentHand = newHand
+		
 func _ready():
 #	clear out the test cards in the arc
 	for arc in card_arc.get_children():
 		card_arc.remove_child(arc)
 		arc.queue_free()
-	
+
 func refreshActionPoints():
 	action_points_remaining = max_action_points
 
@@ -30,22 +37,22 @@ func playerTurnSetup():
 	await discardHand()
 	player.deck.draw_hand_size()
 
-func addCardToHand(cardComponent: Resource):
-	var newFollowNode = PathFollow2D.new()
-	var newCard : CardComponent = cardComponent.instantiate()
-	newCard.card_owner = player
-	card_arc.add_child(newFollowNode)
-	newFollowNode.add_child(newCard)
-	newCard.updateCardData.call_deferred()
-	newCard.card_sent_to_graveyard.connect(delete_card)
-	newCard.tree_exited.connect(updateAllCardPositions)
-	newCard.tree_exited.connect(checkForValidPlayerActions)
+func addCardsToHand(cardScenes: Array[PackedScene]):
+	for scene in cardScenes:
+		var newFollowNode = PathFollow2D.new()
+		var newCard : CardComponent = scene.instantiate()
+		newCard.card_owner = player
+		card_arc.add_child(newFollowNode)
+		newFollowNode.add_child(newCard)
+		newCard.updateCardData.call_deferred()
+		newCard.card_sent_to_graveyard.connect(delete_card)
+		newCard.tree_exited.connect(updateAllCardPositions)
+		newCard.tree_exited.connect(checkForValidPlayerActions)
+		changeCardAvailibilty(newCard)
 
 	updateAllCardPositions()
-	changeCardAvailibilty(newCard)
 
 func delete_card(card : CardComponent):
-	action_points_decreased.emit(card.play_cost)
 	if card.is_burn_card:
 		add_to_burn_pile.emit(card)
 	else:
@@ -61,6 +68,7 @@ func discardHand():
 		var cardNode : CardComponent = followPath.get_child(0)
 		await self.get_tree().create_timer(0.1).timeout
 		cardNode.discardCard()
+	finished_hand_discard.emit()
 	
 func isCardUsable(card : CardComponent):
 	if card.play_cost > action_points_remaining:
@@ -86,9 +94,9 @@ func updateAllCardPositions():
 	var numberOfCards = card_arc.get_children().size()
 	var path_division = 1.0 / (numberOfCards + 1.0)
 	var pos_incrementer = path_division
-	paper_sound.play()
 	for followPath in card_arc.get_children():
 		if not followPath.is_queued_for_deletion():
+			paper_sound.play()
 			create_tween().tween_property(followPath, "progress_ratio", path_division, 0.4)
 			create_tween().tween_property(followPath.get_child(0), "scale", Vector2(1,1), 0.4)
 			path_division += pos_incrementer

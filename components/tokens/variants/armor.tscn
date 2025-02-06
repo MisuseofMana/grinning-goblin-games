@@ -2,10 +2,4 @@
 
 [ext_resource type="PackedScene" uid="uid://b7mma634apn8i" path="res://components/tokens/token.tscn" id="1_3emug"]
 
-[node name="Control" instance=ExtResource("1_3emug")]
-
-[node name="TextureRect" parent="." index="0"]
-offset_right = 27.0
-
-[node name="Label" parent="." index="1"]
-offset_bottom = 30.0
+[node name="Armor" instance=ExtResource("1_3emug")]

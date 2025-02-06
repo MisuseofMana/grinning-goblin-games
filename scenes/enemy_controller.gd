@@ -30,7 +30,6 @@ func startEnemiesTurn():
 		all_enemies_turn_over.emit()
 
 func enemyHasTakenTurn():
-	print('calling takenTurn')
 	allEnemies.remove_at(0)
 	startEnemiesTurn()
 

@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cywxtslwxmr8l"]
+
+[ext_resource type="PackedScene" uid="uid://b7mma634apn8i" path="res://components/tokens/token.tscn" id="1_48axw"]
+[ext_resource type="Texture2D" uid="uid://d1lbb3kglm8qi" path="res://art/tokens/ward.png" id="2_xlmn7"]
+
+[node name="Ward" instance=ExtResource("1_48axw")]
+texture = ExtResource("2_xlmn7")

@@ -1,6 +1,5 @@
-class_name Token extends Control
+class_name Token extends TextureRect
 
-@onready var token_icon = $TextureRect
 @onready var label = $Label
 
 var tokenValue : int = 0:
@@ -8,6 +7,9 @@ var tokenValue : int = 0:
 		var oldValue = tokenValue
 		animateLabelFromTo(newValue, oldValue)
 		tokenValue = newValue
+
+func _ready():
+	hide()
 
 func run_token_effect(effectValue: int):
 	var unit: UnitTarget = owner.unit
@@ -18,6 +20,8 @@ func reduce_token_value():
 	tokenValue -= 1
 
 func animateLabelFromTo(to: int, from: int):
+	if to >= 1:
+		show()
 	var changeIncrementerBy : int = 1 if to - from > 0 else -1
 	
 	var incrementer : int = from
@@ -25,6 +29,6 @@ func animateLabelFromTo(to: int, from: int):
 		incrementer += changeIncrementerBy
 		await get_tree().create_timer(0.1).timeout
 		if incrementer <= 0:
-			queue_free()
+			hide()
 			break
 		label.text = str(incrementer)

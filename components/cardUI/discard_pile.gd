@@ -10,40 +10,25 @@ class_name DiscardNode
 @onready var number_discarded : Label = $DiscardCardBack/MarginContainer/DiscardChit/NumberDiscarded
 @onready var number_burned: Label = $BurnCardBack/MarginContainer/BurnChit/NumberBurned
 
-var discardArray : Array = [] :
-	set(newArray):
-#		animate to new value from old value
-		animateLabelFromTo(newArray.size(), discardArray.size(), number_discarded)
-		discardArray = newArray
-		
-
-var burnArray : Array = [] :
-	set(newArray):
-#		animate to new value from old value
-		animateLabelFromTo(newArray.size(), burnArray.size(), number_burned)
-		burnArray = newArray
-
 func _get_configuration_warnings():
 	var errors : Array[String] = []
 	if not player:
 		errors.append("Player export must be assigned.")
 	return errors
 
-func animateLabelFromTo(to: int, from: int, targetNode: Label):
-	var changeIncrementerBy : int = 1 if to - from > 0 else -1
-	var incrementer : int = from
-	while incrementer != to :
-		incrementer += changeIncrementerBy
-		await get_tree().create_timer(0.1).timeout
-		targetNode.text = str(incrementer)
+func packCard(card: CardComponent):
+	var packContainer = PackedScene.new()
+	return packContainer.pack(card)
 
+func generate_new_pile(cards: Array[CardComponent], combineWith: Array[PackedScene]) -> Array[PackedScene]:
+	var addedCards: Array[PackedScene]
+	for card in cards:
+		addedCards.append(packCard(card))
+	addedCards.append_array(combineWith)
+	return addedCards
 
-func add_card_to_discard(card : CardComponent):
-	var newDiscardArray = discardArray.duplicate()
-	newDiscardArray.append(card)
-	discardArray = newDiscardArray
-	
-func add_card_to_burn(card : CardComponent):
-	var newBurnArray = burnArray.duplicate()
-	newBurnArray.append(card)
-	burnArray = newBurnArray
+func add_cards_to_discard(cards: Array[CardComponent]):
+	GameState.cardDiscardPile = generate_new_pile(cards, GameState.cardDiscardPile)
+
+func add_cards_to_burn(cards: Array[CardComponent]):
+	GameState.cardBurnPile = generate_new_pile(cards, GameState.cardBurnPile)

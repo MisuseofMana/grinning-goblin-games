@@ -50,7 +50,7 @@ animations = [{
 }]
 
 [node name="Goblin" node_paths=PackedStringArray("anims", "deckNode", "healthNode", "statsNode") instance=ExtResource("1_tt3a3")]
-position = Vector2(0, 14)
+position = Vector2(0, 1)
 anims = NodePath("Animations")
 deckNode = NodePath("DeckNode")
 healthNode = NodePath("HealthNode")
@@ -59,7 +59,12 @@ metadata/_edit_group_ = true
 
 [node name="UnitSprite" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_c6i3k")
-frame = 4
+
+[node name="TwoWayDetection" parent="." index="1"]
+position = Vector2(0, -130)
+
+[node name="CollisionShape2D" parent="TwoWayDetection" index="0"]
+position = Vector2(0, 19)
 
 [node name="StatsNode" parent="." index="3"]
 muscle = 2

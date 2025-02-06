@@ -6,7 +6,6 @@ class_name EnemyCardContainer
 @onready var path_follow_2d = $Path2D/PathFollow2D
 
 var cardInPlay : CardComponent
-
 var card_owner : UnitTarget
 
 signal card_effect_finished()
