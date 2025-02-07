@@ -11,12 +11,12 @@ var tokenValue : int = 0:
 func _ready():
 	hide()
 
-func run_token_effect(effectValue: int):
+func run_token_effect():
 	var unit: UnitTarget = owner.unit
 	unit.takeDamage(tokenValue)
 
 func reduce_token_value():
-	run_token_effect(tokenValue)
+	run_token_effect()
 	tokenValue -= 1
 
 func animateLabelFromTo(to: int, from: int):

@@ -38,5 +38,5 @@ progress = 260.163
 stream = SubResource("AudioStreamRandomizer_flf2n")
 volume_db = -20.0
 
-[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]
 [connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]
+[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]

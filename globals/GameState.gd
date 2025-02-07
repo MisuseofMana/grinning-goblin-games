@@ -1,7 +1,6 @@
 extends Node
 
-
-@export var playerDeck : Array[CardComponent] = []
+@export var playerDeck : Array[PackedScene] = []
 @export var action_points : int = 3
 
 signal ap_reduced(howMuch : int)

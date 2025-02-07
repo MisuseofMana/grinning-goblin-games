@@ -3,9 +3,6 @@
 extends Node2D
 class_name UnitTarget
 
-signal tokens_updated(stats: StatsNode)
-signal check_for_other_enemies()
-
 @onready var collision = $TwoWayDetection/CollisionShape2D
 @onready var unit_sprite = $UnitSprite
 @onready var battle_readout = $BattleReadout

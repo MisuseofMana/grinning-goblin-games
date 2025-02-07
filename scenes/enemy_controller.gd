@@ -27,7 +27,6 @@ func startEnemiesTurn():
 		enemy_card_replaced.emit(randomCard, allEnemies[0])
 	else:
 		all_enemies_turn_over.emit()
-		
 
 func enemyHasTakenTurn():
 	allEnemies.remove_at(0)

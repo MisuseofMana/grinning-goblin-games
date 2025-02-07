@@ -22,6 +22,7 @@ func replace_card(card: Resource, newOwner: UnitTarget):
 	newCard.updateCardData.call_deferred()
 	path_follow_2d.add_child(newCard)
 	cardInPlay = newCard
+	anims.play("fly_in")
 	
 func on_animation_finished(anim_name):
 	if anim_name == 'fly_in':

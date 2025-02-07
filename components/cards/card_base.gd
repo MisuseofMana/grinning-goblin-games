@@ -34,7 +34,7 @@ const BURN_CARD_BADGE = preload("res://art/ui/burn-card-badge.png")
 const DISCARD_BACK = preload("res://art/cards/card-template-back.png")
 const BURN_BACK = preload("res://art/cards/card-burn-pile.png")
 
-signal card_sent_to_graveyard(cardNode : CardComponent)
+signal cards_sent_to_graveyard(cardNode : CardComponent)
 
 func updateCardData():
 	if description.text.contains('%'):
@@ -88,7 +88,7 @@ func go_to_discard_area():
 	make_card_draggable.undraggable = true
 	detection.disabled = true
 	await get_tree().create_tween().tween_property(self, "global_position", Vector2(1100, 480), 0.6).finished
-	card_sent_to_graveyard.emit(self)
+	cards_sent_to_graveyard.emit(self)
 
 func reduce_ap_by_card_cost():
 	GameState.ap_reduced.emit(play_cost)

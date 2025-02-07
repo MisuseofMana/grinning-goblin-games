@@ -5,4 +5,4 @@
 
 [node name="DeckNode" type="Node"]
 script = ExtResource("1_j4f2b")
-deck = Array[Resource]([ExtResource("2_ygohl"), ExtResource("2_ygohl"), ExtResource("2_ygohl")])
+deck = Array[PackedScene]([ExtResource("2_ygohl"), ExtResource("2_ygohl"), ExtResource("2_ygohl")])

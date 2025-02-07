@@ -13,7 +13,6 @@ var max_action_points : int = 3
 var action_points_remaining : int = 3
 
 signal end_player_turn()
-signal action_points_decreased(byHowMany : int)
 signal add_to_burn_pile(card : CardComponent)
 signal add_to_discard_pile(card : CardComponent)
 signal finished_hand_discard
@@ -45,26 +44,26 @@ func addCardsToHand(cardScenes: Array[PackedScene]):
 		card_arc.add_child(newFollowNode)
 		newFollowNode.add_child(newCard)
 		newCard.updateCardData.call_deferred()
-		newCard.card_sent_to_graveyard.connect(delete_card)
+		newCard.cards_sent_to_graveyard.connect(free_card)
 		newCard.tree_exited.connect(updateAllCardPositions)
 		newCard.tree_exited.connect(checkForValidPlayerActions)
 		changeCardAvailibilty(newCard)
 
 	updateAllCardPositions()
 
-func delete_card(card : CardComponent):
+func free_card(card : CardComponent):
 	if card.is_burn_card:
-		add_to_burn_pile.emit(card)
+		add_to_burn_pile.emit([card])
 	else:
-		add_to_discard_pile.emit(card)
+		add_to_discard_pile.emit([card])
 	for followPath in card_arc.get_children():
 		if followPath.get_child(0) == card:
 			followPath.queue_free()
 
 func discardHand():
-	var hand_of_cards = card_arc.get_children()
-	hand_of_cards.reverse()
-	for followPath in hand_of_cards:
+	var current_hand = card_arc.get_children()
+	current_hand.reverse()
+	for followPath in current_hand:
 		var cardNode : CardComponent = followPath.get_child(0)
 		await self.get_tree().create_timer(0.1).timeout
 		cardNode.discardCard()
