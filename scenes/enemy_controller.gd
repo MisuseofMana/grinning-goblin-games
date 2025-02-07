@@ -25,9 +25,9 @@ func startEnemiesTurn():
 		animations.clear_queue()
 		var randomCard : Resource = allEnemies.front().deckNode.deck.pick_random()
 		enemy_card_replaced.emit(randomCard, allEnemies[0])
-		animations.play('fly_in')
 	else:
 		all_enemies_turn_over.emit()
+		
 
 func enemyHasTakenTurn():
 	allEnemies.remove_at(0)
