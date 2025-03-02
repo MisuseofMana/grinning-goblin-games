@@ -1,8 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cr0b7ubj02j6l"]
+[gd_scene load_steps=10 format=3 uid="uid://cr0b7ubj02j6l"]
 
 [ext_resource type="PackedScene" uid="uid://cal5vxpxe60ke" path="res://components/unitTargets/card_target_base.tscn" id="1_c7omk"]
 [ext_resource type="Texture2D" uid="uid://d011h3g14jdm0" path="res://art/sprites/player/mage/idle-export.png" id="2_jof3n"]
-[ext_resource type="PackedScene" uid="uid://caeikylmdbuku" path="res://components/cards/variants/playerCards/tokenCards/poison.tscn" id="3_rhvls"]
+[ext_resource type="PackedScene" uid="uid://bswjv7mxupvsc" path="res://components/cards/variants/playerCards/attackCards/basic_magic_attack.tscn" id="3_ewvno"]
+[ext_resource type="PackedScene" uid="uid://cn200gry42a1" path="res://components/cards/variants/playerCards/defenseCards/basic_ward.tscn" id="4_i3dxi"]
+[ext_resource type="PackedScene" uid="uid://cchoe2ksx08py" path="res://components/cards/variants/playerCards/defenseCards/basic_block.tscn" id="5_uhkma"]
+[ext_resource type="PackedScene" uid="uid://b3tqjdmnntqo0" path="res://components/cards/variants/playerCards/healCards/basic_heal.tscn" id="6_emmne"]
+[ext_resource type="PackedScene" uid="uid://brsnekppc63j0" path="res://components/cards/variants/playerCards/attackCards/basic_phys_attack.tscn" id="8_jxufe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60rw4"]
 atlas = ExtResource("2_jof3n")
@@ -46,7 +50,7 @@ hit_points = 15
 max_hit_points_base = 15
 
 [node name="DeckNode" parent="." index="5"]
-deck = Array[PackedScene]([ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls"), ExtResource("3_rhvls")])
+deck = Array[PackedScene]([ExtResource("3_ewvno"), ExtResource("8_jxufe"), ExtResource("4_i3dxi"), ExtResource("5_uhkma"), ExtResource("6_emmne")])
 
 [node name="BattleReadout" parent="." index="6" node_paths=PackedStringArray("unit")]
 offset_top = -317.5

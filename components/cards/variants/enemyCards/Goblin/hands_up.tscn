@@ -7,11 +7,6 @@
 
 [node name="Card" instance=ExtResource("1_mmvoe")]
 texture = ExtResource("2_q4v2u")
-accepts_cards = true
-hide_cost_indicator = true
-base_value = 1
-primary_stat = "endurance"
-secondary_stat = "finesse"
 card_is_draggable = false
 
 [node name="CardEffect" parent="." index="0"]

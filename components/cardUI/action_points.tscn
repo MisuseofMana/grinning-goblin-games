@@ -44,25 +44,36 @@ offset_right = 128.0
 offset_bottom = 128.0
 texture = ExtResource("3_xdhxw")
 
-[node name="ActionPointsCounter" type="Label" parent="Sprite2D"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Sprite2D"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -30.0
+offset_left = -36.0
 offset_top = -20.0
-offset_right = 34.0
-offset_bottom = 19.0
+offset_right = 36.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="CurrentAP" type="Label" parent="Sprite2D/HBoxContainer"]
+layout_mode = 2
 theme = ExtResource("1_ne4g2")
 theme_override_colors/font_outline_color = Color(0.290196, 0.341176, 0.52549, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("4_d0s4s")
 theme_override_font_sizes/font_size = 64
-text = "3/3"
+text = "3"
+
+[node name="Seperator" type="Label" parent="Sprite2D/HBoxContainer"]
+layout_mode = 2
+text = "/"
+
+[node name="MaxAP" type="Label" parent="Sprite2D/HBoxContainer"]
+layout_mode = 2
+text = "3"
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_kav0a")

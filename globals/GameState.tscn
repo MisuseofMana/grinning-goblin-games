@@ -1,0 +1,10 @@
+[gd_scene load_steps=5 format=3 uid="uid://b676i3yrs0joi"]
+
+[ext_resource type="Script" path="res://globals/game_state.gd" id="1_fg7gh"]
+[ext_resource type="PackedScene" uid="uid://brsnekppc63j0" path="res://components/cards/variants/playerCards/attackCards/basic_phys_attack.tscn" id="2_1u7xm"]
+[ext_resource type="PackedScene" uid="uid://cchoe2ksx08py" path="res://components/cards/variants/playerCards/defenseCards/basic_block.tscn" id="3_bs4ub"]
+[ext_resource type="PackedScene" uid="uid://b3tqjdmnntqo0" path="res://components/cards/variants/playerCards/healCards/basic_heal.tscn" id="4_5fapt"]
+
+[node name="GameState" type="Node2D"]
+script = ExtResource("1_fg7gh")
+playerDeck = Array[PackedScene]([ExtResource("2_1u7xm"), ExtResource("3_bs4ub"), ExtResource("4_5fapt"), null, null, null, null])

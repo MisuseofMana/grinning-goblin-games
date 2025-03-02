@@ -2,7 +2,8 @@ extends Node
 
 @export var playerDeck : Array[PackedScene] = []
 @export var action_points : int = 3
-
+@export var hand_size: int = 5
+var deck_setup_happened = false
 signal ap_reduced(howMuch : int)
 
 #region Deck Manipulation
@@ -10,7 +11,10 @@ var target_label: Label
 
 var cardDeckPile: Array[PackedScene] = []:
 	set(newArray):
-		animateLabelToFrom(newArray.size(), cardDeckPile.size())
+		if deck_setup_happened:
+			animateLabelToFrom(newArray.size(), cardDeckPile.size())
+		else:
+			deck_setup_happened = true
 		cardDeckPile = newArray
 		
 var cardDiscardPile : Array[PackedScene] = []:

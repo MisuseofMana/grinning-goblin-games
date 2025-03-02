@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=6 format=3 uid="uid://bjfjr11njgg34"]
+
+[ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_mmoji"]
+[ext_resource type="Script" path="res://components/cards/cardEffects/defensive_card.gd" id="2_8k4lx"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_046i6"]
+[ext_resource type="Texture2D" uid="uid://cos7ix7u2m2bv" path="res://art/cards/card_art/basic-defend.png" id="3_4hg52"]
+[ext_resource type="Script" path="res://components/cards/card_stats.gd" id="3_53mw0"]
+
+[resource]
+script = ExtResource("3_53mw0")
+accepts_cards = false
+is_burn_card = false
+can_use_to_respond = true
+can_use_whenever = false
+enemy_card = false
+targets_self = false
+play_cost = 1
+base_value = 2
+primary_stat = "endurance"
+secondary_stat = "endurance"
+name = "Basic Block"
+description = "Subtract %s phys dmg from enemy card"
+card_image = ExtResource("3_4hg52")
+card_back = ExtResource("1_mmoji")
+card_front = ExtResource("2_046i6")
+card_effect = ExtResource("2_8k4lx")

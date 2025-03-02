@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=6 format=3 uid="uid://cmmmmjanqx3o7"]
+
+[ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_cj61q"]
+[ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="1_nydrl"]
+[ext_resource type="Script" path="res://components/cards/card_stats.gd" id="1_w0g5h"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_l3mt0"]
+[ext_resource type="Script" path="res://components/cards/cardEffects/damaging_card.gd" id="2_ncsfr"]
+
+[resource]
+script = ExtResource("1_w0g5h")
+accepts_cards = false
+is_burn_card = false
+can_use_to_respond = false
+can_use_whenever = false
+enemy_card = false
+targets_self = false
+play_cost = 1
+base_value = 3
+primary_stat = "muscle"
+secondary_stat = "finesse"
+name = "Phys. Attack"
+description = "Deals %s physical dmg to target"
+card_image = ExtResource("1_nydrl")
+card_back = ExtResource("1_cj61q")
+card_front = ExtResource("2_l3mt0")
+card_effect = ExtResource("2_ncsfr")

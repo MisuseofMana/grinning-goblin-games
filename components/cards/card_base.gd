@@ -14,18 +14,7 @@ class_name CardComponent
 @onready var effect_node = $CardEffect
 
 @export var card_owner : UnitTarget
-
-@export_group("Card Stats")
-@export var accepts_cards: bool = false
-@export var is_burn_card : bool = false
-@export var play_cost : int = 1
-@export var can_use_to_respond : bool = false
-@export var can_use_whenever : bool = false
-@export var hide_cost_indicator : bool = false
-@export var targets_self : bool = false
-@export var base_value : int = 0
-@export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var primary_stat : String
-@export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var secondary_stat : String
+@export var card_stats: CardStats
 
 @export var card_is_draggable : bool = true
 
@@ -39,11 +28,11 @@ signal cards_sent_to_graveyard(cardNode : CardComponent)
 func updateCardData():
 	if description.text.contains('%'):
 		description.text = description.text % formatCardStringInterp(false)
-	if is_burn_card:
+	if card_stats.is_burn_card:
 		cost_indicator.texture = BURN_CARD_BADGE
-	if hide_cost_indicator:
+	if card_stats.hide_cost_indicator:
 		hideCostIndicator()
-	cost.text = str(play_cost)
+	cost.text = str(card_stats.play_cost)
 	
 func hideCostIndicator():
 	cost_indicator.hide()
@@ -64,9 +53,9 @@ func formatCardStringInterp(noBBCode):
 	var color
 	var adjustedValue = calculate_adj_value()
 	
-	if adjustedValue < base_value:
+	if adjustedValue < card_stats.base_value:
 		color = Color(1,0,0).to_html()
-	elif base_value == adjustedValue:
+	elif card_stats.base_value == adjustedValue:
 		color = Color(0,0,0).to_html()
 	else: 
 		color = Color(0,1,0.1).to_html()
@@ -91,22 +80,22 @@ func go_to_discard_area():
 	cards_sent_to_graveyard.emit(self)
 
 func reduce_ap_by_card_cost():
-	GameState.ap_reduced.emit(play_cost)
+	GameState.ap_reduced.emit(card_stats.play_cost)
 	
 func calculate_adj_value():
-	var modifierValue : int = base_value
-	if primary_stat:
-		modifierValue += modifiers.getPrimaryStatMod(card_owner.statsNode[primary_stat])
+	var modifierValue : int = card_stats.base_value
+	if card_stats.primary_stat:
+		modifierValue += modifiers.getPrimaryStatMod(card_owner.statsNode[card_stats.primary_stat])
 		modifierValue = clampi(modifierValue, 1, 999)
-	if secondary_stat:
-		modifierValue += modifiers.getSecondaryStatMod(card_owner.statsNode[secondary_stat])
+	if card_stats.secondary_stat:
+		modifierValue += modifiers.getSecondaryStatMod(card_owner.statsNode[card_stats.secondary_stat])
 		modifierValue = clampi(modifierValue, 1, 999)
 	return modifierValue
 	
 func calculate_adj_token_value():
-	var modifierValue = base_value
-	if primary_stat:
-		modifierValue += modifiers.getTokenModifier(card_owner.statsNode[primary_stat])
+	var modifierValue = card_stats.base_value
+	if card_stats.primary_stat:
+		modifierValue += modifiers.getTokenModifier(card_owner.statsNode[card_stats.primary_stat])
 	modifierValue = clampi(modifierValue, 0, 999)
 	return modifierValue
 	

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=6 format=3 uid="uid://dw71km55vnn2j"]
+
+[ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_b2g1y"]
+[ext_resource type="Script" path="res://components/cards/cardEffects/damaging_card.gd" id="2_0fcw0"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_pv4ry"]
+[ext_resource type="Script" path="res://components/cards/card_stats.gd" id="3_ikyvs"]
+[ext_resource type="Texture2D" uid="uid://balvcoo4miss8" path="res://art/cards/card_art/basic_spell.png" id="3_in113"]
+
+[resource]
+script = ExtResource("3_ikyvs")
+accepts_cards = false
+is_burn_card = false
+can_use_to_respond = false
+can_use_whenever = false
+enemy_card = false
+targets_self = false
+play_cost = 1
+base_value = 3
+primary_stat = "knowledge"
+secondary_stat = "nuance"
+name = "Magic Attack"
+description = "Deal %s magic dmg to target"
+card_image = ExtResource("3_in113")
+card_back = ExtResource("1_b2g1y")
+card_front = ExtResource("2_pv4ry")
+card_effect = ExtResource("2_0fcw0")

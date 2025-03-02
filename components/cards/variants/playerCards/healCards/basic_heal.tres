@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=6 format=3 uid="uid://dc4nstyf84g13"]
+
+[ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_ichla"]
+[ext_resource type="Script" path="res://components/cards/cardEffects/healing_card.gd" id="2_b3041"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_jrx53"]
+[ext_resource type="Script" path="res://components/cards/card_stats.gd" id="3_iwv6k"]
+[ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="3_yna6e"]
+
+[resource]
+script = ExtResource("3_iwv6k")
+accepts_cards = false
+is_burn_card = false
+can_use_to_respond = false
+can_use_whenever = true
+enemy_card = false
+targets_self = true
+play_cost = 1
+base_value = 3
+primary_stat = "endurance"
+secondary_stat = "endurance"
+name = "Basic Heal"
+description = "Heal friendly target for %s health"
+card_image = ExtResource("3_yna6e")
+card_back = ExtResource("1_ichla")
+card_front = ExtResource("2_jrx53")
+card_effect = ExtResource("2_b3041")

@@ -1,27 +1,8 @@
 extends Node2D
-class_name HandOfCards
+class_name CardBattleInterface
 
-@onready var hand_of_cards = $"."
 @onready var card_arc = $CardArc
 @onready var paper_sound: AudioStreamPlayer2D = $PaperSound
-
-@export var battleScene : BattleScene
-@export var player : UnitTarget
-@export var graveyard : DiscardNode
-
-var max_action_points : int = 3
-var action_points_remaining : int = 3
-
-signal end_player_turn()
-signal add_to_burn_pile(card : CardComponent)
-signal add_to_discard_pile(card : CardComponent)
-signal finished_hand_discard
-signal hand_of_cards_changed(old_hand, new_hand)
-
-var currentHand : Array[Resource] = [] : 
-	set(newHand):
-		hand_of_cards_changed.emit(currentHand, newHand)
-		currentHand = newHand
 		
 func _ready():
 #	clear out the test cards in the arc
@@ -29,18 +10,10 @@ func _ready():
 		card_arc.remove_child(arc)
 		arc.queue_free()
 
-func refreshActionPoints():
-	action_points_remaining = max_action_points
-
-func playerTurnSetup():
-	await discardHand()
-	player.deck.draw_hand_size()
-
 func addCardsToHand(cardScenes: Array[PackedScene]):
 	for scene in cardScenes:
 		var newFollowNode = PathFollow2D.new()
 		var newCard : CardComponent = scene.instantiate()
-		newCard.card_owner = player
 		card_arc.add_child(newFollowNode)
 		newFollowNode.add_child(newCard)
 		newCard.updateCardData.call_deferred()
@@ -52,10 +25,12 @@ func addCardsToHand(cardScenes: Array[PackedScene]):
 	updateAllCardPositions()
 
 func free_card(card : CardComponent):
+	var coercedArray : Array[CardComponent]
+	coercedArray.append(card)
 	if card.is_burn_card:
-		add_to_burn_pile.emit([card])
+		add_to_burn_pile.emit(coercedArray)
 	else:
-		add_to_discard_pile.emit([card])
+		add_to_discard_pile.emit(coercedArray)
 	for followPath in card_arc.get_children():
 		if followPath.get_child(0) == card:
 			followPath.queue_free()

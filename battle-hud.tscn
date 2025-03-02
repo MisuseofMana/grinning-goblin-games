@@ -1,0 +1,179 @@
+[gd_scene load_steps=9 format=3 uid="uid://dropqionowc62"]
+
+[ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cardUI/hand_of_cards.tscn" id="1_vpo1e"]
+[ext_resource type="PackedScene" uid="uid://c2s4d0va0x5gy" path="res://components/cardUI/deck_pile.tscn" id="2_jqhxf"]
+[ext_resource type="PackedScene" uid="uid://dnhhuvaiapr8k" path="res://components/cardUI/action_points.tscn" id="3_0dkbj"]
+[ext_resource type="PackedScene" uid="uid://babdevi0twph6" path="res://components/cardUI/discard_pile.tscn" id="4_aidqp"]
+[ext_resource type="Texture2D" uid="uid://clv1s8w5roogn" path="res://art/ui/xp_bar.png" id="5_vcyps"]
+[ext_resource type="Script" path="res://scenes/xp_bar.gd" id="6_xxn52"]
+[ext_resource type="Texture2D" uid="uid://crxrqibwaskm6" path="res://art/ui/xp_bar_dot.png" id="7_gkpg0"]
+[ext_resource type="Theme" uid="uid://cwgh0k28oi2dx" path="res://themes/default_theme.tres" id="8_8kdwd"]
+
+[node name="HUD" type="Node2D"]
+
+[node name="HandOfCards" parent="." node_paths=PackedStringArray("graveyard") instance=ExtResource("1_vpo1e")]
+graveyard = NodePath("../DiscardAndBurn")
+
+[node name="DeckPileReadout" parent="." node_paths=PackedStringArray("discardNode") instance=ExtResource("2_jqhxf")]
+offset_left = 100.0
+offset_top = 630.0
+offset_right = 100.0
+offset_bottom = 630.0
+discardNode = NodePath("../DiscardAndBurn")
+
+[node name="ActionPoints" parent="." instance=ExtResource("3_0dkbj")]
+offset_left = 109.0
+offset_top = 464.0
+offset_right = 237.0
+offset_bottom = 592.0
+
+[node name="DiscardAndBurn" parent="." instance=ExtResource("4_aidqp")]
+offset_left = 1089.0
+offset_top = 453.0
+offset_right = 1339.0
+offset_bottom = 734.0
+scale = Vector2(0.6, 0.6)
+
+[node name="XPBar" type="NinePatchRect" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 230.0
+offset_top = 13.0
+offset_right = 393.0
+offset_bottom = 32.0
+grow_horizontal = 2
+texture = ExtResource("5_vcyps")
+patch_margin_left = 5
+patch_margin_top = 3
+patch_margin_right = 5
+patch_margin_bottom = 3
+script = ExtResource("6_xxn52")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="XPBar"]
+layout_mode = 2
+offset_left = 6.0
+offset_top = 3.0
+offset_right = 158.0
+offset_bottom = 16.0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="XPBar/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="XPLabel" type="Label" parent="XPBar/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/line_spacing = 0
+theme_override_font_sizes/font_size = 0
+text = "XP"
+
+[node name="DotContainer" type="Control" parent="XPBar/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+self_modulate = Color(0.787364, 0, 0.269799, 1)
+layout_mode = 2
+offset_left = 1.0
+offset_right = 14.0
+offset_bottom = 13.0
+texture = ExtResource("7_gkpg0")
+expand_mode = 3
+
+[node name="TextureRect2" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+self_modulate = Color(0.787364, 0, 0.269799, 1)
+layout_mode = 2
+offset_left = 15.0
+offset_right = 28.0
+offset_bottom = 13.0
+texture = ExtResource("7_gkpg0")
+expand_mode = 3
+
+[node name="TextureRect3" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+self_modulate = Color(0.787364, 0, 0.269799, 1)
+layout_mode = 2
+offset_left = 29.0
+offset_right = 42.0
+offset_bottom = 13.0
+texture = ExtResource("7_gkpg0")
+expand_mode = 3
+
+[node name="TextureRect4" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+self_modulate = Color(0.787364, 0, 0.269799, 1)
+layout_mode = 2
+offset_left = 43.0
+offset_right = 56.0
+offset_bottom = 13.0
+texture = ExtResource("7_gkpg0")
+expand_mode = 3
+
+[node name="TextureRect5" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+self_modulate = Color(0.787364, 0, 0.269799, 1)
+layout_mode = 2
+offset_left = 57.0
+offset_right = 70.0
+offset_bottom = 13.0
+texture = ExtResource("7_gkpg0")
+expand_mode = 3
+
+[node name="TextureRect6" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+self_modulate = Color(0.787364, 0, 0.269799, 1)
+layout_mode = 2
+offset_left = 71.0
+offset_right = 84.0
+offset_bottom = 13.0
+texture = ExtResource("7_gkpg0")
+expand_mode = 3
+
+[node name="TextureRect7" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+self_modulate = Color(0.787364, 0, 0.269799, 1)
+layout_mode = 2
+offset_left = 85.0
+offset_right = 98.0
+offset_bottom = 13.0
+texture = ExtResource("7_gkpg0")
+expand_mode = 3
+
+[node name="TextureRect8" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+self_modulate = Color(0.787364, 0, 0.269799, 1)
+layout_mode = 2
+offset_left = 99.0
+offset_right = 112.0
+offset_bottom = 13.0
+texture = ExtResource("7_gkpg0")
+expand_mode = 3
+
+[node name="TextureRect9" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+self_modulate = Color(0.787364, 0, 0.269799, 1)
+layout_mode = 2
+offset_left = 113.0
+offset_right = 126.0
+offset_bottom = 13.0
+texture = ExtResource("7_gkpg0")
+expand_mode = 3
+
+[node name="TextureRect10" type="TextureRect" parent="XPBar/MarginContainer/HBoxContainer/DotContainer"]
+self_modulate = Color(0.787364, 0, 0.269799, 1)
+layout_mode = 2
+offset_left = 127.0
+offset_right = 140.0
+offset_bottom = 13.0
+texture = ExtResource("7_gkpg0")
+expand_mode = 3
+
+[node name="EndTurnButton" type="Button" parent="."]
+offset_left = 1089.0
+offset_top = 653.0
+offset_right = 1242.0
+offset_bottom = 681.0
+theme = ExtResource("8_8kdwd")
+text = "End Turn"
+
+[connection signal="add_to_burn_pile" from="HandOfCards" to="DiscardAndBurn" method="add_cards_to_burn"]
+[connection signal="add_to_discard_pile" from="HandOfCards" to="DiscardAndBurn" method="add_cards_to_discard"]
+[connection signal="new_cards_drawn" from="DeckPileReadout" to="HandOfCards" method="addCardsToHand"]

@@ -12,7 +12,7 @@ is_friendly = true
 is_player = true
 
 [node name="UnitSprite" parent="." index="0"]
-frame = 0
+frame = 4
 
 [node name="StatsNode" parent="." index="3"]
 muscle = 3
@@ -25,7 +25,7 @@ hit_points = 25
 max_hit_points_base = 25
 
 [node name="DeckNode" parent="." index="5"]
-deck = Array[Resource]([ExtResource("2_e7ie7"), ExtResource("2_e7ie7"), ExtResource("2_e7ie7"), ExtResource("2_e7ie7"), ExtResource("2_e7ie7")])
+deck = Array[PackedScene]([ExtResource("2_e7ie7"), ExtResource("2_e7ie7"), ExtResource("2_e7ie7"), ExtResource("2_e7ie7"), ExtResource("2_e7ie7")])
 
 [node name="BattleReadout" parent="." index="6" node_paths=PackedStringArray("unit")]
 offset_top = -323.5
