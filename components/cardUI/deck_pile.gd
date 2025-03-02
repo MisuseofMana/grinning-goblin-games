@@ -1,36 +1,30 @@
 class_name DeckPile extends Control
 
 @onready var label = $DiscardChit/Label
+@export var discardNode : DiscardPile
 
-# should contain logic for handling:
-# supplying cards from the current deck configuration
-# shuffling the deck
-# handling card resources
-# maintaining and displaying it's own deck count
+signal cards_drawn(whatCards: Array[CardStats])
 
 func _ready():
+	update_deck_label()
+	
+func shuffle_deck():
+	GameState.playerDeck.shuffle()
+	
+func update_deck_label():
 	label.text = str(GameState.playerDeck.size())
 
-func get_new_cards() -> Array:
+func add_discarded_cards_to_deck():
+	GameState.playerDeck.append_array(discardNode.discard_array)
+	shuffle_deck()
+	update_deck_label()
+
+func draw_cards_from_deck(howMany: int):
 	if GameState.playerDeck.size() < GameState.hand_size:
-		add_discard_to_deck()
+		add_discarded_cards_to_deck()
 	var drawnHand : Array
 	for n in GameState.hand_size:
-		if not deck.is_empty():
-			drawnHand.append(deck.pop_front())
-	return drawnHand
-	
-func get_cards_from_deck(howMany):
-	if GameState.cardDeckPile.size() <= howMany:
-		var addDiscardToDeck : Array[PackedScene]
-		addDiscardToDeck.append_array(GameState.cardDeckPile)
-		addDiscardToDeck.append_array(GameState.cardDiscardPile)
-		addDiscardToDeck.shuffle()
-		GameState.cardDeckPile = addDiscardToDeck
-		
-	new_cards_drawn.emit(GameState.cardDeckPile.slice(0, howMany))
-	update_deck_pile(GameState.cardDeckPile.slice(howMany, -1))
-
-func update_deck_pile(newDeck: Array[PackedScene]):
-	GameState.target_label = label
-	GameState.cardDeckPile = newDeck
+		if not GameState.playerDeck.is_empty():
+			drawnHand.append(GameState.playerDeck.pop_front())
+	update_deck_label()
+	cards_drawn.emit(drawnHand)

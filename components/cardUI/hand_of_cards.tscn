@@ -1,13 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://ds00fm2wg81wp"]
+[gd_scene load_steps=11 format=3 uid="uid://ds00fm2wg81wp"]
 
 [ext_resource type="Script" path="res://components/cardUI/hand_of_cards.gd" id="1_50x24"]
-[ext_resource type="PackedScene" uid="uid://brsnekppc63j0" path="res://components/cards/variants/playerCards/attackCards/basic_phys_attack.tscn" id="2_825yd"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
-[ext_resource type="Script" path="res://scenes/deck_node.gd" id="6_fqbxa"]
-[ext_resource type="PackedScene" uid="uid://cchoe2ksx08py" path="res://components/cards/variants/playerCards/defenseCards/basic_block.tscn" id="7_2cafu"]
-[ext_resource type="PackedScene" uid="uid://b3tqjdmnntqo0" path="res://components/cards/variants/playerCards/healCards/basic_heal.tscn" id="8_6ln47"]
+[ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card_base.tscn" id="6_i2kej"]
 [ext_resource type="PackedScene" uid="uid://dnhhuvaiapr8k" path="res://components/cardUI/action_points.tscn" id="8_pqhre"]
 [ext_resource type="PackedScene" uid="uid://c2s4d0va0x5gy" path="res://components/cardUI/deck_pile.tscn" id="9_0vxkf"]
 [ext_resource type="PackedScene" uid="uid://babdevi0twph6" path="res://components/cardUI/discard_pile.tscn" id="10_c4w7l"]
@@ -29,12 +26,6 @@ stream_2/stream = ExtResource("5_3h3ci")
 position = Vector2(0, 720)
 script = ExtResource("1_50x24")
 metadata/_edit_vertical_guides_ = [640.0, 380.0, 900.0]
-
-[node name="DeckNode" type="Node" parent="." node_paths=PackedStringArray("deckPileNode", "discardPileNode")]
-script = ExtResource("6_fqbxa")
-deckPileNode = NodePath("../DeckPileReadout")
-discardPileNode = NodePath("../DiscardAndBurn")
-deck = Array[PackedScene]([ExtResource("2_825yd"), ExtResource("7_2cafu"), ExtResource("8_6ln47"), ExtResource("8_6ln47"), ExtResource("7_2cafu"), ExtResource("2_825yd")])
 
 [node name="DeckPileReadout" parent="." instance=ExtResource("9_0vxkf")]
 offset_left = 100.0
@@ -63,15 +54,7 @@ position = Vector2(639.995, -7.75096)
 rotation = 0.00102969
 progress = 260.163
 
-[node name="Card" parent="CardArc/PathFollow2D" instance=ExtResource("2_825yd")]
-accepts_cards = null
-is_burn_card = null
-play_cost = null
-can_use_to_respond = null
-can_use_whenever = null
-hide_cost_indicator = null
-targets_self = null
-card_is_draggable = null
+[node name="Card" parent="CardArc/PathFollow2D" instance=ExtResource("6_i2kej")]
 
 [node name="PaperSound" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource("AudioStreamRandomizer_flf2n")

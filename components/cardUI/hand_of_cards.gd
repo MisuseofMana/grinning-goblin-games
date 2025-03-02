@@ -3,7 +3,12 @@ class_name CardBattleInterface
 
 @onready var card_arc = $CardArc
 @onready var paper_sound: AudioStreamPlayer2D = $PaperSound
-		
+
+@export var deckPileNode: DeckPile
+@export var discardPileNode: DiscardPile
+
+signal end_player_turn
+
 func _ready():
 #	clear out the test cards in the arc
 	for arc in card_arc.get_children():
@@ -24,13 +29,13 @@ func addCardsToHand(cardScenes: Array[PackedScene]):
 
 	updateAllCardPositions()
 
-func free_card(card : CardComponent):
-	var coercedArray : Array[CardComponent]
+func free_card(card : CardStats):
+	var coercedArray : Array[CardStats]
 	coercedArray.append(card)
 	if card.is_burn_card:
-		add_to_burn_pile.emit(coercedArray)
+		discardPileNode.add_cards_to_burn(coercedArray)
 	else:
-		add_to_discard_pile.emit(coercedArray)
+		discardPileNode.add_cards_to_discard(coercedArray)
 	for followPath in card_arc.get_children():
 		if followPath.get_child(0) == card:
 			followPath.queue_free()
@@ -40,28 +45,28 @@ func discardHand():
 	current_hand.reverse()
 	for followPath in current_hand:
 		var cardNode : CardComponent = followPath.get_child(0)
-		await self.get_tree().create_timer(0.1).timeout
+		await self.get_tree().create_timer(0.2).timeout
 		cardNode.discardCard()
-	finished_hand_discard.emit()
+	deckPileNode.draw_cards_from_deck(GameState.saved_hand_size)
 	
-func isCardUsable(card : CardComponent):
-	if card.play_cost > action_points_remaining:
+func isCardUsable(card : CardStats):
+	if card.play_cost > GameState.saved_action_points:
 		return false
-	var canUseAsResponse = not battleScene.players_turn and card.can_use_to_respond
-	var canUseOnTurn = not card.can_use_to_respond and battleScene.players_turn
+	var canUseAsResponse = not GameState.playersTurn and card.can_use_to_respond
+	var canUseOnTurn = not card.can_use_to_respond and GameState.players_turn
 	return canUseAsResponse or canUseOnTurn or card.can_use_whenever
 		
 func checkForValidPlayerActions():
 	var can_play_a_card = false
-	if action_points_remaining <= 0:
-		if battleScene.players_turn:
+	if GameState.saved_action_points <= 0:
+		if GameState.players_turn:
 			end_player_turn.emit()
 	for followNode in card_arc.get_children():
 		if not followNode.is_queued_for_deletion():
 			var cardNode = followNode.get_child(0)
 			if isCardUsable(cardNode) == true:
 				can_play_a_card = true
-	if battleScene.players_turn and not can_play_a_card:
+	if GameState.players_turn and not can_play_a_card:
 		end_player_turn.emit()
 
 func updateAllCardPositions():
@@ -81,7 +86,7 @@ func changeAllCardAvailability():
 		changeCardAvailibilty(cardNode)
 
 func changeCardAvailibilty(cardNode: CardComponent):
-	if isCardUsable(cardNode):
+	if isCardUsable(cardNode.card_stats):
 		cardNode.modulate = Color(1, 1, 1)
 		cardNode.get_node("MakeCardDraggable").undraggable = false
 		#create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, 0), 0.2)

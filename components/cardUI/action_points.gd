@@ -19,11 +19,17 @@ var max_ap : int :
 		max_ap = newValue
 
 func _ready():
-	remaining_ap = GameState.action_points
-	max_ap = GameState.max_action_points
+	remaining_ap = GameState.saved_action_points
+	max_ap = GameState.saved_max_action_points
 
-func reduce_ap_by(howMuch):
+func reduce_max_ap_by(howMuch: int):
+	max_ap -= howMuch
+	
+func increase_max_ap_by(howMuch: int):
+	max_ap += howMuch
+
+func reduce_ap_by(howMuch: int):
 	remaining_ap -= howMuch
 	
-func increase_ap_by(howMuch):
+func increase_ap_by(howMuch: int):
 	remaining_ap += howMuch

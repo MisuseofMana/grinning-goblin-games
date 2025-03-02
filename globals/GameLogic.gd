@@ -1,38 +1,15 @@
 extends Node
 
-@export var playerDeck : Array[PackedScene] = []
-@export var action_points : int = 3
-@export var hand_size: int = 5
-var deck_setup_happened = false
-signal ap_reduced(howMuch : int)
+@export var playersTurn : bool = true
 
-#region Deck Manipulation
-var target_label: Label
+@export var playerDeck : Array[CardStats] = []
+@export var discardedCards: Array[CardStats] = []
+@export var bunredCards: Array[CardStats] = []
 
-var cardDeckPile: Array[PackedScene] = []:
-	set(newArray):
-		if deck_setup_happened:
-			animateLabelToFrom(newArray.size(), cardDeckPile.size())
-		else:
-			deck_setup_happened = true
-		cardDeckPile = newArray
-		
-var cardDiscardPile : Array[PackedScene] = []:
-	set(newArray):
-		animateLabelToFrom(newArray.size(), cardDiscardPile.size())
-		cardDiscardPile = newArray
+@export var saved_action_points : int = 3
+@export var saved_max_action_points : int = 3
+@export var saved_hand_size: int = 5
 
-var cardBurnPile : Array[PackedScene] = []:
-	set(newArray):
-		animateLabelToFrom(newArray.size(), cardDiscardPile.size())
-		cardBurnPile = newArray
-
-func animateLabelToFrom(to: int, from: int):
-	var label_node = target_label
-	var changeIncrementerBy : int = 1 if to - from > 0 else -1
-	var incrementer : int = from
-	while incrementer != to :
-		incrementer += changeIncrementerBy
-		await get_tree().create_timer(0.1).timeout
-		label_node.text = str(incrementer)
-#endregion
+@export var playerUnit : UnitTarget
+@export var friendlyUnits : Array[UnitTarget]
+@export var enemyUnits : Array[UnitTarget]

@@ -10,22 +10,15 @@ class_name DiscardPile
 
 var discard_array: Array
 
-func packCard(card: CardComponent):
-	var packContainer = PackedScene.new()
-	packContainer.pack(card)
-	return packContainer 
-
-func generate_new_pile(cards: Array[CardComponent], combineWith: Array[PackedScene]) -> Array[PackedScene]:
-	var addedCards: Array[PackedScene]
-	for card in cards:
-		addedCards.append(packCard(card))
+func generate_new_pile(cards: Array[CardStats], combineWith: Array[CardStats]) -> Array[CardStats]:
+	var addedCards: Array[CardStats]
 	addedCards.append_array(combineWith)
 	return addedCards
 
-func add_cards_to_discard(cards: Array[CardComponent]):
+func add_cards_to_discard(cards: Array[CardStats]):
 	GameState.target_label = number_discarded
 	GameState.cardDiscardPile = generate_new_pile(cards, GameState.cardDiscardPile)
 
-func add_cards_to_burn(cards: Array[CardComponent]):
+func add_cards_to_burn(cards: Array[CardStats]):
 	GameState.target_label = number_burned
 	GameState.cardBurnPile = generate_new_pile(cards, GameState.cardBurnPile)
