@@ -1,0 +1,11 @@
+[gd_scene load_steps=6 format=3 uid="uid://b676i3yrs0joi"]
+
+[ext_resource type="Script" path="res://globals/save_data.gd" id="1_lxcor"]
+[ext_resource type="Script" path="res://components/cards/card_stats.gd" id="2_08txt"]
+[ext_resource type="Resource" uid="uid://cmmmmjanqx3o7" path="res://components/cards/variants/playerCards/attackCards/basic_phys_attack.tres" id="3_s2nqe"]
+[ext_resource type="Resource" uid="uid://bjfjr11njgg34" path="res://components/cards/variants/playerCards/defenseCards/basic_block.tres" id="4_mxjuf"]
+[ext_resource type="Resource" uid="uid://dc4nstyf84g13" path="res://components/cards/variants/playerCards/healCards/basic_heal.tres" id="5_nqg5b"]
+
+[node name="GameState" type="Node2D"]
+script = ExtResource("1_lxcor")
+player_deck = Array[ExtResource("2_08txt")]([ExtResource("3_s2nqe"), ExtResource("3_s2nqe"), ExtResource("3_s2nqe"), ExtResource("4_mxjuf"), ExtResource("4_mxjuf"), ExtResource("4_mxjuf"), ExtResource("5_nqg5b"), ExtResource("5_nqg5b")])

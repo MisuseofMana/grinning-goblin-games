@@ -332,10 +332,11 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("17_ituhd")
 
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("player", "card_battle_hud", "enemy_logic")]
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("player", "hand_of_cards", "enemy_logic")]
 script = ExtResource("1_tfoca")
 player = NodePath("Sellsword")
-card_battle_hud = NodePath("CardBattleHud")
+hand_of_cards = NodePath("HandOfCards")
+deckPile = null
 enemy_logic = NodePath("Enemies")
 metadata/_edit_vertical_guides_ = [640.0]
 
@@ -431,7 +432,7 @@ libraries = {
 "": SubResource("AnimationLibrary_gvsxv")
 }
 
-[node name="CardBattleHud" parent="." instance=ExtResource("15_6uhf2")]
+[node name="HandOfCards" parent="." instance=ExtResource("15_6uhf2")]
 
 [node name="XPBar" type="NinePatchRect" parent="."]
 visible = false
@@ -659,6 +660,6 @@ autoplay = true
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="EnemyCardContainer" method="on_animation_finished"]
 [connection signal="pressed" from="EndTurnButton" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="DebugBar/DebugToggle" to="DebugBar" method="_on_button_pressed"]
-[connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button2" to="CardBattleHud" method="add_random_card_to_hand"]
-[connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button3" to="CardBattleHud" method="discardHand"]
-[connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button4" to="CardBattleHud" method="discardHand"]
+[connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button2" to="HandOfCards" method="add_random_card_to_hand"]
+[connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button3" to="HandOfCards" method="discardHand"]
+[connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button4" to="HandOfCards" method="discardHand"]

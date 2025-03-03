@@ -2,7 +2,6 @@ extends Node2D
 class_name BattleScene
 
 @onready var battle_scene = $"."
-@onready var card_interface = $HandOfCards
 
 @onready var enemies = $Enemies
 @onready var turn_label = $TurnLabel
@@ -12,18 +11,9 @@ class_name BattleScene
 
 @export var stage_background = Texture2D
 @export var player : UnitTarget
-@export var hand_of_cards : HandOfCards
-@export var deckPile : DeckPile
+@export var card_battle_hud : CardBattleHud
 @export var enemy_logic : EnemyController
-
-var players_turn : bool = true : 
-	set(value):
-		players_turn = value
-		if players_turn:
-			get_tree().call_group("enemy_hitboxes", "enableTargeting")
-		else:
-			get_tree().call_group("enemy_hitboxes", "disableTargeting")
-
+	
 enum Locations {
 	FOREST,
 	PLAINS,
@@ -53,9 +43,6 @@ func _ready():
 func runPlayerUpkeep():
 	runPhase(TurnPhases.PLAYER_UPKEEP)
 
-func runPlayerTurn():
-	runPhase(TurnPhases.START_PLAYERS_TURN)
-
 func runEnemiesTurn():
 	runPhase(TurnPhases.ENEMIES_TURN)
 	
@@ -72,20 +59,21 @@ func runPhase(phase: TurnPhases):
 				monsterNode.position = enemy_markers.get_child(number).position
 				monsterNode.name = 'Enemy_' + str(number)
 				enemies.add_child(monsterNode)
-			runPlayerTurn()
+			runPhase(TurnPhases.START_PLAYERS_TURN)
 		TurnPhases.PLAYER_UPKEEP:
-			hand_of_cards.discardHand()
+			card_battle_hud.discardHand()
 #			reduce token values
 		TurnPhases.START_PLAYERS_TURN:
+			print('players turn')
 			showTurnSwap("Your Turn")
-			players_turn = true
-			hand_of_cards.refreshActionPoints()
-			deckPile.get_cards_from_deck(player.deckNode.hand_size)
-			hand_of_cards.changeAllCardAvailability()
+			SaveData.players_turn = true
+			card_battle_hud.actionPointsNode.refresh_action_points()
+			card_battle_hud.deckPileNode.draw_hand_size()
+			card_battle_hud.changeAllCardAvailability()
 		TurnPhases.ENEMIES_TURN:
 			showTurnSwap("Enemy Turn")
-			players_turn = false
-			hand_of_cards.changeAllCardAvailability()
+			SaveData.players_turn = false
+			card_battle_hud.changeAllCardAvailability()
 			enemy_logic.startEnemyPhase()
 		TurnPhases.GO_TO_NEXT_ENCOUNTER:
 			player.deck.put_discard_into_deck()

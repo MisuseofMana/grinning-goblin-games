@@ -22,29 +22,34 @@ stream_0/stream = ExtResource("3_dbsbv")
 stream_1/stream = ExtResource("4_wc7mt")
 stream_2/stream = ExtResource("5_3h3ci")
 
-[node name="CardInterface" type="Node2D"]
+[node name="CardBattleHud" type="Node2D" node_paths=PackedStringArray("deckPileNode", "discardPileNode", "actionPointsNode", "addDiscardToDeckSpawnNode")]
 position = Vector2(0, 720)
 script = ExtResource("1_50x24")
+deckPileNode = NodePath("DeckPileReadout")
+discardPileNode = NodePath("DiscardAndBurn")
+actionPointsNode = NodePath("ActionPoints")
+addDiscardToDeckSpawnNode = NodePath("ShuffleDiscardToDeck")
 metadata/_edit_vertical_guides_ = [640.0, 380.0, 900.0]
+metadata/_edit_horizontal_guides_ = [455.0]
 
 [node name="DeckPileReadout" parent="." instance=ExtResource("9_0vxkf")]
 offset_left = 100.0
-offset_top = -90.0
+offset_top = -80.0
 offset_right = 100.0
-offset_bottom = -90.0
+offset_bottom = -80.0
 
-[node name="DiscardAndBurn" parent="." instance=ExtResource("10_c4w7l")]
+[node name="DiscardAndBurn" parent="." groups=["SaveNodes"] instance=ExtResource("10_c4w7l")]
 offset_left = 1089.0
-offset_top = -211.0
+offset_top = -264.0
 offset_right = 1339.0
-offset_bottom = 70.0
+offset_bottom = 17.0
 scale = Vector2(0.6, 0.6)
 
-[node name="ActionPoints" parent="." instance=ExtResource("8_pqhre")]
+[node name="ActionPoints" parent="." groups=["SaveNodes"] instance=ExtResource("8_pqhre")]
 offset_left = 95.0
-offset_top = -244.0
+offset_top = -264.0
 offset_right = 223.0
-offset_bottom = -116.0
+offset_bottom = -136.0
 
 [node name="CardArc" type="Path2D" parent="."]
 curve = SubResource("Curve2D_wguu1")
@@ -60,5 +65,6 @@ progress = 260.163
 stream = SubResource("AudioStreamRandomizer_flf2n")
 volume_db = -20.0
 
-[connection signal="tree_exited" from="CardArc" to="CardArc" method="exitTree"]
-[connection signal="tree_exited" from="CardArc" to="CardArc" method="_on_tree_exited"]
+[node name="ShuffleDiscardToDeck" type="Node2D" parent="."]
+
+[connection signal="cards_drawn" from="DeckPileReadout" to="." method="addCardsToHand"]

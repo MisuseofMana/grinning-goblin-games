@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bnn2yexxqpcc6" path="res://art/cards/card-cost-blip-export.png" id="3_a5h3a"]
 [ext_resource type="Theme" uid="uid://cwgh0k28oi2dx" path="res://themes/default_theme.tres" id="4_12ynu"]
 
-[node name="DeckPile" type="Control"]
+[node name="DeckPile" type="Control" groups=["SaveNodes"]]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_ur6tp")
@@ -25,7 +25,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_67fdg")
 
-[node name="DiscardChit" type="TextureRect" parent="."]
+[node name="CountPip" type="TextureRect" parent="."]
 self_modulate = Color(0.843137, 0.392157, 0.298039, 1)
 layout_mode = 1
 anchors_preset = 1
@@ -36,7 +36,7 @@ offset_bottom = 60.0
 grow_horizontal = 0
 texture = ExtResource("3_a5h3a")
 
-[node name="Label" type="Label" parent="DiscardChit"]
+[node name="CardsInDeck" type="Label" parent="CountPip"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

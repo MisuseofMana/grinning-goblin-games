@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.3", "Forward Plus")
 
 [autoload]
 
-GameState="*res://globals/GameLogic.gd"
+SaveData="*res://globals/save_data.gd"
 Utilities="*res://globals/Utilities.gd"
 
 [display]
@@ -46,6 +46,7 @@ folder_colors={
 [global_group]
 
 card_markers="card markers for discard and deck shuffle"
+SaveNodes="all save nodes have a saveData function to call when saving the game"
 
 [gui]
 

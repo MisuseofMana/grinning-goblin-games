@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=35 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://c06k5sgbv2e0l" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" path="res://scenes/battle_controller.gd" id="1_tfoca"]
@@ -13,6 +13,9 @@
 [ext_resource type="Script" path="res://scenes/debug_bar.gd" id="13_di01h"]
 [ext_resource type="Texture2D" uid="uid://cjqknwpldyhi7" path="res://art/ui/ui-slot.png" id="14_65f5q"]
 [ext_resource type="PackedScene" uid="uid://ds00fm2wg81wp" path="res://components/cardUI/hand_of_cards.tscn" id="15_6uhf2"]
+[ext_resource type="PackedScene" uid="uid://babdevi0twph6" path="res://components/cardUI/discard_pile.tscn" id="15_e5xx5"]
+[ext_resource type="PackedScene" uid="uid://c2s4d0va0x5gy" path="res://components/cardUI/deck_pile.tscn" id="15_jiox7"]
+[ext_resource type="PackedScene" uid="uid://dnhhuvaiapr8k" path="res://components/cardUI/action_points.tscn" id="15_nw1iw"]
 [ext_resource type="Script" path="res://scenes/enemy_card_container.gd" id="16_5f438"]
 [ext_resource type="AudioStream" uid="uid://dweruxr81kj5f" path="res://audio/battle_scene/BattlePhaseTransition.wav" id="17_ituhd"]
 [ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card_base.tscn" id="20_yae8r"]
@@ -332,10 +335,11 @@ random_pitch = 1.2
 streams_count = 1
 stream_0/stream = ExtResource("17_ituhd")
 
-[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("player", "card_battle_hud", "enemy_logic")]
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("player", "hand_of_cards", "deckPile", "enemy_logic")]
 script = ExtResource("1_tfoca")
 player = NodePath("Sellsword")
-card_battle_hud = NodePath("CardBattleHud")
+hand_of_cards = NodePath("HandOfCards")
+deckPile = NodePath("DeckPileReadout")
 enemy_logic = NodePath("Enemies")
 metadata/_edit_vertical_guides_ = [640.0]
 
@@ -431,7 +435,26 @@ libraries = {
 "": SubResource("AnimationLibrary_gvsxv")
 }
 
-[node name="CardBattleHud" parent="." instance=ExtResource("15_6uhf2")]
+[node name="HandOfCards" parent="." instance=ExtResource("15_6uhf2")]
+
+[node name="DeckPileReadout" parent="." instance=ExtResource("15_jiox7")]
+offset_left = 100.0
+offset_top = 630.0
+offset_right = 100.0
+offset_bottom = 630.0
+
+[node name="ActionPoints" parent="." instance=ExtResource("15_nw1iw")]
+offset_left = 109.0
+offset_top = 464.0
+offset_right = 237.0
+offset_bottom = 592.0
+
+[node name="DiscardAndBurn" parent="." instance=ExtResource("15_e5xx5")]
+offset_left = 1089.0
+offset_top = 453.0
+offset_right = 1339.0
+offset_bottom = 734.0
+scale = Vector2(0.6, 0.6)
 
 [node name="XPBar" type="NinePatchRect" parent="."]
 visible = false
@@ -657,8 +680,9 @@ autoplay = true
 [connection signal="child_exiting_tree" from="EnemyCardContainer/Path2D" to="EnemyCardContainer/Path2D" method="_on_child_exiting_tree"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="Enemies" method="animationSequencer"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="EnemyCardContainer" method="on_animation_finished"]
+[connection signal="ran_out_of_ap" from="ActionPoints" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="EndTurnButton" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="DebugBar/DebugToggle" to="DebugBar" method="_on_button_pressed"]
-[connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button2" to="CardBattleHud" method="add_random_card_to_hand"]
-[connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button3" to="CardBattleHud" method="discardHand"]
-[connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button4" to="CardBattleHud" method="discardHand"]
+[connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button2" to="HandOfCards" method="add_random_card_to_hand"]
+[connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button3" to="HandOfCards" method="discardHand"]
+[connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button4" to="HandOfCards" method="discardHand"]

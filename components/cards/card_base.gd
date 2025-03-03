@@ -80,7 +80,7 @@ func go_to_discard_area():
 	cards_sent_to_graveyard.emit(self)
 
 func reduce_ap_by_card_cost():
-	GameState.ap_reduced.emit(card_stats.play_cost)
+	SaveData.ap_reduced.emit(card_stats.play_cost)
 	
 func calculate_adj_value():
 	var modifierValue : int = card_stats.base_value

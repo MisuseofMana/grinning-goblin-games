@@ -1,11 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://cal5vxpxe60ke"]
+[gd_scene load_steps=22 format=3 uid="uid://cal5vxpxe60ke"]
 
 [ext_resource type="Texture2D" uid="uid://bqxwsimjepqco" path="res://art/sprites/player/idle2.png" id="1_4s0l1"]
 [ext_resource type="Script" path="res://components/unitTargets/card_target_base.gd" id="2_4j76e"]
 [ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/unitTargets/unitQualityNodes/modifiers_node.tscn" id="3_xemqb"]
 [ext_resource type="PackedScene" uid="uid://ctud24sf1fqks" path="res://components/unitTargets/unitQualityNodes/stats_node.tscn" id="4_ln02t"]
 [ext_resource type="PackedScene" uid="uid://0pyqt38pl3f4" path="res://components/unitTargets/unitQualityNodes/health_node.tscn" id="5_60liw"]
-[ext_resource type="PackedScene" uid="uid://b0spuyowpthca" path="res://components/unitTargets/unitQualityNodes/deck_node.tscn" id="6_h37s8"]
 [ext_resource type="PackedScene" uid="uid://bx3b6tvvx5et5" path="res://components/unitTargets/unitQualityNodes/battle_readout.tscn" id="7_1kfwm"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/nodeUtilitiy/card_and_unit_area_detection.tscn" id="8_dyn65"]
 [ext_resource type="PackedScene" uid="uid://34o105ivvj6t" path="res://target_indicator.tscn" id="9_s430e"]
@@ -264,7 +263,7 @@ script = ExtResource("2_4j76e")
 sprite_frames = SubResource("SpriteFrames_urjdb")
 animation = &"idle"
 autoplay = "idle"
-frame = 2
+frame = 3
 offset = Vector2(0, -126)
 
 [node name="TwoWayDetection" parent="." node_paths=PackedStringArray("target_indicator") groups=["player_hitbox"] instance=ExtResource("8_dyn65")]
@@ -282,8 +281,6 @@ shape = SubResource("CapsuleShape2D_238uk")
 [node name="HealthNode" parent="." node_paths=PackedStringArray("statsNode", "modifiers") instance=ExtResource("5_60liw")]
 statsNode = NodePath("../StatsNode")
 modifiers = NodePath("../Modifiers")
-
-[node name="DeckNode" parent="." instance=ExtResource("6_h37s8")]
 
 [node name="BattleReadout" parent="." node_paths=PackedStringArray("statsNode", "healthNode") instance=ExtResource("7_1kfwm")]
 anchors_preset = 8

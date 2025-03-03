@@ -1,18 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://d10ain1idyjan"]
+[gd_scene load_steps=2 format=3 uid="uid://d10ain1idyjan"]
 
 [ext_resource type="PackedScene" uid="uid://cal5vxpxe60ke" path="res://components/unitTargets/card_target_base.tscn" id="1_heyf1"]
-[ext_resource type="PackedScene" uid="uid://brsnekppc63j0" path="res://components/cards/variants/playerCards/attackCards/basic_phys_attack.tscn" id="2_e7ie7"]
 
-[node name="Player" node_paths=PackedStringArray("anims", "deckNode", "healthNode", "statsNode") instance=ExtResource("1_heyf1")]
+[node name="Player" node_paths=PackedStringArray("anims", "healthNode", "statsNode") instance=ExtResource("1_heyf1")]
 anims = NodePath("Animations")
-deckNode = NodePath("DeckNode")
 healthNode = NodePath("HealthNode")
 statsNode = NodePath("StatsNode")
 is_friendly = true
 is_player = true
-
-[node name="UnitSprite" parent="." index="0"]
-frame = 4
 
 [node name="StatsNode" parent="." index="3"]
 muscle = 3
@@ -24,13 +19,10 @@ nuance = 1
 hit_points = 25
 max_hit_points_base = 25
 
-[node name="DeckNode" parent="." index="5"]
-deck = Array[PackedScene]([ExtResource("2_e7ie7"), ExtResource("2_e7ie7"), ExtResource("2_e7ie7"), ExtResource("2_e7ie7"), ExtResource("2_e7ie7")])
-
-[node name="BattleReadout" parent="." index="6" node_paths=PackedStringArray("unit")]
+[node name="BattleReadout" parent="." index="5" node_paths=PackedStringArray("unit")]
 offset_top = -323.5
 offset_bottom = -323.5
 unit = NodePath("..")
 
-[node name="TargetIndicator" parent="." index="7"]
+[node name="TargetIndicator" parent="." index="6"]
 position = Vector2(3, -360.5)
