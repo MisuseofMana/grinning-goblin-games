@@ -6,6 +6,7 @@ class_name UnitTarget
 @onready var collision = $TwoWayDetection/CollisionShape2D
 @onready var unit_sprite = $UnitSprite
 @onready var battle_readout = $BattleReadout
+@export var enemy_cards : Array[CardStats] = []
 
 @export var anims : AnimationPlayer:
 	set(newValue):

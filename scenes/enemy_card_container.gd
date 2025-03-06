@@ -4,29 +4,24 @@ class_name EnemyCardContainer
 @onready var anims = $EnemyCardAnimations
 @export var playerUnit : UnitTarget
 @onready var path_follow_2d = $Path2D/PathFollow2D
-@onready var testCard = $Path2D/PathFollow2D/Card
+@onready var card : CardComponent = $Path2D/PathFollow2D/Card
 
-var cardInPlay : CardComponent
-var card_owner : UnitTarget
+const CARD_BASE = preload("res://components/cards/card_base.tscn")
 
 signal card_effect_finished()
 signal show_accept_button()
 
-func _ready():
-	testCard.queue_free()
-
 func onCardAccept():
-	cardInPlay.effect_node._run_card_effect(playerUnit)
+	if card.card_stats.targets_self:
+		card.effect_node._run_card_effect(card.card_owner)
+	else:
+		card.effect_node._run_card_effect(playerUnit)
 	anims.play('evaporate')
 	
-func replace_card(card: Resource, newOwner: UnitTarget):
-	if cardInPlay:
-		cardInPlay.queue_free()
-	var newCard : CardComponent = card.instantiate()
-	newCard.card_owner = newOwner
-	newCard.updateCardData.call_deferred()
-	path_follow_2d.add_child(newCard)
-	cardInPlay = newCard
+func replace_card(cardStats: CardStats, newOwner: UnitTarget):
+	card.card_owner = newOwner
+	card.card_stats = cardStats
+	card.updateCardData.call_deferred()
 	anims.play('RESET')
 	anims.play("fly_in")
 	

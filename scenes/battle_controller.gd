@@ -64,7 +64,6 @@ func runPhase(phase: TurnPhases):
 			card_battle_hud.discardHand()
 #			reduce token values
 		TurnPhases.START_PLAYERS_TURN:
-			print('players turn')
 			showTurnSwap("Your Turn")
 			SaveData.players_turn = true
 			card_battle_hud.actionPointsNode.refresh_action_points()

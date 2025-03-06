@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cu2hlsm1qvuev"]
 
 [ext_resource type="AudioStream" uid="uid://7a3paan6vkki" path="res://audio/game_music/card_intro_song.wav" id="1_2fwjl"]
-[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_i0eov"]
+[ext_resource type="Script" uid="uid://bhw3gqv82bj1a" path="res://scenes/main_menu.gd" id="1_i0eov"]
 
 [node name="MainMenu" type="Node"]
 script = ExtResource("1_i0eov")

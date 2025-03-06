@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://34o105ivvj6t"]
 
 [ext_resource type="Texture2D" uid="uid://dlngxwb22jpnb" path="res://art/ui/pointer.png" id="1_ismcc"]
-[ext_resource type="Script" path="res://target_indicator.gd" id="2_ml82x"]
+[ext_resource type="Script" uid="uid://cn74g3e46kv5v" path="res://target_indicator.gd" id="2_ml82x"]
 
 [sub_resource type="Animation" id="Animation_x570a"]
 length = 0.001
@@ -61,8 +61,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0ukyh"]
 _data = {
-"RESET": SubResource("Animation_x570a"),
-"bobbing": SubResource("Animation_opmnf")
+&"RESET": SubResource("Animation_x570a"),
+&"bobbing": SubResource("Animation_opmnf")
 }
 
 [node name="TargetIndicator" type="Sprite2D" groups=["target_indicators"]]

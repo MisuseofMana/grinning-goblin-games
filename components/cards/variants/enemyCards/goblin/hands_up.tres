@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=6 format=3 uid="uid://dpo6ejbvqaf7j"]
+
+[ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_vn37p"]
+[ext_resource type="Script" uid="uid://bl6njhs07bh07" path="res://components/cards/cardEffects/token_card.gd" id="2_383h2"]
+[ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="2_phdbv"]
+[ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="3_383h2"]
+[ext_resource type="Texture2D" uid="uid://d2ymg3iqh11de" path="res://art/cards/card_art/goblin/hands_up.png" id="3_dlxdg"]
+
+[resource]
+script = ExtResource("3_383h2")
+accepts_cards = false
+is_burn_card = false
+can_use_to_respond = false
+can_use_whenever = false
+enemy_card = true
+targets_self = true
+hide_cost = true
+play_cost = 0
+base_value = 2
+primary_stat = "endurance"
+secondary_stat = "endurance"
+card_name = "Hands Up"
+description = "Enemy gains %s armor token(s)"
+card_image = ExtResource("3_dlxdg")
+card_back = ExtResource("1_vn37p")
+card_front = ExtResource("2_phdbv")
+card_effect = ExtResource("2_383h2")
+token_type = "armor"
+metadata/_custom_type_script = "uid://cgj8evdtepa0f"

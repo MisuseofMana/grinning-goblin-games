@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://cal5vxpxe60ke"]
 
 [ext_resource type="Texture2D" uid="uid://bqxwsimjepqco" path="res://art/sprites/player/idle2.png" id="1_4s0l1"]
-[ext_resource type="Script" path="res://components/unitTargets/card_target_base.gd" id="2_4j76e"]
+[ext_resource type="Script" uid="uid://u88ltgr4n1i5" path="res://components/unitTargets/card_target_base.gd" id="2_4j76e"]
 [ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/unitTargets/unitQualityNodes/modifiers_node.tscn" id="3_xemqb"]
 [ext_resource type="PackedScene" uid="uid://ctud24sf1fqks" path="res://components/unitTargets/unitQualityNodes/stats_node.tscn" id="4_ln02t"]
 [ext_resource type="PackedScene" uid="uid://0pyqt38pl3f4" path="res://components/unitTargets/unitQualityNodes/health_node.tscn" id="5_60liw"]
@@ -250,10 +250,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_273pk"]
 _data = {
-"RESET": SubResource("Animation_q3a01"),
-"die": SubResource("Animation_5k3bh"),
-"heal": SubResource("Animation_6pn0e"),
-"take_damage": SubResource("Animation_lq4h6")
+&"RESET": SubResource("Animation_q3a01"),
+&"die": SubResource("Animation_5k3bh"),
+&"heal": SubResource("Animation_6pn0e"),
+&"take_damage": SubResource("Animation_lq4h6")
 }
 
 [node name="CardTarget" type="Node2D"]

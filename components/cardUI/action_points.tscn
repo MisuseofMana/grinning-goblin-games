@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dnhhuvaiapr8k"]
 
 [ext_resource type="Theme" uid="uid://cwgh0k28oi2dx" path="res://themes/default_theme.tres" id="1_ne4g2"]
-[ext_resource type="Script" path="res://components/cardUI/action_points.gd" id="2_grmke"]
+[ext_resource type="Script" uid="uid://bd1v01thbb68c" path="res://components/cardUI/action_points.gd" id="2_grmke"]
 [ext_resource type="Texture2D" uid="uid://bxm38vbb6o580" path="res://art/ui/ap-globe.png" id="3_xdhxw"]
 [ext_resource type="FontVariation" uid="uid://dbssmd648wpm3" path="res://fonts/label-font-fix.tres" id="4_d0s4s"]
 
@@ -80,7 +80,7 @@ material = SubResource("CanvasItemMaterial_kav0a")
 position = Vector2(65, 65)
 emitting = false
 amount = 40
-process_material = SubResource("ParticleProcessMaterial_sfiky")
 lifetime = 0.5
 one_shot = true
 explosiveness = 0.3
+process_material = SubResource("ParticleProcessMaterial_sfiky")

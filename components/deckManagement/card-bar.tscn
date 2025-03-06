@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cr6dgbvmdrv34"]
 
 [ext_resource type="Texture2D" uid="uid://c0tpi8rv5fou2" path="res://art/card-library-bar.png" id="1_vcwjk"]
-[ext_resource type="Script" path="res://components/deckManagement/card_bar.gd" id="2_b68jj"]
+[ext_resource type="Script" uid="uid://b52sqykc8slew" path="res://components/deckManagement/card_bar.gd" id="2_b68jj"]
 [ext_resource type="Texture2D" uid="uid://dvynfyv5rmtk6" path="res://art/card-in-library-dot.png" id="2_x88yk"]
 
 [node name="CardInDeckReadout" type="TextureRect"]

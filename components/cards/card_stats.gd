@@ -8,6 +8,8 @@ class_name CardStats extends Resource
 @export var enemy_card : bool = false
 @export var targets_self : bool = false
 
+@export var hide_cost : bool = false
+
 @export_group('Card Stats')
 @export var play_cost : int = 1
 @export var base_value : int = 0
@@ -15,7 +17,7 @@ class_name CardStats extends Resource
 @export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var secondary_stat : String
 
 @export_group('Card Details')
-@export var name : String
+@export var card_name : String
 @export_multiline var description : String
 @export var card_image : Texture2D
 @export var card_back : Texture2D = preload("res://art/cards/card-template-back.png")
@@ -23,3 +25,4 @@ class_name CardStats extends Resource
 
 @export_group('Card Effect')
 @export var card_effect : GDScript
+@export_enum("poison", "ward", "armor") var token_type : String

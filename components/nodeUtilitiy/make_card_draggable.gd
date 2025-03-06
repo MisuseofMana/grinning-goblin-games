@@ -41,7 +41,7 @@ func _mouse_input_on_parent(event: InputEvent):
 			reduce_action_points.emit()
 			card_was_used_on.emit(detection_area.overlapping_areas[0].owner)
 			is_dragging = false
-			if parent.is_burn_card:
+			if parent.card_stats.is_burn_card:
 				parent.burnCard()
 			else:
 				parent.discardCard()

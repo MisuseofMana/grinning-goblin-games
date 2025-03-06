@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dnhhuvaiapr8k" path="res://components/cardUI/action_points.tscn" id="3_0dkbj"]
 [ext_resource type="PackedScene" uid="uid://babdevi0twph6" path="res://components/cardUI/discard_pile.tscn" id="4_aidqp"]
 [ext_resource type="Texture2D" uid="uid://clv1s8w5roogn" path="res://art/ui/xp_bar.png" id="5_vcyps"]
-[ext_resource type="Script" path="res://scenes/xp_bar.gd" id="6_xxn52"]
+[ext_resource type="Script" uid="uid://d0rtwqnbijxof" path="res://scenes/xp_bar.gd" id="6_xxn52"]
 [ext_resource type="Texture2D" uid="uid://crxrqibwaskm6" path="res://art/ui/xp_bar_dot.png" id="7_gkpg0"]
 [ext_resource type="Theme" uid="uid://cwgh0k28oi2dx" path="res://themes/default_theme.tres" id="8_8kdwd"]
 

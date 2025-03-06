@@ -7,14 +7,18 @@ class_name CardComponent
 @onready var cost_indicator = $Control/MarginContainer/CostIndicator
 @onready var cost = $Control/MarginContainer/CostIndicator/Cost
 @onready var anims: AnimationPlayer = $AnimationPlayer
-@onready var modifiers = $Modifiers
 @onready var detection = $TwoWayDetection/CollisionShape2D
 @onready var make_card_draggable = $MakeCardDraggable
+@onready var card_name = $CardDetails/CardName
+@onready var icon_image = $CardDetails/IconImage
 
 @onready var effect_node = $CardEffect
 
-@export var card_owner : UnitTarget
-@export var card_stats: CardStats
+var card_owner : UnitTarget
+@export var card_stats: CardStats :
+	set(newValue):
+		card_stats = newValue
+		updateCardData.call_deferred()
 
 @export var card_is_draggable : bool = true
 
@@ -24,15 +28,23 @@ const DISCARD_BACK = preload("res://art/cards/card-template-back.png")
 const BURN_BACK = preload("res://art/cards/card-burn-pile.png")
 
 signal cards_sent_to_graveyard(cardNode : CardComponent)
+signal ap_reduced(howMuch: int)
 
 func updateCardData():
-	if description.text.contains('%'):
-		description.text = description.text % formatCardStringInterp(false)
+	if card_stats.description.contains('%'):
+		description.text = card_stats.description % formatCardStringInterp(false)
 	if card_stats.is_burn_card:
 		cost_indicator.texture = BURN_CARD_BADGE
-	if card_stats.hide_cost_indicator:
+	if card_stats.hide_cost:
 		hideCostIndicator()
 	cost.text = str(card_stats.play_cost)
+	card_name.text = str(card_stats.card_name)
+	icon_image.texture = card_stats.card_image
+	texture = card_stats.card_front
+	effect_node.set_script(card_stats.card_effect)
+	effect_node.card = self
+	if card_stats.token_type:
+		effect_node.token_type = card_stats.token_type
 	
 func hideCostIndicator():
 	cost_indicator.hide()
@@ -80,24 +92,27 @@ func go_to_discard_area():
 	cards_sent_to_graveyard.emit(self)
 
 func reduce_ap_by_card_cost():
-	SaveData.ap_reduced.emit(card_stats.play_cost)
+	ap_reduced.emit(card_stats.play_cost)
 	
 func calculate_adj_value():
 	var modifierValue : int = card_stats.base_value
 	if card_stats.primary_stat:
-		modifierValue += modifiers.getPrimaryStatMod(card_owner.statsNode[card_stats.primary_stat])
+		modifierValue += StatMods.getPrimaryStatMod(SaveData[card_stats.primary_stat])
 		modifierValue = clampi(modifierValue, 1, 999)
 	if card_stats.secondary_stat:
-		modifierValue += modifiers.getSecondaryStatMod(card_owner.statsNode[card_stats.secondary_stat])
+		modifierValue += StatMods.getSecondaryStatMod(SaveData[card_stats.secondary_stat])
 		modifierValue = clampi(modifierValue, 1, 999)
 	return modifierValue
 	
 func calculate_adj_token_value():
 	var modifierValue = card_stats.base_value
 	if card_stats.primary_stat:
-		modifierValue += modifiers.getTokenModifier(card_owner.statsNode[card_stats.primary_stat])
+		modifierValue += StatMods.getTokenModifier(SaveData[card_stats.primary_stat])
 	modifierValue = clampi(modifierValue, 0, 999)
 	return modifierValue
 	
 func addToDebuff(howMuch : int):
 	debuff_value += howMuch
+
+func use_card(useOnWhat: Variant):
+	effect_node._run_card_effect(useOnWhat)

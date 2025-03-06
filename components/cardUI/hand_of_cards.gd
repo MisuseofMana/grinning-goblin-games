@@ -28,22 +28,26 @@ func addCardsToHand(cardStats: Array[CardStats]):
 		newFollowNode.add_child(newCard)
 		newCard.updateCardData.call_deferred()
 		newCard.cards_sent_to_graveyard.connect(free_card)
+		newCard.ap_reduced.connect(reduce_ap)
 		newCard.tree_exited.connect(updateAllCardPositions)
 		newCard.tree_exited.connect(checkForValidPlayerActions)
 		changeCardAvailibilty(newCard)
 
 	updateAllCardPositions()
 
-func free_card(card : CardStats):
+func free_card(card : CardComponent):
+	print('freeing card', card)
+	var card_stats = card.card_stats
 	var coercedArray : Array[CardStats]
-	coercedArray.append(card)
-	if card.is_burn_card:
+	coercedArray.append(card_stats)
+	if card_stats.is_burn_card:
 		discardPileNode.add_cards_to_burn(coercedArray)
 	else:
 		discardPileNode.add_cards_to_discard(coercedArray)
 	for followPath in card_arc.get_children():
 		if followPath.get_child(0) == card:
 			followPath.queue_free()
+	updateAllCardPositions()
 
 func discardHand():
 	var current_hand = card_arc.get_children()
@@ -53,22 +57,22 @@ func discardHand():
 		await self.get_tree().create_timer(0.2).timeout
 		cardNode.discardCard()
 	
-func isCardUsable(card : CardStats):
-	if card.play_cost > SaveData.action_points:
+func isCardUsable(cardStats : CardStats):
+	if cardStats.play_cost > SaveData.action_points:
 		return false
-	var canUseAsResponse = not SaveData.playersTurn and card.can_use_to_respond
-	var canUseOnTurn = not card.can_use_to_respond and SaveData.players_turn
-	return canUseAsResponse or canUseOnTurn or card.can_use_whenever
+	var canUseAsResponse = not SaveData.players_turn and cardStats.can_use_to_respond
+	var canUseOnTurn = not cardStats.can_use_to_respond and SaveData.players_turn
+	return canUseAsResponse or canUseOnTurn or cardStats.can_use_whenever
 		
 func checkForValidPlayerActions():
 	var can_play_a_card = false
-	if SaveData.saved_action_points <= 0:
+	if SaveData.action_points <= 0:
 		if SaveData.players_turn:
 			end_player_turn.emit()
 	for followNode in card_arc.get_children():
 		if not followNode.is_queued_for_deletion():
 			var cardNode = followNode.get_child(0)
-			if isCardUsable(cardNode) == true:
+			if isCardUsable(cardNode.card_stats) == true:
 				can_play_a_card = true
 	if SaveData.players_turn and not can_play_a_card:
 		end_player_turn.emit()
@@ -99,3 +103,6 @@ func changeCardAvailibilty(cardNode: CardComponent):
 		cardNode.get_node("MakeCardDraggable").undraggable = false
 		cardNode.z_index = 0
 		#create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, 20), 0.2)
+
+func reduce_ap(howMuch: int):
+	actionPointsNode.reduce_ap_by(howMuch)

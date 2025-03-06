@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=6 format=3 uid="uid://ctes2ut6kwa3c"]
+
+[ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_tj36v"]
+[ext_resource type="Script" uid="uid://v2bsfsfam7aj" path="res://components/cards/cardEffects/damaging_card.gd" id="2_61jwu"]
+[ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="3_61jwu"]
+[ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="3_lrqpt"]
+[ext_resource type="Texture2D" uid="uid://dohmn7ea4wnen" path="res://art/cards/card_art/goblin/goblin_bite.png" id="4_iv45f"]
+
+[resource]
+script = ExtResource("3_61jwu")
+accepts_cards = false
+is_burn_card = false
+can_use_to_respond = false
+can_use_whenever = false
+enemy_card = true
+targets_self = false
+hide_cost = true
+play_cost = 0
+base_value = 2
+primary_stat = "muscle"
+secondary_stat = "finesse"
+card_name = "Nasty Bite"
+description = "A nasty bite, deals %s phys. dmg"
+card_image = ExtResource("4_iv45f")
+card_back = ExtResource("1_tj36v")
+card_front = ExtResource("3_lrqpt")
+card_effect = ExtResource("2_61jwu")
+metadata/_custom_type_script = "uid://cgj8evdtepa0f"

@@ -1,9 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://doa41q24r2eid"]
+[gd_scene load_steps=17 format=3 uid="uid://doa41q24r2eid"]
 
 [ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="1_2al02"]
-[ext_resource type="Script" path="res://components/cards/card_base.gd" id="2_vhlj7"]
+[ext_resource type="Script" uid="uid://d3tog6m8insbk" path="res://components/cards/card_base.gd" id="2_vhlj7"]
 [ext_resource type="Theme" uid="uid://dtid5ck6aq1lr" path="res://themes/card_theme.tres" id="3_bis42"]
-[ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/unitTargets/unitQualityNodes/modifiers_node.tscn" id="4_k3k1f"]
 [ext_resource type="Texture2D" uid="uid://b5p1xc0bcs58e" path="res://art/cards/card_art/basic_heal.png" id="6_f5ubv"]
 [ext_resource type="Texture2D" uid="uid://bnimnyhvmbkvv" path="res://art/ui/action_points_meter.png" id="8_bjxy8"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/nodeUtilitiy/card_and_unit_area_detection.tscn" id="8_o2qbh"]
@@ -231,10 +230,10 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sw1ai"]
 _data = {
-"RESET": SubResource("Animation_vr347"),
-"accept_enemy_card": SubResource("Animation_nlc62"),
-"burn_card": SubResource("Animation_gpjmu"),
-"discard_card": SubResource("Animation_rdldh")
+&"RESET": SubResource("Animation_vr347"),
+&"accept_enemy_card": SubResource("Animation_nlc62"),
+&"burn_card": SubResource("Animation_gpjmu"),
+&"discard_card": SubResource("Animation_rdldh")
 }
 
 [node name="Card" type="TextureRect"]
@@ -249,9 +248,8 @@ theme = ExtResource("3_bis42")
 texture = ExtResource("1_2al02")
 script = ExtResource("2_vhlj7")
 
-[node name="CardEffect" parent="." instance=ExtResource("10_pjc5i")]
-
-[node name="Modifiers" parent="." instance=ExtResource("4_k3k1f")]
+[node name="CardEffect" parent="." node_paths=PackedStringArray("card") instance=ExtResource("10_pjc5i")]
+card = NodePath("..")
 
 [node name="CardDetails" type="Control" parent="."]
 layout_mode = 1
@@ -262,7 +260,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="CardLabel" type="Label" parent="CardDetails"]
+[node name="CardName" type="Label" parent="CardDetails"]
 texture_filter = 1
 layout_mode = 2
 offset_left = 24.0
@@ -345,7 +343,7 @@ disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_sw1ai")
+&"": SubResource("AnimationLibrary_sw1ai")
 }
 
 [node name="MakeCardDraggable" parent="." node_paths=PackedStringArray("detection_area") instance=ExtResource("8_sjpop")]
@@ -355,8 +353,8 @@ detection_area = NodePath("../TwoWayDetection")
 position = Vector2(96, 255)
 emitting = false
 amount = 25
-process_material = ExtResource("9_jk66l")
 one_shot = true
+process_material = ExtResource("9_jk66l")
 
 [connection signal="card_was_dropped" from="MakeCardDraggable" to="TwoWayDetection" method="disableTargeting"]
 [connection signal="card_was_picked_up" from="MakeCardDraggable" to="TwoWayDetection" method="enableTargeting"]

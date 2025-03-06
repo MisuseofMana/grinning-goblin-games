@@ -16,6 +16,11 @@ signal shuffle_discard_to_deck
 		hand_size = newValue
 		SaveData.hand_size = newValue
 
+func _ready():
+	if deck_pile.is_empty():
+		deck_pile = SaveData.player_deck
+		deck_pile.shuffle()
+
 func saveData():
 	SaveData.hand_size = hand_size
 	SaveData.deck_pile = deck_pile

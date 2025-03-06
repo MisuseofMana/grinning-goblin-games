@@ -25,3 +25,12 @@ extends Node
 @export var enemyUnits : Array[UnitTarget]
 
 @export_group('Player Stats')
+@export_subgroup('Main Stats')
+@export var muscle : int = 0
+@export var finesse : int = 0
+@export var knowledge : int = 0
+@export var endurance : int = 0
+@export var nuance : int = 0
+
+@export_subgroup('Secondary Stats')
+@export var health : int = 0

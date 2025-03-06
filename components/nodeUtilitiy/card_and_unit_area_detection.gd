@@ -11,8 +11,8 @@ func drop_spot_is_valid() -> bool:
 		return false
 	var targetNode = overlapping_areas.front().owner
 	if targetNode is UnitTarget and self_owner is CardComponent:
-		var selfTarget: bool = targetNode.is_friendly and self_owner.targets_self
-		var enemyTarget: bool = not targetNode.is_friendly and not self_owner.targets_self
+		var selfTarget: bool = targetNode.is_friendly and self_owner.card_stats.targets_self
+		var enemyTarget: bool = not targetNode.is_friendly and not self_owner.card_stats.targets_self
 		return selfTarget or enemyTarget
 	return false
 	

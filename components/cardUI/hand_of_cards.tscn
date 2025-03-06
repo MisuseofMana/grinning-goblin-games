@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://ds00fm2wg81wp"]
 
-[ext_resource type="Script" path="res://components/cardUI/hand_of_cards.gd" id="1_50x24"]
+[ext_resource type="Script" uid="uid://bpj5b1lx32nio" path="res://components/cardUI/hand_of_cards.gd" id="1_50x24"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
 [ext_resource type="AudioStream" uid="uid://b127dvvpf2fq4" path="res://audio/Paper_Grab_ShortDuration_02.ogg" id="4_wc7mt"]
 [ext_resource type="AudioStream" uid="uid://bnobh4pyl614u" path="res://audio/Paper_Grab_ShortDuration_03.ogg" id="5_3h3ci"]
@@ -23,14 +23,11 @@ stream_1/stream = ExtResource("4_wc7mt")
 stream_2/stream = ExtResource("5_3h3ci")
 
 [node name="CardBattleHud" type="Node2D" node_paths=PackedStringArray("deckPileNode", "discardPileNode", "actionPointsNode", "addDiscardToDeckSpawnNode")]
-position = Vector2(0, 720)
 script = ExtResource("1_50x24")
 deckPileNode = NodePath("DeckPileReadout")
 discardPileNode = NodePath("DiscardAndBurn")
 actionPointsNode = NodePath("ActionPoints")
 addDiscardToDeckSpawnNode = NodePath("ShuffleDiscardToDeck")
-metadata/_edit_vertical_guides_ = [640.0, 380.0, 900.0]
-metadata/_edit_horizontal_guides_ = [455.0]
 
 [node name="DeckPileReadout" parent="." instance=ExtResource("9_0vxkf")]
 offset_left = 100.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://babdevi0twph6"]
 
 [ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_mtuga"]
-[ext_resource type="Script" path="res://components/cardUI/discard_pile.gd" id="1_vausx"]
+[ext_resource type="Script" uid="uid://ypuf8d6x66bs" path="res://components/cardUI/discard_pile.gd" id="1_vausx"]
 [ext_resource type="Texture2D" uid="uid://73ao4n0v4r80" path="res://art/cards/card-burn-pile.png" id="2_88c44"]
 [ext_resource type="Texture2D" uid="uid://bnn2yexxqpcc6" path="res://art/cards/card-cost-blip-export.png" id="3_38e75"]
 [ext_resource type="Theme" uid="uid://cwx20kgokroqp" path="res://themes/discard_pile.tres" id="3_gode1"]

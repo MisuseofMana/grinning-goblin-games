@@ -1,10 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://dvqw1sdxebro6"]
+[gd_scene load_steps=11 format=3 uid="uid://dvqw1sdxebro6"]
 
 [ext_resource type="PackedScene" uid="uid://cal5vxpxe60ke" path="res://components/unitTargets/card_target_base.tscn" id="1_tt3a3"]
+[ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="2_6c5p5"]
 [ext_resource type="Texture2D" uid="uid://d1wnkmbe14tsv" path="res://art/sprites/goblin/idle-export.png" id="2_gv56u"]
-[ext_resource type="PackedScene" uid="uid://bhprvgdrobyis" path="res://components/cards/variants/enemyCards/goblin/goblin_bite.tscn" id="3_mg7qb"]
-[ext_resource type="PackedScene" uid="uid://ckxf0hrwjv5e0" path="res://components/cards/variants/enemyCards/goblin/call_out.tscn" id="4_25juk"]
-[ext_resource type="PackedScene" uid="uid://b22b6vtmoj6jb" path="res://components/cards/variants/enemyCards/goblin/hands_up.tscn" id="5_i7bdd"]
+[ext_resource type="Resource" uid="uid://dpo6ejbvqaf7j" path="res://components/cards/variants/enemyCards/goblin/hands_up.tres" id="5_qodn8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m3edi"]
 atlas = ExtResource("2_gv56u")
@@ -49,16 +48,17 @@ animations = [{
 "speed": 3.0
 }]
 
-[node name="Goblin" node_paths=PackedStringArray("anims", "deckNode", "healthNode", "statsNode") instance=ExtResource("1_tt3a3")]
+[node name="Goblin" node_paths=PackedStringArray("anims", "healthNode", "statsNode") instance=ExtResource("1_tt3a3")]
 position = Vector2(0, 1)
+enemy_cards = Array[ExtResource("2_6c5p5")]([ExtResource("5_qodn8")])
 anims = NodePath("Animations")
-deckNode = NodePath("DeckNode")
 healthNode = NodePath("HealthNode")
 statsNode = NodePath("StatsNode")
 metadata/_edit_group_ = true
 
 [node name="UnitSprite" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_c6i3k")
+frame = 2
 
 [node name="TwoWayDetection" parent="." index="1"]
 position = Vector2(0, -130)
@@ -74,13 +74,10 @@ endurance = 1
 hit_points = 25
 max_hit_points_base = 25
 
-[node name="DeckNode" parent="." index="5"]
-deck = Array[Resource]([ExtResource("3_mg7qb"), ExtResource("3_mg7qb"), ExtResource("3_mg7qb"), ExtResource("3_mg7qb"), ExtResource("5_i7bdd"), ExtResource("5_i7bdd"), ExtResource("4_25juk")])
-
-[node name="BattleReadout" parent="." index="6" node_paths=PackedStringArray("unit")]
+[node name="BattleReadout" parent="." index="5" node_paths=PackedStringArray("unit")]
 offset_top = -294.5
 offset_bottom = -294.5
 unit = NodePath("..")
 
-[node name="TargetIndicator" parent="." index="7"]
+[node name="TargetIndicator" parent="." index="6"]
 position = Vector2(0, -331.5)

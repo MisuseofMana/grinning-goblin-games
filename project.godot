@@ -12,12 +12,13 @@ config_version=5
 
 config/name="merge-test-game"
 run/main_scene="res://scenes/battle-scene.tscn"
-config/features=PackedStringArray("4.3", "Forward Plus")
+config/features=PackedStringArray("4.4", "Forward Plus")
 
 [autoload]
 
-SaveData="*res://globals/save_data.gd"
 Utilities="*res://globals/Utilities.gd"
+SaveData="*res://globals/save_data.tscn"
+StatMods="*res://globals/stat_modifiers.gd"
 
 [display]
 
