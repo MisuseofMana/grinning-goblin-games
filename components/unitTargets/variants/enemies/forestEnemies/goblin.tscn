@@ -58,7 +58,7 @@ metadata/_edit_group_ = true
 
 [node name="UnitSprite" parent="." index="0"]
 sprite_frames = SubResource("SpriteFrames_c6i3k")
-frame = 2
+frame = 4
 
 [node name="TwoWayDetection" parent="." index="1"]
 position = Vector2(0, -130)

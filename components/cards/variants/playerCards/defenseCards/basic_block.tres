@@ -25,3 +25,4 @@ card_image = ExtResource("3_4hg52")
 card_back = ExtResource("1_mmoji")
 card_front = ExtResource("2_046i6")
 card_effect = ExtResource("2_8k4lx")
+token_type = ""
