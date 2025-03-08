@@ -19,6 +19,7 @@ signal shuffle_discard_to_deck
 func _ready():
 	if deck_pile.is_empty():
 		deck_pile = SaveData.player_deck
+		cardCount.text = str(deck_pile.size())
 		deck_pile.shuffle()
 
 func saveData():
@@ -28,6 +29,7 @@ func saveData():
 func draw_hand_size():
 	if deck_pile.size() < hand_size:
 		shuffle_discard_to_deck.emit()
+		return
 	var drawnHand : Array[CardStats]
 	var replaceDeckWith : Array[CardStats] = deck_pile.duplicate()
 	for n in hand_size:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=33 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://c06k5sgbv2e0l" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" uid="uid://cs076afrwr7ln" path="res://scenes/battle_controller.gd" id="1_tfoca"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://1mhstqa6ghqu" path="res://scenes/accept_button.gd" id="6_3nejl"]
 [ext_resource type="Script" uid="uid://d0lfntgsuidnt" path="res://scenes/enemy_controller.gd" id="7_7drj6"]
 [ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="9_3vtf7"]
+[ext_resource type="Curve" uid="uid://brokqmv226akr" path="res://components/cardUI/battle_arrow.tres" id="9_i728k"]
 [ext_resource type="Texture2D" uid="uid://clv1s8w5roogn" path="res://art/ui/xp_bar.png" id="12_52kwo"]
 [ext_resource type="Script" uid="uid://d0rtwqnbijxof" path="res://scenes/xp_bar.gd" id="13_5jlb7"]
 [ext_resource type="Texture2D" uid="uid://crxrqibwaskm6" path="res://art/ui/xp_bar_dot.png" id="13_65iss"]
@@ -392,6 +393,12 @@ position = Vector2(1352, -36)
 script = ExtResource("16_5f438")
 playerUnit = NodePath("../Sellsword")
 
+[node name="Line2D" type="Line2D" parent="EnemyCardContainer"]
+position = Vector2(55, 76)
+width_curve = ExtResource("9_i728k")
+default_color = Color(0.672305, 1.76881e-06, 6.257e-07, 1)
+joint_mode = 2
+
 [node name="Path2D" type="Path2D" parent="EnemyCardContainer"]
 curve = SubResource("Curve2D_catov")
 
@@ -659,6 +666,8 @@ autoplay = true
 [connection signal="child_exiting_tree" from="EnemyCardContainer/Path2D" to="EnemyCardContainer/Path2D" method="_on_child_exiting_tree"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="Enemies" method="animationSequencer"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="EnemyCardContainer" method="on_animation_finished"]
+[connection signal="end_player_turn" from="CardBattleHud" to="." method="runEnemiesTurn"]
+[connection signal="start_player_turn" from="CardBattleHud" to="." method="runPlayerTurn"]
 [connection signal="pressed" from="EndTurnButton" to="." method="runEnemiesTurn"]
 [connection signal="pressed" from="DebugBar/DebugToggle" to="DebugBar" method="_on_button_pressed"]
 [connection signal="pressed" from="DebugBar/TextureRect/VBoxContainer/Button2" to="CardBattleHud" method="add_random_card_to_hand"]

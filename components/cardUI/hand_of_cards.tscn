@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ds00fm2wg81wp"]
+[gd_scene load_steps=15 format=3 uid="uid://ds00fm2wg81wp"]
 
 [ext_resource type="Script" uid="uid://bpj5b1lx32nio" path="res://components/cardUI/hand_of_cards.gd" id="1_50x24"]
 [ext_resource type="AudioStream" uid="uid://bv2nvqylpp8d3" path="res://audio/Paper_Grab_ShortDuration_01.ogg" id="3_dbsbv"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://doa41q24r2eid" path="res://components/cards/card_base.tscn" id="6_i2kej"]
 [ext_resource type="PackedScene" uid="uid://dnhhuvaiapr8k" path="res://components/cardUI/action_points.tscn" id="8_pqhre"]
 [ext_resource type="PackedScene" uid="uid://c2s4d0va0x5gy" path="res://components/cardUI/deck_pile.tscn" id="9_0vxkf"]
+[ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="9_v1kxx"]
 [ext_resource type="PackedScene" uid="uid://babdevi0twph6" path="res://components/cardUI/discard_pile.tscn" id="10_c4w7l"]
 
 [sub_resource type="Curve2D" id="Curve2D_wguu1"]
@@ -22,12 +23,324 @@ stream_0/stream = ExtResource("3_dbsbv")
 stream_1/stream = ExtResource("4_wc7mt")
 stream_2/stream = ExtResource("5_3h3ci")
 
-[node name="CardBattleHud" type="Node2D" node_paths=PackedStringArray("deckPileNode", "discardPileNode", "actionPointsNode", "addDiscardToDeckSpawnNode")]
+[sub_resource type="Animation" id="Animation_v1kxx"]
+resource_name = "restock_deck"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimateDiscardToDeck/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.804685),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1147, -172), Vector2(647, -430), Vector2(103, -93)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimateDiscardToDeck/Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.397691, 0.4, 0.802359),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.8, 0.8), Vector2(0.8, 0.8), Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimateDiscardToDeck/Sprite2D:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.200008, 0.600025, 0.802359),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimateDiscardToDeck/Sprite2D:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.397691, 0.800034, 0.802359),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.551524, 0.0, -1.09083, -0.541052]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimateDiscardToDeck/Sprite2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.400017, 0.802359),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.39619, 0.0, -0.565487]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimateDiscardToDeck/Sprite2D2:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.0976404, 0.49764, 0.902326),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1147, -172), Vector2(647, -430), Vector2(103, -93)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AnimateDiscardToDeck/Sprite2D2:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.0976404, 0.495332, 0.49764, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.8, 0.8), Vector2(0.8, 0.8), Vector2(0.5, 0.5)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AnimateDiscardToDeck/Sprite2D2:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0.0976404, 0.297649, 0.697666, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AnimateDiscardToDeck/Sprite2D2:skew")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.0976404, 0.495332, 0.897674, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.551524, 0.0, -1.09083, -0.541052]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AnimateDiscardToDeck/Sprite2D2:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.0976404, 0.497657, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.39619, 0.0, -0.565487]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("AnimateDiscardToDeck/Sprite2D3:position")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0.197641, 0.597641, 1.00233),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1147, -172), Vector2(647, -430), Vector2(103, -93)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("AnimateDiscardToDeck/Sprite2D3:scale")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0.197641, 0.595332, 0.597641, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(0.8, 0.8), Vector2(0.8, 0.8), Vector2(0.5, 0.5)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("AnimateDiscardToDeck/Sprite2D3:self_modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0.197641, 0.397649, 0.797666, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("AnimateDiscardToDeck/Sprite2D3:skew")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0.197641, 0.595332, 0.997674, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.551524, 0.0, -1.09083, -0.541052]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("AnimateDiscardToDeck/Sprite2D3:rotation")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0.197641, 0.597657, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.39619, 0.0, -0.565487]
+}
+
+[sub_resource type="Animation" id="Animation_4vtny"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimateDiscardToDeck/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1147, -172)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimateDiscardToDeck/Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, 0.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimateDiscardToDeck/Sprite2D:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimateDiscardToDeck/Sprite2D:skew")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.579449]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AnimateDiscardToDeck/Sprite2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.565487]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AnimateDiscardToDeck/Sprite2D3:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("AnimateDiscardToDeck/Sprite2D3:scale")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("AnimateDiscardToDeck/Sprite2D3:self_modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("AnimateDiscardToDeck/Sprite2D3:skew")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("AnimateDiscardToDeck/Sprite2D3:rotation")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yyals"]
+_data = {
+&"RESET": SubResource("Animation_4vtny"),
+&"restock_deck": SubResource("Animation_v1kxx")
+}
+
+[node name="CardBattleHud" type="Node2D" node_paths=PackedStringArray("deckPileNode", "discardPileNode", "actionPointsNode")]
 script = ExtResource("1_50x24")
 deckPileNode = NodePath("DeckPileReadout")
 discardPileNode = NodePath("DiscardAndBurn")
 actionPointsNode = NodePath("ActionPoints")
-addDiscardToDeckSpawnNode = NodePath("ShuffleDiscardToDeck")
 
 [node name="DeckPileReadout" parent="." instance=ExtResource("9_0vxkf")]
 offset_left = 100.0
@@ -35,12 +348,13 @@ offset_top = -80.0
 offset_right = 100.0
 offset_bottom = -80.0
 
-[node name="DiscardAndBurn" parent="." groups=["SaveNodes"] instance=ExtResource("10_c4w7l")]
+[node name="DiscardAndBurn" parent="." node_paths=PackedStringArray("deck_position") groups=["SaveNodes"] instance=ExtResource("10_c4w7l")]
 offset_left = 1089.0
 offset_top = -264.0
 offset_right = 1339.0
 offset_bottom = 17.0
 scale = Vector2(0.6, 0.6)
+deck_position = NodePath("../DeckLocation")
 
 [node name="ActionPoints" parent="." groups=["SaveNodes"] instance=ExtResource("8_pqhre")]
 offset_left = 95.0
@@ -62,6 +376,37 @@ progress = 260.163
 stream = SubResource("AudioStreamRandomizer_flf2n")
 volume_db = -20.0
 
-[node name="ShuffleDiscardToDeck" type="Node2D" parent="."]
+[node name="DeckLocation" type="Marker2D" parent="."]
+position = Vector2(136, -80)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yyals")
+}
+
+[node name="AnimateDiscardToDeck" type="Node2D" parent="."]
+
+[node name="Sprite2D3" type="Sprite2D" parent="AnimateDiscardToDeck"]
+self_modulate = Color(1, 1, 1, 0)
+texture = ExtResource("9_v1kxx")
+
+[node name="Sprite2D2" type="Sprite2D" parent="AnimateDiscardToDeck"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(103, -93)
+rotation = -0.565487
+scale = Vector2(0.5, 0.5)
+skew = -0.541052
+texture = ExtResource("9_v1kxx")
+
+[node name="Sprite2D" type="Sprite2D" parent="AnimateDiscardToDeck"]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(1147, -172)
+rotation = -0.565487
+scale = Vector2(0.5, 0.5)
+skew = -0.579449
+texture = ExtResource("9_v1kxx")
 
 [connection signal="cards_drawn" from="DeckPileReadout" to="." method="addCardsToHand"]
+[connection signal="shuffle_discard_to_deck" from="DeckPileReadout" to="." method="restock_deck_clear_discard"]
+[connection signal="ran_out_of_ap" from="ActionPoints" to="." method="end_turn"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

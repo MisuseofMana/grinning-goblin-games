@@ -7,17 +7,22 @@ class_name CardBattleHud
 @export var deckPileNode : DeckPile
 @export var discardPileNode: DiscardPile
 @export var actionPointsNode: ActionPoints
-@export var addDiscardToDeckSpawnNode : Node2D
+@onready var deck_location = $DeckLocation
+@onready var anims = $AnimationPlayer
 
 const CARD_BASE = preload("res://components/cards/card_base.tscn")
 
 signal end_player_turn
+signal start_player_turn
 
 func _ready():
 #	clear out the test cards in the arc
 	for arc in card_arc.get_children():
 		card_arc.remove_child(arc)
 		arc.queue_free()
+
+func end_turn():
+	end_player_turn.emit()
 
 func addCardsToHand(cardStats: Array[CardStats]):
 	for statFile in cardStats:
@@ -36,7 +41,6 @@ func addCardsToHand(cardStats: Array[CardStats]):
 	updateAllCardPositions()
 
 func free_card(card : CardComponent):
-	print('freeing card', card)
 	var card_stats = card.card_stats
 	var coercedArray : Array[CardStats]
 	coercedArray.append(card_stats)
@@ -54,8 +58,9 @@ func discardHand():
 	current_hand.reverse()
 	for followPath in current_hand:
 		var cardNode : CardComponent = followPath.get_child(0)
-		await self.get_tree().create_timer(0.2).timeout
+		await self.get_tree().create_timer(0.1).timeout
 		cardNode.discardCard()
+	start_player_turn.emit()
 	
 func isCardUsable(cardStats : CardStats):
 	if cardStats.play_cost > SaveData.action_points:
@@ -106,3 +111,14 @@ func changeCardAvailibilty(cardNode: CardComponent):
 
 func reduce_ap(howMuch: int):
 	actionPointsNode.reduce_ap_by(howMuch)
+
+func restock_deck_clear_discard():
+	anims.play('restock_deck')
+	var newDeck = discardPileNode.discard_pile
+	newDeck.append_array(deckPileNode.deck_pile)
+	deckPileNode.deck_pile = newDeck
+	discardPileNode.discard_pile = []
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == 'restock_deck':
+		deckPileNode.draw_hand_size()

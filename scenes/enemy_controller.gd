@@ -24,7 +24,6 @@ func startEnemiesTurn():
 	if allEnemies.size():
 		animations.clear_queue()
 		var randomCard : CardStats = allEnemies.front().enemy_cards.pick_random()
-		print(allEnemies[0])
 		enemy_card_replaced.emit(randomCard, allEnemies[0])
 	else:
 		all_enemies_turn_over.emit()

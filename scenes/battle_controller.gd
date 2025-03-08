@@ -43,6 +43,9 @@ func _ready():
 func runPlayerUpkeep():
 	runPhase(TurnPhases.PLAYER_UPKEEP)
 
+func runPlayerTurn():
+	runPhase(TurnPhases.START_PLAYERS_TURN)
+
 func runEnemiesTurn():
 	runPhase(TurnPhases.ENEMIES_TURN)
 	
@@ -59,7 +62,7 @@ func runPhase(phase: TurnPhases):
 				monsterNode.position = enemy_markers.get_child(number).position
 				monsterNode.name = 'Enemy_' + str(number)
 				enemies.add_child(monsterNode)
-			runPhase(TurnPhases.START_PLAYERS_TURN)
+			runPlayerTurn()
 		TurnPhases.PLAYER_UPKEEP:
 			card_battle_hud.discardHand()
 #			reduce token values
