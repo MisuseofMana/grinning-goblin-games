@@ -44,26 +44,26 @@ func free_card(card : CardComponent):
 	var card_stats = card.card_stats
 	var coercedArray : Array[CardStats]
 	coercedArray.append(card_stats)
-	if card_stats.is_burn_card:
-		discardPileNode.add_cards_to_burn(coercedArray)
-	else:
-		discardPileNode.add_cards_to_discard(coercedArray)
+	discardPileNode.add_cards_to_discard(coercedArray)
 	for followPath in card_arc.get_children():
 		if followPath.get_child(0) == card:
 			followPath.queue_free()
 	updateAllCardPositions()
 
 func discardHand():
-	var current_hand = card_arc.get_children()
+	var current_hand : Array[PathFollow2D]
+	for followPath in card_arc.get_children():
+		if not followPath.is_queued_for_deletion():
+			current_hand.append(followPath)
 	current_hand.reverse()
-	for followPath in current_hand:
-		var cardNode : CardComponent = followPath.get_child(0)
+	for path in current_hand:
+		var cardNode : CardComponent = path.get_child(0)
 		await self.get_tree().create_timer(0.1).timeout
 		cardNode.discardCard()
 	start_player_turn.emit()
 	
 func isCardUsable(cardStats : CardStats):
-	if cardStats.play_cost > SaveData.action_points:
+	if cardStats.play_cost > actionPointsNode.action_points:
 		return false
 	var canUseAsResponse = not SaveData.players_turn and cardStats.can_use_to_respond
 	var canUseOnTurn = not cardStats.can_use_to_respond and SaveData.players_turn
@@ -71,7 +71,7 @@ func isCardUsable(cardStats : CardStats):
 		
 func checkForValidPlayerActions():
 	var can_play_a_card = false
-	if SaveData.action_points <= 0:
+	if actionPointsNode.action_points <= 0:
 		if SaveData.players_turn:
 			end_player_turn.emit()
 	for followNode in card_arc.get_children():
@@ -88,10 +88,13 @@ func updateAllCardPositions():
 	var pos_incrementer = path_division
 	for followPath in card_arc.get_children():
 		if not followPath.is_queued_for_deletion():
-			paper_sound.play()
-			create_tween().tween_property(followPath, "progress_ratio", path_division, 0.4)
-			create_tween().tween_property(followPath.get_child(0), "scale", Vector2(1,1), 0.4)
-			path_division += pos_incrementer
+			var cardNode : CardComponent = followPath.get_child(0)
+			var draggableNode : MakeCardDraggable = cardNode.make_card_draggable
+			if not draggableNode.is_dragging:
+				paper_sound.play()
+				create_tween().tween_property(followPath, "progress_ratio", path_division, 0.2)
+				create_tween().tween_property(followPath.get_child(0), "scale", Vector2(1,1), 0.2)
+				path_division += pos_incrementer
 
 func changeAllCardAvailability():
 	for followNode in card_arc.get_children():
@@ -101,13 +104,13 @@ func changeAllCardAvailability():
 func changeCardAvailibilty(cardNode: CardComponent):
 	if isCardUsable(cardNode.card_stats):
 		cardNode.modulate = Color(1, 1, 1)
-		cardNode.get_node("MakeCardDraggable").undraggable = false
-		#create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, 0), 0.2)
+		cardNode.make_card_draggable.make_draggable()
+		create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -264), 0.2)
 	else:
 		cardNode.modulate = Color(0.2, 0.2, 0.2)
-		cardNode.get_node("MakeCardDraggable").undraggable = false
+		cardNode.make_card_draggable.make_undraggable()
 		cardNode.z_index = 0
-		#create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, 20), 0.2)
+		create_tween().tween_property(cardNode, "position", Vector2(cardNode.position.x, -240), 0.2)
 
 func reduce_ap(howMuch: int):
 	actionPointsNode.reduce_ap_by(howMuch)

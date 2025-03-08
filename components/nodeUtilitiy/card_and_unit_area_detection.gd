@@ -14,14 +14,23 @@ func drop_spot_is_valid() -> bool:
 		var selfTarget: bool = targetNode.is_friendly and self_owner.card_stats.targets_self
 		var enemyTarget: bool = not targetNode.is_friendly and not self_owner.card_stats.targets_self
 		return selfTarget or enemyTarget
+	if targetNode is CardComponent and self_owner is CardComponent:
+		var canUseOnCard: bool = targetNode.card_stats.accepts_cards
+		var targetAcceptableCards: Array[GDScript] = targetNode.card_stats.accepts_these_card_effects
+		var acceptableCounter: bool = targetAcceptableCards.has(self_owner.card_stats.card_effect)
+		return canUseOnCard and acceptableCounter
 	return false
 	
 # when a new overlap occurs on a unit or a card
 func handle_new_overlap(area : Area2D):
 	overlapping_areas.push_front(area)
+	if self_owner is CardComponent:
+		if self_owner.card_stats.enemy_card:
+			return
 	if drop_spot_is_valid() and self_owner is CardComponent:
 		self_owner.modulate = Color(0, 1, 0)
-		area.target_indicator.show()
+		if area.owner is UnitTarget:
+			area.target_indicator.show()
 	elif not drop_spot_is_valid() and self_owner is CardComponent:
 		self_owner.modulate = Color(1, 0, 0)
 

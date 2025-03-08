@@ -7,6 +7,9 @@ class_name CardStats extends Resource
 @export var can_use_whenever : bool = false
 @export var enemy_card : bool = false
 @export var targets_self : bool = false
+@export var accepts_these_card_effects : Array[GDScript] = [
+	preload("res://components/cards/cardEffects/counter_card.gd")
+]
 
 @export var hide_cost : bool = false
 

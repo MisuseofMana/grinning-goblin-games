@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=6 format=3 uid="uid://bkb0t7chom8cy"]
+
+[ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_4imer"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_6t563"]
+[ext_resource type="Script" uid="uid://dgu2bap6klngv" path="res://components/cards/cardEffects/action_point_card.gd" id="2_frfov"]
+[ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="3_frfov"]
+[ext_resource type="Texture2D" uid="uid://duykgnmv4gut7" path="res://art/cards/card_art/sprint.png" id="4_mutv2"]
+
+[resource]
+script = ExtResource("3_frfov")
+accepts_cards = false
+is_burn_card = true
+can_use_to_respond = false
+can_use_whenever = true
+enemy_card = false
+targets_self = true
+hide_cost = false
+play_cost = 0
+base_value = 1
+primary_stat = "nuance"
+secondary_stat = "endurance"
+card_name = "Sprint"
+description = "Increase action points this turn by %s"
+card_image = ExtResource("4_mutv2")
+card_back = ExtResource("1_4imer")
+card_front = ExtResource("2_6t563")
+card_effect = ExtResource("2_frfov")
+token_type = ""
+metadata/_custom_type_script = "uid://cgj8evdtepa0f"

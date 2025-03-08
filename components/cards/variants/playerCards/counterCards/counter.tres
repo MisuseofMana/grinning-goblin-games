@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardStats" load_steps=6 format=3 uid="uid://c3vnpoq2w08hb"]
+
+[ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_8nej2"]
+[ext_resource type="Script" uid="uid://4tr373bg4gey" path="res://components/cards/cardEffects/counter_card.gd" id="2_12o5m"]
+[ext_resource type="Texture2D" uid="uid://jyht0bycll06" path="res://art/cards/card_art/card-template.png" id="2_i40tk"]
+[ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="3_12o5m"]
+[ext_resource type="Texture2D" uid="uid://uvjgrokppnbb" path="res://art/cards/card_art/counter.png" id="4_fafne"]
+
+[resource]
+script = ExtResource("3_12o5m")
+accepts_cards = false
+is_burn_card = true
+can_use_to_respond = true
+can_use_whenever = false
+enemy_card = false
+targets_self = false
+hide_cost = false
+play_cost = 2
+base_value = 0
+primary_stat = ""
+secondary_stat = ""
+card_name = "Counter"
+description = "Nullify the effect of any enemy card"
+card_image = ExtResource("4_fafne")
+card_back = ExtResource("1_8nej2")
+card_front = ExtResource("2_i40tk")
+card_effect = ExtResource("2_12o5m")
+token_type = ""
+metadata/_custom_type_script = "uid://cgj8evdtepa0f"

@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="CardStats" load_steps=6 format=3 uid="uid://colnrr1ytv31e"]
+[gd_resource type="Resource" script_class="CardStats" load_steps=7 format=3 uid="uid://colnrr1ytv31e"]
 
 [ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_5oxff"]
+[ext_resource type="Script" uid="uid://4tr373bg4gey" path="res://components/cards/cardEffects/counter_card.gd" id="1_n7jpe"]
 [ext_resource type="Script" uid="uid://djcvafa1yto2j" path="res://components/cards/cardEffects/reinforcement_card.gd" id="2_w50yo"]
 [ext_resource type="Texture2D" uid="uid://5safps6tloyu" path="res://art/cards/card_art/enemy-card-template.png" id="3_n7jpe"]
 [ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="3_w50yo"]
@@ -8,12 +9,13 @@
 
 [resource]
 script = ExtResource("3_w50yo")
-accepts_cards = false
+accepts_cards = true
 is_burn_card = false
 can_use_to_respond = false
 can_use_whenever = false
 enemy_card = true
 targets_self = false
+accepts_these_card_effects = Array[GDScript]([ExtResource("1_n7jpe")])
 hide_cost = true
 play_cost = 0
 base_value = 0
@@ -25,4 +27,5 @@ card_image = ExtResource("4_uyw1i")
 card_back = ExtResource("1_5oxff")
 card_front = ExtResource("3_n7jpe")
 card_effect = ExtResource("2_w50yo")
+token_type = ""
 metadata/_custom_type_script = "uid://cgj8evdtepa0f"

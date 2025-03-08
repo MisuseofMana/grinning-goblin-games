@@ -49,6 +49,7 @@ folder_colors={
 
 card_markers="card markers for discard and deck shuffle"
 SaveNodes="all save nodes have a saveData function to call when saving the game"
+action_point_node=""
 
 [gui]
 

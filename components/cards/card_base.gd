@@ -8,6 +8,7 @@ class_name CardComponent
 @onready var cost = $Control/MarginContainer/CostIndicator/Cost
 @onready var anims: AnimationPlayer = $AnimationPlayer
 @onready var detection = $TwoWayDetection/CollisionShape2D
+@onready var twoWayDetection : TwoWayDetection = $TwoWayDetection
 @onready var make_card_draggable = $MakeCardDraggable
 @onready var card_name = $CardDetails/CardName
 @onready var icon_image = $CardDetails/IconImage
@@ -29,10 +30,13 @@ const BURN_BACK = preload("res://art/cards/card-burn-pile.png")
 
 signal cards_sent_to_graveyard(cardNode : CardComponent)
 signal ap_reduced(howMuch: int)
+signal card_countered
 
 func updateCardData():
 	if card_stats.description.contains('%'):
 		description.text = card_stats.description % formatCardStringInterp(false)
+	else:
+		description.text = card_stats.description
 	if card_stats.is_burn_card:
 		cost_indicator.texture = BURN_CARD_BADGE
 	if card_stats.hide_cost:

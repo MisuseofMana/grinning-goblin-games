@@ -411,6 +411,7 @@ loop = false
 grow_horizontal = 1
 grow_vertical = 1
 texture = ExtResource("9_3vtf7")
+card_is_draggable = false
 
 [node name="Evaporate" type="GPUParticles2D" parent="EnemyCardContainer/Path2D/PathFollow2D"]
 z_index = 100
@@ -664,6 +665,7 @@ autoplay = true
 [connection signal="show_accept_button" from="Enemies" to="AcceptButton2" method="_show_self"]
 [connection signal="show_accept_button" from="EnemyCardContainer" to="AcceptButton2" method="_show_self"]
 [connection signal="child_exiting_tree" from="EnemyCardContainer/Path2D" to="EnemyCardContainer/Path2D" method="_on_child_exiting_tree"]
+[connection signal="card_countered" from="EnemyCardContainer/Path2D/PathFollow2D/Card" to="EnemyCardContainer" method="counter_card"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="Enemies" method="animationSequencer"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="EnemyCardContainer" method="on_animation_finished"]
 [connection signal="end_player_turn" from="CardBattleHud" to="." method="runEnemiesTurn"]

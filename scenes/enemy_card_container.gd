@@ -12,24 +12,35 @@ const CARD_BASE = preload("res://components/cards/card_base.tscn")
 signal card_effect_finished()
 signal show_accept_button()
 
+func _ready():
+	card.make_card_draggable.queue_free()
+	card.mouse_default_cursor_shape = Control.CURSOR_ARROW
+
 func onCardAccept():
 	if card.card_stats.targets_self:
 		card.effect_node._run_card_effect(card.card_owner)
 	else:
 		card.effect_node._run_card_effect(playerUnit)
 	anims.play('evaporate')
+	line_2d.hide()
+	
+func counter_card():
+	anims.play('evaporate')
+	line_2d.hide()
 	
 func replace_card(cardStats: CardStats, newOwner: UnitTarget):
 	card.card_owner = newOwner
 	card.card_stats = cardStats
 	card.updateCardData.call_deferred()
 	anims.play('RESET')
+	card.twoWayDetection.disableTargeting()
 	line_2d.clear_points()
 	line_2d.hide()
 	anims.play("fly_in")
 	
 func on_animation_finished(anim_name):
 	if anim_name == 'fly_in':
+		card.twoWayDetection.enableTargeting()
 		var startPosition = Vector2(-767.0, 182.0)
 		var endPosition = (card.card_owner.global_position - line_2d.global_position) - Vector2(0, 96)
 		line_2d.show()
@@ -40,6 +51,7 @@ func on_animation_finished(anim_name):
 		line_2d.add_point(startPosition.lerp(endPosition, 0.9))
 		line_2d.add_point(endPosition)
 		show_accept_button.emit()
+		card.twoWayDetection.enableTargeting()
+		
 	if anim_name == 'evaporate':
-		line_2d.hide()
 		card_effect_finished.emit()

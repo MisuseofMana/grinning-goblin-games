@@ -81,3 +81,5 @@ unit = NodePath("..")
 
 [node name="TargetIndicator" parent="." index="6"]
 position = Vector2(0, -331.5)
+
+[connection signal="animation_finished" from="Animations" to="." method="_on_animations_animation_finished"]

@@ -8,6 +8,7 @@ class_name BattleScene
 @onready var turn_change_sound = $Sounds/TurnChangeSound
 @onready var anims = $FlavorAssets/AnimationPlayer
 @onready var enemy_markers = $EnemyMarkers
+@onready var end_turn_button = $EndTurnButton
 
 @export var stage_background = Texture2D
 @export var player : UnitTarget
@@ -67,12 +68,14 @@ func runPhase(phase: TurnPhases):
 			card_battle_hud.discardHand()
 #			reduce token values
 		TurnPhases.START_PLAYERS_TURN:
+			end_turn_button.disabled = false
 			showTurnSwap("Your Turn")
 			SaveData.players_turn = true
 			card_battle_hud.actionPointsNode.refresh_action_points()
 			card_battle_hud.deckPileNode.draw_hand_size()
 			card_battle_hud.changeAllCardAvailability()
 		TurnPhases.ENEMIES_TURN:
+			end_turn_button.disabled = true
 			showTurnSwap("Enemy Turn")
 			SaveData.players_turn = false
 			card_battle_hud.changeAllCardAvailability()

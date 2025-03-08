@@ -42,7 +42,7 @@ func die():
 	if is_player:
 		print('game over')
 	else:
-		anims.play('death_animation')
+		anims.play('die')
 		
 func takeDamage(howMuch):
 	healthNode.take_damage(howMuch)
@@ -59,4 +59,7 @@ func disableTargeting():
 
 func enableTargeting():
 	collision.disabled = false
-	
+
+func _on_animations_animation_finished(anim_name):
+	if anim_name == 'die':
+		queue_free()

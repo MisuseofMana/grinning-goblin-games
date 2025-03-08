@@ -45,7 +45,7 @@ func _mouse_input_on_parent(event: InputEvent):
 				parent.burnCard()
 			else:
 				parent.discardCard()
-		else:
+		elif not undraggable:
 			returnCardToOrigin()
 
 func returnCardToOrigin():
@@ -69,3 +69,9 @@ func _on_mouse_exited():
 	if not is_dragging and not undraggable:
 		parent.z_index = 0
 		create_tween().tween_property(parent, "scale", parentScale, SPEED)
+
+func make_undraggable():
+	undraggable = true
+	
+func make_draggable():
+	undraggable = false
