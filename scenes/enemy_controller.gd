@@ -8,7 +8,7 @@ var allEnemies : Array[Node]
 signal show_accept_button()
 signal all_enemies_turn_over()
 signal all_enemies_died()
-signal enemy_card_replaced(card: Resource, newOwner: UnitTarget)
+signal enemy_card_replaced(card: Resource, newOwner: BattleUnit)
 
 func _ready():
 #	remove testing enemies from enemies node

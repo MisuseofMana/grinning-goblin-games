@@ -20,9 +20,9 @@ extends Node
 @export var hand_size: int = 5
 
 @export_group('Battle Scene Units')
-@export var playerUnit : UnitTarget
-@export var friendlyUnits : Array[UnitTarget]
-@export var enemyUnits : Array[UnitTarget]
+@export var playerUnit : BattleUnit
+@export var friendlyUnits : Array[BattleUnit]
+@export var enemyUnits : Array[BattleUnit]
 
 @export_group('Player Stats')
 @export_subgroup('Main Stats')

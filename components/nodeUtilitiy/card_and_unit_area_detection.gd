@@ -10,10 +10,10 @@ func drop_spot_is_valid() -> bool:
 	if overlapping_areas.is_empty():
 		return false
 	var targetNode = overlapping_areas.front().owner
-	if targetNode is UnitTarget and self_owner is CardComponent:
-		var selfTarget: bool = targetNode.is_friendly and self_owner.card_stats.targets_self
-		var enemyTarget: bool = not targetNode.is_friendly and not self_owner.card_stats.targets_self
-		return selfTarget or enemyTarget
+	if targetNode is BattleUnit and self_owner is CardComponent:
+		var unit : BattleUnit = targetNode
+		return self_owner.card_stats.targets_self and unit.targeting_info.is_ally
+		return not self_owner.card_stats.targets_self
 	if targetNode is CardComponent and self_owner is CardComponent:
 		var canUseOnCard: bool = targetNode.card_stats.accepts_cards
 		var targetAcceptableCards: Array[GDScript] = targetNode.card_stats.accepts_these_card_effects
@@ -29,7 +29,7 @@ func handle_new_overlap(area : Area2D):
 			return
 	if drop_spot_is_valid() and self_owner is CardComponent:
 		self_owner.modulate = Color(0, 1, 0)
-		if area.owner is UnitTarget:
+		if area.owner is BattleUnit:
 			area.target_indicator.show()
 	elif not drop_spot_is_valid() and self_owner is CardComponent:
 		self_owner.modulate = Color(1, 0, 0)
@@ -37,7 +37,7 @@ func handle_new_overlap(area : Area2D):
 # when a card is removed from a unit or an enemy card
 func handle_remove_overlap(area : Area2D):
 	overlapping_areas.erase(area)
-	if area.owner is UnitTarget:
+	if area.owner is BattleUnit:
 		area.target_indicator.hide()
 	if overlapping_areas.is_empty() and self_owner is CardComponent:
 		self_owner.modulate = Color(1, 1, 1)

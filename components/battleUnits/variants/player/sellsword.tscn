@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bis2lgakdc4xp"]
+
+[ext_resource type="PackedScene" uid="uid://c2hqb2tsovfp" path="res://components/battleUnits/base_unit.tscn" id="1_aypqt"]
+
+[node name="BaseUnit" instance=ExtResource("1_aypqt")]
+
+[node name="TargetingInfo" parent="." index="2"]
+is_ally = true
+
+[node name="StatsNode" parent="." index="4"]
+muscle = 3
+finesse = 2
+endurance = 2
+knowledge = 1
+nuance = 1
+
+[node name="HealthNode" parent="." index="5"]
+hit_points = 30
+max_hit_points_base = 30

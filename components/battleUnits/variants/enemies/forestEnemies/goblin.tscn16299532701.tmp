@@ -1,0 +1,69 @@
+[gd_scene load_steps=13 format=3 uid="uid://bsrcfogl7fnkn"]
+
+[ext_resource type="PackedScene" uid="uid://be7x0e4jlh4b5" path="res://components/unitTargets/enemy_unit.tscn" id="1_l6ybh"]
+[ext_resource type="Texture2D" uid="uid://d1wnkmbe14tsv" path="res://art/sprites/goblin/idle-export.png" id="2_u3wmn"]
+[ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="3_6qgtt"]
+[ext_resource type="Resource" uid="uid://colnrr1ytv31e" path="res://components/cards/variants/enemyCards/goblin/call_out.tres" id="4_j5wy2"]
+[ext_resource type="Resource" uid="uid://dpo6ejbvqaf7j" path="res://components/cards/variants/enemyCards/goblin/hands_up.tres" id="5_ynaa4"]
+[ext_resource type="Resource" uid="uid://ctes2ut6kwa3c" path="res://components/cards/variants/enemyCards/goblin/nasty_bite.tres" id="6_opbrr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81fa7"]
+atlas = ExtResource("2_u3wmn")
+region = Rect2(0, 0, 172, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rf0of"]
+atlas = ExtResource("2_u3wmn")
+region = Rect2(172, 0, 172, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syj2n"]
+atlas = ExtResource("2_u3wmn")
+region = Rect2(344, 0, 172, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1dtq"]
+atlas = ExtResource("2_u3wmn")
+region = Rect2(516, 0, 172, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qgtt"]
+atlas = ExtResource("2_u3wmn")
+region = Rect2(688, 0, 172, 224)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_j5wy2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81fa7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rf0of")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_syj2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1dtq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qgtt")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="EnemyUnit" instance=ExtResource("1_l6ybh")]
+enemy_cards = Array[ExtResource("3_6qgtt")]([ExtResource("4_j5wy2"), ExtResource("6_opbrr"), ExtResource("6_opbrr"), ExtResource("6_opbrr"), ExtResource("6_opbrr"), ExtResource("6_opbrr"), ExtResource("5_ynaa4"), ExtResource("5_ynaa4")])
+
+[node name="UnitSprite" parent="." index="0"]
+position = Vector2(0, 3)
+sprite_frames = SubResource("SpriteFrames_j5wy2")
+frame = 1
+
+[node name="TwoWayDetection" parent="." index="1"]
+position = Vector2(0, -110)
+
+[node name="BattleReadout" parent="." index="4"]
+offset_top = -302.5
+offset_bottom = -302.5
+
+[node name="TargetIndicator" parent="." index="5"]
+position = Vector2(1, -344.5)

@@ -15,7 +15,7 @@ class_name CardComponent
 
 @onready var effect_node = $CardEffect
 
-var card_owner : UnitTarget
+var card_owner = null
 @export var card_stats: CardStats :
 	set(newValue):
 		card_stats = newValue

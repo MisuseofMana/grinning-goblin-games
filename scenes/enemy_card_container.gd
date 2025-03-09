@@ -2,7 +2,7 @@ extends Node2D
 class_name EnemyCardContainer
 
 @onready var anims = $EnemyCardAnimations
-@export var playerUnit : UnitTarget
+@export var playerUnit : BattleUnit
 @onready var path_follow_2d = $Path2D/PathFollow2D
 @onready var card : CardComponent = $Path2D/PathFollow2D/Card
 @onready var line_2d = $Line2D
@@ -28,7 +28,7 @@ func counter_card():
 	anims.play('evaporate')
 	line_2d.hide()
 	
-func replace_card(cardStats: CardStats, newOwner: UnitTarget):
+func replace_card(cardStats: CardStats, newOwner: BattleUnit):
 	card.card_owner = newOwner
 	card.card_stats = cardStats
 	card.updateCardData.call_deferred()

@@ -35,6 +35,5 @@ func heal(value):
 
 func check_alive():
 	if hit_points <= 0:
-		print('unit died')
 		died.emit()
 	

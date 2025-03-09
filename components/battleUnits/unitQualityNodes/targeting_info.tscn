@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b07ledoie8k1i"]
+
+[ext_resource type="Script" uid="uid://dcqh1o1lfogc2" path="res://components/battleUnits/unitQualityNodes/targeting_info.gd" id="1_fumq7"]
+
+[node name="TargetingInfo" type="Node"]
+script = ExtResource("1_fumq7")

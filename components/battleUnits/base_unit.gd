@@ -1,12 +1,9 @@
-@tool
-@icon("res://icons/UnitSprite.svg")
-extends Node2D
-class_name UnitTarget
+extends Node
+class_name BattleUnit
 
 @onready var collision = $TwoWayDetection/CollisionShape2D
 @onready var unit_sprite = $UnitSprite
 @onready var battle_readout = $BattleReadout
-@export var enemy_cards : Array[CardStats] = []
 
 @export var anims : AnimationPlayer:
 	set(newValue):
@@ -31,28 +28,15 @@ func _get_configuration_warnings():
 		errors.append("Anims export must be assigned.")
 	return errors
 
-@export_group("Target Info")
-@export var is_friendly : bool = false
-@export var is_player : bool = false
-
-func _ready():
-	unit_sprite.frame = randi_range(0, unit_sprite.sprite_frames.get_frame_count("idle") - 1)
-
 func die():
-	if is_player:
-		print('game over')
-	else:
-		anims.play('die')
+	anims.play('die')
+	print_debug('game over')
 		
 func takeDamage(howMuch):
 	healthNode.take_damage(howMuch)
 	
 func addToHealth(howMuch):
 	healthNode.heal(howMuch)
-	
-func take_turn():
-	print('take_turn is not overwritten')
-	pass
 
 func disableTargeting():
 	collision.disabled = true

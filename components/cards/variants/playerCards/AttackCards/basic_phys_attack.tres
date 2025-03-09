@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CardStats" load_steps=6 format=3 uid="uid://cmmmmjanqx3o7"]
+[gd_resource type="Resource" script_class="CardStats" load_steps=7 format=3 uid="uid://cmmmmjanqx3o7"]
 
+[ext_resource type="Script" uid="uid://4tr373bg4gey" path="res://components/cards/cardEffects/counter_card.gd" id="1_4i4si"]
 [ext_resource type="Texture2D" uid="uid://b0yb8ew7qf878" path="res://art/cards/card-template-back.png" id="1_cj61q"]
 [ext_resource type="Texture2D" uid="uid://c6hlptlrrjsu6" path="res://art/cards/card_art/basic_attack.png" id="1_nydrl"]
 [ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="1_w0g5h"]
@@ -14,6 +15,7 @@ can_use_to_respond = false
 can_use_whenever = false
 enemy_card = false
 targets_self = false
+accepts_these_card_effects = Array[GDScript]([ExtResource("1_4i4si")])
 hide_cost = false
 play_cost = 1
 base_value = 3

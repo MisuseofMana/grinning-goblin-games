@@ -1,0 +1,81 @@
+[gd_scene load_steps=13 format=3 uid="uid://ddoubywvi8u5t"]
+
+[ext_resource type="PackedScene" uid="uid://c2hqb2tsovfp" path="res://components/battleUnits/base_unit.tscn" id="1_d5vy6"]
+[ext_resource type="Texture2D" uid="uid://d1wnkmbe14tsv" path="res://art/sprites/goblin/idle-export.png" id="2_u3wmn"]
+[ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="3_knrgs"]
+[ext_resource type="Resource" uid="uid://colnrr1ytv31e" path="res://components/cards/variants/enemyCards/goblin/call_out.tres" id="4_smmys"]
+[ext_resource type="Resource" uid="uid://dpo6ejbvqaf7j" path="res://components/cards/variants/enemyCards/goblin/hands_up.tres" id="5_mvljq"]
+[ext_resource type="Resource" uid="uid://ctes2ut6kwa3c" path="res://components/cards/variants/enemyCards/goblin/nasty_bite.tres" id="6_knvep"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3tdd"]
+atlas = ExtResource("2_u3wmn")
+region = Rect2(0, 0, 172, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knrgs"]
+atlas = ExtResource("2_u3wmn")
+region = Rect2(172, 0, 172, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fuqy3"]
+atlas = ExtResource("2_u3wmn")
+region = Rect2(344, 0, 172, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75bhn"]
+atlas = ExtResource("2_u3wmn")
+region = Rect2(516, 0, 172, 224)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smmys"]
+atlas = ExtResource("2_u3wmn")
+region = Rect2(688, 0, 172, 224)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mvljq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3tdd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knrgs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fuqy3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75bhn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smmys")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="BaseUnit" instance=ExtResource("1_d5vy6")]
+
+[node name="UnitSprite" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_mvljq")
+frame = 3
+frame_progress = 0.179741
+offset = Vector2(0, -113)
+
+[node name="TwoWayDetection" parent="." index="1"]
+position = Vector2(0, -104)
+
+[node name="DeckNode" parent="." index="3"]
+deck = Array[ExtResource("3_knrgs")]([ExtResource("4_smmys"), ExtResource("5_mvljq"), ExtResource("6_knvep"), ExtResource("6_knvep"), ExtResource("6_knvep"), ExtResource("6_knvep"), ExtResource("6_knvep"), ExtResource("5_mvljq")])
+
+[node name="StatsNode" parent="." index="4"]
+muscle = 2
+finesse = 1
+endurance = 1
+
+[node name="HealthNode" parent="." index="5"]
+hit_points = 20
+max_hit_points_base = 20
+
+[node name="BattleReadout" parent="." index="6"]
+offset_top = -288.5
+offset_bottom = -288.5
+
+[node name="TargetIndicator" parent="." index="7"]
+position = Vector2(1, -325)

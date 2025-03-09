@@ -11,7 +11,7 @@ class_name BattleScene
 @onready var end_turn_button = $EndTurnButton
 
 @export var stage_background = Texture2D
-@export var player : UnitTarget
+@export var player : BattleUnit
 @export var card_battle_hud : CardBattleHud
 @export var enemy_logic : EnemyController
 	
@@ -26,7 +26,7 @@ var currentLocation = Locations.FOREST
 
 var monsters : Dictionary = {
 	Locations.FOREST: [
-		preload("res://components/unitTargets/variants/enemies/forestEnemies/goblin.tscn"),
+		preload("res://components/battleUnits/variants/enemies/forestEnemies/goblin.tscn")
 	]
 }
 

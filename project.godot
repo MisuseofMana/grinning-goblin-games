@@ -36,11 +36,11 @@ window/canvas_textures/default_texture_filter=0
 folder_colors={
 "res://art/": "yellow",
 "res://audio/": "pink",
+"res://components/battleUnits/": "green",
 "res://components/cardUI/": "teal",
 "res://components/cards/": "red",
 "res://components/deckManagement/": "gray",
 "res://components/tokens/": "purple",
-"res://components/unitTargets/": "green",
 "res://icons/": "gray",
 "res://scenes/": "teal"
 }
@@ -50,9 +50,11 @@ folder_colors={
 card_markers="card markers for discard and deck shuffle"
 SaveNodes="all save nodes have a saveData function to call when saving the game"
 action_point_node=""
+battle_unit=""
 
 [gui]
 
+timers/tooltip_delay_sec=0.01
 theme/custom_font="res://fonts/m5x7.ttf"
 theme/default_font_antialiasing=0
 

@@ -1,5 +1,5 @@
 extends CardEffect
 class_name DamagingCard
 
-func _run_card_effect(target: UnitTarget):
+func _run_card_effect(target: BattleUnit):
 	target.takeDamage(card.calculate_adj_value())

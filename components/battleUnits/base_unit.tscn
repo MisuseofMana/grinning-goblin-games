@@ -1,32 +1,93 @@
-[gd_scene load_steps=22 format=3 uid="uid://cal5vxpxe60ke"]
+[gd_scene load_steps=29 format=3 uid="uid://c2hqb2tsovfp"]
 
-[ext_resource type="Texture2D" uid="uid://bqxwsimjepqco" path="res://art/sprites/player/idle2.png" id="1_4s0l1"]
-[ext_resource type="Script" uid="uid://u88ltgr4n1i5" path="res://components/unitTargets/card_target_base.gd" id="2_4j76e"]
-[ext_resource type="PackedScene" uid="uid://bi6cus3fyu7ux" path="res://components/unitTargets/unitQualityNodes/modifiers_node.tscn" id="3_xemqb"]
-[ext_resource type="PackedScene" uid="uid://ctud24sf1fqks" path="res://components/unitTargets/unitQualityNodes/stats_node.tscn" id="4_ln02t"]
-[ext_resource type="PackedScene" uid="uid://0pyqt38pl3f4" path="res://components/unitTargets/unitQualityNodes/health_node.tscn" id="5_60liw"]
-[ext_resource type="PackedScene" uid="uid://bx3b6tvvx5et5" path="res://components/unitTargets/unitQualityNodes/battle_readout.tscn" id="7_1kfwm"]
-[ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/nodeUtilitiy/card_and_unit_area_detection.tscn" id="8_dyn65"]
-[ext_resource type="PackedScene" uid="uid://34o105ivvj6t" path="res://target_indicator.tscn" id="9_s430e"]
+[ext_resource type="Texture2D" uid="uid://bqxwsimjepqco" path="res://art/sprites/player/idle2.png" id="2_v0o8h"]
+[ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/nodeUtilitiy/card_and_unit_area_detection.tscn" id="3_wnbvb"]
+[ext_resource type="PackedScene" uid="uid://b07ledoie8k1i" path="res://components/battleUnits/unitQualityNodes/targeting_info.tscn" id="4_4eegx"]
+[ext_resource type="PackedScene" uid="uid://ctud24sf1fqks" path="res://components/battleUnits/unitQualityNodes/stats_node.tscn" id="4_31qkj"]
+[ext_resource type="PackedScene" uid="uid://b0spuyowpthca" path="res://components/battleUnits/unitQualityNodes/deck_node.tscn" id="5_j73cx"]
+[ext_resource type="PackedScene" uid="uid://0pyqt38pl3f4" path="res://components/battleUnits/unitQualityNodes/health_node.tscn" id="5_nkcy5"]
+[ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="6_c0rjg"]
+[ext_resource type="PackedScene" uid="uid://bx3b6tvvx5et5" path="res://components/battleUnits/unitQualityNodes/battle_readout.tscn" id="6_wnq18"]
+[ext_resource type="Resource" uid="uid://cmmmmjanqx3o7" path="res://components/cards/variants/playerCards/attackCards/basic_phys_attack.tres" id="7_3ll38"]
+[ext_resource type="PackedScene" uid="uid://34o105ivvj6t" path="res://target_indicator.tscn" id="7_lccwm"]
+[ext_resource type="Resource" uid="uid://c3vnpoq2w08hb" path="res://components/cards/variants/playerCards/counterCards/counter.tres" id="8_bupjl"]
+[ext_resource type="Resource" uid="uid://dc4nstyf84g13" path="res://components/cards/variants/playerCards/healCards/basic_heal.tres" id="9_2w50y"]
+[ext_resource type="Resource" uid="uid://bkb0t7chom8cy" path="res://components/cards/variants/playerCards/actionPointCards/sprint.tres" id="10_ughwb"]
+[ext_resource type="Resource" uid="uid://bjfjr11njgg34" path="res://components/cards/variants/playerCards/defenseCards/basic_block.tres" id="11_yyo6i"]
+
+[sub_resource type="GDScript" id="GDScript_e6b24"]
+script/source = "@tool
+@icon(\"res://icons/UnitSprite.svg\")
+extends Node2D
+class_name PlayerUnit
+
+@onready var collision = $TwoWayDetection/CollisionShape2D
+@onready var unit_sprite = $UnitSprite
+@onready var battle_readout = $BattleReadout
+@onready var targeting_info = $TargetingInfo
+
+@export var anims : AnimationPlayer:
+	set(newValue):
+		anims = newValue
+		update_configuration_warnings()
+@export var healthNode : HealthNode :
+	set(newValue):
+		healthNode = newValue
+		update_configuration_warnings()
+@export var statsNode : StatsNode :
+	set(newValue):
+		statsNode = newValue
+		update_configuration_warnings()
+
+func _get_configuration_warnings():
+	var errors : Array[String] = []
+	if not healthNode:
+		errors.append(\"HealthNode export must be assigned.\")
+	if not statsNode:
+		errors.append(\"StatsNode export must be assigned.\")
+	if not anims:
+		errors.append(\"Anims export must be assigned.\")
+	return errors
+
+func die():
+	anims.play('die')
+	print_debug('game over')
+		
+func takeDamage(howMuch):
+	healthNode.take_damage(howMuch)
+	
+func addToHealth(howMuch):
+	healthNode.heal(howMuch)
+
+func disableTargeting():
+	collision.disabled = true
+
+func enableTargeting():
+	collision.disabled = false
+
+func _on_animations_animation_finished(anim_name):
+	if anim_name == 'die':
+		queue_free()
+"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nte8v"]
-atlas = ExtResource("1_4s0l1")
+atlas = ExtResource("2_v0o8h")
 region = Rect2(0, 0, 112, 252)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m766r"]
-atlas = ExtResource("1_4s0l1")
+atlas = ExtResource("2_v0o8h")
 region = Rect2(112, 0, 112, 252)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_31wrc"]
-atlas = ExtResource("1_4s0l1")
+atlas = ExtResource("2_v0o8h")
 region = Rect2(224, 0, 112, 252)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rkm38"]
-atlas = ExtResource("1_4s0l1")
+atlas = ExtResource("2_v0o8h")
 region = Rect2(336, 0, 112, 252)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pfxog"]
-atlas = ExtResource("1_4s0l1")
+atlas = ExtResource("2_v0o8h")
 region = Rect2(448, 0, 112, 252)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_urjdb"]
@@ -106,19 +167,19 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath(".:offset")
+tracks/2/path = NodePath("../TwoWayDetection/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, -126)]
+"update": 1,
+"values": [false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../TwoWayDetection/CollisionShape2D:disabled")
+tracks/3/path = NodePath("../UnitParticles:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -130,22 +191,10 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../UnitParticles:emitting")
+tracks/4/path = NodePath("../BattleReadout:self_modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("../BattleReadout:self_modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -170,19 +219,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:offset")
+tracks/1/path = NodePath("../TwoWayDetection/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.2, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, -126), Vector2(0, -378)]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../TwoWayDetection/CollisionShape2D:disabled")
+tracks/2/path = NodePath("../UnitParticles:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -194,22 +243,10 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../UnitParticles:emitting")
+tracks/3/path = NodePath("../BattleReadout:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("../BattleReadout:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
 "times": PackedFloat32Array(0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -256,17 +293,20 @@ _data = {
 &"take_damage": SubResource("Animation_lq4h6")
 }
 
-[node name="CardTarget" type="Node2D"]
-script = ExtResource("2_4j76e")
+[node name="BaseUnit" type="Node2D" node_paths=PackedStringArray("anims", "healthNode", "statsNode") groups=["battle_unit"]]
+script = SubResource("GDScript_e6b24")
+anims = NodePath("Animations")
+healthNode = NodePath("HealthNode")
+statsNode = NodePath("StatsNode")
 
 [node name="UnitSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_urjdb")
 animation = &"idle"
 autoplay = "idle"
-frame = 3
+frame = 4
 offset = Vector2(0, -126)
 
-[node name="TwoWayDetection" parent="." node_paths=PackedStringArray("target_indicator") groups=["player_hitbox"] instance=ExtResource("8_dyn65")]
+[node name="TwoWayDetection" parent="." node_paths=PackedStringArray("target_indicator") groups=["player_hitbox"] instance=ExtResource("3_wnbvb")]
 position = Vector2(0, -129)
 target_indicator = NodePath("../TargetIndicator")
 metadata/_edit_group_ = true
@@ -274,15 +314,17 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TwoWayDetection"]
 shape = SubResource("CapsuleShape2D_238uk")
 
-[node name="Modifiers" parent="." instance=ExtResource("3_xemqb")]
+[node name="TargetingInfo" parent="." instance=ExtResource("4_4eegx")]
 
-[node name="StatsNode" parent="." instance=ExtResource("4_ln02t")]
+[node name="DeckNode" parent="." instance=ExtResource("5_j73cx")]
+deck = Array[ExtResource("6_c0rjg")]([ExtResource("7_3ll38"), ExtResource("8_bupjl"), ExtResource("9_2w50y"), ExtResource("10_ughwb"), ExtResource("11_yyo6i"), ExtResource("7_3ll38"), ExtResource("7_3ll38"), ExtResource("11_yyo6i"), ExtResource("9_2w50y"), ExtResource("7_3ll38"), ExtResource("10_ughwb")])
 
-[node name="HealthNode" parent="." node_paths=PackedStringArray("statsNode", "modifiers") instance=ExtResource("5_60liw")]
+[node name="StatsNode" parent="." instance=ExtResource("4_31qkj")]
+
+[node name="HealthNode" parent="." node_paths=PackedStringArray("statsNode") instance=ExtResource("5_nkcy5")]
 statsNode = NodePath("../StatsNode")
-modifiers = NodePath("../Modifiers")
 
-[node name="BattleReadout" parent="." node_paths=PackedStringArray("statsNode", "healthNode") instance=ExtResource("7_1kfwm")]
+[node name="BattleReadout" parent="." node_paths=PackedStringArray("statsNode", "healthNode") instance=ExtResource("6_wnq18")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -297,22 +339,22 @@ grow_vertical = 2
 statsNode = NodePath("../StatsNode")
 healthNode = NodePath("../HealthNode")
 
-[node name="TargetIndicator" parent="." instance=ExtResource("9_s430e")]
+[node name="TargetIndicator" parent="." instance=ExtResource("7_lccwm")]
 position = Vector2(5, -355.5)
 
 [node name="UnitParticles" type="GPUParticles2D" parent="."]
 scale = Vector2(0.336442, 1e-05)
 emitting = false
 amount = 100
-process_material = SubResource("ParticleProcessMaterial_ab5fk")
 one_shot = true
 explosiveness = 0.5
 randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_ab5fk")
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 root_node = NodePath("../UnitSprite")
 libraries = {
-"": SubResource("AnimationLibrary_273pk")
+&"": SubResource("AnimationLibrary_273pk")
 }
 
 [connection signal="health_updated" from="HealthNode" to="BattleReadout" method="update_readout"]

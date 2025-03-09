@@ -12,7 +12,7 @@ func _ready():
 	hide()
 
 func run_token_effect():
-	var unit: UnitTarget = owner.unit
+	var unit = owner.unit
 	unit.takeDamage(tokenValue)
 
 func reduce_token_value():
