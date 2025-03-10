@@ -1,5 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://c2hqb2tsovfp"]
 
+[ext_resource type="Script" uid="uid://ckqgcrpyfv62a" path="res://components/battleUnits/base_unit.gd" id="1_c0rjg"]
 [ext_resource type="Texture2D" uid="uid://bqxwsimjepqco" path="res://art/sprites/player/idle2.png" id="2_v0o8h"]
 [ext_resource type="PackedScene" uid="uid://fkpnfc8tmhkj" path="res://components/nodeUtilitiy/card_and_unit_area_detection.tscn" id="3_wnbvb"]
 [ext_resource type="PackedScene" uid="uid://b07ledoie8k1i" path="res://components/battleUnits/unitQualityNodes/targeting_info.tscn" id="4_4eegx"]
@@ -8,67 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://0pyqt38pl3f4" path="res://components/battleUnits/unitQualityNodes/health_node.tscn" id="5_nkcy5"]
 [ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="6_c0rjg"]
 [ext_resource type="PackedScene" uid="uid://bx3b6tvvx5et5" path="res://components/battleUnits/unitQualityNodes/battle_readout.tscn" id="6_wnq18"]
-[ext_resource type="Resource" uid="uid://cmmmmjanqx3o7" path="res://components/cards/variants/playerCards/attackCards/basic_phys_attack.tres" id="7_3ll38"]
+[ext_resource type="Resource" uid="uid://cmmmmjanqx3o7" path="res://components/cards/variants/playerCards/AttackCards/basic_phys_attack.tres" id="7_3ll38"]
 [ext_resource type="PackedScene" uid="uid://34o105ivvj6t" path="res://target_indicator.tscn" id="7_lccwm"]
 [ext_resource type="Resource" uid="uid://c3vnpoq2w08hb" path="res://components/cards/variants/playerCards/counterCards/counter.tres" id="8_bupjl"]
 [ext_resource type="Resource" uid="uid://dc4nstyf84g13" path="res://components/cards/variants/playerCards/healCards/basic_heal.tres" id="9_2w50y"]
 [ext_resource type="Resource" uid="uid://bkb0t7chom8cy" path="res://components/cards/variants/playerCards/actionPointCards/sprint.tres" id="10_ughwb"]
 [ext_resource type="Resource" uid="uid://bjfjr11njgg34" path="res://components/cards/variants/playerCards/defenseCards/basic_block.tres" id="11_yyo6i"]
-
-[sub_resource type="GDScript" id="GDScript_e6b24"]
-script/source = "@tool
-@icon(\"res://icons/UnitSprite.svg\")
-extends Node2D
-class_name PlayerUnit
-
-@onready var collision = $TwoWayDetection/CollisionShape2D
-@onready var unit_sprite = $UnitSprite
-@onready var battle_readout = $BattleReadout
-@onready var targeting_info = $TargetingInfo
-
-@export var anims : AnimationPlayer:
-	set(newValue):
-		anims = newValue
-		update_configuration_warnings()
-@export var healthNode : HealthNode :
-	set(newValue):
-		healthNode = newValue
-		update_configuration_warnings()
-@export var statsNode : StatsNode :
-	set(newValue):
-		statsNode = newValue
-		update_configuration_warnings()
-
-func _get_configuration_warnings():
-	var errors : Array[String] = []
-	if not healthNode:
-		errors.append(\"HealthNode export must be assigned.\")
-	if not statsNode:
-		errors.append(\"StatsNode export must be assigned.\")
-	if not anims:
-		errors.append(\"Anims export must be assigned.\")
-	return errors
-
-func die():
-	anims.play('die')
-	print_debug('game over')
-		
-func takeDamage(howMuch):
-	healthNode.take_damage(howMuch)
-	
-func addToHealth(howMuch):
-	healthNode.heal(howMuch)
-
-func disableTargeting():
-	collision.disabled = true
-
-func enableTargeting():
-	collision.disabled = false
-
-func _on_animations_animation_finished(anim_name):
-	if anim_name == 'die':
-		queue_free()
-"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nte8v"]
 atlas = ExtResource("2_v0o8h")
@@ -294,7 +240,7 @@ _data = {
 }
 
 [node name="BaseUnit" type="Node2D" node_paths=PackedStringArray("anims", "healthNode", "statsNode") groups=["battle_unit"]]
-script = SubResource("GDScript_e6b24")
+script = ExtResource("1_c0rjg")
 anims = NodePath("Animations")
 healthNode = NodePath("HealthNode")
 statsNode = NodePath("StatsNode")

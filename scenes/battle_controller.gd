@@ -63,6 +63,7 @@ func runPhase(phase: TurnPhases):
 				monsterNode.position = enemy_markers.get_child(number).position
 				monsterNode.name = 'Enemy_' + str(number)
 				enemies.add_child(monsterNode)
+#			handle card setup from player
 			runPlayerTurn()
 		TurnPhases.PLAYER_UPKEEP:
 			card_battle_hud.discardHand()

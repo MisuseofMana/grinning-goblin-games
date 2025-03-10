@@ -10,11 +10,10 @@ func drop_spot_is_valid() -> bool:
 	if overlapping_areas.is_empty():
 		return false
 	var targetNode = overlapping_areas.front().owner
-	if targetNode is BattleUnit and self_owner is CardComponent:
+	if targetNode is BattleUnit:
 		var unit : BattleUnit = targetNode
 		return self_owner.card_stats.targets_self and unit.targeting_info.is_ally
-		return not self_owner.card_stats.targets_self
-	if targetNode is CardComponent and self_owner is CardComponent:
+	if targetNode is CardComponent:
 		var canUseOnCard: bool = targetNode.card_stats.accepts_cards
 		var targetAcceptableCards: Array[GDScript] = targetNode.card_stats.accepts_these_card_effects
 		var acceptableCounter: bool = targetAcceptableCards.has(self_owner.card_stats.card_effect)

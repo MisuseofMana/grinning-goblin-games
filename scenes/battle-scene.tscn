@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=34 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://c06k5sgbv2e0l" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" uid="uid://cs076afrwr7ln" path="res://scenes/battle_controller.gd" id="1_tfoca"]
@@ -56,6 +56,61 @@ _data = {
 &"RESET": SubResource("Animation_rtpfj"),
 &"scroll_bg": SubResource("Animation_d8q5f")
 }
+
+[sub_resource type="GDScript" id="GDScript_e6b24"]
+script/source = "@tool
+@icon(\"res://icons/UnitSprite.svg\")
+extends Node2D
+class_name PlayerUnit
+
+@onready var collision = $TwoWayDetection/CollisionShape2D
+@onready var unit_sprite = $UnitSprite
+@onready var battle_readout = $BattleReadout
+@onready var targeting_info = $TargetingInfo
+
+@export var anims : AnimationPlayer:
+	set(newValue):
+		anims = newValue
+		update_configuration_warnings()
+@export var healthNode : HealthNode :
+	set(newValue):
+		healthNode = newValue
+		update_configuration_warnings()
+@export var statsNode : StatsNode :
+	set(newValue):
+		statsNode = newValue
+		update_configuration_warnings()
+
+func _get_configuration_warnings():
+	var errors : Array[String] = []
+	if not healthNode:
+		errors.append(\"HealthNode export must be assigned.\")
+	if not statsNode:
+		errors.append(\"StatsNode export must be assigned.\")
+	if not anims:
+		errors.append(\"Anims export must be assigned.\")
+	return errors
+
+func die():
+	anims.play('die')
+	print_debug('game over')
+		
+func takeDamage(howMuch):
+	healthNode.take_damage(howMuch)
+	
+func addToHealth(howMuch):
+	healthNode.heal(howMuch)
+
+func disableTargeting():
+	collision.disabled = true
+
+func enableTargeting():
+	collision.disabled = false
+
+func _on_animations_animation_finished(anim_name):
+	if anim_name == 'die':
+		queue_free()
+"
 
 [sub_resource type="Curve2D" id="Curve2D_catov"]
 _data = {
@@ -341,7 +396,6 @@ enemy_logic = NodePath("Enemies")
 metadata/_edit_vertical_guides_ = [640.0]
 
 [node name="FlavorAssets" type="Node2D" parent="."]
-visible = false
 
 [node name="Node2D" type="Node2D" parent="FlavorAssets"]
 
@@ -363,6 +417,7 @@ libraries = {
 
 [node name="Sellsword" parent="." instance=ExtResource("4_0fckc")]
 position = Vector2(169, 447)
+script = SubResource("GDScript_e6b24")
 
 [node name="EnemyMarkers" type="Node2D" parent="."]
 position = Vector2(-10, 16)
@@ -598,8 +653,8 @@ script = ExtResource("13_di01h")
 layout_mode = 0
 offset_left = 14.0
 offset_top = 15.0
-offset_right = 52.0
-offset_bottom = 36.0
+offset_right = 144.0
+offset_bottom = 64.0
 text = "debug"
 
 [node name="TextureRect" type="TextureRect" parent="DebugBar"]
