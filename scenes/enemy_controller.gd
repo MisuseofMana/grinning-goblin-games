@@ -22,8 +22,9 @@ func startEnemyPhase():
 
 func startEnemiesTurn():
 	if allEnemies.size():
-		animations.clear_queue()
-		var randomCard : CardStats = allEnemies.front().enemy_cards.pick_random()
+		#animations.clear_queue()
+		var nextEnemy : BattleUnit = allEnemies.front()
+		var randomCard : CardStats = nextEnemy.deckNode.deck.pick_random()
 		enemy_card_replaced.emit(randomCard, allEnemies[0])
 	else:
 		all_enemies_turn_over.emit()

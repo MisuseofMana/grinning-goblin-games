@@ -14,7 +14,7 @@ class_name BattleScene
 @export var player : BattleUnit
 @export var card_battle_hud : CardBattleHud
 @export var enemy_logic : EnemyController
-	
+
 enum Locations {
 	FOREST,
 	PLAINS,

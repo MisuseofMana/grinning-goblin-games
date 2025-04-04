@@ -70,8 +70,8 @@ finesse = 1
 endurance = 1
 
 [node name="HealthNode" parent="." index="5"]
-hit_points = 20
-max_hit_points_base = 20
+hit_points = 13
+max_hit_points_base = 13
 
 [node name="BattleReadout" parent="." index="6"]
 offset_top = -288.5

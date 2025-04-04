@@ -1,3 +1,4 @@
+@tool
 @icon("res://icons/CardStats.svg")
 extends TextureRect
 class_name CardComponent
@@ -29,7 +30,9 @@ const DISCARD_BACK = preload("res://art/cards/card-template-back.png")
 const BURN_BACK = preload("res://art/cards/card-burn-pile.png")
 
 signal cards_sent_to_graveyard(cardNode : CardComponent)
+signal cards_sent_to_burn_pile(cardNode : CardComponent)
 signal ap_reduced(howMuch: int)
+# called from within 
 signal card_countered
 
 func updateCardData():
@@ -83,30 +86,40 @@ func formatCardStringInterp(noBBCode):
 
 func burnCard():
 	anims.play('burn_card')
-	go_to_discard_area()
+	disable_card_interactions()
+#	follow up in animation finshied handler
 	
 func discardCard():
 	anims.play('discard_card')
+	disable_card_interactions()
 	go_to_discard_area()
 
-func go_to_discard_area():
+func disable_card_interactions():
 	make_card_draggable.undraggable = true
 	detection.disabled = true
+
+func go_to_discard_area():
 	await get_tree().create_tween().tween_property(self, "global_position", Vector2(1100, 480), 0.6).finished
 	cards_sent_to_graveyard.emit(self)
+	
+func go_to_burn_pile():
+	cards_sent_to_burn_pile.emit(self)
 
 func reduce_ap_by_card_cost():
 	ap_reduced.emit(card_stats.play_cost)
 	
 func calculate_adj_value():
-	var modifierValue : int = card_stats.base_value
+	var modifiedValue : int = card_stats.base_value
 	if card_stats.primary_stat:
-		modifierValue += StatMods.getPrimaryStatMod(SaveData[card_stats.primary_stat])
-		modifierValue = clampi(modifierValue, 1, 999)
+		modifiedValue += StatMods.getPrimaryStatMod(SaveData[card_stats.primary_stat])
+		modifiedValue = clampi(modifiedValue, 1, 999)
 	if card_stats.secondary_stat:
-		modifierValue += StatMods.getSecondaryStatMod(SaveData[card_stats.secondary_stat])
-		modifierValue = clampi(modifierValue, 1, 999)
-	return modifierValue
+		modifiedValue += StatMods.getSecondaryStatMod(SaveData[card_stats.secondary_stat])
+		modifiedValue = clampi(modifiedValue, 1, 999)
+	if card_stats.debuff_value > 0:
+		modifiedValue -= card_stats.debuff_value
+		modifiedValue = clampi(modifiedValue, 0, 999)
+	return modifiedValue
 	
 func calculate_adj_token_value():
 	var modifierValue = card_stats.base_value
@@ -120,3 +133,8 @@ func addToDebuff(howMuch : int):
 
 func use_card(useOnWhat: Variant):
 	effect_node._run_card_effect(useOnWhat)
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == 'burn_card':
+		go_to_burn_pile()
+		

@@ -17,6 +17,14 @@ class_name BattleUnit
 	set(newValue):
 		statsNode = newValue
 		update_configuration_warnings()
+@export var targetingNode : TargetingInfo :
+	set(newValue):
+		targetingNode = newValue
+		update_configuration_warnings()
+@export var deckNode : DeckNode :
+	set(newValue):
+		deckNode = newValue
+		update_configuration_warnings()
 
 func _get_configuration_warnings():
 	var errors : Array[String] = []
@@ -26,6 +34,12 @@ func _get_configuration_warnings():
 		errors.append("StatsNode export must be assigned.")
 	if not anims:
 		errors.append("Anims export must be assigned.")
+	if not targetingNode:
+		errors.append("Targeting Node export must be assigned.")
+	if not deckNode:
+		errors.append("Deck Node export must be assigned.")
+	if deckNode.deck.is_empty():
+		errors.append("Deck Node export must contain at least one card resource.")
 	return errors
 
 func die():

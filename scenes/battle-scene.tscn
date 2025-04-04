@@ -57,60 +57,10 @@ _data = {
 &"scroll_bg": SubResource("Animation_d8q5f")
 }
 
-[sub_resource type="GDScript" id="GDScript_e6b24"]
-script/source = "@tool
-@icon(\"res://icons/UnitSprite.svg\")
-extends Node2D
-class_name PlayerUnit
-
-@onready var collision = $TwoWayDetection/CollisionShape2D
-@onready var unit_sprite = $UnitSprite
-@onready var battle_readout = $BattleReadout
-@onready var targeting_info = $TargetingInfo
-
-@export var anims : AnimationPlayer:
-	set(newValue):
-		anims = newValue
-		update_configuration_warnings()
-@export var healthNode : HealthNode :
-	set(newValue):
-		healthNode = newValue
-		update_configuration_warnings()
-@export var statsNode : StatsNode :
-	set(newValue):
-		statsNode = newValue
-		update_configuration_warnings()
-
-func _get_configuration_warnings():
-	var errors : Array[String] = []
-	if not healthNode:
-		errors.append(\"HealthNode export must be assigned.\")
-	if not statsNode:
-		errors.append(\"StatsNode export must be assigned.\")
-	if not anims:
-		errors.append(\"Anims export must be assigned.\")
-	return errors
-
-func die():
-	anims.play('die')
-	print_debug('game over')
-		
-func takeDamage(howMuch):
-	healthNode.take_damage(howMuch)
-	
-func addToHealth(howMuch):
-	healthNode.heal(howMuch)
-
-func disableTargeting():
-	collision.disabled = true
-
-func enableTargeting():
-	collision.disabled = false
-
-func _on_animations_animation_finished(anim_name):
-	if anim_name == 'die':
-		queue_free()
-"
+[sub_resource type="Curve" id="Curve_i728k"]
+_limits = [0.0, 4.0, 0.0, 1.0]
+_data = [Vector2(0, 0.179775), 0.0, 21.4939, 0, 0, Vector2(0.258197, 4), 11.4049, -26.0449, 0, 0, Vector2(0.422131, 4), 15.5837, -15.764, 0, 0, Vector2(0.610656, 4), 22.5776, -25.3596, 0, 0, Vector2(0.848361, 3.10112), 15.5837, -24.2825, 0, 0, Vector2(1, 0), -22.5418, 0.0, 0, 0]
+point_count = 6
 
 [sub_resource type="Curve2D" id="Curve2D_catov"]
 _data = {
@@ -390,7 +340,7 @@ stream_0/stream = ExtResource("17_ituhd")
 
 [node name="BattleScene" type="Node2D" node_paths=PackedStringArray("player", "card_battle_hud", "enemy_logic")]
 script = ExtResource("1_tfoca")
-player = NodePath("Sellsword")
+player = NodePath("FriendlyUnits/BaseUnit")
 card_battle_hud = NodePath("CardBattleHud")
 enemy_logic = NodePath("Enemies")
 metadata/_edit_vertical_guides_ = [640.0]
@@ -415,9 +365,10 @@ libraries = {
 &"": SubResource("AnimationLibrary_3sw5y")
 }
 
-[node name="Sellsword" parent="." instance=ExtResource("4_0fckc")]
-position = Vector2(169, 447)
-script = SubResource("GDScript_e6b24")
+[node name="FriendlyUnits" type="Node2D" parent="."]
+
+[node name="BaseUnit" parent="FriendlyUnits" instance=ExtResource("4_0fckc")]
+position = Vector2(188, 440)
 
 [node name="EnemyMarkers" type="Node2D" parent="."]
 position = Vector2(-10, 16)
@@ -432,7 +383,7 @@ rotation = 3.14159
 [node name="Third" type="Marker2D" parent="EnemyMarkers"]
 position = Vector2(1165, 380)
 
-[node name="AcceptButton2" type="Button" parent="."]
+[node name="AcceptEnemyCardEffect" type="Button" parent="."]
 offset_left = 523.5
 offset_top = 371.0
 offset_right = 756.5
@@ -448,13 +399,21 @@ animations = NodePath("../EnemyCardContainer/EnemyCardAnimations")
 [node name="EnemyCardContainer" type="Node2D" parent="." node_paths=PackedStringArray("playerUnit")]
 position = Vector2(1352, -36)
 script = ExtResource("16_5f438")
-playerUnit = NodePath("../Sellsword")
+playerUnit = NodePath("../FriendlyUnits/BaseUnit")
+
+[node name="CardTargetIndicator" type="Line2D" parent="EnemyCardContainer"]
+visible = false
+position = Vector2(55, 76)
+points = PackedVector2Array(-769, 179, -941, 226, -1032, 148, -1061, 295, -1126, 247, -1210, 270)
+width_curve = SubResource("Curve_i728k")
+default_color = Color(0.912271, 4.71681e-06, 6.73831e-07, 1)
 
 [node name="Line2D" type="Line2D" parent="EnemyCardContainer"]
+visible = false
 position = Vector2(55, 76)
 width_curve = ExtResource("9_i728k")
-default_color = Color(0.672305, 1.76881e-06, 6.257e-07, 1)
 joint_mode = 2
+end_cap_mode = 2
 
 [node name="Path2D" type="Path2D" parent="EnemyCardContainer"]
 curve = SubResource("Curve2D_catov")
@@ -715,12 +674,13 @@ volume_db = -20.0
 autoplay = true
 
 [connection signal="animation_finished" from="FlavorAssets/AnimationPlayer" to="." method="animationHandler"]
-[connection signal="pressed" from="AcceptButton2" to="AcceptButton2" method="_hide_self"]
-[connection signal="pressed" from="AcceptButton2" to="EnemyCardContainer" method="onCardAccept"]
+[connection signal="pressed" from="AcceptEnemyCardEffect" to="AcceptEnemyCardEffect" method="_hide_self"]
+[connection signal="pressed" from="AcceptEnemyCardEffect" to="EnemyCardContainer" method="onCardAccept"]
 [connection signal="all_enemies_turn_over" from="Enemies" to="." method="runPlayerUpkeep"]
 [connection signal="enemy_card_replaced" from="Enemies" to="EnemyCardContainer" method="replace_card"]
-[connection signal="show_accept_button" from="Enemies" to="AcceptButton2" method="_show_self"]
-[connection signal="show_accept_button" from="EnemyCardContainer" to="AcceptButton2" method="_show_self"]
+[connection signal="show_accept_button" from="Enemies" to="AcceptEnemyCardEffect" method="_show_self"]
+[connection signal="card_effect_finished" from="EnemyCardContainer" to="AcceptEnemyCardEffect" method="_hide_self"]
+[connection signal="show_accept_button" from="EnemyCardContainer" to="AcceptEnemyCardEffect" method="_show_self"]
 [connection signal="child_exiting_tree" from="EnemyCardContainer/Path2D" to="EnemyCardContainer/Path2D" method="_on_child_exiting_tree"]
 [connection signal="card_countered" from="EnemyCardContainer/Path2D/PathFollow2D/Card" to="EnemyCardContainer" method="counter_card"]
 [connection signal="animation_finished" from="EnemyCardContainer/EnemyCardAnimations" to="Enemies" method="animationSequencer"]

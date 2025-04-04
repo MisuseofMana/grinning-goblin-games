@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://0pyqt38pl3f4" path="res://components/battleUnits/unitQualityNodes/health_node.tscn" id="5_nkcy5"]
 [ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="6_c0rjg"]
 [ext_resource type="PackedScene" uid="uid://bx3b6tvvx5et5" path="res://components/battleUnits/unitQualityNodes/battle_readout.tscn" id="6_wnq18"]
-[ext_resource type="Resource" uid="uid://cmmmmjanqx3o7" path="res://components/cards/variants/playerCards/AttackCards/basic_phys_attack.tres" id="7_3ll38"]
+[ext_resource type="Resource" uid="uid://cmmmmjanqx3o7" path="res://components/cards/variants/playerCards/attackCards/basic_phys_attack.tres" id="7_3ll38"]
 [ext_resource type="PackedScene" uid="uid://34o105ivvj6t" path="res://target_indicator.tscn" id="7_lccwm"]
 [ext_resource type="Resource" uid="uid://c3vnpoq2w08hb" path="res://components/cards/variants/playerCards/counterCards/counter.tres" id="8_bupjl"]
 [ext_resource type="Resource" uid="uid://dc4nstyf84g13" path="res://components/cards/variants/playerCards/healCards/basic_heal.tres" id="9_2w50y"]
@@ -239,11 +239,13 @@ _data = {
 &"take_damage": SubResource("Animation_lq4h6")
 }
 
-[node name="BaseUnit" type="Node2D" node_paths=PackedStringArray("anims", "healthNode", "statsNode") groups=["battle_unit"]]
+[node name="BaseUnit" type="Node2D" node_paths=PackedStringArray("anims", "healthNode", "statsNode", "targetingNode", "deckNode") groups=["battle_unit"]]
 script = ExtResource("1_c0rjg")
 anims = NodePath("Animations")
 healthNode = NodePath("HealthNode")
 statsNode = NodePath("StatsNode")
+targetingNode = NodePath("TargetingInfo")
+deckNode = NodePath("DeckNode")
 
 [node name="UnitSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_urjdb")

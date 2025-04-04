@@ -16,6 +16,9 @@ class_name CardStats extends Resource
 @export_group('Card Stats')
 @export var play_cost : int = 1
 @export var base_value : int = 0
+var debuff_value : int = 0:
+	set(newValue):
+		debuff_value = newValue
 @export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var primary_stat : String
 @export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var secondary_stat : String
 
@@ -29,3 +32,9 @@ class_name CardStats extends Resource
 @export_group('Card Effect')
 @export var card_effect : GDScript
 @export_enum("poison", "ward", "armor") var token_type : String
+
+func addToDebuff(reduceBy : int):
+	debuff_value += reduceBy
+	
+func resetDebuffValue():
+	debuff_value = 0

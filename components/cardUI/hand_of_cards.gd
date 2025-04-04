@@ -32,19 +32,27 @@ func addCardsToHand(cardStats: Array[CardStats]):
 		card_arc.add_child(newFollowNode)
 		newFollowNode.add_child(newCard)
 		newCard.updateCardData.call_deferred()
-		newCard.cards_sent_to_graveyard.connect(free_card)
+		newCard.cards_sent_to_graveyard.connect(discard_card)
+		newCard.cards_sent_to_burn_pile.connect(burn_card)
 		newCard.ap_reduced.connect(reduce_ap)
 		newCard.tree_exited.connect(updateAllCardPositions)
-		newCard.tree_exited.connect(checkForValidPlayerActions)
+		#newCard.check_for_valid_moves.connect(checkForValidPlayerActions)
 		changeCardAvailibilty(newCard)
-
 	updateAllCardPositions()
 
-func free_card(card : CardComponent):
+func discard_card(card : CardComponent):
 	var card_stats = card.card_stats
-	var coercedArray : Array[CardStats]
-	coercedArray.append(card_stats)
+	var coercedArray : Array[CardStats] = [card_stats]
 	discardPileNode.add_cards_to_discard(coercedArray)
+	free_card_node(card)
+	
+func burn_card(card : CardComponent):
+	var card_stats = card.card_stats
+	var coercedArray : Array[CardStats] = [card_stats]
+	discardPileNode.add_cards_to_burn(coercedArray)
+	free_card_node(card)
+
+func free_card_node(card: CardComponent):
 	for followPath in card_arc.get_children():
 		if followPath.get_child(0) == card:
 			followPath.queue_free()
@@ -117,8 +125,11 @@ func reduce_ap(howMuch: int):
 
 func restock_deck_clear_discard():
 	anims.play('restock_deck')
-	var newDeck = discardPileNode.discard_pile
-	newDeck.append_array(deckPileNode.deck_pile)
+	var discardCards = discardPileNode.discard_pile
+	var existingDeck = deckPileNode.deck_pile
+	var newDeck : Array[CardStats]
+	newDeck.append_array(discardCards)
+	newDeck.append_array(existingDeck)
 	deckPileNode.deck_pile = newDeck
 	discardPileNode.discard_pile = []
 

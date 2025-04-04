@@ -1,11 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://bis2lgakdc4xp"]
+[gd_scene load_steps=8 format=3 uid="uid://bis2lgakdc4xp"]
 
 [ext_resource type="PackedScene" uid="uid://c2hqb2tsovfp" path="res://components/battleUnits/base_unit.tscn" id="1_aypqt"]
+[ext_resource type="Script" uid="uid://cgj8evdtepa0f" path="res://components/cards/card_stats.gd" id="2_pparh"]
+[ext_resource type="Resource" uid="uid://cmmmmjanqx3o7" path="res://components/cards/variants/playerCards/attackCards/basic_phys_attack.tres" id="3_i0mth"]
+[ext_resource type="Resource" uid="uid://c3vnpoq2w08hb" path="res://components/cards/variants/playerCards/counterCards/counter.tres" id="4_lnfun"]
+[ext_resource type="Resource" uid="uid://dc4nstyf84g13" path="res://components/cards/variants/playerCards/healCards/basic_heal.tres" id="5_xvx74"]
+[ext_resource type="Resource" uid="uid://bkb0t7chom8cy" path="res://components/cards/variants/playerCards/actionPointCards/sprint.tres" id="6_ojhyp"]
+[ext_resource type="Resource" uid="uid://bjfjr11njgg34" path="res://components/cards/variants/playerCards/defenseCards/basic_block.tres" id="7_ngydo"]
 
 [node name="BaseUnit" instance=ExtResource("1_aypqt")]
 
 [node name="TargetingInfo" parent="." index="2"]
 is_ally = true
+
+[node name="DeckNode" parent="." index="3"]
+deck = Array[ExtResource("2_pparh")]([ExtResource("3_i0mth"), ExtResource("4_lnfun"), ExtResource("5_xvx74"), ExtResource("6_ojhyp"), ExtResource("7_ngydo"), ExtResource("3_i0mth"), ExtResource("3_i0mth"), ExtResource("7_ngydo"), ExtResource("5_xvx74"), ExtResource("3_i0mth"), ExtResource("6_ojhyp"), ExtResource("6_ojhyp"), ExtResource("6_ojhyp"), ExtResource("6_ojhyp"), ExtResource("6_ojhyp"), ExtResource("6_ojhyp")])
 
 [node name="StatsNode" parent="." index="4"]
 muscle = 3
