@@ -11,14 +11,16 @@ class_name CardStats extends Resource
 	preload("res://components/cards/cardEffects/counter_card.gd")
 ]
 
+var debuff_value : int = 0:
+	set(newValue):
+		debuff_value = newValue
+		
 @export var hide_cost : bool = false
 
 @export_group('Card Stats')
 @export var play_cost : int = 1
 @export var base_value : int = 0
-var debuff_value : int = 0:
-	set(newValue):
-		debuff_value = newValue
+
 @export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var primary_stat : String
 @export_enum('muscle', 'endurance', 'knowledge', 'finesse', 'nuance') var secondary_stat : String
 

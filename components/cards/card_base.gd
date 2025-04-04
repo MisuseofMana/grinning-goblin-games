@@ -33,7 +33,7 @@ signal cards_sent_to_graveyard(cardNode : CardComponent)
 signal cards_sent_to_burn_pile(cardNode : CardComponent)
 signal ap_reduced(howMuch: int)
 # called from within 
-signal card_countered
+signal card_countered 
 
 func updateCardData():
 	if card_stats.description.contains('%'):

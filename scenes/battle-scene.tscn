@@ -384,10 +384,10 @@ rotation = 3.14159
 position = Vector2(1165, 380)
 
 [node name="AcceptEnemyCardEffect" type="Button" parent="."]
-offset_left = 523.5
-offset_top = 371.0
-offset_right = 756.5
-offset_bottom = 399.0
+offset_left = 548.0
+offset_top = 368.0
+offset_right = 732.0
+offset_bottom = 422.0
 theme = ExtResource("21_xt7dq")
 text = "Accept Effect"
 script = ExtResource("6_3nejl")
@@ -593,9 +593,9 @@ expand_mode = 3
 
 [node name="EndTurnButton" type="Button" parent="."]
 offset_left = 1089.0
-offset_top = 653.0
+offset_top = 645.0
 offset_right = 1242.0
-offset_bottom = 681.0
+offset_bottom = 689.0
 theme = ExtResource("21_xt7dq")
 text = "End Turn"
 

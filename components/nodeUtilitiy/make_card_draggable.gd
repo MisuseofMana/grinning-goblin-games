@@ -6,6 +6,9 @@ class_name MakeCardDraggable
 
 @export var detection_area : TwoWayDetection
 
+const pointing_hand = preload("res://art/grab.png")
+const custom_arrow = preload("res://art/ui/cursor.png")
+
 var target
 var isValidTarget : bool
 
@@ -62,10 +65,13 @@ func returnCardToOrigin():
 
 func _on_mouse_entered():
 	if not is_dragging and not undraggable:
+		Input.set_custom_mouse_cursor(pointing_hand, Input.CURSOR_POINTING_HAND, Vector2(12, 16))
 		parent.z_index = 100
 		create_tween().tween_property(parent, "scale", parentScale * 1.1, SPEED)
+		
 
 func _on_mouse_exited():
+	Input.set_custom_mouse_cursor(custom_arrow)
 	if not is_dragging and not undraggable:
 		parent.z_index = 0
 		create_tween().tween_property(parent, "scale", parentScale, SPEED)
