@@ -1,6 +1,8 @@
 extends Node
 class_name BattleUnit
 
+signal unit_died
+
 @onready var collision = $TwoWayDetection/CollisionShape2D
 @onready var unit_sprite = $UnitSprite
 @onready var battle_readout = $BattleReadout
@@ -44,7 +46,6 @@ func _get_configuration_warnings():
 
 func die():
 	anims.play('die')
-	print_debug('game over')
 		
 func takeDamage(howMuch):
 	healthNode.take_damage(howMuch)
@@ -60,4 +61,5 @@ func enableTargeting():
 
 func _on_animations_animation_finished(anim_name):
 	if anim_name == 'die':
+		unit_died.emit()
 		queue_free()

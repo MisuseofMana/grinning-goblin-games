@@ -33,7 +33,7 @@ signal cards_sent_to_graveyard(cardNode : CardComponent)
 signal cards_sent_to_burn_pile(cardNode : CardComponent)
 signal ap_reduced(howMuch: int)
 # called from within 
-signal card_countered 
+signal card_countered
 
 func updateCardData():
 	if card_stats.description.contains('%'):
@@ -95,7 +95,7 @@ func discardCard():
 	go_to_discard_area()
 
 func disable_card_interactions():
-	make_card_draggable.undraggable = true
+	make_card_draggable.make_undraggable()
 	detection.disabled = true
 
 func go_to_discard_area():

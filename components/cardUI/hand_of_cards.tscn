@@ -408,5 +408,4 @@ texture = ExtResource("9_v1kxx")
 
 [connection signal="cards_drawn" from="DeckPileReadout" to="." method="addCardsToHand"]
 [connection signal="shuffle_discard_to_deck" from="DeckPileReadout" to="." method="restock_deck_clear_discard"]
-[connection signal="ran_out_of_ap" from="ActionPoints" to="." method="end_turn"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

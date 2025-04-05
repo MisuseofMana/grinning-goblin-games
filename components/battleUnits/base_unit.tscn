@@ -305,4 +305,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_273pk")
 }
 
+[connection signal="died" from="HealthNode" to="." method="die"]
 [connection signal="health_updated" from="HealthNode" to="BattleReadout" method="update_readout"]

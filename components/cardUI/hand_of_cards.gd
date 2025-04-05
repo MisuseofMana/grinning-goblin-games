@@ -21,9 +21,6 @@ func _ready():
 		card_arc.remove_child(arc)
 		arc.queue_free()
 
-func end_turn():
-	end_player_turn.emit()
-
 func addCardsToHand(cardStats: Array[CardStats]):
 	for statFile in cardStats:
 		var newCard : CardComponent = CARD_BASE.instantiate()
@@ -57,6 +54,7 @@ func free_card_node(card: CardComponent):
 		if followPath.get_child(0) == card:
 			followPath.queue_free()
 	updateAllCardPositions()
+	changeAllCardAvailability()
 
 func discardHand():
 	var current_hand : Array[PathFollow2D]
@@ -82,13 +80,14 @@ func checkForValidPlayerActions():
 	if actionPointsNode.action_points <= 0:
 		if SaveData.players_turn:
 			end_player_turn.emit()
-	for followNode in card_arc.get_children():
-		if not followNode.is_queued_for_deletion():
-			var cardNode = followNode.get_child(0)
-			if isCardUsable(cardNode.card_stats) == true:
-				can_play_a_card = true
-	if SaveData.players_turn and not can_play_a_card:
-		end_player_turn.emit()
+			return
+		for followNode in card_arc.get_children():
+			if not followNode.is_queued_for_deletion():
+				var cardNode = followNode.get_child(0)
+				if isCardUsable(cardNode.card_stats):
+					can_play_a_card = true
+		if SaveData.players_turn and not can_play_a_card:
+			end_player_turn.emit()
 
 func updateAllCardPositions():
 	var numberOfCards = card_arc.get_children().size()

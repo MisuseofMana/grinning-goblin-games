@@ -79,3 +79,5 @@ offset_bottom = -288.5
 
 [node name="TargetIndicator" parent="." index="7"]
 position = Vector2(1, -325)
+
+[connection signal="animation_finished" from="Animations" to="." method="_on_animations_animation_finished"]

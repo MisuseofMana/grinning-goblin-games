@@ -21,7 +21,7 @@ func take_damage(value):
 	while howMuch > 0:
 		await get_tree().create_timer(0.1).timeout
 		howMuch -= 1
-		hit_points -= clampi(1, 0, max_hit_points)
+		hit_points = clampi(hit_points - 1, 0, max_hit_points)
 		health_updated.emit(hit_points, max_hit_points)
 	check_alive()
 
@@ -30,7 +30,7 @@ func heal(value):
 	while howMuch > 0:
 		await get_tree().create_timer(0.1).timeout
 		howMuch -= 1
-		hit_points += clampi(1, 0, max_hit_points)
+		hit_points = clampi(hit_points + 1, 0, max_hit_points)
 		health_updated.emit(hit_points, max_hit_points)
 
 func check_alive():

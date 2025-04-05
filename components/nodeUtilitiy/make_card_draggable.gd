@@ -68,7 +68,6 @@ func _on_mouse_entered():
 		Input.set_custom_mouse_cursor(pointing_hand, Input.CURSOR_POINTING_HAND, Vector2(12, 16))
 		parent.z_index = 100
 		create_tween().tween_property(parent, "scale", parentScale * 1.1, SPEED)
-		
 
 func _on_mouse_exited():
 	Input.set_custom_mouse_cursor(custom_arrow)
@@ -77,7 +76,9 @@ func _on_mouse_exited():
 		create_tween().tween_property(parent, "scale", parentScale, SPEED)
 
 func make_undraggable():
+	parent.mouse_default_cursor_shape = Control.CURSOR_ARROW
 	undraggable = true
 	
 func make_draggable():
+	parent.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	undraggable = false

@@ -1,7 +1,5 @@
 class_name ActionPoints extends Control
 
-signal ran_out_of_ap
-
 @onready var current_ap_label = $Sprite2D/HBoxContainer/CurrentAP
 @onready var max_ap_label = $Sprite2D/HBoxContainer/MaxAP
 @onready var particles = $GPUParticles2D
@@ -11,8 +9,6 @@ signal ran_out_of_ap
 		Utilities.animateLabelFromTo(newValue, action_points, current_ap_label)
 		action_points = newValue
 		SaveData.action_points = newValue
-		if action_points <= 0:
-			ran_out_of_ap.emit()
 
 @onready var max_action_points : int = SaveData.max_action_points:
 	set(newValue):
