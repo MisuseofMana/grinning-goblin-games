@@ -4,7 +4,10 @@ class_name BattleScene
 @onready var battle_scene = $"."
 
 @onready var enemies = $Enemies
-@onready var turn_label = $TurnLabel
+@onready var turn_label = $FlavorAssets/TurnIndicator/TurnLabel
+@onready var turn_sign = $FlavorAssets/TurnIndicator/TurnSign
+@onready var turn_indicator = $FlavorAssets/TurnIndicator
+
 @onready var turn_change_sound = $Sounds/TurnChangeSound
 @onready var anims = $FlavorAssets/AnimationPlayer
 @onready var enemy_markers = $EnemyMarkers
@@ -26,7 +29,8 @@ var currentLocation = Locations.FOREST
 
 var monsters : Dictionary = {
 	Locations.FOREST: [
-		preload("res://components/battleUnits/variants/enemies/forestEnemies/goblin.tscn")
+		preload("res://components/battleUnits/variants/enemies/forestEnemies/goblin.tscn"),
+		preload("res://components/battleUnits/variants/enemies/forestEnemies/rat/rat.tscn")
 	]
 }
 
@@ -50,7 +54,7 @@ func runPlayerTurn():
 func runEnemiesTurn():
 	runPhase(TurnPhases.ENEMIES_TURN)
 	
-func runEndEncounter():
+func runWinEncounter():
 	runPhase(TurnPhases.GO_TO_NEXT_ENCOUNTER)
 
 func runPhase(phase: TurnPhases):
@@ -59,10 +63,11 @@ func runPhase(phase: TurnPhases):
 			var howManyMonsters = randi_range(1, 3)
 			for number in howManyMonsters: 
 				var newMonster : PackedScene = monsters[currentLocation].pick_random()
-				var monsterNode = newMonster.instantiate()
+				var monsterNode : BattleUnit = newMonster.instantiate()
 				monsterNode.position = enemy_markers.get_child(number).position
 				monsterNode.name = 'Enemy_' + str(number)
 				enemies.add_child(monsterNode)
+				monsterNode.unit_died.connect(checkForLivingEnemies)
 #			handle card setup from player
 			runPlayerTurn()
 		TurnPhases.PLAYER_UPKEEP:
@@ -82,16 +87,21 @@ func runPhase(phase: TurnPhases):
 			card_battle_hud.changeAllCardAvailability()
 			enemy_logic.startEnemyPhase()
 		TurnPhases.GO_TO_NEXT_ENCOUNTER:
-			player.deck.put_discard_into_deck()
-			anims.play("scroll_bg")
+			card_battle_hud.fullDeckReset()
+			#anims.play("scroll_bg")
 
 func showTurnSwap(text):
-	turn_label.text = text
 	turn_change_sound.play()
+	await create_tween().tween_property(turn_indicator, "global_position", Vector2(0, -64), 0.3).finished
+	turn_label.text = text
 	turn_label.show()
-	await get_tree().create_timer(0.7).timeout
-	turn_label.hide()
+	create_tween().tween_property(turn_indicator, "global_position", Vector2(0, 0), 0.3)
 	
 func animationHandler(anim_name):
 	if anim_name == "scroll_bg":
 		runPhase(TurnPhases.START_NEW_ENCOUNTER)
+		
+func checkForLivingEnemies():
+	print('check for living enemies')
+	if enemies.get_children().is_empty():
+		runWinEncounter()

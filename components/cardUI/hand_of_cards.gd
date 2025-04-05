@@ -131,6 +131,11 @@ func restock_deck_clear_discard():
 	newDeck.append_array(existingDeck)
 	deckPileNode.deck_pile = newDeck
 	discardPileNode.discard_pile = []
+	
+func fullDeckReset():
+	print_debug('needs hooked up to reset deck after encounters')
+#	completely reset deck
+
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == 'restock_deck':

@@ -11,15 +11,13 @@
 
 [node name="HUD" type="Node2D"]
 
-[node name="HandOfCards" parent="." node_paths=PackedStringArray("graveyard") instance=ExtResource("1_vpo1e")]
-graveyard = NodePath("../DiscardAndBurn")
+[node name="HandOfCards" parent="." instance=ExtResource("1_vpo1e")]
 
-[node name="DeckPileReadout" parent="." node_paths=PackedStringArray("discardNode") instance=ExtResource("2_jqhxf")]
+[node name="DeckPileReadout" parent="." instance=ExtResource("2_jqhxf")]
 offset_left = 100.0
 offset_top = 630.0
 offset_right = 100.0
 offset_bottom = 630.0
-discardNode = NodePath("../DiscardAndBurn")
 
 [node name="ActionPoints" parent="." instance=ExtResource("3_0dkbj")]
 offset_left = 109.0
@@ -173,7 +171,3 @@ offset_right = 1242.0
 offset_bottom = 681.0
 theme = ExtResource("8_8kdwd")
 text = "End Turn"
-
-[connection signal="add_to_burn_pile" from="HandOfCards" to="DiscardAndBurn" method="add_cards_to_burn"]
-[connection signal="add_to_discard_pile" from="HandOfCards" to="DiscardAndBurn" method="add_cards_to_discard"]
-[connection signal="new_cards_drawn" from="DeckPileReadout" to="HandOfCards" method="addCardsToHand"]

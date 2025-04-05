@@ -6,7 +6,6 @@ class_name DiscardPile
 @onready var burned_label: Label = $BurnCardBack/MarginContainer/BurnChit/NumberBurned
 @onready var discard_card_back = $DiscardCardBack
 
-@onready var animContainer = get_parent().discardPileNode
 @onready var discardPosition: Vector2 = discard_card_back.position
 @export var deck_position : Marker2D
 

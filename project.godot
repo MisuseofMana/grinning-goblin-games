@@ -31,6 +31,10 @@ window/dpi/allow_hidpi=false
 mouse_cursor/custom_image="res://art/ui/cursor.png"
 window/canvas_textures/default_texture_filter=0
 
+[editor]
+
+movie_writer/movie_file="C:/Users/conta/OneDrive/Documents/merge-test-game/testmovie.avi"
+
 [file_customization]
 
 folder_colors={

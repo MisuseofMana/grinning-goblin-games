@@ -1,8 +1,9 @@
-[gd_scene load_steps=34 format=3 uid="uid://dp10y70k8l5qp"]
+[gd_scene load_steps=35 format=3 uid="uid://dp10y70k8l5qp"]
 
 [ext_resource type="Texture2D" uid="uid://c06k5sgbv2e0l" path="res://art/backgrounds/forest.png" id="1_pchfv"]
 [ext_resource type="Script" uid="uid://cs076afrwr7ln" path="res://scenes/battle_controller.gd" id="1_tfoca"]
 [ext_resource type="Texture2D" uid="uid://pwewpuefxjom" path="res://art/ui/ui-background-cutout.png" id="2_jaqan"]
+[ext_resource type="Texture2D" uid="uid://dqjhx82kwvkq0" path="res://art/ui/TurnSign.png" id="3_dq4ak"]
 [ext_resource type="PackedScene" uid="uid://bis2lgakdc4xp" path="res://components/battleUnits/variants/player/sellsword.tscn" id="4_0fckc"]
 [ext_resource type="Script" uid="uid://1mhstqa6ghqu" path="res://scenes/accept_button.gd" id="6_3nejl"]
 [ext_resource type="Script" uid="uid://d0lfntgsuidnt" path="res://scenes/enemy_controller.gd" id="7_7drj6"]
@@ -343,16 +344,34 @@ script = ExtResource("1_tfoca")
 player = NodePath("FriendlyUnits/BaseUnit")
 card_battle_hud = NodePath("CardBattleHud")
 enemy_logic = NodePath("Enemies")
-metadata/_edit_vertical_guides_ = [640.0]
+metadata/_edit_vertical_guides_ = [640.0, 452.0, 828.0]
 
 [node name="FlavorAssets" type="Node2D" parent="."]
 
-[node name="Node2D" type="Node2D" parent="FlavorAssets"]
+[node name="Backgrounds" type="Node2D" parent="FlavorAssets"]
 
-[node name="Background" type="Sprite2D" parent="FlavorAssets/Node2D"]
+[node name="Background" type="Sprite2D" parent="FlavorAssets/Backgrounds"]
 modulate = Color(0.355312, 0.767935, 0.875278, 1)
 position = Vector2(1260, 250)
 texture = ExtResource("1_pchfv")
+
+[node name="TurnIndicator" type="Node2D" parent="FlavorAssets"]
+
+[node name="TurnSign" type="Sprite2D" parent="FlavorAssets/TurnIndicator"]
+position = Vector2(640, 46)
+texture = ExtResource("3_dq4ak")
+
+[node name="TurnLabel" type="Label" parent="FlavorAssets/TurnIndicator"]
+visible = false
+offset_left = 452.0
+offset_top = 31.0
+offset_right = 827.0
+offset_bottom = 70.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 48
+text = "Your Turn"
+horizontal_alignment = 1
 
 [node name="Board" type="Sprite2D" parent="FlavorAssets"]
 position = Vector2(640, 360)
@@ -360,7 +379,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_jaqan")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="FlavorAssets"]
-root_node = NodePath("../Node2D")
+root_node = NodePath("../Backgrounds")
 libraries = {
 &"": SubResource("AnimationLibrary_3sw5y")
 }
@@ -651,17 +670,6 @@ text = "Fake Discard"
 layout_mode = 2
 disabled = true
 text = "Build Deck"
-
-[node name="TurnLabel" type="Label" parent="."]
-offset_left = 539.0
-offset_top = 185.0
-offset_right = 743.0
-offset_bottom = 236.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 64
-text = "Your Turn"
-horizontal_alignment = 1
 
 [node name="Sounds" type="Node2D" parent="."]
 
